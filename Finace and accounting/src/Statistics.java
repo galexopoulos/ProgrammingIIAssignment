@@ -6,13 +6,14 @@ import java.util.Scanner;
 public class Statistics {
 
 	private static double esodaKratieon = 0; 
-	private static double eksoda=0;
-	private static double esodaEkdiloseon;
+	private static double eksoda = 0;
+	private static double esodaEkdiloseon = 0;
 	
-	public void setEsoda(Double Esoda) {//apo mo 
-		//ftiaxnoume antikimeno tipou mo gia na paroume ta esoda kratiseon
-		//ftiaxnoume antikimeno tipou markou gia na aproume ta esoda ekdiloseon
+	public void setEsoda(Double Esoda) {//from Booking class
+		esodaKratieon += Booking.getChecks;	
+											//ftiaxnoume antikimeno tipou markou gia na aproume ta esoda ekdiloseon
 	}
+	
 	public void setEksoda(Double eksoda) {
 	//pairnw kostos ergasias apo markou
 	}
@@ -21,12 +22,12 @@ public class Statistics {
 		//tha dinei pinaka me tous misthous
 	}
 	
-	public double getEsoda() {
-		
+	public static double getEsoda() {
+		return esodaKratieon + esodaEkdiloseon ;
 	}
 	
 	public double getEksoda() {
-		
+		//markou
 	}
 	
 	public String getMenu() {
@@ -35,7 +36,7 @@ public class Statistics {
 	}
 	
 	public String getDate() {
-		SimpleDateFormat formatter= new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+		SimpleDateFormat formatter= new SimpleDateFormat("dd-MM-yyyy, HH:mm:ss");
 		Date date = new Date(System.currentTimeMillis());
 		return formatter.format(date);
 	}
