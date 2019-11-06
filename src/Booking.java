@@ -52,6 +52,7 @@ public class Booking {
 	public void increaseCheck(double x) {
 		extraExpenses += x;
 		check += x;
+		getChecks += x;
 	}
 
 	public void setBookings() {
