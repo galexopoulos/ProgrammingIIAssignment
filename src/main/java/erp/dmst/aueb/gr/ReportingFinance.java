@@ -7,15 +7,16 @@ import java.util.Date;
 
 public class ReportingFinance { //This class must be called once a month.
 	
-		private double electricity; //logariasmos DEH
-		private double waterSupply ; //logarismos EYDAP
-		private double phone_internetSupply; //logariasmos tilefonou kai internet
+		private static double electricity; //logariasmos DEH
+		private static double waterSupply ; //logarismos EYDAP
+		private static double phone_internetSupply; //logariasmos tilefonou kai internet
+		private static double wages = 0;
 		
 		public ReportingFinance(double electricity, double waterSupply, double phone_internetSupply) {
 			super();
-			this.electricity = electricity;
-			this.waterSupply = waterSupply;
-			this.phone_internetSupply = phone_internetSupply;
+			ReportingFinance.electricity = electricity;
+			ReportingFinance.waterSupply = waterSupply;
+			ReportingFinance.phone_internetSupply = phone_internetSupply;
 		}
 
 		public static void getMenu() {
@@ -48,15 +49,19 @@ public class ReportingFinance { //This class must be called once a month.
 		}
 		
 		public static String getExpenses() {
-			//double totalexpenses = waterSupply + electricity + phone_internetSupply ;// + George's Markou Buffet expenses - pending 
-			double wages = Reporting.averageWage();
+			double totalexpenses = waterSupply + electricity + phone_internetSupply + wages ;// + George's Markou Buffet expenses - pending 
 			Date date = new Date(System.currentTimeMillis());
 			Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("Europe/Athens"));
 			cal.setTime(date);
 			int month = cal.get(Calendar.MONTH);
 			int year = cal.get(Calendar.YEAR);
-			return "Total expenses of" + getCurrentMonth(month) + " "
-					+ "is";  //needs more data.
+			return "Total expenses of" + getCurrentMonth(month) + " of "+ year
+					+ "are " + totalexpenses + " "
+							+ "/n Water Supply bill:  "+ waterSupply 
+							+ "/n Electrisity bill:   "+ electricity 
+							+ "/n Telecommunications: "+ phone_internetSupply
+							+ "/n Employees payments: "+ wages
+							+ "/n -------------------------------------------";  //needs more data.
 		}
 		
 		public static String getCurrentMonth(int minas) {
@@ -69,7 +74,7 @@ public class ReportingFinance { //This class must be called once a month.
 		}
 
 		public void setElectricity(double electricity) {
-			this.electricity = electricity;
+			ReportingFinance.electricity = electricity;
 		}
 
 		public double getWaterSupply() {
@@ -77,7 +82,7 @@ public class ReportingFinance { //This class must be called once a month.
 		}
 
 		public void setWaterSupply(double waterSupply) {
-			this.waterSupply = waterSupply;
+			ReportingFinance.waterSupply = waterSupply;
 		}
 
 		public double getPhone_internetSupply() {
@@ -85,13 +90,15 @@ public class ReportingFinance { //This class must be called once a month.
 		}
 
 		public void setPhone_internetSupply(double phone_internetSupply) {
-			this.phone_internetSupply = phone_internetSupply;
+			ReportingFinance.phone_internetSupply = phone_internetSupply;
 		}
 		
-		public double getProfit_losses() {
+		public static double getProfit_losses() {
 			double sumOfFixedExpenses = waterSupply + phone_internetSupply + electricity;// + George's Markou Buffet expenses - pending 
 			double sumOfIncome = getProceeds(); 
-			double wages = Reporting.averageWage();
+			for(ReportingHR i : ReportingHR.hr) {
+				wages += i.getWage();
+			}
 			return sumOfIncome - sumOfFixedExpenses  - wages;
 		}
 		
@@ -100,5 +107,8 @@ public class ReportingFinance { //This class must be called once a month.
 			Date date = new Date(System.currentTimeMillis());
 			return formatter.format(date);
 		}
+		
+		//dividends method pending
+		//loans method pending
 
 }
