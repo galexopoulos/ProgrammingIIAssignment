@@ -30,7 +30,7 @@ public class ReportingFinance { //This class must be called once a month.
 		public static void getMenu() {
 			Scanner sc = new Scanner(System.in);
 			System.out.println("--MENU FINANCE--" + getDate()
-					+ "/n 1. Proceeds - Εxpenses - Profits - Losses" //Detailed expenses (total and by employee)
+					+ "/n 1. Proceeds - Εxpenses - Profits - Losses" 
 					+ "/n 2. Loans "
 					+ "/n 3. TAX liabilities ");
 			
@@ -151,5 +151,7 @@ public class ReportingFinance { //This class must be called once a month.
 		* proceeds -pending
 		* buffet and suppliers payments -pending
 		* needs to be optimize
+		* try catch for new methods
+		* method to 0 income every month
 		* */
 }
