@@ -89,7 +89,7 @@ public class ReportingFinance { //This class must be called once a month.
 		}
 		
 		public double getProfit_losses() {
-			double sumOfFixedExpenses = waterSupply + phone_internetSupply + electricity;// + George's Markou Buffet expenses - pending 
+			double sumOfFixedExpenses = waterSupply + phone_internetSupply + electricity;//  + George's Markou Buffet expenses - pending 
 			double sumOfIncome = getProceeds(); 
 			double wages = Reporting.averageWage();
 			return sumOfIncome - sumOfFixedExpenses  - wages;
