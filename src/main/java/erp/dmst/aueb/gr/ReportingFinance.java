@@ -1,9 +1,11 @@
 package main.java.erp.dmst.aueb.gr;
 import java.util.Scanner;
+import java.util.TimeZone;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
-public class ReportingFinance {
+public class ReportingFinance { //This class must be called once a month.
 	
 		private double electricity; //logariasmos DEH
 		private double waterSupply ; //logarismos EYDAP
@@ -19,7 +21,7 @@ public class ReportingFinance {
 		public static void getMenu() {
 			Scanner sc = new Scanner(System.in);
 			System.out.println("--MENU FINANCE--" + getDate()
-					+ "/n 1. Proceeds - Εxpenses - Profits - Losses"
+					+ "/n 1. Proceeds - Εxpenses - Profits - Losses" //Detailed expenses (total and by employee)
 					+ "/n 2. Loans "
 					+ "/n 3. TAX liabilities ");
 			
@@ -43,6 +45,23 @@ public class ReportingFinance {
 			if(Booking.getChecks > 0) {
 				return Booking.getChecks;
 			}else return 0;
+		}
+		
+		public static String getExpenses() {
+			//double totalexpenses = waterSupply + electricity + phone_internetSupply ;// + George's Markou Buffet expenses - pending 
+			double wages = Reporting.averageWage();
+			Date date = new Date(System.currentTimeMillis());
+			Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("Europe/Athens"));
+			cal.setTime(date);
+			int month = cal.get(Calendar.MONTH);
+			int year = cal.get(Calendar.YEAR);
+			return "Total expenses of" + getCurrentMonth(month) + " "
+					+ "is";  //needs more data.
+		}
+		
+		public static String getCurrentMonth(int minas) {
+			String [] months = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
+			return months[minas + 1]; 
 		}
 		
 		public double getElectricity() {
@@ -70,10 +89,10 @@ public class ReportingFinance {
 		}
 		
 		public double getProfit_losses() {
-			double sumOfFixesExpenses = waterSupply + phone_internetSupply + electricity;
-			//Pending HR wages.
-			double sumOfIncome = getProceeds(); // + George's Markou Buffet expenses - pending 
-			return sumOfFixesExpenses - sumOfIncome;
+			double sumOfFixedExpenses = waterSupply + phone_internetSupply + electricity;// + George's Markou Buffet expenses - pending 
+			double sumOfIncome = getProceeds(); 
+			double wages = Reporting.averageWage();
+			return sumOfIncome - sumOfFixedExpenses  - wages;
 		}
 		
 		public static String getDate() {
