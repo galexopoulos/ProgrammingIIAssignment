@@ -11,14 +11,22 @@ public class ReportingFinance { //This class must be called once a month.
 		private static double waterSupply ; //logarismos EYDAP
 		private static double phone_internetSupply; //logariasmos tilefonou kai internet
 		private static double wages = 0;
+		private static double cashAvailableAfterTaxes; //after taxes and Dividends
+		private static double cashAvailableBeforeTaxes;
+		private static double loan = 0;
+		private static int numberOfShareHolders;
+		private static int rate; //shareholders rate of payment
+		private static int months = 0;
 		
-		public ReportingFinance(double electricity, double waterSupply, double phone_internetSupply) {
+		public ReportingFinance(double electricity, double waterSupply, double phone_internetSupply,
+				int numberOfShareHolders, int rate	) {
 			super();
 			ReportingFinance.electricity = electricity;
 			ReportingFinance.waterSupply = waterSupply;
 			ReportingFinance.phone_internetSupply = phone_internetSupply;
+			months++;
 		}
-
+		
 		public static void getMenu() {
 			Scanner sc = new Scanner(System.in);
 			System.out.println("--MENU FINANCE--" + getDate()
@@ -93,13 +101,13 @@ public class ReportingFinance { //This class must be called once a month.
 			ReportingFinance.phone_internetSupply = phone_internetSupply;
 		}
 		
-		public static double getProfit_losses() {
+		public static void profit_Losses() {
 			double sumOfFixedExpenses = waterSupply + phone_internetSupply + electricity;// + George's Markou Buffet expenses - pending 
 			double sumOfIncome = getProceeds(); 
 			for(ReportingHR i : ReportingHR.hr) {
 				wages += i.getWage();
 			}
-			return sumOfIncome - sumOfFixedExpenses  - wages;
+			cashAvailableBeforeTaxes =  sumOfIncome - sumOfFixedExpenses  - wages;
 		}
 		
 		public static String getDate() {
@@ -108,7 +116,40 @@ public class ReportingFinance { //This class must be called once a month.
 			return formatter.format(date);
 		}
 		
-		//dividends method pending
-		//loans method pending
-
+		public static void setDividends() { //this divides the profits to the shareholders depending on the rate 
+			if(cashAvailableBeforeTaxes > 0 ) {						 
+				double totalDiv = cashAvailableAfterTaxes * rate;
+				double monthlyDividends = totalDiv / numberOfShareHolders;
+				System.out.printf("Each share holderholder owns: %d of %d /n",monthlyDividends, totalDiv);
+			}else {
+				System.out.println("There are no dividents to share. ");
+			}
+		}
+		
+		public static void setTaxLiabilities(int taxRate) {
+			if(cashAvailableBeforeTaxes > 0 ) {
+				Date date = new Date(System.currentTimeMillis());
+				Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("Europe/Athens"));
+				cal.setTime(date);
+				int month = cal.get(Calendar.MONTH);
+				cashAvailableAfterTaxes = cashAvailableBeforeTaxes - cashAvailableBeforeTaxes * taxRate;
+				System.out.println("Hotel's TAX liablities of " + month + "are: " + cashAvailableBeforeTaxes * taxRate );
+			}
+		}
+		
+		public static void setloans(double loan, double payment) {
+			ReportingFinance.loan = loan;
+			int currentmonth = 0;
+			if(currentmonth < months) {
+				ReportingFinance.loan -= payment;
+			}
+			currentmonth++;
+		}
+		
+		/** method for cash availability -pending 
+		* complete menu -pending
+		* proceeds -pending
+		* buffet and suppliers payments -pending
+		* needs to be optimize
+		* */
 }
