@@ -23,12 +23,12 @@ public class Booking {
 		this.check = computeCheck();
 		Calendar Cal1 = Calendar.getInstance();
 		Cal1.set(Calendar.YEAR, year1);
-		Cal1.set(Calendar.MONTH, month1);
+		Cal1.set(Calendar.MONTH, month1-1);
 		Cal1.set(Calendar.DAY_OF_MONTH, day1);
 		this.checkIn = Cal1.getTime();
 		Calendar Cal2 = Calendar.getInstance();
 		Cal2.set(Calendar.YEAR, year2);
-		Cal2.set(Calendar.MONTH, month2);
+		Cal2.set(Calendar.MONTH, month2-1);
 		Cal2.set(Calendar.DAY_OF_MONTH, day2);
 		this.checkOut = Cal2.getTime();
 		this.nights = ((Math.abs((int) (checkIn.getTime() - checkOut.getTime()))) / (1000 * 60 * 60 * 24));
@@ -67,8 +67,7 @@ public class Booking {
 				if (room.getCapacity() == capacity) {
 					boolean f2 = true;
 					for (Booking booking : bookings.get(i)) {
-						if ((checkIn.before(booking.checkIn) && checkOut.before(booking.checkIn))
-								|| (checkIn.after(booking.checkOut) && checkOut.after(booking.checkOut))) {
+						if (!((checkIn.before(booking.checkIn) && checkOut.before(booking.checkIn)) || (checkIn.after(booking.checkOut) && checkOut.after(booking.checkOut)))) {
 							f2 = false;
 							break;
 						}
@@ -105,7 +104,7 @@ public class Booking {
 								f3 = true;
 								break;
 							}
-							if (j == r.length) {
+							if (j + 1 == r.length) {
 								System.out.println("This room is not compatible to your requirements");
 							}
 						}
@@ -143,55 +142,213 @@ public class Booking {
 					sc.nextLine();
 					continue;
 				}
-				if (choose != 1 && choose !=2 && choose !=3) {
+				if (choose != 1 && choose != 2 && choose != 3) {
 					System.out.println("Insert 1 or 2 or 3");
 				}
 			} while (choose != 1 && choose != 2 && choose != 3);
 			switch (choose) {
 			case 1:
-				int i = 0;
+				boolean f = false;
+				int capacity = 0;
 				do {
-					
 					try {
-				System.out.println("Insert room's capacity : ");
-				int capacity = sc.nextInt();
-					}
-					catch (InputMismatchException e) {
+						System.out.println("Insert room's capacity (press 0 to cancel the procedure) : ");
+						capacity = sc.nextInt();
+					} catch (InputMismatchException e) {
 						System.out.println("Insert an Integer");
 						sc.nextLine();
+						continue;
 					}
-					i++;
-				}while (i == 1);
-				System.out.println("Insert Check In date,");
+					f = true;
+				} while (f == false);
+				if (capacity == 0) {
+					break;
+				}
+				int day1 = 0;
+				int month1 = 0;
+				int year1 = 0;
+				Date checkIn = null;
+				Date today;
+				Calendar Cal1;
+				String answer;
 				do {
-				try {	
-					System.out.println("Day : ");
-					int day1 = sc.nextInt();
+					System.out.println("Is this an one day booking? Type YES or NO (press 0 to cancel the procedure)");
+					sc.nextLine();
+					answer = sc.nextLine();
+				} while (!answer.toLowerCase().equals("yes") && !answer.toLowerCase().equals("no")
+						&& !answer.equals("0"));
+				if (answer.equals("0")) {
+					break;
 				}
-				catch (InputMismatchException e) {
-					System.out.println("Insert an Integer");
+				int i = 0;
+				boolean breaks = false;
+				do {
+					if (i > 0) {
+						System.out.println("Wrong Check In Date!");
+					}
+					f = false;
+					System.out.println("Insert Check In date (press 0 to cancel the procedure) ,");
+					do {
+						try {
+							System.out.println("Day : ");
+							day1 = sc.nextInt();
+						} catch (InputMismatchException e) {
+							System.out.println("Insert an Integer");
+							sc.nextLine();
+							continue;
+						}
+						f = true;
+					} while (f == false);
+					if (day1 == 0) {
+						breaks = true;
+						break;
+					}
+					f = false;
+					do {
+						try {
+							System.out.println("Month : ");
+							month1 = sc.nextInt();
+						} catch (InputMismatchException e) {
+							System.out.println("Insert an Integer");
+							sc.nextLine();
+							continue;
+						}
+						f = true;
+					} while (f == false);
+					if (month1 == 0) {
+						breaks = true;
+						break;
+					}
+					f = false;
+					do {
+						try {
+							System.out.println("Year : ");
+							year1 = sc.nextInt();
+						} catch (InputMismatchException e) {
+							System.out.println("Insert an Integer");
+							sc.nextLine();
+							continue;
+						}
+						f = true;
+					} while (f == false);
+					if (year1 == 0) {
+						breaks = true;
+						break;
+					}
+					Cal1 = Calendar.getInstance();
+					Cal1.set(Calendar.YEAR, year1);
+					Cal1.set(Calendar.MONTH, month1 - 1);
+					Cal1.set(Calendar.DAY_OF_MONTH, day1);
+					Cal1.set(Calendar.HOUR_OF_DAY, 12);
+					Cal1.set(Calendar.MINUTE, 0);
+					Cal1.set(Calendar.SECOND, 0);
+					Cal1.set(Calendar.MILLISECOND, 0);
+					today = new Date();
+					checkIn = Cal1.getTime();
+					i++;
+				} while (checkIn.before(today));
+				if (breaks) {
+					break;
 				}
-				System.out.println("Month : ");
-				int month1 = sc.nextInt();
-				System.out.println("Year : ");
-				int year1 = sc.nextInt();
-				Calendar Cal1 = Calendar.getInstance();
-				Cal1.set(Calendar.YEAR, year1);
-				Cal1.set(Calendar.MONTH, month1);
-				Cal1.set(Calendar.DAY_OF_MONTH, day1);
-				Date checkIn = Cal1.getTime();
-				System.out.println("Insert Check Out date,");
-				System.out.println("Day : ");
-				int day2 = sc.nextInt();
-				System.out.println("Month : ");
-				int month2 = sc.nextInt();
-				System.out.println("Year : ");
-				int year2 = sc.nextInt();
-				Calendar Cal2 = Calendar.getInstance();
-				Cal1.set(Calendar.YEAR, year2);
-				Cal1.set(Calendar.MONTH, month2);
-				Cal1.set(Calendar.DAY_OF_MONTH, day2);
-				Date checkOut = Cal1.getTime();
+				int day2 = 0;
+				int month2 = 0;
+				int year2 = 0;
+				Date checkOut = null;
+				Calendar Cal2;
+				i = 0;
+				if (answer.toLowerCase().equals("yes")) {
+					Cal2 = Calendar.getInstance();
+					Cal2.set(Calendar.YEAR, year1);
+					Cal2.set(Calendar.MONTH, month1 - 1);
+					Cal2.set(Calendar.DAY_OF_MONTH, day1);
+					int hourOut = 11;
+					f = false;
+					do {
+						try {
+							System.out.println("Because it is an one day booking insert Check Out Hour :");
+							hourOut = sc.nextInt();
+						} catch (InputMismatchException e) {
+							System.out.println("Insert an Integer");
+							continue;
+						}
+						f = true;
+					} while (f == false);
+					Cal2.set(Calendar.HOUR_OF_DAY, hourOut);
+					Cal2.set(Calendar.MINUTE, 0);
+					Cal2.set(Calendar.SECOND, 0);
+					Cal2.set(Calendar.MILLISECOND, 0);
+					checkOut = Cal2.getTime();
+				} else {
+				do {
+					if (i > 0) {
+						System.out.println("Wrong Check Out Date!");
+					}
+					f = false;
+					System.out.println("Insert Check Out date (press 0 to cancel the procedure) ,");
+					do {
+						try {
+							System.out.println("Day : ");
+							day2 = sc.nextInt();
+						} catch (InputMismatchException e) {
+							System.out.println("Insert an Integer");
+							sc.nextLine();
+							continue;
+						}
+						f = true;
+					} while (f == false);
+					if (day2 == 0) {
+						breaks = true;
+						break;
+					}
+					f = false;
+					do {
+						try {
+							System.out.println("Month : ");
+							month2 = sc.nextInt();
+						} catch (InputMismatchException e) {
+							System.out.println("Insert an Integer");
+							sc.nextLine();
+							continue;
+						}
+						f = true;
+						;
+					} while (f == false);
+					if (month2 == 0) {
+						breaks = true;
+						break;
+					}
+					f = false;
+					do {
+						try {
+							System.out.println("Year : ");
+							year2 = sc.nextInt();
+						} catch (InputMismatchException e) {
+							System.out.println("Insert an Integer");
+							sc.nextLine();
+							continue;
+						}
+						f = true;
+					} while (f == false);
+					if (year2 == 0) {
+						breaks = true;
+						break;
+					}
+					Cal2 = Calendar.getInstance();
+					Cal2.set(Calendar.YEAR, year2);
+					Cal2.set(Calendar.MONTH, month2 - 1);
+					Cal2.set(Calendar.DAY_OF_MONTH, day2);
+					Cal2.set(Calendar.HOUR_OF_DAY, 11);
+					Cal2.set(Calendar.MINUTE, 0);
+					Cal2.set(Calendar.SECOND, 0);
+					Cal2.set(Calendar.MILLISECOND, 0);
+					checkOut = Cal2.getTime();
+					i++;
+				} while (checkIn.after(checkOut));
+				
+				if (breaks) {
+					break;
+				}
+				}
 				Room roomForBook = Availability(capacity, checkIn, checkOut);
 				if (roomForBook == null) {
 					break;
@@ -251,4 +408,13 @@ public class Booking {
 	public static ArrayList<ArrayList<Booking>> getBookings() {
 		return bookings;
 	}
+
+	public Date getCheckOut() {
+		return checkOut;
+	}
+
+	public Date getCheckIn() {
+		return checkIn;
+	}
+
 }
