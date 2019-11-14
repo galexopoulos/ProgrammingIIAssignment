@@ -6,7 +6,7 @@ public class Employee {
 	private int employee_Id, extraHoursMonth = 0 /*need to be set to 0 every month*/, salary, monthPayment;
 	private Calendar[][]weekShift = new Calendar[8][8];
 	private Manager manager;
-	private static int add = 0;
+	private static int add = 0; 
 	static ArrayList<Employee> Employees = new ArrayList<Employee>();
 	private Calendar dailyTimes[] = new Calendar[8]; // shows the arrivals and departures of the employee in one day
 	private int dayCounter = 0;// shows how many indexes of the array dailyTimes are filled

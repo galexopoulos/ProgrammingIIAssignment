@@ -16,7 +16,7 @@ public class Manager extends Employee{
 	public Manager (String firstname, String surname, String position, String password, double salary,
 			Manager employer) {
 		super(firstname, surname, position, password, salary, employer);
-	}
+	} 
 	
 	public void getMenu() {
 		Scanner sc = new Scanner(System.in);
@@ -53,7 +53,7 @@ public class Manager extends Employee{
 		} else if (selection == 2) {
 			Calendar depTime = Calendar.getInstance();
 			dailyTimes[dayCounter] = depTime;
-			checkedIn = false;
+			checkedIn = false; 
 			dayCounter++;
 			System.out.println("Check out successful!");
 		} else if (selection == 3) {// you can request for free day only in the current week
@@ -312,6 +312,7 @@ public class Manager extends Employee{
 							flag10 = true;
 						}
 					}while(flag10);
+					break;
 				}
 			}else {
 				//RETURN TO MENU
@@ -414,6 +415,7 @@ public class Manager extends Employee{
 								flag10 = true;
 							}
 						}while(flag10);
+						break;
 					}
 
 				} while (flag9);
