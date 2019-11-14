@@ -1,4 +1,5 @@
 package main.java.erp.dmst.aueb.gr;
+
 import java.util.Scanner;
 import java.util.TimeZone;
 import java.text.SimpleDateFormat;
@@ -14,7 +15,6 @@ public class ReportingFinance { //This class must be called once a month.
 		private static double cashAvailableAfterTaxes; //after taxes and Dividends
 		private static double cashAvailableBeforeTaxes;
 		private static double loan = 0;
-		private static int numberOfShareHolders;
 		private static int rate; //shareholders rate of payment
 		private static int months = 0;
 		
@@ -116,24 +116,28 @@ public class ReportingFinance { //This class must be called once a month.
 			return formatter.format(date);
 		}
 		
-		public static void setDividends() { //this divides the profits to the shareholders depending on the rate 
+		public static double dividends() { //this divides the profits to the shareholders depending on the rate 
 			if(cashAvailableBeforeTaxes > 0 ) {						 
 				double totalDiv = cashAvailableAfterTaxes * rate;
-				double monthlyDividends = totalDiv / numberOfShareHolders;
-				System.out.printf("Each share holderholder owns: %d of %d /n",monthlyDividends, totalDiv);
+				double monthlyDividends = totalDiv / ShareHolders.shareholders.size() ;
+				return monthlyDividends;
 			}else {
-				System.out.println("There are no dividents to share. ");
+				return 0;
 			}
 		}
 		
 		public static void setTaxLiabilities(int taxRate) {
-			if(cashAvailableBeforeTaxes > 0 ) {
-				Date date = new Date(System.currentTimeMillis());
-				Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("Europe/Athens"));
-				cal.setTime(date);
-				int month = cal.get(Calendar.MONTH);
-				cashAvailableAfterTaxes = cashAvailableBeforeTaxes - cashAvailableBeforeTaxes * taxRate;
-				System.out.println("Hotel's TAX liablities of " + month + "are: " + cashAvailableBeforeTaxes * taxRate );
+			try {
+				if(cashAvailableBeforeTaxes > 0 ) {
+					Date date = new Date(System.currentTimeMillis());
+					Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("Europe/Athens"));
+					cal.setTime(date);
+					int month = cal.get(Calendar.MONTH);
+					cashAvailableAfterTaxes = cashAvailableBeforeTaxes - cashAvailableBeforeTaxes * taxRate;
+					System.out.println("Hotel's TAX liablities of " + month + "are: " + cashAvailableBeforeTaxes * taxRate );
+				}
+			}catch(Exception e){
+				System.err.println();
 			}
 		}
 		
