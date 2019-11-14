@@ -3,10 +3,9 @@ import java.util.*;
 
 public class Employee {
 	private String firstname, surname, position, password;
-	private int employee_Id, extraHoursMonth = 0 /*need to be set to 0 every month*/;
-	private double salary, monthSalary;
+	private int employee_Id, extraHoursMonth = 0 /*need to be set to 0 every month*/, salary, monthPayment;
 	private Calendar[][]weekShift = new Calendar[8][8];
-	private Manager employer;
+	private Manager manager;
 	private static int add = 0;
 	static ArrayList<Employee> Employees = new ArrayList<Employee>();
 	private Calendar dailyTimes[] = new Calendar[8]; // shows the arrivals and departures of the employee in one day
@@ -14,11 +13,11 @@ public class Employee {
 	private boolean checkedIn = false; // true when the employee has checked in but hasn't checked out
 
 	public Employee(String firstname, String surname, String position, String password, double salary,
-			Manager employer) {
+			Manager manager) {
 		this.firstname = firstname;
 		this.surname = surname;
 		this.position = position;
-		this.employer = employer;
+		this.manager = manager;
 		this.employee_Id = add;
 
 		Employees.add(this);
@@ -65,11 +64,11 @@ public class Employee {
 		this.employee_Id = employee_Id;
 	}
 
-	public double getSalary() {
+	public int getSalary() {
 		return salary;
 	}
 
-	public void setSalary(double salary) {
+	public void setSalary(int salary) {
 		this.salary = salary;
 	}
 
@@ -83,12 +82,12 @@ public class Employee {
 		weekShift = weekShift;
 	}
 
-	public Manager getEmployer() {
-		return employer;
+	public Manager getManager() {
+		return manager;
 	}
 
-	public void setEmployer(Manager employer) {
-		this.employer = employer;
+	public void setManager(Manager manager) {
+		this.manager = manager;
 	}
 
 	public Calendar[] getDailyTimes() {
@@ -100,12 +99,12 @@ public class Employee {
 	}
 	
 	
-	public double getMonthSalary() {
-		return monthSalary;
+	public int getMonthPayment() {
+		return monthPayment;
 	}
 
-	public void setMonthSalary(double monthSalary) {
-		this.monthSalary = monthSalary;
+	public void setMonthPayment(int monthPayment) {
+		this.monthPayment = monthPayment;
 	}
 	
 	
@@ -120,10 +119,12 @@ public class Employee {
 	
 	
 
+
+
 	@Override
 	public String toString() {
 		return "Employee [firstname=" + firstname + ", surname=" + surname + ", position=" + position + ", employee_Id="
-				+ employee_Id + ", salary=" + salary + "]";
+				+ employee_Id + ", salary=" + salary + ", manager=" + manager.getFirstname() + manager.getSurname() + "]";
 	}
 
 	public void getMenu() {
@@ -164,91 +165,13 @@ public class Employee {
 			dayCounter++;
 			System.out.println("Check out successful!");
 		} else if (selection == 3) {// you can request for free day only in the current week
-			Calendar current = Calendar.getInstance();
-			current.add(Calendar.SECOND, -1); // in order to be able to request for free day the day we request
-			Calendar lastDay = Calendar.getInstance();
 			Calendar freeRequest = Calendar.getInstance();
-			int day = 0, month = 0, year = 0;
-			boolean flag2 = false;
-			do {
-				System.out.println("Insert the day of the month.");
-				boolean flag3 = false;
-				do {
-					if (!sc.hasNextInt()) {
-						System.err.println("Insert an integer:");
-						flag3 = true;
-						sc.next();
-
-					} else {
-						day = sc.nextInt();
-						if (day > 31 || day < 1) {
-							flag3 = true;
-							System.err.println("Insert an integer [1,31]:");
-						} else {
-							flag3 = false;
-							// flag3=true; dont know if a flag is needed here
-						}
-					}
-					sc.nextLine();
-				} while (flag3);
-				System.out.println("Insert the month.");
-				boolean flag4 = false;
-				do {
-					if (!sc.hasNextInt()) {
-						System.err.println("Insert an integer:");
-						flag4 = true;
-						sc.next();
-
-					} else {
-						month = sc.nextInt();
-						if (month > 12 || month < 1) {
-							flag4 = true;
-							System.err.println("Insert an integer [1,12]:");
-						} else {
-							flag4 = false;
-							// flag3=true; dont know if a flag is needed here
-						}
-					}
-					sc.nextLine();
-				} while (flag4);
-				System.out.println("Insert the year.");
-				boolean flag5 = false;
-				do {
-					if (!sc.hasNextInt()) {
-						System.err.println("Insert an integer:");
-						flag5 = true;
-						sc.next();
-
-					} else {
-						year = sc.nextInt();
-						if (year != current.get(Calendar.YEAR) && year != current.get(Calendar.YEAR) + 1) {
-							flag5 = true;
-							System.err.println("Insert an integer [" + current.get(Calendar.YEAR) + ","
-									+ (current.get(Calendar.YEAR) + 1) + "]:");
-						} else {
-							flag5 = false;
-							// flag3=true; dont know if a flag is needed here
-						}
-					}
-					sc.nextLine();
-				} while (flag5);
-				try {
-					LocalDate.of(year, month, day);
-				} catch (Exception e) { // checks that the date is valid, for example day == 31, month == 2 is invalid
-					System.out.println("Invalid date");
-					flag2 = true;
-					continue;
-				}
-				freeRequest.set(Calendar.DAY_OF_MONTH, day);
-				freeRequest.set(Calendar.MONTH, month - 1);
-				freeRequest.set(Calendar.YEAR, year);
-				lastDay = Shift.getNextMonday();
-				if (current.after(freeRequest) || freeRequest.after(lastDay)) {
-					System.out.println("Insert a date of the current week.");
-					flag2 = true;
-				}
-			} while (flag2);
-		
+			freeRequest = enterWeekDay();
+			if (freeRequest.get(Calendar.YEAR) == 1990) {
+				//SHOW THE MENU AGAIN
+			}else {
+				//inbox related
+			}
 		}else if (selection == 4) {
 			//call inbox
 
@@ -305,5 +228,94 @@ public class Employee {
 		}
 		
 	}
+	
+	
+	public static Calendar enterWeekDay() {  //checks if the day that will be given is vaid and in the current week //I HAVE TO ADD AN OPTION OF EXIT, THAT WILL SET THE YEAR OF REQUESTED 1990
+		Scanner sc = new Scanner(System.in);
+		Calendar current = Calendar.getInstance();
+		current.add(Calendar.SECOND, -1); // in order to be able to get the current day 
+		Calendar lastDay = Calendar.getInstance();
+		Calendar requested = Calendar.getInstance();
+		int day = 0, month = 0, year = 0;
+		boolean flag2 = false;
+		do {
+			System.out.println("Insert the day of the month.");
+			boolean flag3 = false;
+			do {
+				if (!sc.hasNextInt()) {
+					System.err.println("Insert an integer:");
+					flag3 = true;
+					sc.next();
 
+				} else {
+					day = sc.nextInt();
+					if (day > 31 || day < 1) {
+						flag3 = true;
+						System.err.println("Insert an integer [1,31]:");
+					} else {
+						flag3 = false;
+						// flag3=true; dont know if a flag is needed here
+					}
+				}
+				sc.nextLine();
+			} while (flag3);
+			System.out.println("Insert the month.");
+			boolean flag4 = false;
+			do {
+				if (!sc.hasNextInt()) {
+					System.err.println("Insert an integer:");
+					flag4 = true;
+					sc.next();
+
+				} else {
+					month = sc.nextInt();
+					if (month > 12 || month < 1) {
+						flag4 = true;
+						System.err.println("Insert an integer [1,12]:");
+					} else {
+						flag4 = false;
+						// flag3=true; dont know if a flag is needed here
+					}
+				}
+				sc.nextLine();
+			} while (flag4);
+			System.out.println("Insert the year.");
+			boolean flag5 = false;
+			do {
+				if (!sc.hasNextInt()) {
+					System.err.println("Insert an integer:");
+					flag5 = true;
+					sc.next();
+
+				} else {
+					year = sc.nextInt();
+					if (year != current.get(Calendar.YEAR) && year != current.get(Calendar.YEAR) + 1) {
+						flag5 = true;
+						System.err.println("Insert an integer [" + current.get(Calendar.YEAR) + ","
+								+ (current.get(Calendar.YEAR) + 1) + "]:");
+					} else {
+						flag5 = false;
+						// flag3=true; dont know if a flag is needed here
+					}
+				}
+				sc.nextLine();
+			} while (flag5);
+			try {
+				LocalDate.of(year, month, day);
+			} catch (Exception e) { // checks that the date is valid, for example day == 31, month == 2 is invalid
+				System.out.println("Invalid date");
+				flag2 = true;
+				continue;
+			}
+			requested.set(Calendar.DAY_OF_MONTH, day);
+			requested.set(Calendar.MONTH, month - 1);
+			requested.set(Calendar.YEAR, year);
+			lastDay = Shift.getNextMonday();
+			if (current.after(requested) || requested.after(lastDay)) {
+				System.out.println("Insert a date of the current week.");
+				flag2 = true;
+			}
+		} while (flag2);
+		return requested;
+	}
 }

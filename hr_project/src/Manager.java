@@ -25,7 +25,7 @@ public class Manager extends Employee{
 
 		System.out.println(
 				"Welcome! \nSelect: \n1)Check in.\n2)Check out. \n3)Day off request. \n4)Inbox. \n5)Show shift of the week. "
-				+ "\n6)View Employees. \n7)Set  extra hours for an Employee. \n8)Edit an Employee's salary. \n9)Edit an Employee's fields");
+				+ "\n6)View Employees. \n7)Set  extra hours for an Employee. \n8)Edit an Employee's payment. \n9)Edit an Employee's fields");
 		do {
 			if (!sc.hasNextInt()) {
 				System.out.println("Please insert an integer 1 - 9");
@@ -197,7 +197,7 @@ public class Manager extends Employee{
 			
 		}else if (selection == 6) {
 			for (Employee a : Employees) {
-				if (this.equals(a.getEmployer())) {
+				if (this.equals(a.getManager())) {
 					a.toString();
 				}
 			}
@@ -205,35 +205,259 @@ public class Manager extends Employee{
 			//related to inbox 
 			
 		}else if (selection == 8) {
-			System.out.println("Enter the Employer's id.");
-			int selectedId;
-			boolean flag6 = false;
-			do {
-				if (!sc.hasNextInt()) {
-					System.out.println("Please insert an integer.");
-					flag6 = true;
-					sc.next();
+			int posInEmployees = enterEmpId();
+			if (posInEmployees != -1) {
+				boolean flag9 = false;
+				int sel = 0;
+				System.out.println("Do you want to edit \n1)Salary. \n2)Payment for the current month?");
+				do {
+					if (!sc.hasNextInt()) {
+						System.out.println("Please insert a number, 1 or 2.");
+						flag9 = true;
+						sc.next();
 
-				} else {
-					selectedId = sc.nextInt();
-					for (Employee a : Employees) {
-						if (a.getEmployee_Id() == selectedId) {	
-							if (this.equals(a.getEmployer())) {
-								flag6 = false;
+					} else {
+						sel = sc.nextInt();
+						if (sel > 2 || sel < 1) {
+							flag9 = true;
+							System.out.println("Please insert 1 or 2.");
+						} else {
+							flag9 = false;
+							sc.nextLine();
+						}
+					}
+
+				} while (flag9);
+				switch (sel) {
+				case 1:
+					System.out.println("The current salary is " + Employees.get(posInEmployees).getSalary());
+					System.out.println("Set the new salary:");
+					boolean flag7 = false;
+					int newSalary = Employees.get(posInEmployees).getSalary();
+					do {
+						if (!sc.hasNextInt()) {
+							System.out.println("Please insert an integer.");
+							flag7 = true;
+							sc.next();
+	
+						} else {
+							newSalary = sc.nextInt();
+							if (newSalary < 0) {
+								flag7 = true;
+								System.out.println("Input an integer greater than zero.");
+							}else if(newSalary == Employees.get(posInEmployees).getSalary()) {
+								System.out.println("Insert a salary different than the previous one.");
 							}else {
-								flag6 = true;
-								System.out.println("You are not allowed to do that.");
+								flag7 = false;
+								sc.nextLine();
 							}
-						}else {
-								flag6 = true;
-								System.out.println("That is not a valid id.");
 						}
 						
+					} while (flag7);
+					System.out.println("The new salary is going to be set to" + newSalary + "/nare you sure you want to make that change?");
+					boolean flag8 = false;
+					do {
+						System.out.println("yes/no");
+						String verify = sc.nextLine();
+						if (verify.toLowerCase().equals("yes")) {
+							Employees.get(posInEmployees).setSalary(newSalary);
+							System.out.println("The change have been made.");
+							flag8 = false;
+						}else if (verify.toLowerCase().equals("no")){
+							System.out.println("Change cancelled");
+							flag8 = false;
+						}else {
+							flag8 = true;
+						}
+					}while(flag8);
+					break;
+				case 2:
+					System.out.println("The current payment is " + Employees.get(posInEmployees).getMonthPayment());
+					System.out.println("Set the new payment:");
+					boolean flag1 = false;
+					int newPayment = Employees.get(posInEmployees).getMonthPayment();
+					do {
+						if (!sc.hasNextInt()) {
+							System.out.println("Please insert an integer.");
+							flag1 = true;
+							sc.next();
+	
+						} else {
+							newPayment = sc.nextInt();
+							if (newPayment < 0) {
+								flag1 = true;
+								System.out.println("Input an integer greater than zero.");
+							}else if(newPayment == Employees.get(posInEmployees).getMonthPayment()) {
+								System.out.println("Insert a payment different than the previous one.");
+							}else {
+								flag1 = false;
+								sc.nextLine();
+							}
+						}
+						
+					} while (flag1);
+					System.out.println("The new payment is going to be set to" + newPayment + "/nare you sure you want to make that change?");
+					boolean flag10 = false;
+					do {
+						System.out.println("yes/no");
+						String verify = sc.nextLine();
+						if (verify.toLowerCase().equals("yes")) {
+							Employees.get(posInEmployees).setMonthPayment(newPayment);
+							System.out.println("The change have been made.");
+							flag10 = false;
+						}else if (verify.toLowerCase().equals("no")){
+							System.out.println("Change cancelled");
+							flag10 = false;
+						}else {
+							flag10 = true;
+						}
+					}while(flag10);
+				}
+			}else {
+				//RETURN TO MENU
+			}
+		}else if(selection == 9) {
+			int posInEmployees = enterEmpId();
+			if (posInEmployees != -1) {
+				System.out.println(Employees.get(posInEmployees).toString());
+				boolean flag9 = false;
+				int sel = 0;
+				
+				System.out.println("Which field do you want to change? \n1)position \n2)manager");
+
+				do {
+					if (!sc.hasNextInt()) {
+						System.out.println("Please insert a number, 1 or 2.");
+						flag9 = true;
+						sc.next();
+
+					} else {
+						sel = sc.nextInt();
+						if (sel > 4 || sel < 1) {
+							flag9 = true;
+							System.out.println("Please insert 1 or 2.");
+						} else {
+							flag9 = false;
+							sc.nextLine();
+						}
 					}
-				}	
-			} while (flag6);
+					switch (sel) {
+					case 1:
+						System.out.println("The current position is " + Employees.get(posInEmployees).getPosition());
+						System.out.println("Set the new position:");
+						String pos;
+						pos = sc.nextLine();
+						System.out.println("The new position is going to be set to" + pos + "/nare you sure you want to make that change?");
+						boolean flag8 = false;
+						do {
+							System.out.println("yes/no");
+							String verify = sc.nextLine();
+							if (verify.toLowerCase().equals("yes")) {
+								Employees.get(posInEmployees).setPosition(pos);
+								System.out.println("The change have been made.");
+								flag8 = false;
+							}else if (verify.toLowerCase().equals("no")){
+								System.out.println("Change cancelled");
+								flag8 = false;
+							}else {
+								flag8 = true;
+							}
+						}while(flag8);
+						break;
+					case 2: 
+						System.out.println("The current manager is " + Employees.get(posInEmployees).getManager().getFirstname() + Employees.get(posInEmployees).getManager().getSurname());
+						System.out.println("Enter the id of the new Manager.");
+						int selectedId, posInEmployees2 = -1;
+						boolean flag6 = false;
+						
+						do {
+							if (!sc.hasNextInt()) {
+								System.out.println("Please insert an integer.");
+								flag6 = true;
+								sc.next();
+
+							} else {
+								selectedId = sc.nextInt();
+								for (int i = 0; i < Employees.size(); i++) {
+									if (Employees.get(i).getEmployee_Id() == selectedId) {	
+										if (selectedId != this.employee_Id && Employees.get(i) instanceof Manager) { //checks that the new Manager is not the same with the current and that the new Manager is a Manager and not a basic Employee
+											posInEmployees2 = i;
+											flag6 = false;
+											break;
+										}else {
+											flag6 = true;
+											System.out.println("You are not allowed to do that.");
+											break;
+										}
+									}else {
+											flag6 = true;
+											System.out.println("That is not a valid id.");
+									}
+									
+								}
+							}	
+						} while (flag6);
+						Manager newManager =(Manager) Employees.get(posInEmployees2);
+						System.out.println("The new Manager is going to be " + newManager.getFirstname() + newManager.getSurname() + "/nare you sure you want to make that change?");
+						boolean flag10 = false;
+						do {
+							System.out.println("yes/no");
+							String verify = sc.nextLine();
+							if (verify.toLowerCase().equals("yes")) {
+								Employees.get(posInEmployees).setManager(newManager);
+								System.out.println("The change have been made.");
+								flag10 = false;
+							}else if (verify.toLowerCase().equals("no")){
+								System.out.println("Change cancelled");
+								flag10 = false;
+							}else {
+								flag10 = true;
+							}
+						}while(flag10);
+					}
+
+				} while (flag9);
+				
+			}else {
+				//RETURN TO MENU
+			}
 		}
-		
+	}
+	
+	public int enterEmpId() {//I HAVE TO ADD AN EXIT OPTION
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Enter the Employee's id.");
+		int selectedId;
+		int requested = -1;
+		boolean flag6 = false;
+		do {
+			if (!sc.hasNextInt()) {
+				System.out.println("Please insert an integer.");
+				flag6 = true;
+				sc.next();
+
+			} else {
+				selectedId = sc.nextInt();
+				for (int i = 0; i < Employees.size(); i++) {
+					if (Employees.get(i).getEmployee_Id() == selectedId) {	
+						if (this.equals(Employees.get(i).getManager())) {
+							requested = i;
+							flag6 = false;
+							break;
+						}else {
+							flag6 = true;
+							System.out.println("You are not allowed to do that.");
+						}
+					}else {
+							flag6 = true;
+							System.out.println("That is not a valid id.");
+							break;
+					}
+					
+				}
+			}	
+		} while (flag6);
+		return requested;
 	}
 	
 }
