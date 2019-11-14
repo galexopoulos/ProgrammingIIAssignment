@@ -3,7 +3,7 @@ import java.util.*;
 
 public class Employee {
 	private String firstname, surname, position, password;
-	private int employee_Id;
+	private int employee_Id, extraHoursMonth = 0 /*need to be set to 0 every month*/;
 	private double salary, monthSalary;
 	private Calendar[][]weekShift = new Calendar[8][8];
 	private Manager employer;
@@ -106,6 +106,24 @@ public class Employee {
 
 	public void setMonthSalary(double monthSalary) {
 		this.monthSalary = monthSalary;
+	}
+	
+	
+
+	public int getExtraHoursMonth() {
+		return extraHoursMonth;
+	}
+
+	public void setExtraHoursMonth(int extraHoursMonth) {
+		this.extraHoursMonth = extraHoursMonth;
+	}
+	
+	
+
+	@Override
+	public String toString() {
+		return "Employee [firstname=" + firstname + ", surname=" + surname + ", position=" + position + ", employee_Id="
+				+ employee_Id + ", salary=" + salary + "]";
 	}
 
 	public void getMenu() {
