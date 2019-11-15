@@ -243,7 +243,7 @@ public class Employee {
 	}
 	
 	
-	public static Calendar enterWeekDay() {  //checks if the day that will be given is vaid and in the current week //I HAVE TO ADD AN OPTION OF EXIT, THAT WILL SET THE YEAR OF REQUESTED 1990
+	public  Calendar enterWeekDay() {  //checks if the day that will be given is vaid and in the current week //I HAVE TO ADD AN OPTION OF EXIT, THAT WILL SET THE YEAR OF REQUESTED 1990
 		Scanner sc = new Scanner(System.in);
 		Calendar current = Calendar.getInstance();
 		current.add(Calendar.SECOND, -1); // in order to be able to get the current day 
@@ -351,4 +351,6 @@ public class Employee {
 		} while (flag2);
 		return requested;
 	}
+
+
 }
