@@ -12,16 +12,17 @@ public class Employee {
 	private int dayCounter = 0;// shows how many indexes of the array dailyTimes are filled
 	private boolean checkedIn = false; // true when the employee has checked in but hasn't checked out
 
-	public Employee(String firstname, String surname, String position, String password, double salary,
+	public Employee(String firstname, String surname, String position, String password, int salary,
 			Manager manager) {
 		this.firstname = firstname;
 		this.surname = surname;
 		this.position = position;
+		this.salary = salary;
 		this.manager = manager;
 		this.employee_Id = add;
 
 		Employees.add(this);
-		add += add;
+		add++;
 	}
 
 	public String getFirstname() {
@@ -121,112 +122,124 @@ public class Employee {
 
 
 
+	public boolean isCheckedIn() {
+		return checkedIn;
+	}
+
+	public void setCheckedIn(boolean checkedIn) {
+		this.checkedIn = checkedIn;
+	}
+
 	@Override
 	public String toString() {
 		return "Employee [firstname=" + firstname + ", surname=" + surname + ", position=" + position + ", employee_Id="
-				+ employee_Id + ", salary=" + salary + ", manager=" + manager.getFirstname() + manager.getSurname() + "]";
+				+ employee_Id + ", salary=" + salary  + "]";
 	}
 
 	public void getMenu() {
 		Scanner sc = new Scanner(System.in);
-		boolean flag = false;
+		boolean flag = false, menuflag = true;//must add a log out option that makes menuflag false
 		int selection = 0;
-
-		System.out.println(
-				"Welcome! \nSelect: \n1)Check in.\n2)Check out. \n3)Day off request. \n4)Inbox. \n5)Show shift of the week.");
-		do {
-			if (!sc.hasNextInt()) {
-				System.out.println("Please insert 1 or 2 or 3 or 4 or 5");
-				flag = true;
-				sc.next();
-
-			} else {
-				selection = sc.nextInt();
-				if (selection > 5 || selection < 1) {
+		System.out.println("Welcome!");
+		do{	
+			System.out.println("    MENU \n------------- \n Select: \n1)Check in.\n2)Check out. \n"
+					+ "3)Day off request. \n4)Inbox. \n5)Show shift of the week.");
+			do {
+				if (!sc.hasNextInt()) {
+					System.out.println("Please insert 1 or 2 or 3 or 4 or 5");
 					flag = true;
-					System.out.println("input an integer [1,5]");
+					sc.next();
+	
 				} else {
-					flag = false;
-					sc.nextLine();
-				}
-			}
-			// sc.nextLine(); //checkneeded
-		} while (flag);
-		if (selection == 1) {
-			Calendar arrTime = Calendar.getInstance();
-			dailyTimes[dayCounter] = arrTime;
-			checkedIn = true;
-			dayCounter++;
-			System.out.println("Check in successful!");
-		} else if (selection == 2) {
-			Calendar depTime = Calendar.getInstance();
-			dailyTimes[dayCounter] = depTime;
-			checkedIn = false;
-			dayCounter++;
-			System.out.println("Check out successful!");
-		} else if (selection == 3) {// you can request for free day only in the current week
-			Calendar freeRequest = Calendar.getInstance();
-			freeRequest = enterWeekDay();
-			if (freeRequest.get(Calendar.YEAR) == 1990) {
-				//SHOW THE MENU AGAIN
-			}else {
-				//inbox related
-			}
-		}else if (selection == 4) {
-			//call inbox
-
-		}else {
-			for(int i = 1; i<8; i++) {
-				String dayName;
-				switch (i) {
-				case 1:
-					dayName = "Monday";
-					break;
-				case 2:
-					dayName = "Tuesday";
-					break;
-				case 3:
-					dayName = "Wednesday";
-					break;
-				case 4:
-					dayName = "Thursday";
-					break;
-				case 5:
-					dayName = "Friday";
-					break;
-				case 6:
-					dayName = "Saturday";
-					break;
-				default:
-					dayName = "Sunday";
-					break;
-				}
-				System.out.println(dayName);
-				String time;
-				for (int j = 0; j < 8; j = j + 2) {
-					if (weekShift[i][j].get(Calendar.YEAR) != 1990) {
-						time = String.format("%02d:%02d", weekShift[i][j].get(Calendar.HOUR_OF_DAY), weekShift[i][j].get(Calendar.MINUTE));
-						System.out.print (time + " - ");
-						if (weekShift[i][j + 1].get(Calendar.YEAR) != 1990) {
-							time = String.format("%02d:%02d", weekShift[i][j + 1].get(Calendar.HOUR_OF_DAY), weekShift[i][j + 1].get(Calendar.MINUTE));
-							System.out.println(time);
-						}else {
-							System.out.println();
-						}
-					}else {
-						if (weekShift[i][j + 1].get(Calendar.YEAR) != 1990) {
-							time = String.format("%02d:%02d", weekShift[i][j + 1].get(Calendar.HOUR_OF_DAY), weekShift[i][j + 1].get(Calendar.MINUTE));
-							System.out.println("- " + time);
-						}else if (j == 0){// for an empty day
-							System.out.println("-");
-						}
+					selection = sc.nextInt();
+					if (selection > 5 || selection < 1) {
+						flag = true;
+						System.out.println("input an integer [1,5]");
+					} else {
+						flag = false;
+						sc.nextLine();
 					}
 				}
+				// sc.nextLine(); //checkneeded
+			} while (flag);
+			if (selection == 1) {
+				Calendar arrTime = Calendar.getInstance();
+				dailyTimes[dayCounter] = arrTime;
+				checkedIn = true;
+				dayCounter++;
+				System.out.println("Check in successful!");
+			} else if (selection == 2) {
+				Calendar depTime = Calendar.getInstance();
+				dailyTimes[dayCounter] = depTime;
+				checkedIn = false;
+				dayCounter++;
+				System.out.println("Check out successful!");
+			} else if (selection == 3) {// you can request for free day only in the current week
+				Calendar freeRequest = Calendar.getInstance();
+				freeRequest = enterWeekDay();
+				if (freeRequest.get(Calendar.YEAR) == 1990) {
+					//SHOW THE MENU AGAIN
+				}else {
+					System.out.println("Day off request succesfully sent to Manager.");
+					//inboxrelated
+					//can be added an option to send a message with the request
+				}
 				
-			 }
+			}else if (selection == 4) {
+				//call inbox
+	
+			}else {
+				for(int i = 1; i<8; i++) {
+					String dayName;
+					switch (i) {
+					case 1:
+						dayName = "Monday";
+						break;
+					case 2:
+						dayName = "Tuesday";
+						break;
+					case 3:
+						dayName = "Wednesday";
+						break;
+					case 4:
+						dayName = "Thursday";
+						break;
+					case 5:
+						dayName = "Friday";
+						break;
+					case 6:
+						dayName = "Saturday";
+						break;
+					default:
+						dayName = "Sunday";
+						break;
+					}
+					System.out.println(dayName);
+					String time;
+					for (int j = 0; j < 8; j = j + 2) {
+						if (weekShift[i][j].get(Calendar.YEAR) != 1990) {
+							time = String.format("%02d:%02d", weekShift[i][j].get(Calendar.HOUR_OF_DAY), weekShift[i][j].get(Calendar.MINUTE));
+							System.out.print (time + " - ");
+							if (weekShift[i][j + 1].get(Calendar.YEAR) != 1990) {
+								time = String.format("%02d:%02d", weekShift[i][j + 1].get(Calendar.HOUR_OF_DAY), weekShift[i][j + 1].get(Calendar.MINUTE));
+								System.out.println(time);
+							}else {
+								System.out.println();
+							}
+						}else {
+							if (weekShift[i][j + 1].get(Calendar.YEAR) != 1990) {
+								time = String.format("%02d:%02d", weekShift[i][j + 1].get(Calendar.HOUR_OF_DAY), weekShift[i][j + 1].get(Calendar.MINUTE));
+								System.out.println("- " + time);
+							}else if (j == 0){// for an empty day
+								System.out.println("-");
+							}
+						}
+					}
+					
+				 }
 			
-		}
-		
+			}
+		}while (menuflag);
 	}
 	
 	
@@ -238,72 +251,92 @@ public class Employee {
 		Calendar requested = Calendar.getInstance();
 		int day = 0, month = 0, year = 0;
 		boolean flag2 = false;
+		String selected;
 		do {
-			System.out.println("Insert the day of the month.");
+			System.out.println("Insert the day of the month or press Enter to return to the central menu.");
 			boolean flag3 = false;
 			do {
-				if (!sc.hasNextInt()) {
-					System.err.println("Insert an integer:");
-					flag3 = true;
-					sc.next();
-
+				selected = sc.nextLine();
+				if (selected.equals("")) {
+					requested.set(Calendar.YEAR, 1990);//that means that the user exited without completing the request
+					flag3 = false;
+					break;
 				} else {
-					day = sc.nextInt();
-					if (day > 31 || day < 1) {
+					try {
+						day = Integer.parseInt(selected);
+						if (day > 31 || day < 1) {
+							flag3 = true;
+							System.err.println("Insert an integer [1,31]:");
+						} else {
+							flag3 = false;
+							// flag3=true; dont know if a flag is needed here
+						}
+					}catch (Exception a) {
+						System.out.println("Please insert an Integer.");
 						flag3 = true;
-						System.err.println("Insert an integer [1,31]:");
-					} else {
-						flag3 = false;
-						// flag3=true; dont know if a flag is needed here
 					}
 				}
-				sc.nextLine();
+				//sc.nextLine();
 			} while (flag3);
-			System.out.println("Insert the month.");
-			boolean flag4 = false;
+			if (requested.get(Calendar.YEAR) == 1990) {
+				break;
+			}
+			System.out.println("Insert the month or press Enter to return to the central menu.");
+			flag3 = false;
 			do {
-				if (!sc.hasNextInt()) {
-					System.err.println("Insert an integer:");
-					flag4 = true;
-					sc.next();
+				selected = sc.nextLine();
+				if (selected.equals("")) {
+					requested.set(Calendar.YEAR, 1990);//that means that the user exited without completing the request
+					flag3 = false;
+					break;
 
 				} else {
-					month = sc.nextInt();
-					if (month > 12 || month < 1) {
-						flag4 = true;
-						System.err.println("Insert an integer [1,12]:");
-					} else {
-						flag4 = false;
-						// flag3=true; dont know if a flag is needed here
+					try {
+						month = Integer.parseInt(selected);
+						if (month > 12 || month < 1) {
+							flag3 = true;
+							System.err.println("Insert an integer [1,12]:");
+						} else {
+							flag3 = false;
+						}
+					}catch (Exception a) {
+						System.out.println("Please insert an Integer.");
+						flag3 = true;
 					}
 				}
-				sc.nextLine();
-			} while (flag4);
-			System.out.println("Insert the year.");
-			boolean flag5 = false;
+			} while (flag3);
+			if (requested.get(Calendar.YEAR) == 1990) {
+				break;
+			}
+			System.out.println("Insert the year or press Enter to return to the central menu.");
+			flag3 = false;
 			do {
-				if (!sc.hasNextInt()) {
-					System.err.println("Insert an integer:");
-					flag5 = true;
-					sc.next();
+				selected = sc.nextLine();
+				if (selected.equals("")) {
+					requested.set(Calendar.YEAR, 1990);//that means that the user exited without completing the request
+					flag3 = false;
+					break;
 
-				} else {
-					year = sc.nextInt();
-					if (year != current.get(Calendar.YEAR) && year != current.get(Calendar.YEAR) + 1) {
-						flag5 = true;
-						System.err.println("Insert an integer [" + current.get(Calendar.YEAR) + ","
-								+ (current.get(Calendar.YEAR) + 1) + "]:");
-					} else {
-						flag5 = false;
-						// flag3=true; dont know if a flag is needed here
+				}else {
+					try {
+						year = Integer.parseInt(selected);
+						if (year != current.get(Calendar.YEAR) && year != current.get(Calendar.YEAR) + 1) {
+							flag3 = true;
+							System.err.println("Insert an integer [" + current.get(Calendar.YEAR) + ","
+									+ (current.get(Calendar.YEAR) + 1) + "]:");
+						} else {
+							flag3 = false;
+						}
+				}catch (Exception a) {
+					System.out.println("Please insert an Integer.");
+					flag3 = true;
 					}
 				}
-				sc.nextLine();
-			} while (flag5);
+			} while (flag3);
 			try {
 				LocalDate.of(year, month, day);
 			} catch (Exception e) { // checks that the date is valid, for example day == 31, month == 2 is invalid
-				System.out.println("Invalid date");
+				System.out.println("Invalid date, please try again. \n");
 				flag2 = true;
 				continue;
 			}
@@ -312,7 +345,7 @@ public class Employee {
 			requested.set(Calendar.YEAR, year);
 			lastDay = Shift.getNextMonday();
 			if (current.after(requested) || requested.after(lastDay)) {
-				System.out.println("Insert a date of the current week.");
+				System.out.println("Insert a date of the current week. \n");
 				flag2 = true;
 			}
 		} while (flag2);
