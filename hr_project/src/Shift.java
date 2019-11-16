@@ -12,7 +12,7 @@ public class Shift {
 
 
 	
-	public static int[][] arr_Dep_Times_int(String day_schedule) throws Exception{ // uses a String
+	public static int[][] arr_Dep_Times_int(String day_schedule)  throws Exception{ // uses a String     
 															// input of a daily
 															// timetable
 															// with "," between time periods, "-"
@@ -98,7 +98,11 @@ public class Shift {
 													// departures
 				int_Arrival_hours[i] = x;
 			}else {
-				throw new Exception();
+				throw new Exception(); 				
+			}
+			
+			if (str_Arrival_mins[i].length() != 2) {//if the string that represents mins has not two position exactly then it throws Exception and does not move on
+				throw new Exception(); 	
 			}
 			
 			x = Integer.parseInt(str_Arrival_mins[i]);
@@ -106,7 +110,7 @@ public class Shift {
 										// to check that there are no back to back arrivals or departures
 				int_Arrival_mins[i] = x;
 			} else {
-				throw new Exception();
+				throw new Exception();     
 			}
 
 			x = Integer.parseInt(str_Departure_hours[i]);
@@ -115,7 +119,11 @@ public class Shift {
 									// check that there are no back to back arrivals or departures
 				int_Departure_hours[i] = x;
 			} else {
-				throw new Exception();
+				throw new Exception();                
+			}
+			
+			if (str_Departure_mins[i].length() != 2) {//if the string that represents mins has not two position exactly then it throws Exception and does not move on
+				throw new Exception();               
 			}
 			
 			x = Integer.parseInt(str_Departure_mins[i]);
@@ -124,7 +132,7 @@ public class Shift {
 										// to check that there are no back to back arrivals or departures
 				int_Departure_mins[i] = x;
 			} else {
-				throw new Exception();
+				throw new Exception();                     
 			}
 			
 		}
@@ -272,7 +280,6 @@ public class Shift {
 	public static Calendar[][] createShift(String[] strSchedule) throws Exception{
 		Calendar[][] dayScheduleNextWeek = new Calendar[8][8];
 			if (strSchedule.length != 8) {
-				throw new Exception ();
 			}
 			int[][] arrH_arrM_depH_depM = new int[4][4];
 			Calendar[][] arr_depTimesCal = new Calendar[2][4];
@@ -289,7 +296,7 @@ public class Shift {
 	
 			weekSchedule = week_Schedule(dayScheduleNextWeek); 
 			if (!Check_week_Schedule(weekSchedule)) {
-				throw new Exception ();
+				throw new Exception ();                 
 			}
 		return dayScheduleNextWeek;
 	}
