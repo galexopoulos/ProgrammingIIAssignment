@@ -280,6 +280,7 @@ public class Shift {
 	public static Calendar[][] createShift(String[] strSchedule) throws Exception{
 		Calendar[][] dayScheduleNextWeek = new Calendar[8][8];
 			if (strSchedule.length != 8) {
+				throw new Exception();
 			}
 			int[][] arrH_arrM_depH_depM = new int[4][4];
 			Calendar[][] arr_depTimesCal = new Calendar[2][4];
