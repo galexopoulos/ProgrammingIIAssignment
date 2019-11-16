@@ -3,28 +3,32 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Scanner;
 
-public class Manager extends Employee{
-	private int employee_Id, extraHoursMonth = 0 /*need to be set to 0 every month*/;
-	private double monthSalary;
-	private Calendar[][]weekShift = new Calendar[8][8];
-	private static int add = 0;
+public class Manager extends Employee { // responsible for the Employees who have him as Manager except their basic
+										// shifts
+	private int employee_Id, extraHoursMonth = 0 /* need to be set to 0 every month */;
+	private int monthPayment;
+	private Calendar[][] weekShift = new Calendar[8][8];
 	private Calendar dailyTimes[] = new Calendar[8]; // shows the arrivals and departures of the employee in one day
 	private int dayCounter = 0;// shows how many indexes of the array dailyTimes are filled
 	private boolean checkedIn = false; // true when the employee has checked in but hasn't checked out
 
-	public Manager (String firstname, String surname, String position, String password, int salary,
-			Manager manager) {
+	public Manager(String firstname, String surname, String position, String password, int salary, Manager manager) {
 		super(firstname, surname, position, password, salary, manager);
 	} 
 	
+	public Manager (Employee employee) {//for the promotion at the Hr Director class
+		super(employee);
+	}
+	
 	public void getMenu() {
 		Scanner sc = new Scanner(System.in);
-		boolean flag = false, menuflag = true;//must add a log out option that makes menuflag false
-		int selection = 0;
+		boolean menuflag = true;//must add a log out option that makes menuflag false
 		System.out.println("Welcome!");
 		do {
 			System.out.println(" MANAGER MENU \n------------- \n Select: \n1)Check in.\n2)Check out. \n3)Day off request. \n4)Inbox. \n5)Show shift of the week. "
 					+ "\n6)View Employees. \n7)Show check in status of Employees.\n8)Set  extra hours for an Employee. \n9)Edit an Employee's payment. \n10)Edit an Employee's fields.");
+			boolean flag = false;
+			int selection = 0;
 			do {
 				if (!sc.hasNextInt()) {
 					System.out.println("Please insert an integer 1 - 10");
@@ -41,7 +45,6 @@ public class Manager extends Employee{
 						sc.nextLine();
 					}
 				}
-				// sc.nextLine(); //checkneeded
 			} while (flag);
 			if (selection == 1) {
 				Calendar arrTime = Calendar.getInstance();
@@ -70,57 +73,10 @@ public class Manager extends Employee{
 				//call inbox
 	
 			}else if (selection == 5){
-				for(int i = 1; i<8; i++) {
-					String dayName;
-					switch (i) {
-					case 1:
-						dayName = "Monday";
-						break;
-					case 2:
-						dayName = "Tuesday";
-						break;
-					case 3:
-						dayName = "Wednesday";
-						break;
-					case 4:
-						dayName = "Thursday";
-						break;
-					case 5:
-						dayName = "Friday";
-						break;
-					case 6:
-						dayName = "Saturday";
-						break;
-					default:
-						dayName = "Sunday";
-						break;
-					}
-					System.out.println(dayName);
-					String time;
-					for (int j = 0; j < 8; j = j + 2) {
-						if (weekShift[i][j].get(Calendar.YEAR) != 1990) {
-							time = String.format("%02d:%02d", weekShift[i][j].get(Calendar.HOUR_OF_DAY), weekShift[i][j].get(Calendar.MINUTE));
-							System.out.print (time + " - ");
-							if (weekShift[i][j + 1].get(Calendar.YEAR) != 1990) {
-								time = String.format("%02d:%02d", weekShift[i][j + 1].get(Calendar.HOUR_OF_DAY), weekShift[i][j + 1].get(Calendar.MINUTE));
-								System.out.println(time);
-							}else {
-								System.out.println();
-							}
-						}else {
-							if (weekShift[i][j + 1].get(Calendar.YEAR) != 1990) {
-								time = String.format("%02d:%02d", weekShift[i][j + 1].get(Calendar.HOUR_OF_DAY), weekShift[i][j + 1].get(Calendar.MINUTE));
-								System.out.println("- " + time);
-							}else if (j == 0){// for an empty day
-								System.out.println("-");
-							}
-						}
-					}
-					
-				 }
+				printShift(this);
 			}else if (selection == 6) {
 				boolean onefound = false;
-				for (Employee a : super.Employees) {
+				for (Employee a : super.Employees) { // BINARY SEARCH MAYBE?
 					if (this.equals(a.getManager())) {
 						System.out.println(a.toString());
 						onefound = true;
@@ -131,8 +87,8 @@ public class Manager extends Employee{
 				}
 			}else if (selection == 7) {
 				boolean onefound = false;
-				for (Employee a : super.Employees) {
-					String status;
+				String status;
+				for (Employee a : super.Employees) { // BINARY SEARCH MAYBE?
 					if (this.equals(a.getManager())) {
 						onefound = true;
 						if (a.isCheckedIn()) {
@@ -336,7 +292,7 @@ public class Manager extends Employee{
 									try {
 										selectedId = Integer.parseInt(selected);
 											boolean found = false;
-											for (int i = 0; i < super.Employees.size(); i++) {
+											for (int i = 0; i < super.Employees.size(); i++) { // BINARY SEARCH CAN BE USED HERE
 												if (super.Employees.get(i).getEmployee_Id() == selectedId) {	
 													found = true;
 													if (selectedId != this.employee_Id && super.Employees.get(i) instanceof Manager) { //checks that the new Manager is not the same with the current and that the new Manager is a Manager and not a basic Employee
@@ -410,7 +366,7 @@ public class Manager extends Employee{
 				try {
 					selectedId = Integer.parseInt(selected);
 					boolean found = false;
-					for (int i = 0; i < super.Employees.size(); i++) {
+					for (int i = 0; i < super.Employees.size(); i++) { //BINARY SEARCH CAN BE USED HERE
 						if (super.Employees.get(i).getEmployee_Id() == selectedId) {
 							found = true;
 							if (this.equals(super.Employees.get(i).getManager())) {

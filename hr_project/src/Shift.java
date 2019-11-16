@@ -8,13 +8,11 @@ public class Shift {
 	private String[] schedule = new String[7]; // the class is used to create an Employee's timetable of the type
 												// Calendar, using String input that will be checked
 
-	public Shift(String[] strSchedule) {
-		this.nextWeekShift = connectsAllMethods(strSchedule);
 
-	}
+
 
 	
-	public static int[][] arr_Dep_Times_int(String day_schedule) { // uses a String
+	public static int[][] arr_Dep_Times_int(String day_schedule) throws Exception{ // uses a String
 															// input of a daily
 															// timetable
 															// with "," between time periods, "-"
@@ -99,27 +97,35 @@ public class Shift {
 													// in order to check that there are no back to back arrivals or
 													// departures
 				int_Arrival_hours[i] = x;
+			}else {
+				throw new Exception();
 			}
 			
 			x = Integer.parseInt(str_Arrival_mins[i]);
 			if (x >= 0 && x <= 59 || x == -1) {// 0 <= x <= 59 because x represents minutes here, -1 positions needed in order
 										// to check that there are no back to back arrivals or departures
 				int_Arrival_mins[i] = x;
-			} 
+			} else {
+				throw new Exception();
+			}
 
 			x = Integer.parseInt(str_Departure_hours[i]);
 
 			if (x >= 0 && x <= 23 || x == -1) {// 0 <= x <= 23 because x represents hours here, -1 positions needed in order to
 									// check that there are no back to back arrivals or departures
 				int_Departure_hours[i] = x;
-			} 
+			} else {
+				throw new Exception();
+			}
 			
 			x = Integer.parseInt(str_Departure_mins[i]);
 
 			if (x >= 0 && x <= 59 || x == -1) {// 0 <= x <= 59 because x represents minutes here, -1 positions needed in order
 										// to check that there are no back to back arrivals or departures
 				int_Departure_mins[i] = x;
-			} 
+			} else {
+				throw new Exception();
+			}
 			
 		}
 		arrH_arrM_depH_depM[0] = int_Arrival_hours;
@@ -237,7 +243,6 @@ public class Shift {
 			}else if (y1990inrow != 0){
 				if (y1990inrow % 2 != 0) {
 					everythingOk = false;
-					System.out.println("error1");
 					break;
 				}else {
 					y1990inrow = 0;
@@ -257,7 +262,6 @@ public class Shift {
 															// diffent days and that means that their order is correct
 
 					everythingOk = false;
-					System.out.println("err2");
 					break;
 				}
 		}
@@ -265,9 +269,8 @@ public class Shift {
 		return everythingOk;
 	}
 
-	public static Calendar[][] connectsAllMethods(String[] strSchedule) {
+	public static Calendar[][] createShift(String[] strSchedule) throws Exception{
 		Calendar[][] dayScheduleNextWeek = new Calendar[8][8];
-		try {
 			if (strSchedule.length != 8) {
 				throw new Exception ();
 			}
@@ -288,9 +291,6 @@ public class Shift {
 			if (!Check_week_Schedule(weekSchedule)) {
 				throw new Exception ();
 			}
-		}catch (Exception except) {
-			System.err.println("Input error, at the Shift.");
-		}
 		return dayScheduleNextWeek;
 	}
 }

@@ -6,23 +6,29 @@ public class Employee {
 	private int employee_Id, extraHoursMonth = 0 /*need to be set to 0 every month*/, salary, monthPayment;
 	private Calendar[][]weekShift = new Calendar[8][8];
 	private Manager manager;
-	private static int add = 0; 
+	private static int add = 1; //the Hr Director has the id = 0
 	static ArrayList<Employee> Employees = new ArrayList<Employee>();
 	private Calendar dailyTimes[] = new Calendar[8]; // shows the arrivals and departures of the employee in one day
 	private int dayCounter = 0;// shows how many indexes of the array dailyTimes are filled
 	private boolean checkedIn = false; // true when the employee has checked in but hasn't checked out
+	private String[] shiftStr = new String[8];
 
 	public Employee(String firstname, String surname, String position, String password, int salary,
 			Manager manager) {
 		this.firstname = firstname;
 		this.surname = surname;
 		this.position = position;
+		this.password = password;
 		this.salary = salary;
 		this.manager = manager;
 		this.employee_Id = add;
 
 		Employees.add(this);
 		add++;
+	}
+	
+	public Employee (Employee employee) {//for the second constructor at Manager
+		
 	}
 
 	public String getFirstname() {
@@ -121,13 +127,21 @@ public class Employee {
 	
 
 
-
 	public boolean isCheckedIn() {
 		return checkedIn;
 	}
 
 	public void setCheckedIn(boolean checkedIn) {
 		this.checkedIn = checkedIn;
+	}
+
+	
+	public String[] getShiftStr() {
+		return shiftStr;
+	}
+
+	public void setShiftStr(String[] shiftStr) {
+		this.shiftStr = shiftStr;
 	}
 
 	@Override
@@ -138,12 +152,13 @@ public class Employee {
 
 	public void getMenu() {
 		Scanner sc = new Scanner(System.in);
-		boolean flag = false, menuflag = true;//must add a log out option that makes menuflag false
-		int selection = 0;
+		boolean menuflag = true;//must add a log out option that makes menuflag false
 		System.out.println("Welcome!");
 		do{	
 			System.out.println("    MENU \n------------- \n Select: \n1)Check in.\n2)Check out. \n"
 					+ "3)Day off request. \n4)Inbox. \n5)Show shift of the week.");
+			boolean flag = false;
+			int selection = 0;
 			do {
 				if (!sc.hasNextInt()) {
 					System.out.println("Please insert 1 or 2 or 3 or 4 or 5");
@@ -160,7 +175,6 @@ public class Employee {
 						sc.nextLine();
 					}
 				}
-				// sc.nextLine(); //checkneeded
 			} while (flag);
 			if (selection == 1) {
 				Calendar arrTime = Calendar.getInstance();
@@ -188,62 +202,14 @@ public class Employee {
 			}else if (selection == 4) {
 				//call inbox
 	
-			}else {
-				for(int i = 1; i<8; i++) {
-					String dayName;
-					switch (i) {
-					case 1:
-						dayName = "Monday";
-						break;
-					case 2:
-						dayName = "Tuesday";
-						break;
-					case 3:
-						dayName = "Wednesday";
-						break;
-					case 4:
-						dayName = "Thursday";
-						break;
-					case 5:
-						dayName = "Friday";
-						break;
-					case 6:
-						dayName = "Saturday";
-						break;
-					default:
-						dayName = "Sunday";
-						break;
-					}
-					System.out.println(dayName);
-					String time;
-					for (int j = 0; j < 8; j = j + 2) {
-						if (weekShift[i][j].get(Calendar.YEAR) != 1990) {
-							time = String.format("%02d:%02d", weekShift[i][j].get(Calendar.HOUR_OF_DAY), weekShift[i][j].get(Calendar.MINUTE));
-							System.out.print (time + " - ");
-							if (weekShift[i][j + 1].get(Calendar.YEAR) != 1990) {
-								time = String.format("%02d:%02d", weekShift[i][j + 1].get(Calendar.HOUR_OF_DAY), weekShift[i][j + 1].get(Calendar.MINUTE));
-								System.out.println(time);
-							}else {
-								System.out.println();
-							}
-						}else {
-							if (weekShift[i][j + 1].get(Calendar.YEAR) != 1990) {
-								time = String.format("%02d:%02d", weekShift[i][j + 1].get(Calendar.HOUR_OF_DAY), weekShift[i][j + 1].get(Calendar.MINUTE));
-								System.out.println("- " + time);
-							}else if (j == 0){// for an empty day
-								System.out.println("-");
-							}
-						}
-					}
-					
-				 }
-			
+			}else if (selection == 5){
+				printShift(this);
 			}
 		}while (menuflag);
 	}
 	
 	
-	public  Calendar enterWeekDay() {  //checks if the day that will be given is vaid and in the current week //I HAVE TO ADD AN OPTION OF EXIT, THAT WILL SET THE YEAR OF REQUESTED 1990
+	public  Calendar enterWeekDay() {  //checks if the day that will be given is vaid and in the current week 
 		Scanner sc = new Scanner(System.in);
 		Calendar current = Calendar.getInstance();
 		current.add(Calendar.SECOND, -1); // in order to be able to get the current day 
@@ -350,6 +316,61 @@ public class Employee {
 			}
 		} while (flag2);
 		return requested;
+	}
+	
+	
+	public void printShift(Employee employee) {
+
+		for(int i = 1; i<8; i++) {
+			String dayName;
+			switch (i) {
+			case 1:
+				dayName = "Monday";
+				break;
+			case 2:
+				dayName = "Tuesday";
+				break;
+			case 3:
+				dayName = "Wednesday";
+				break;
+			case 4:
+				dayName = "Thursday";
+				break;
+			case 5:
+				dayName = "Friday";
+				break;
+			case 6:
+				dayName = "Saturday";
+				break;
+			default:
+				dayName = "Sunday";
+				break;
+			}
+			System.out.println(dayName);
+			String time;
+			for (int j = 0; j < 8; j = j + 2) {
+				if (employee.weekShift[i][j].get(Calendar.YEAR) != 1990) {
+					time = String.format("%02d:%02d", employee.weekShift[i][j].get(Calendar.HOUR_OF_DAY), employee.weekShift[i][j].get(Calendar.MINUTE));
+					System.out.print (time + " - ");
+					if (employee.weekShift[i][j + 1].get(Calendar.YEAR) != 1990) {
+						time = String.format("%02d:%02d", employee.weekShift[i][j + 1].get(Calendar.HOUR_OF_DAY), employee.weekShift[i][j + 1].get(Calendar.MINUTE));
+						System.out.println(time);
+					}else {
+						System.out.println();
+					}
+				}else {
+					if (weekShift[i][j + 1].get(Calendar.YEAR) != 1990) {
+						time = String.format("%02d:%02d", employee.weekShift[i][j + 1].get(Calendar.HOUR_OF_DAY), employee.weekShift[i][j + 1].get(Calendar.MINUTE));
+						System.out.println("- " + time);
+					}else if (j == 0){// for an empty day
+						System.out.println("-");
+					}
+				}
+			}
+			
+		 }
+	
+	
 	}
 
 
