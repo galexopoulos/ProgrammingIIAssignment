@@ -28,7 +28,25 @@ public class Employee {
 	}
 	
 	public Employee (Employee employee) {//for the second constructor at Manager
-		
+		this.firstname = employee.firstname;
+		this.surname = employee.surname;
+		this.position = employee.position;
+		this.password = employee.password;
+		this.salary = employee.salary;
+		this.manager = employee.manager;
+		this.employee_Id = employee.employee_Id;
+		this.extraHoursMonth = employee.extraHoursMonth;
+		this.monthPayment = employee.monthPayment;
+		this.dailyTimes = employee.dailyTimes;
+		this.dayCounter = employee.dayCounter;
+		this.checkedIn = employee.checkedIn;
+		this.shiftStr = employee.shiftStr;
+		for(int i = 0; i < Employees.size(); i++ ) {
+			if (Employees.get(i).equals(employee) ) {
+				Employees.set(i, this);
+			}
+				
+		}
 	}
 
 	public String getFirstname() {
