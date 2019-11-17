@@ -76,7 +76,7 @@ public class Manager extends Employee { // responsible for the Employees who hav
 				printShift(this);
 			}else if (selection == 6) {
 				boolean onefound = false;
-				for (Employee a : super.Employees) { // BINARY SEARCH MAYBE?
+				for (Employee a : super.Employees) {
 					if (this.equals(a.getManager())) {
 						System.out.println(a.toString());
 						onefound = true;
@@ -88,7 +88,7 @@ public class Manager extends Employee { // responsible for the Employees who hav
 			}else if (selection == 7) {
 				boolean onefound = false;
 				String status;
-				for (Employee a : super.Employees) { // BINARY SEARCH MAYBE?
+				for (Employee a : super.Employees) { 
 					if (this.equals(a.getManager())) {
 						onefound = true;
 						if (a.isCheckedIn()) {
@@ -132,91 +132,103 @@ public class Manager extends Employee { // responsible for the Employees who hav
 					switch (sel) {
 					
 					case 1:
-						System.out.println("The current salary is " + super.Employees.get(posInEmployees).getSalary());
-						System.out.println("Set the new salary:");
+						System.out.println("The current salary is " + super.Employees.get(posInEmployees).getSalary() + ".");
+						String selected;
+						int selectedSalary = -1;
 						boolean flag2 = false;
-						int newSalary = super.Employees.get(posInEmployees).getSalary();
 						do {
-							if (!sc.hasNextInt()) {
-								System.out.println("Please insert an integer.");
-								flag2 = true;
-								sc.next();
-		
+							System.out.println("Set the new salary or press Enter to return to the basic Menu:");
+							selected = sc.nextLine();
+							if (selected.equals("")) {
+								flag2 = false;
+								break;
+
 							} else {
-								newSalary = sc.nextInt();
-								if (newSalary < 0) {
+								try {
+									selectedSalary = Integer.parseInt(selected);
+									if (selectedSalary < 0) {
+										flag2 = true;
+										System.out.println("Input an integer greater than zero.");
+									}else if(selectedSalary == super.Employees.get(posInEmployees).getSalary()) {
+										flag2 = true;
+										System.out.println("Insert a salary different than the previous one.");
+									}else {
+										flag2 = false;
+									}
+								}catch(Exception b) {
 									flag2 = true;
-									System.out.println("Input an integer greater than zero.");
-								}else if(newSalary == super.Employees.get(posInEmployees).getSalary()) {
-									System.out.println("Insert a salary different than the previous one.");
-								}else {
-									flag2 = false;
-									sc.nextLine();
+									System.out.println("Please insert an Integer.");
 								}
-							}
-							
+							}	
 						} while (flag2);
-						System.out.println("The new salary is going to be set to" + newSalary + "/nare you sure you want to make that change?");
-						boolean flag3 = false;
-						do {
-							System.out.println("yes/no");
-							String verify = sc.nextLine();
-							if (verify.toLowerCase().equals("yes")) {
-								super.Employees.get(posInEmployees).setSalary(newSalary);
-								System.out.println("The change has been made.");
-								flag3 = false;
-							}else if (verify.toLowerCase().equals("no")){
-								System.out.println("Change cancelled");
-								flag3 = false;
-							}else {
-								flag3 = true;
-							}
-						}while(flag3);
-						break;
-					
-					case 2:
-						System.out.println("The current payment is " + super.Employees.get(posInEmployees).getMonthPayment());
-						System.out.println("Set the new payment:");
-						boolean flag4 = false;
-						int newPayment = super.Employees.get(posInEmployees).getMonthPayment();
-						do {
-							if (!sc.hasNextInt()) {
-								System.out.println("Please insert an integer.");
-								flag4 = true;
-								sc.next();
-		
-							} else {
-								newPayment = sc.nextInt();
-								if (newPayment < 0) {
-									flag4 = true;
-									System.out.println("Input an integer greater than zero.");
-								}else if(newPayment == super.Employees.get(posInEmployees).getMonthPayment()) {
-									System.out.println("Insert a payment different than the previous one.");
+						if (selectedSalary != -1) {
+							System.out.println("The new salary is going to be set to " + selectedSalary + ".\nAre you sure you want to make that change?");
+							boolean flag3 = false;
+							do {
+								System.out.println("yes/no");
+								String verify = sc.nextLine();
+								if (verify.toLowerCase().equals("yes")) {
+									super.Employees.get(posInEmployees).setSalary(selectedSalary);
+									System.out.println("The change has been made.");
+									flag3 = false;
+								}else if (verify.toLowerCase().equals("no")){
+									System.out.println("Change cancelled");
+									flag3 = false;
 								}else {
-									flag4 = false;
-									sc.nextLine();
+									flag3 = true;
 								}
-							}
-							
-						} while (flag4);
-						System.out.println("The new payment is going to be set to" + newPayment + "." + "\nAre you sure you want to make that change?");
-						boolean flag5 = false;
-						do {
-							System.out.println("yes/no");
-							String verify = sc.nextLine();
-							if (verify.toLowerCase().equals("yes")) {
-								super.Employees.get(posInEmployees).setMonthPayment(newPayment);
-								System.out.println("The change have been made.");
-								flag5 = false;
-							}else if (verify.toLowerCase().equals("no")){
-								System.out.println("Change cancelled");
-								flag5 = false;
-							}else {
-								flag5 = true;
-							}
-						}while(flag5);
+							}while(flag3);
+						}
 						break;
-					
+					case 2:
+						System.out.println("The current payment is " + super.Employees.get(posInEmployees).getMonthPayment() + ".");
+						String selected2;
+						int selectedPayment = -1;
+						boolean flag4 = false;
+						do {
+							System.out.println("Set the new payment or press Enter to return to the basic Menu:");
+							selected2 = sc.nextLine();
+							if (selected2.equals("")) {
+								flag4 = false;
+								break;
+
+							} else {
+								try {
+									selectedPayment = Integer.parseInt(selected2);
+									if (selectedPayment < 0) {
+										flag4 = true;
+										System.out.println("Input an integer greater than zero.");
+									}else if(selectedPayment == super.Employees.get(posInEmployees).getMonthPayment()) {
+										flag4 = true;
+										System.out.println("Insert a payment different than the previous one.");
+									}else {
+										flag4 = false;
+									}
+								}catch(Exception b) {
+									flag4 = true;
+									System.out.println("Please insert an Integer.");
+								}
+							}	
+						} while (flag4);
+						if (selectedPayment != -1) {
+							System.out.println("The new payment is going to be set to " + selectedPayment + ".\nAre you sure you want to make that change?");
+							boolean flag5 = false;
+							do {
+								System.out.println("yes/no");
+								String verify = sc.nextLine();
+								if (verify.toLowerCase().equals("yes")) {
+									super.Employees.get(posInEmployees).setSalary(selectedPayment);
+									System.out.println("The change has been made.");
+									flag5 = false;
+								}else if (verify.toLowerCase().equals("no")){
+									System.out.println("Change cancelled");
+									flag5 = false;
+								}else {
+									flag5 = true;
+								}
+							}while(flag5);
+						}
+						break;
 					case 3:
 						menuflag = true;
 						break;
@@ -280,44 +292,58 @@ public class Manager extends Employee { // responsible for the Employees who hav
 							System.out.println("The current manager is " + super.Employees.get(posInEmployees).getManager().getFirstname() +
 									" " + super.Employees.get(posInEmployees).getManager().getSurname() +".");
 							String selected;
-							int selectedId, posInEmployees2 = -1;
+							int selectedId, posInEmpOfManager = -1;
 							boolean flag3 = false;
 							do {	
 								System.out.println("Enter the id of the new Manager or press Enter to return to central Menu.");
 								selected = sc.nextLine();
 								if (selected.equals("")) {
 									flag3 = false;
-									posInEmployees2 = -1;
+									posInEmpOfManager = -1;
 								}else {
 									try {
 										selectedId = Integer.parseInt(selected);
-											boolean found = false;
-											for (int i = 0; i < super.Employees.size(); i++) { // BINARY SEARCH CAN BE USED HERE
-												if (super.Employees.get(i).getEmployee_Id() == selectedId) {	
-													found = true;
-													if (selectedId != this.employee_Id && super.Employees.get(i) instanceof Manager) { //checks that the new Manager is not the same with the current and that the new Manager is a Manager and not a basic Employee
-														posInEmployees2 = i;
-														flag3 = false;
-														break;
-													}else {
-														flag3 = true;
-														System.out.println("You are not allowed to do that.");
-													}
-												}
-												
-											}
-											if (!found) {
+										posInEmpOfManager = binarySearch(selectedId);
+									
+										if (posInEmpOfManager != -1) {
+											if (selectedId != this.getEmployee_Id()
+													&& selectedId != super.Employees.get(posInEmployees)
+															.getEmployee_Id()
+													&& super.Employees.get(posInEmpOfManager) instanceof Manager) { // checks that
+																									// the new
+																									// Manager is
+																									// not the same
+																									// with the
+																									// current or
+																									// with the
+																									// employee whom
+																									// field we want
+																									// to edit and
+																									// that the new
+																									// Manager is a
+																									// Manager and
+																									// not a basic
+																									// Employee
+												flag3 = false;
+											} else {
+												posInEmpOfManager = -1;
 												flag3 = true;
-												System.out.println("That is not a valid id.");
+												System.out.println("You are not allowed to do that.");
 											}
+										}else {
+											posInEmpOfManager = -1;
+											flag3 = true;
+											System.out.println("That is not a valid id.");
+										}
 									}catch (Exception d) {
+										posInEmpOfManager = -1;
 										System.out.println("Please insert an Integer.");
 										flag3 = true;
 									}
 								}
 						
-							if (posInEmployees2 != -1) {	
-								Manager newManager =(Manager) super.Employees.get(posInEmployees2);
+							if (posInEmpOfManager != -1) {	
+								Manager newManager =(Manager) super.Employees.get(posInEmpOfManager);
 								System.out.println("The new Manager is going to be: " + newManager.getFirstname() + " " + newManager.getSurname() + "." + "\nAre you sure you want to make that change?");
 								boolean flag10 = false;
 								do {
@@ -365,23 +391,17 @@ public class Manager extends Employee { // responsible for the Employees who hav
 			} else {
 				try {
 					selectedId = Integer.parseInt(selected);
-					boolean found = false;
-					for (int i = 0; i < super.Employees.size(); i++) { //BINARY SEARCH CAN BE USED HERE
-						if (super.Employees.get(i).getEmployee_Id() == selectedId) {
-							found = true;
-							if (this.equals(super.Employees.get(i).getManager())) {
-								requested = i;
-								flag1 = false;
-								break;
-							}else {
-								flag1 = true;
-								System.out.println("You are not allowed to do that.");
-								break;
-							}
+					int posInEmployees = binarySearch(selectedId);
+					if (posInEmployees != -1) {
+						if (this.equals(super.Employees.get(posInEmployees).getManager())) {
+							requested = posInEmployees;
+							flag1 = false;
+							break;
+						}else {
+							flag1 = true;
+							System.out.println("You are not allowed to do that.");
 						}
-						
-					}
-					if (!found) {
+					}else {
 						flag1 = true;
 						System.out.println("That is not a valid Id.");
 					}
@@ -392,6 +412,21 @@ public class Manager extends Employee { // responsible for the Employees who hav
 			}	
 		} while (flag1);
 		return requested;
+	}
+	
+	public static int binarySearch (int x) {//x the id you want to find in the Employees and returns the position in Employees
+		int l = 0, r = Employee.Employees.size()-1;
+		while (l <= r) {
+			int m = l + (r - l) / 2;
+			if (Employee.Employees.get(m).getEmployee_Id() == x)
+				return m;
+
+			if (Employee.Employees.get(m).getEmployee_Id() < x)
+				l = m + 1;
+			else
+				r = m - 1;
+		}
+		return -1;
 	}
 	
 }
