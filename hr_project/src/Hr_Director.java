@@ -21,15 +21,15 @@ public class Hr_Director extends Manager{ // is resposible for all the Managers 
 			int selection = 0;
 			do { 
 				if (!sc.hasNextInt()) {
-					System.out.println("Please insert an integer 1 - 9");
+					System.out.println("Please insert an integer 1 - 10");
 					flag = true;
 					sc.next();
 	
 				} else {
 					selection = sc.nextInt();
-					if (selection > 8 || selection < 1) {
+					if (selection > 10 || selection < 1) {
 						flag = true;
-						System.out.println("input an integer [1,9]");
+						System.out.println("input an integer [1,10]");
 					} else {
 						flag = false;
 						sc.nextLine();
@@ -40,8 +40,8 @@ public class Hr_Director extends Manager{ // is resposible for all the Managers 
 				//INB0X RELATED
 			}else if (selection == 2){
 				boolean onefound = false;
-				for (Employee a : Employee.Employees) { // BINARY SEARCH MAYBE?
-					if (a instanceof Manager) {
+				for (Employee a : Employee.Employees) {
+					if (a instanceof Manager && !a.equals(this)) {
 						onefound = true;
 						System.out.println(a.toString());
 					}
@@ -52,15 +52,15 @@ public class Hr_Director extends Manager{ // is resposible for all the Managers 
 			}else if (selection == 3) {
 				boolean onefound = false;
 				String status;
-				for (Employee a : Employee.Employees) { // BINARY SEARCH MAYBE?
-					if (a instanceof Manager) {
+				for (Employee a : Employee.Employees) { 
+					if (a instanceof Manager && !a.equals(this)) {
 						onefound = true;
 						if (a.isCheckedIn()) {
 							status = "Checked in";
 						}else {
 							status = "Checked out";
 						}
-						System.out.println("Id:" + a.getEmployee_Id() + a.getFirstname() + a.getSurname() + "status:" + status);
+						System.out.println("Id: " + a.getEmployee_Id() + " " + a.getFirstname() + " " + a.getSurname() + " status: " + status);
 					}
 				}
 				if (!onefound) {
@@ -70,7 +70,9 @@ public class Hr_Director extends Manager{ // is resposible for all the Managers 
 				//related to inbox
 			}else if (selection == 5) {
 				int posInEmployees = enterManagerId();
+				
 				if (posInEmployees != -1) {
+					System.out.println(Employee.Employees.get(posInEmployees).toString());
 					boolean flag1 = false;
 					int sel = 0;
 					System.out.println("Select \n1)Edit salary. \n2)Edit payment for the current month. \n3)Return to central menu.");
@@ -95,91 +97,104 @@ public class Hr_Director extends Manager{ // is resposible for all the Managers 
 					switch (sel) {
 					
 					case 1:
-						System.out.println("The current salary is " + Employee.Employees.get(posInEmployees).getSalary());
-						System.out.println("Set the new salary:");
+						System.out.println("The current salary is " + super.Employees.get(posInEmployees).getSalary() + ".");
+						String selected;
+						int selectedSalary = -1;
 						boolean flag2 = false;
-						int newSalary = Employee.Employees.get(posInEmployees).getSalary();
 						do {
-							if (!sc.hasNextInt()) {
-								System.out.println("Please insert an integer.");
-								flag2 = true;
-								sc.next();
-		
+							System.out.println("Set the new salary or press Enter to return to the basic Menu:");
+							selected = sc.nextLine();
+							if (selected.equals("")) {
+								flag2 = false;
+								break;
+
 							} else {
-								newSalary = sc.nextInt();
-								if (newSalary < 0) {
+								try {
+									selectedSalary = Integer.parseInt(selected);
+									if (selectedSalary < 0) {
+										flag2 = true;
+										System.out.println("Input an integer greater than zero.");
+									}else if(selectedSalary == super.Employees.get(posInEmployees).getSalary()) {
+										flag2 = true;
+										System.out.println("Insert a salary different than the previous one.");
+									}else {
+										flag2 = false;
+									}
+								}catch(Exception b) {
 									flag2 = true;
-									System.out.println("Input an integer greater than zero.");
-								}else if(newSalary == Employee.Employees.get(posInEmployees).getSalary()) {
-									System.out.println("Insert a salary different than the previous one.");
-								}else {
-									flag2 = false;
-									sc.nextLine();
+									System.out.println("Please insert an Integer.");
 								}
-							}
-							
+							}	
 						} while (flag2);
-						System.out.println("The new salary is going to be set to" + newSalary + "/nare you sure you want to make that change?");
-						boolean flag3 = false;
-						do {
-							System.out.println("yes/no");
-							String verify = sc.nextLine();
-							if (verify.toLowerCase().equals("yes")) {
-								Employee.Employees.get(posInEmployees).setSalary(newSalary);
-								System.out.println("The change has been made.");
-								flag3 = false;
-							}else if (verify.toLowerCase().equals("no")){
-								System.out.println("Change cancelled");
-								flag3 = false;
-							}else {
-								flag3 = true;
-							}
-						}while(flag3);
+						if (selectedSalary != -1) {
+							System.out.println("The new salary is going to be set to " + selectedSalary + ".\nAre you sure you want to make that change?");
+							boolean flag3 = false;
+							do {
+								System.out.println("yes/no");
+								String verify = sc.nextLine();
+								if (verify.toLowerCase().equals("yes")) {
+									Employee.Employees.get(posInEmployees).setSalary(selectedSalary);
+									System.out.println("The change has been made.");
+									flag3 = false;
+								}else if (verify.toLowerCase().equals("no")){
+									System.out.println("Change cancelled");
+									flag3 = false;
+								}else {
+									flag3 = true;
+								}
+							}while(flag3);
+						}
 						break;
 					
 					case 2:
-						System.out.println("The current payment is " + Employee.Employees.get(posInEmployees).getMonthPayment());
-						System.out.println("Set the new payment:");
+						System.out.println("The current payment is " + super.Employees.get(posInEmployees).getMonthPayment() + ".");
+						String selected2;
+						int selectedPayment = -1;
 						boolean flag4 = false;
-						int newPayment = Employee.Employees.get(posInEmployees).getMonthPayment();
 						do {
-							if (!sc.hasNextInt()) {
-								System.out.println("Please insert an integer.");
-								flag4 = true;
-								sc.next();
-		
+							System.out.println("Set the new payment or press Enter to return to the basic Menu:");
+							selected2 = sc.nextLine();
+							if (selected2.equals("")) {
+								flag4 = false;
+								break;
+
 							} else {
-								newPayment = sc.nextInt();
-								if (newPayment < 0) {
+								try {
+									selectedPayment = Integer.parseInt(selected2);
+									if (selectedPayment < 0) {
+										flag4 = true;
+										System.out.println("Input an integer greater than zero.");
+									}else if(selectedPayment == super.Employees.get(posInEmployees).getMonthPayment()) {
+										flag4 = true;
+										System.out.println("Insert a payment different than the previous one.");
+									}else {
+										flag4 = false;
+									}
+								}catch(Exception b) {
 									flag4 = true;
-									System.out.println("Input an integer greater than zero.");
-								}else if(newPayment == Employee.Employees.get(posInEmployees).getMonthPayment()) {
-									System.out.println("Insert a payment different than the previous one.");
-								}else {
-									flag4 = false;
-									sc.nextLine();
+									System.out.println("Please insert an Integer.");
 								}
-							}
-							
+							}	
 						} while (flag4);
-						System.out.println("The new payment is going to be set to" + newPayment + "." + "\nAre you sure you want to make that change?");
-						boolean flag5 = false;
-						do {
-							System.out.println("yes/no");
-							String verify = sc.nextLine();
-							if (verify.toLowerCase().equals("yes")) {
-								Employee.Employees.get(posInEmployees).setMonthPayment(newPayment);
-								System.out.println("The change have been made.");
-								flag5 = false;
-							}else if (verify.toLowerCase().equals("no")){
-								System.out.println("Change cancelled");
-								flag5 = false;
-							}else {
-								flag5 = true;
-							}
-						}while(flag5);
+						if (selectedPayment != -1) {
+							System.out.println("The new payment is going to be set to " + selectedPayment + ".\nAre you sure you want to make that change?");
+							boolean flag5 = false;
+							do {
+								System.out.println("yes/no");
+								String verify = sc.nextLine();
+								if (verify.toLowerCase().equals("yes")) {
+									Employee.Employees.get(posInEmployees).setSalary(selectedPayment);
+									System.out.println("The change has been made.");
+									flag5 = false;
+								}else if (verify.toLowerCase().equals("no")){
+									System.out.println("Change cancelled");
+									flag5 = false;
+								}else {
+									flag5 = true;
+								}
+							}while(flag5);
+						}
 						break;
-					
 					case 3:
 						menuflag = true;
 						break;
@@ -239,55 +254,90 @@ public class Hr_Director extends Manager{ // is resposible for all the Managers 
 								}while(flag2);
 							}
 							break;
-						case 2: 
+						case 2: //every Employee except the Hr_Director has a Manager
 							System.out.println("The current manager is " + Employee.Employees.get(posInEmployees).getManager().getFirstname() +
 									" " + Employee.Employees.get(posInEmployees).getManager().getSurname() +".");
 							String selected;
-							int selectedId, posInEmployees2 = -1;
+							int selectedId, posInEmpOfManager = -1;
 							boolean flag3 = false;
 							do {	
 								System.out.println("Enter the id of the new Manager or press Enter to return to central Menu.");
 								selected = sc.nextLine();
 								if (selected.equals("")) {
 									flag3 = false;
-									posInEmployees2 = -1;
+									posInEmpOfManager = -1;
 								}else {
 									try {
 										selectedId = Integer.parseInt(selected);
-											boolean found = false;
-											for (int i = 0; i < Employee.Employees.size(); i++) { // BINARY SEARCH CAN BE USED HERE
-												if (Employee.Employees.get(i).getEmployee_Id() == selectedId) {	
-													found = true;
-													if (selectedId != this.employee_Id && Employee.Employees.get(i) instanceof Manager) { //checks that the new Manager is not the same with the current and that the new Manager is a Manager and not a basic Employee
-														posInEmployees2 = i;
-														flag3 = false;
-														break;
-													}else {
-														flag3 = true;
-														System.out.println("You are not allowed to do that.");
-													}
-												}
-												
-											}
-											if (!found) {
+										posInEmpOfManager = binarySearch(selectedId);
+
+										if (posInEmpOfManager != -1) {
+											if (selectedId != Employee.Employees.get(posInEmployees).getManager()
+													.getEmployee_Id()
+													&& selectedId != Employee.Employees.get(posInEmployees)
+															.getEmployee_Id()
+													&& Employee.Employees.get(posInEmpOfManager) instanceof Manager) { // checks
+																													// that
+																													// the
+																													// new
+																													// Manager
+																													// is
+																													// not
+																													// the
+																													// same
+																													// with
+																													// the
+																													// current
+																													// or
+																													// with
+																													// the
+																													// employee
+																													// whom
+																													// field
+																													// we
+																													// want
+																													// to
+																													// edit
+																													// and
+																													// that
+																													// the
+																													// new
+																													// Manager
+																													// is
+																													// a
+																													// Manager
+																													// and
+																													// not
+																													// a
+																													// basic
+																													// Employee
+												flag3 = false;
+											} else {
+												posInEmpOfManager = -1;
 												flag3 = true;
-												System.out.println("That is not a valid id.");
+												System.out.println("You are not allowed to do that.");
 											}
+										}else {
+											posInEmpOfManager = -1;
+											flag3 = true;
+											System.out.println("That is not a valid id.");
+										}
 									}catch (Exception d) {
+										posInEmpOfManager = -1;
 										System.out.println("Please insert an Integer.");
 										flag3 = true;
 									}
 								}
 						
-							if (posInEmployees2 != -1) {	
-								Manager newManager =(Manager) Employee.Employees.get(posInEmployees2);
+							if (posInEmpOfManager != -1) {	
+								Manager newManager =(Manager) super.Employees.get(posInEmpOfManager);
 								System.out.println("The new Manager is going to be: " + newManager.getFirstname() + " " + newManager.getSurname() + "." + "\nAre you sure you want to make that change?");
 								boolean flag10 = false;
 								do {
 									System.out.println("yes/no");
 									String verify = sc.nextLine();
 									if (verify.toLowerCase().equals("yes")) {
-										Employee.Employees.get(posInEmployees).setManager(newManager);
+										super.Employees.get(posInEmployees).setManager(newManager);
 										System.out.println("The change has been made.");
 										flag10 = false;
 									}else if (verify.toLowerCase().equals("no")){
@@ -327,19 +377,12 @@ public class Hr_Director extends Manager{ // is resposible for all the Managers 
 						} else {
 							try {
 								selectedId = Integer.parseInt(selected);
-								boolean found = false;
-								for (int i = 0; i < Employee.Employees.size(); i++) { //BINARY SEARCH CAN BE USED HERE
-									if (Employee.Employees.get(i).getEmployee_Id() == selectedId) {
-										flag1 = false;
-										found = true;
-										posInEmployees = i;
-										break;
-									}
-									
-								}
-								if (!found) {
+								posInEmployees = binarySearch(selectedId);
+								if (posInEmployees == -1) {
 									flag1 = true;
 									System.out.println("That is not a valid Id.");
+								}else {
+									flag1 = false;
 								}
 							}catch(Exception b) {
 								flag1 = true;
@@ -446,17 +489,12 @@ public class Hr_Director extends Manager{ // is resposible for all the Managers 
 					} else {
 						try {
 							selectedId = Integer.parseInt(selected);
-							boolean found = false;
-							for (int i = 0; i < Employee.Employees.size(); i++) { //BINARY SEARCH CAN BE USED HERE
-								if (Employee.Employees.get(i).getEmployee_Id() == selectedId) {
-									found = true;
-									posInEmployees = i;
-									break;
-								}
-							}
-							if (!found) {
+							posInEmployees = binarySearch(selectedId);
+							if (posInEmployees == -1) {
 								flag1 = true;
 								System.out.println("That is not a valid Id.");
+							}else {
+								flag1 = false;
 							}
 						}catch(Exception b) {
 							flag1 = true;
@@ -544,23 +582,17 @@ public class Hr_Director extends Manager{ // is resposible for all the Managers 
 			} else {
 				try {
 					selectedId = Integer.parseInt(selected);
-					boolean found = false;
-					for (int i = 0; i < Employee.Employees.size(); i++) { //BINARY SEARCH CAN BE USED HERE
-						if (Employee.Employees.get(i).getEmployee_Id() == selectedId) {
-							found = true;
-							if (Employee.Employees.get(i) instanceof Manager) {
-								requested = i;
-								flag1 = false;
-								break;
-							}else {
-								flag1 = true;
-								System.out.println("That Id doesn't refer to a Manager.");
-								break;
-							}
+					int posInEmployees = binarySearch(selectedId);
+					if (posInEmployees != -1) {
+						if (Employee.Employees.get(posInEmployees) instanceof Manager) {
+							requested = posInEmployees;
+							flag1 = false;
+							break;
+						}else {
+							flag1 = true;
+							System.out.println("That id doesn't refer to a Manager.");
 						}
-						
-					}
-					if (!found) {
+					}else {
 						flag1 = true;
 						System.out.println("That is not a valid Id.");
 					}

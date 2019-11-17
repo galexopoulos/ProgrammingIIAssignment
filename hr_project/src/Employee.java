@@ -253,14 +253,12 @@ public class Employee {
 							System.err.println("Insert an integer [1,31]:");
 						} else {
 							flag3 = false;
-							// flag3=true; dont know if a flag is needed here
 						}
 					}catch (Exception a) {
 						System.out.println("Please insert an Integer.");
 						flag3 = true;
 					}
 				}
-				//sc.nextLine();
 			} while (flag3);
 			if (requested.get(Calendar.YEAR) == 1990) {
 				break;
