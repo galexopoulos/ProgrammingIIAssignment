@@ -42,7 +42,7 @@ public class ShareHolders {
 	@Override
 	public String toString() {
 		return "ShareHolder id = " + id + " and username = " + username 
-				+"/n Dividend of " + getCurrentMonth(getDate(1) + 1) + "," + getDate(2)
+				+"\n Dividend of " + getCurrentMonth(getDate(1) + 1) + "," + getDate(2)
 				+" is " + dividend;
 	}
 	

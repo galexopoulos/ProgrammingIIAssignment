@@ -8,20 +8,27 @@ public class ReportingClients {
 	private String surname;
 	private boolean loyalty;
 	private String SSN;
-	private int satisfuction;
+	private int satisfuction; //apo 1 eos 5
+	private int counter_st = 0;
 	private int arrival; //! months? !
 	private String email;
 	private int know;//pos mathane to ksenodoxio
 	private double payment;
-	private int family;
-	private Date checkin;
-	private Date checkout;
-
+	private int family_alone_friends;
+	private int checkin;
+	private int checkout;
+	private int reasonfortravel; /**answers :
+								  * 0 gia epagelmatiko
+								  * 1 gia pleasure 
+								  * 2 family
+								  * 3 tourismos
+								  * 4 group trips 
+								  **/
 
 	static ArrayList<ReportingClients> coustomerBase = new ArrayList<ReportingClients>();
 
 	public ReportingClients(String name, String surname, boolean loyalty, String sSN, int satisfuction, int arrival,
-			String email, int know, double payment, int family, Date checkin, Date checkout) {
+			String email, int know, double payment, int family, int checkin, int checkout,int reasonfortravel) {
 		super();
 		this.name = name;
 		this.surname = surname;
@@ -32,9 +39,11 @@ public class ReportingClients {
 		this.email = email;
 		this.know = know;
 		this.payment = payment;
-		this.family = family;
+		this.family_alone_friends = family;
 		this.checkin = checkin;
 		this.checkout = checkout;
+		this.reasonfortravel = reasonfortravel;
+		counter_st++;
 		coustomerBase.add(this);
 	}
 
@@ -111,23 +120,31 @@ public class ReportingClients {
 	}
 
 	public int getFamily() {
-		return family;
+		return family_alone_friends;
 	}
 
 	public void setFamily(int family) {
-		this.family = family;
+		this.family_alone_friends = family;
 	}
 
 	public static ArrayList<ReportingClients> getCoustomerBase() {
 		return coustomerBase;
 	}
 
-	public Date getCheckin() {
+	public int getCheckin() {
 		return checkin;
 	}
 
-	public Date getCheckout() {
+	public int getCheckout() {
 		return checkout;
+	}
+
+	public int getReasonfortravel() {
+		return reasonfortravel;
+	}
+
+	public void setReasonfortravel(int reasonfortravel) {
+		this.reasonfortravel = reasonfortravel;
 	}
 
 }

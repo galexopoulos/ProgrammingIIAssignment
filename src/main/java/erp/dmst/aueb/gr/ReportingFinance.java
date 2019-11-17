@@ -15,31 +15,32 @@ public class ReportingFinance { //This class must be called once a month.
 		private static double cashAvailableAfterTaxes; //after taxes and Dividends
 		private static double cashAvailableBeforeTaxes;
 		private static double loan = 0;
-		private static int rate; //shareholders rate of payment
+		private static int rate; //shareholders rate of payment 
 		private static int months = 0;
 		
 		public ReportingFinance(double electricity, double waterSupply, double phone_internetSupply,
 				int numberOfShareHolders, int rate	) {
 			super();
+			months++;
 			ReportingFinance.electricity = electricity;
 			ReportingFinance.waterSupply = waterSupply;
 			ReportingFinance.phone_internetSupply = phone_internetSupply;
-			months++;
 		}
 		
 		public static void getMenu() {
 			Scanner sc = new Scanner(System.in);
-			System.out.println("--MENU FINANCE--" + getDate()
-					+ "/n 1. Proceeds - Εxpenses - Profits - Losses" 
-					+ "/n 2. Loans "
-					+ "/n 3. TAX liabilities ");
+			System.out.println("------------------ MENU FINANCE ---- " + getDate() +" --------"
+					+ "\n 1. Proceeds - Εxpenses - Profits - Losses" 
+					+ "\n 2. Loans "
+					+ "\n 3. TAX liabilities "
+					+ "\n 4. Connect to Investments menu. Username and password is needed.");
 			
 			boolean confirm = true;
 			do {
 				try {
 					int ans = sc.nextInt();
 					switch(ans) {
-						case 1:
+						case 1: // expenses and income  after taxes and dividends
 					}
 					
 				confirm = false;
@@ -51,8 +52,8 @@ public class ReportingFinance { //This class must be called once a month.
 		}
 		
 		public static double getProceeds() {
-			if(Booking.getChecks > 0) {
-				return Booking.getChecks;
+			if(Booking.getchecks > 0) {
+				return Booking.getchecks;
 			}else return 0;
 		}
 		
@@ -65,11 +66,11 @@ public class ReportingFinance { //This class must be called once a month.
 			int year = cal.get(Calendar.YEAR);
 			return "Total expenses of" + getCurrentMonth(month) + " of "+ year
 					+ "are " + totalexpenses + " "
-							+ "/n Water Supply bill:  "+ waterSupply 
-							+ "/n Electrisity bill:   "+ electricity 
-							+ "/n Telecommunications: "+ phone_internetSupply
-							+ "/n Employees payments: "+ wages
-							+ "/n -------------------------------------------";  //needs more data.
+							+ "\n Water Supply bill:  "+ waterSupply 
+							+ "\n Electrisity bill:   "+ electricity 
+							+ "\n Telecommunications: "+ phone_internetSupply
+							+ "\n Employees payments: "+ wages
+							+ "\n -------------------------------------------";  //needs more data.
 		}
 		
 		public static String getCurrentMonth(int minas) {
@@ -152,7 +153,6 @@ public class ReportingFinance { //This class must be called once a month.
 		
 		/** method for cash availability -pending 
 		* complete menu -pending
-		* proceeds -pending
 		* buffet and suppliers payments -pending
 		* needs to be optimize
 		* try catch for new methods

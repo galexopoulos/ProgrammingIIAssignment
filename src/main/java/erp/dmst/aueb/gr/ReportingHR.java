@@ -13,13 +13,15 @@ public class ReportingHR {
 	private String email;
 	private String poss;
 	private int sex; //0 man 1 woman
+	private int age;
 	static ArrayList<ReportingHR> hr = new ArrayList<ReportingHR>(); //Stoixia ipalilon sideri
 
 	public ReportingHR(double wage, String name, String surname, int id, String sSN, int vATR, int startingDate,
-			String email, String poss,int sex ) {
+			String email, String poss,int sex, int age ) {
 		this.wage = wage;
 		this.name = name;
 		this.surname = surname;
+		//counter gia id
 		this.id = id;
 		SSN = sSN;
 		VATR = vATR;
@@ -27,8 +29,16 @@ public class ReportingHR {
 		this.email = email;
 		this.poss = poss;
 		this.sex = sex;
+		this.age = age;
 		hr.add(this);
+	}
 
+	public int getAge() {
+		return age;
+	}
+
+	public void setAge(int age) {
+		this.age = age;
 	}
 
 	public int getSex() {
