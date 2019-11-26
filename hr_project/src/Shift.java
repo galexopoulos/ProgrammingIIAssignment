@@ -278,27 +278,126 @@ public class Shift {
 	}
 
 	public static Calendar[][] createShift(String[] strSchedule) throws Exception{
-		Calendar[][] dayScheduleNextWeek = new Calendar[8][8];
-			if (strSchedule.length != 8) {
-				throw new Exception();
-			}
-			int[][] arrH_arrM_depH_depM = new int[4][4];
-			Calendar[][] arr_depTimesCal = new Calendar[2][4];
-			Calendar nextMonday = getNextMonday();
-			Calendar[] daySchedule = new Calendar[8];
-			Calendar[] weekSchedule = new Calendar[64];
-			for (int i = 0; i < 8; i++) { 
-				
-				arrH_arrM_depH_depM = arr_Dep_Times_int(strSchedule[i]);
-				arr_depTimesCal = arr_Dep_Times_Cal(arrH_arrM_depH_depM, nextMonday, i - 1);
-				daySchedule = connect_Arr_Dep(arr_depTimesCal);
-				dayScheduleNextWeek[i] = daySchedule;
-			}
+		Calendar[][] dayScheduleNextWeek8 = new Calendar[8][8];
+		Calendar[][] dayScheduleNextWeek = new Calendar[7][8];
+		if (strSchedule.length != 8) {
+			throw new Exception();
+		}
+		int[][] arrH_arrM_depH_depM = new int[4][4];
+		Calendar[][] arr_depTimesCal = new Calendar[2][4];
+		Calendar nextMonday = getNextMonday();
+		Calendar[] daySchedule = new Calendar[8];
+		Calendar[] weekSchedule = new Calendar[64];
+		for (int i = 0; i < 8; i++) { 	
+			arrH_arrM_depH_depM = arr_Dep_Times_int(strSchedule[i]);
+			arr_depTimesCal = arr_Dep_Times_Cal(arrH_arrM_depH_depM, nextMonday, i - 1);
+			daySchedule = connect_Arr_Dep(arr_depTimesCal);
+			dayScheduleNextWeek8[i] = daySchedule;
+		}
 	
-			weekSchedule = week_Schedule(dayScheduleNextWeek); 
-			if (!Check_week_Schedule(weekSchedule)) {
-				throw new Exception ();                 
-			}
+		weekSchedule = week_Schedule(dayScheduleNextWeek8); 
+		if (!Check_week_Schedule(weekSchedule)) {
+			throw new Exception ();                 
+		}
+		for (int i = 0; i < 7; i++) { 
+			dayScheduleNextWeek[i] = dayScheduleNextWeek8[i];
+				
+		}
+	
 		return dayScheduleNextWeek;
+	}
+
+	public static String[] insertShiftStr() {// returns the inserted shift as String, to be checked or "no shift" at the
+												// first index of the table if the shift wasn't inserted
+		Scanner sc = new Scanner(System.in);
+		String shiftStr[] = new String[8];
+		for (int i = 0; i < 8; i++) {
+			shiftStr[i] = "-";
+		}
+		System.out.println("Insert the shift.");
+		boolean flag1;
+		do {
+			flag1 = false;
+			System.out.println("Insert Monday's shift or press Enter to go back:");
+			String inserted;
+			inserted = sc.nextLine();
+			if (inserted.equals("")) {
+				shiftStr[0] = "no shift";
+				return shiftStr;
+			}else {
+				shiftStr[0] = inserted;
+			}
+			boolean flag2;
+			do {
+				flag2 = false;
+				System.out.println("Insert Tuesday's shift or press Enter to go back:");
+				inserted = sc.nextLine();
+				if (inserted.equals("")) {
+					flag1 = true;
+					break;
+				}else {
+					shiftStr[1] = inserted;
+				}
+				boolean flag3;
+				do {
+					flag3 = false;
+					System.out.println("Insert Wednesday's shift or press Enter to go back:");
+					inserted = sc.nextLine();
+					if (inserted.equals("")) {
+						flag2 = true;
+						break;
+					}else {
+						shiftStr[2] = inserted;
+					}
+					boolean flag4;
+					do {
+						flag4 = false;
+						System.out.println("Insert Thursday's shift or press Enter to go back:");
+						inserted = sc.nextLine();
+						if (inserted.equals("")) {
+							flag3 = true;
+							break;
+						}else {
+							shiftStr[3] = inserted;
+						}
+						boolean flag5;
+						do {
+							flag5 = false;
+							System.out.println("Insert Friday's shift or press Enter to go back:");
+							inserted = sc.nextLine();
+							if (inserted.equals("")) {
+								flag4 = true;
+								break;
+							}else {
+								shiftStr[4] = inserted;
+							}
+							boolean flag6;
+							do {
+								flag6 = false;
+								System.out.println("Insert Saturday's shift or press Enter to go back:");
+								inserted = sc.nextLine();
+								if (inserted.equals("")) {
+									flag5 = true;
+									break;
+								}else {
+									shiftStr[5] = inserted;
+								}
+								System.out.println("Insert Sunday's shift or press Enter to go back:");
+								inserted = sc.nextLine();
+								if (inserted.equals("")) {
+									flag6 = true;
+									break;
+								}else {
+									shiftStr[6] = inserted;
+								}
+							}while(flag6);
+						}while(flag5);
+					}while(flag4);
+				}while(flag3);
+				
+			}while(flag2);
+			
+		}while(flag1);
+		return shiftStr;
 	}
 }

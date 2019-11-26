@@ -6,7 +6,13 @@ public class Hr_Director extends Manager{ // is resposible for all the Managers 
 	public Hr_Director(String firstname, String surname, String position, String password, int salary,
 			Manager manager) {// position will be set to Hr Director and Manager to null
 		super(firstname, surname, position, password, salary, manager);
-		this.employee_Id = 0;
+	}
+	
+	
+	@Override
+	public String toString() {
+		return "Hr Director [firstname=" + getFirstname() + ", surname=" + getSurname() + ", position=" + getPosition() + ", employee_Id="
+				+ getEmployee_Id() + ", salary=" + getSalary()  + "]";
 	}
 	
 	public void getMenu() {
@@ -15,7 +21,7 @@ public class Hr_Director extends Manager{ // is resposible for all the Managers 
 		System.out.println("Welcome!");
 		do {
 			System.out.println(" HR DIRECT0R MENU \n------------- \n Select: \n1)Inbox. \n2)View Managers. \n3)Show check in status of Managers. \n"
-					+ "4)Set extra hours for a Manager. \n5)Edit a Manager's payment. \n6)Edit a Manager's fields. \n7)Edit an Employer's shift. "
+					+ "4)Set extra hours for a Manager. \n5)Edit a Manager's payment. \n6)Edit a Manager's fields. \n7)Edit an Employee's shift. "
 					+ "\n8)Hire a new member. \n9)Remove a member. \n10)Promote to Manager. ");
 			boolean flag = false;
 			int selection = 0;
@@ -113,7 +119,7 @@ public class Hr_Director extends Manager{ // is resposible for all the Managers 
 									selectedSalary = Integer.parseInt(selected);
 									if (selectedSalary < 0) {
 										flag2 = true;
-										System.out.println("Input an integer greater than zero.");
+										System.out.println("Insert a non negative Integer.");
 									}else if(selectedSalary == super.Employees.get(posInEmployees).getSalary()) {
 										flag2 = true;
 										System.out.println("Insert a salary different than the previous one.");
@@ -187,7 +193,7 @@ public class Hr_Director extends Manager{ // is resposible for all the Managers 
 									System.out.println("The change has been made.");
 									flag5 = false;
 								}else if (verify.toLowerCase().equals("no")){
-									System.out.println("Change cancelled");
+									System.out.println("Change cancelled.");
 									flag5 = false;
 								}else {
 									flag5 = true;
@@ -360,7 +366,7 @@ public class Hr_Director extends Manager{ // is resposible for all the Managers 
 				}else {
 					menuflag = true;
 				}
-			}else if(selection == 7) {
+			}else if(selection == 7) {//the change will be applied the next week
 				boolean shiftflag = false;
 				do {
 					String selected;
@@ -395,7 +401,7 @@ public class Hr_Director extends Manager{ // is resposible for all the Managers 
 						do {
 							flag2 = false;
 							System.out.println(Employee.Employees.get(posInEmployees).toString());
-							printShift(Employee.Employees.get(posInEmployees));
+							printShift(Employee.Employees.get(posInEmployees).getWeekShift());
 							boolean flag3;
 							int dayInt = -1;
 							do {	
@@ -409,25 +415,25 @@ public class Hr_Director extends Manager{ // is resposible for all the Managers 
 									shiftflag = true;
 									break;
 								case "monday":
-									dayInt = 1;
+									dayInt = 0;
 									break;
 								case "tuesday":
-									dayInt = 2;
+									dayInt = 1;
 									break;
 								case "wednesday":
-									dayInt = 3;
+									dayInt = 2;
 									break;
 								case "thursday":
-									dayInt = 4;
+									dayInt = 3;
 									break;
 								case "friday":
-									dayInt = 5;
+									dayInt = 4;
 									break;
 								case "saturday":
-									dayInt = 6;
+									dayInt = 5;
 									break;
 								case "sunday":
-									dayInt = 7;
+									dayInt = 6;
 									break;
 								case "exit":
 									menuflag = true;
@@ -436,7 +442,7 @@ public class Hr_Director extends Manager{ // is resposible for all the Managers 
 									flag3 = true;
 								}
 							}while (flag3);
-							if(shiftflag == false && dayInt !=-1) {
+							if(!shiftflag && dayInt !=-1) {
 								String[] shiftStr = new String[8];
 								shiftStr = Employee.Employees.get(posInEmployees).getShiftStr();
 								boolean flag4;
@@ -448,14 +454,14 @@ public class Hr_Director extends Manager{ // is resposible for all the Managers 
 										flag2 = true;
 										break;
 									}else {
-										if (dayInt == 7) { // sunday is both at positions 0 and 7
+										if (dayInt == 0) { // monday is both at positions 0 and 7
 											shiftStr[0] = inputShift;
 											shiftStr[7] = inputShift;
 										}else {
 											shiftStr[dayInt] = inputShift;
 											}
 										try {
-											Shift.createShift(shiftStr);
+											Employee.Employees.get(posInEmployees).setWeekShift(Shift.createShift(shiftStr));
 											//if it moves on the input is correct as creatShift method throws Exception for wrong input
 											Employee.Employees.get(posInEmployees).setShiftStr(shiftStr);
 											System.out.println("The change has been made.");
@@ -474,7 +480,327 @@ public class Hr_Director extends Manager{ // is resposible for all the Managers 
 					
 				}while (shiftflag);
 			}else if(selection == 8) {
-				//IT WILL BE ADDED LATER
+				boolean flag1 = false;
+				int sel = 0;
+				
+				System.out.println("Select: \n1)Hire a new Employee. \n2)Hire a new Manager.");
+
+				do {
+					if (!sc.hasNextInt()) {
+						System.out.println("Please insert a number, 1 or 2.");
+						flag1 = true;
+						sc.next();
+
+					} else {
+						sel = sc.nextInt();
+						if (sel > 2 || sel < 1) {
+							flag1 = true;
+							System.out.println("Please insert 1 or 2.");
+						} else {
+							flag1 = false;
+							sc.nextLine();
+						}
+					}
+				}while(flag1);
+				if(sel == 1) {
+					Employee employee = new Employee("" ,"" ,"" , "", -1, null);
+					String firstname, surname, position = "", password = "", managerName = "";
+					int salary = 0, mngrId, mngrPosition = -1;
+					do {
+						flag1 = false;
+						System.out.print("Insert Employee's first name:");
+						firstname = sc.nextLine();
+						boolean flag2;
+						do {
+							flag2 = false;
+							System.out.print("Insert Employee's surname or press Enter to go back:");
+							surname = sc.nextLine();
+							if (surname.equals("")) {
+								flag1 = true;
+								continue;
+							}
+							boolean flag3;
+							do {
+								flag3 = false;
+								System.out.print("Insert Employee's position or press Enter to go back:");
+								position = sc.nextLine();
+								if (position.equals("")) {
+									flag2 = true;
+									continue;
+								}
+								boolean flag4;
+								do {
+									flag4 = false;
+									System.out.print("Insert Employee's password or press Enter to go back:");
+									password = sc.nextLine();
+									if (password.equals("")) {
+										flag3 = true;
+										continue;
+									}
+									boolean flag5;
+									do {
+										flag5 = false;
+										System.out.print("Insert Employee's salary or press Enter to go back:");
+										String selected = sc.nextLine();
+										if (selected.equals("")) {
+											flag4 = true;
+											break;
+						
+										} else {
+											try {
+												salary = Integer.parseInt(selected);
+												if (salary < 0) {
+													flag5 = true;
+													System.out.println("Insert a non negative Integer.");
+													continue;
+												}
+											}catch(Exception b) {
+												flag5 = true;
+												System.out.println("Please insert an Integer.");
+												continue;
+											}
+										}
+										boolean flag6;
+										do {
+											flag6 = false;
+											System.out.print("Insert Manager's id of the Employee \n"
+													+ "or press Enter to go back:");
+											selected = sc.nextLine();
+											if (selected.equals("")) {
+												flag5 = true;
+												break;
+							
+											} else {
+												try {
+													mngrId = Integer.parseInt(selected);
+													mngrPosition = Manager.whereIsManager(mngrId);
+													if (mngrPosition == -1) {
+														flag6 = true;
+														System.out.println("That is not a valid Manager id.");
+													}else {
+														managerName = Employee.Employees.get(mngrPosition).getFirstname();
+														managerName += " " + Employee.Employees.get(mngrPosition).getSurname();
+													}
+												}catch(Exception b) {
+													flag6 = true;
+													System.out.println("Please insert an Integer.");
+													boolean flag7;
+													do {
+														flag7 = false;
+														String [] shiftStr = Shift.insertShiftStr();
+														if (shiftStr[0].equals("no shift")){
+															flag6 = true;
+															break;
+														}
+														try {
+															employee.setWeekShift(Shift.createShift(shiftStr));								
+														}catch (Exception e) {
+															System.out.println("Mistake with the inserted shift.");
+															flag7 = true;
+															continue;
+														}
+														System.out.println("Employee's shift:");
+														Employee.printShift(employee.getWeekShift());
+														System.out.println("Do you want to save the shift for the Employee?");
+														boolean flag8;
+														do {
+															flag8 = false;
+															System.out.println("yes/no");
+															String verify = sc.nextLine();
+															if (verify.toLowerCase().equals("yes")) {
+																System.out.println("Succesfully saved. ");
+															}else if (verify.toLowerCase().equals("no")){
+																System.out.println("Shift has not been saved, please insert a new shift.");
+																flag7 = true;
+															}else {
+																flag8 = true;
+															}
+														}while(flag8);
+													}while(flag7);
+												}
+											}
+										}while(flag6);
+									}while(flag5);
+								}while(flag4);
+							}while(flag3);
+						}while(flag2);
+					}while(flag1);
+					System.out.println("Employee's data: \nfirst name: " + firstname + "\nsurname: " + surname + "\nposition: " + position +
+							"\npassword: " + password + "\nsalary: " + salary + "\nmanager name :" + managerName
+							+ "\nDo you want to save?");
+					flag1 = false;
+					do {
+						System.out.println("yes/no");
+						String verify = sc.nextLine();
+						if (verify.toLowerCase().equals("yes")) {
+							employee.setFirstname(firstname);
+							employee.setSurname(surname);
+							employee.setPosition(position);
+							employee.setPassword(password);
+							employee.setSalary(salary);
+							employee.setManager((Manager) Employee.Employees.get(mngrPosition));
+							System.out.println("Succesfully saved. \n" + employee.toString());
+							flag1 = false;
+						}else if (verify.toLowerCase().equals("no")){
+							System.out.println("Employee has not been saved.");
+							Employee.removeLastEmployee();
+							flag1 = false;
+						}else {
+							flag1 = true;
+						}
+					}while(flag1);
+				}else if (sel == 2) {
+					Manager manager = new Manager("" ,"" ,"" , "", -1, null);
+					String firstname, surname, position = "", password = "", managerName = "";
+					int salary = 0, mngrId, mngrPosition = -1;
+					do {
+						flag1 = false;
+						System.out.print("Insert Manager's first name:");
+						firstname = sc.nextLine();
+						boolean flag2;
+						do {
+							flag2 = false;
+							System.out.print("Insert Manager's surname or press Enter to go back:");
+							surname = sc.nextLine();
+							if (surname.equals("")) {
+								flag1 = true;
+								continue;
+							}
+							boolean flag3;
+							do {
+								flag3 = false;
+								System.out.print("Insert Manager's position or press Enter to go back:");
+								position = sc.nextLine();
+								if (position.equals("")) {
+									flag2 = true;
+									continue;
+								}
+								boolean flag4;
+								do {
+									flag4 = false;
+									System.out.print("Insert Manager's password or press Enter to go back:");
+									password = sc.nextLine();
+									if (password.equals("")) {
+										flag3 = true;
+										continue;
+									}
+									boolean flag5;
+									do {
+										flag5 = false;
+										System.out.print("Insert Manager's salary or press Enter to go back:");
+										String selected = sc.nextLine();
+										if (selected.equals("")) {
+											flag4 = true;
+											break;
+					
+										} else {
+											try {
+												salary = Integer.parseInt(selected);
+												if (salary < 0) {
+													flag5 = true;
+													System.out.println("Insert a non negative integer.");
+													continue;
+												}
+											}catch(Exception b) {
+												flag5 = true;
+												System.out.println("Please insert an Integer.");
+												continue;
+											}
+										}
+										boolean flag6;
+										do {
+											flag6 = false;
+											System.out.print("Insert Manager's id of the Manager, insert -1 if the Manager doesn't have a Manager \n"
+													+ "or press Enter to go back:");
+											selected = sc.nextLine();
+											if (selected.equals("")) {
+												flag5 = true;
+												break;
+						
+											} else {
+												try {
+													mngrId = Integer.parseInt(selected);
+													mngrPosition = Manager.whereIsManager(mngrId);
+													if (mngrId != -1 && mngrPosition == -1) {
+														flag6 = true;
+														System.out.println("That is not a valid Manager id.");
+													}else if (mngrId == -1) {
+														managerName = "no Manager";
+													}else {
+														managerName = Employee.Employees.get(mngrPosition).getFirstname();
+														managerName += " " + Employee.Employees.get(mngrPosition).getSurname();
+													}
+												}catch(Exception b) {
+													flag6 = true;
+													System.out.println("Please insert an Integer.");
+												}
+											}
+											boolean flag7;
+											do {
+												flag7 = false;
+												String [] shiftStr = Shift.insertShiftStr();
+												if (shiftStr[0].equals("no shift")){
+													flag6 = true;
+													break;
+												}
+												try {
+													manager.setWeekShift(Shift.createShift(shiftStr));								
+												}catch (Exception e) {
+													System.out.println("Mistake with the inserted shift.");
+													flag7 = true;
+													continue;
+												}
+												System.out.println("Manager's shift:");
+												Employee.printShift(manager.getWeekShift());
+												System.out.println("Do you want to save the shift for the Manager?");
+												boolean flag8;
+												do {
+													flag8 = false;
+													System.out.println("yes/no");
+													String verify = sc.nextLine();
+													if (verify.toLowerCase().equals("yes")) {
+														System.out.println("Succesfully saved. ");
+													}else if (verify.toLowerCase().equals("no")){
+														System.out.println("Shift has not been saved, please insert a new shift.");
+														flag7 = true;
+													}else {
+														flag8 = true;
+													}
+												}while(flag8);
+											}while(flag7);
+										}while(flag6);
+									}while(flag5);
+								}while(flag4);
+							}while(flag3);
+						}while(flag2);
+					}while(flag1);
+					System.out.println("Manager's data: \nfirst name: " + firstname + "\nsurname: " + surname + "\nposition: " + position +
+							"\npassword: " + password + "\nsalary: " + salary + "\nmanager name :" + managerName
+							+ "\nDo you want to save?");
+					flag1 = false;
+					do {
+						System.out.println("yes/no");
+						String verify = sc.nextLine();
+						if (verify.toLowerCase().equals("yes")) {
+							manager.setFirstname(firstname);
+							manager.setSurname(surname);
+							manager.setPosition(position);
+							manager.setPassword(password);
+							manager.setSalary(salary);
+							if(mngrPosition != -1) {
+								manager.setManager((Manager) Employee.Employees.get(mngrPosition));
+							}
+							System.out.println("Succesfully saved. /n" + manager.toString());
+							flag1 = false;
+						}else if (verify.toLowerCase().equals("no")){
+							System.out.println("Manager has not been saved.");
+							Employee.removeLastEmployee();
+							flag1 = false;
+						}else {
+							flag1 = true;
+						}
+					}while(flag1);
+				}
 			}else if(selection == 9) {
 				String selected;
 				int selectedId, posInEmployees = -1;

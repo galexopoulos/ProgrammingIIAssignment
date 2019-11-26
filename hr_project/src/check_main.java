@@ -5,7 +5,7 @@ public class check_main {
 	public static void main(String args[]) {
 		Scanner sc = new Scanner(System.in);
 
-		String daySchedule = "12:01-12:53,13:00-16:00,17:00-18:00";
+		String daySchedule = "3:00-4:00";
 		String[] a = new String[8];
 		for (int i = 0; i < 6; i++) {
 			a[i] = daySchedule;
@@ -13,13 +13,18 @@ public class check_main {
 		
 		 a[6]="20:00-";
 		 a[7]="-3:00";
-		 Calendar[][] weekShift = new Calendar[8][8];
+		 
+		 Calendar[][] weekShift = new Calendar[7][8];
 		 try {
 			 weekShift = Shift.createShift(a);
 		}catch (Exception e) {
 			System.err.println("mistake with the shift");
 		}
-		Calendar dailyTimes[] = new Calendar[8]; //shows the arrivals and departures of the employee in one day
+		Employee d =new Employee("b", "b", "b", "c", 10,null);
+		d.setWeekShift(weekShift);
+		System.out.println(d.getWeekShift()[0][0].get(Calendar.YEAR));
+		Employee.printShift(d.getWeekShift());
+		/*Calendar dailyTimes[] = new Calendar[8]; //shows the arrivals and departures of the employee in one day
 		int dayCounter = 0;// shows how many indexes of the array dailyTimes are filled
 		boolean checkedIn = false; //true when the employee has checked in but hasn't checked out
 	    boolean flag=false;
@@ -31,7 +36,8 @@ public class check_main {
 	    c = new Manager(c);
 	    System.out.println(c instanceof Manager);
 	    boss.getMenu();
-	    
+	    */
+		Hr_surface.toRun();
 
 	
 	}

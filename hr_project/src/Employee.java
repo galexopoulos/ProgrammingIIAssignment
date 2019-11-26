@@ -4,9 +4,10 @@ import java.util.*;
 public class Employee {
 	private String firstname, surname, position, password;
 	private int employee_Id, extraHoursMonth = 0 /*need to be set to 0 every month*/, salary, monthPayment;
-	private Calendar[][]weekShift = new Calendar[8][8];
+	private Calendar[][]weekShift = new Calendar[7][8];
+	private Calendar[][]thisweekShift = new Calendar[7][8];
 	private Manager manager;
-	private static int add = 1; //the Hr Director has the id = 0
+	private static int add = 0; //the Hr Director has the id = 0
 	static ArrayList<Employee> Employees = new ArrayList<Employee>();
 	private Calendar dailyTimes[] = new Calendar[8]; // shows the arrivals and departures of the employee in one day
 	private int dayCounter = 0;// shows how many indexes of the array dailyTimes are filled
@@ -41,6 +42,7 @@ public class Employee {
 		this.dayCounter = employee.dayCounter;
 		this.checkedIn = employee.checkedIn;
 		this.shiftStr = employee.shiftStr;
+		this.thisweekShift = employee.thisweekShift;
 		for(int i = 0; i < Employees.size(); i++ ) {
 			if (Employees.get(i).equals(employee) ) {
 				Employees.set(i, this);
@@ -104,7 +106,7 @@ public class Employee {
 	}
 
 	public void setWeekShift(Calendar[][] weekShift) {
-		weekShift = weekShift;
+		this.weekShift = weekShift;
 	}
 
 	public Manager getManager() {
@@ -160,6 +162,16 @@ public class Employee {
 
 	public void setShiftStr(String[] shiftStr) {
 		this.shiftStr = shiftStr;
+	}
+	
+	
+
+	public Calendar[][] getThisweekShift() {
+		return thisweekShift;
+	}
+
+	public void setThisweekShift(Calendar[][] thisweekShift) {
+		this.thisweekShift = thisweekShift;
 	}
 
 	@Override
@@ -221,7 +233,7 @@ public class Employee {
 				//call inbox
 	
 			}else if (selection == 5){
-				printShift(this);
+				printShift(this.getWeekShift());
 			}
 		}while (menuflag);
 	}
@@ -335,27 +347,26 @@ public class Employee {
 	}
 	
 	
-	public void printShift(Employee employee) {
-
-		for(int i = 1; i<8; i++) {
+	public static void printShift(Calendar[][] shift) {
+		for(int i = 0; i<7; i++) {
 			String dayName;
 			switch (i) {
-			case 1:
+			case 0:
 				dayName = "Monday";
 				break;
-			case 2:
+			case 1:
 				dayName = "Tuesday";
 				break;
-			case 3:
+			case 2:
 				dayName = "Wednesday";
 				break;
-			case 4:
+			case 3:
 				dayName = "Thursday";
 				break;
-			case 5:
+			case 4:
 				dayName = "Friday";
 				break;
-			case 6:
+			case 5:
 				dayName = "Saturday";
 				break;
 			default:
@@ -365,29 +376,32 @@ public class Employee {
 			System.out.println(dayName);
 			String time;
 			for (int j = 0; j < 8; j = j + 2) {
-				if (employee.weekShift[i][j].get(Calendar.YEAR) != 1990) {
-					time = String.format("%02d:%02d", employee.weekShift[i][j].get(Calendar.HOUR_OF_DAY), employee.weekShift[i][j].get(Calendar.MINUTE));
+				if (shift[i][j].get(Calendar.YEAR) != 1990) {
+					time = String.format("%02d:%02d", shift[i][j].get(Calendar.HOUR_OF_DAY), shift[i][j].get(Calendar.MINUTE));
 					System.out.print (time + " - ");
-					if (employee.weekShift[i][j + 1].get(Calendar.YEAR) != 1990) {
-						time = String.format("%02d:%02d", employee.weekShift[i][j + 1].get(Calendar.HOUR_OF_DAY), employee.weekShift[i][j + 1].get(Calendar.MINUTE));
+					if (shift[i][j + 1].get(Calendar.YEAR) != 1990) {
+						time = String.format("%02d:%02d", shift[i][j + 1].get(Calendar.HOUR_OF_DAY),shift[i][j + 1].get(Calendar.MINUTE));
 						System.out.println(time);
 					}else {
 						System.out.println();
 					}
 				}else {
-					if (weekShift[i][j + 1].get(Calendar.YEAR) != 1990) {
-						time = String.format("%02d:%02d", employee.weekShift[i][j + 1].get(Calendar.HOUR_OF_DAY), employee.weekShift[i][j + 1].get(Calendar.MINUTE));
+					if (shift[i][j + 1].get(Calendar.YEAR) != 1990) {
+						time = String.format("%02d:%02d", shift[i][j + 1].get(Calendar.HOUR_OF_DAY), shift[i][j + 1].get(Calendar.MINUTE));
 						System.out.println("- " + time);
 					}else if (j == 0){// for an empty day
 						System.out.println("-");
 					}
 				}
 			}
-			
-		 }
-	
-	
+
+		}
+
 	}
 
+	public static void removeLastEmployee() {
+		Employees.remove(Employees.size() - 1);
+		add--;
+	}
 
 }

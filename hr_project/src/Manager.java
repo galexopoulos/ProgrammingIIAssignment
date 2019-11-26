@@ -7,7 +7,8 @@ public class Manager extends Employee { // responsible for the Employees who hav
 										// shifts
 	private int employee_Id, extraHoursMonth = 0 /* need to be set to 0 every month */;
 	private int monthPayment;
-	private Calendar[][] weekShift = new Calendar[8][8];
+	private Calendar[][] weekShift = new Calendar[7][8];
+	private Calendar[][]thisweekShift = new Calendar[7][8];
 	private Calendar dailyTimes[] = new Calendar[8]; // shows the arrivals and departures of the employee in one day
 	private int dayCounter = 0;// shows how many indexes of the array dailyTimes are filled
 	private boolean checkedIn = false; // true when the employee has checked in but hasn't checked out
@@ -18,6 +19,12 @@ public class Manager extends Employee { // responsible for the Employees who hav
 	
 	public Manager (Employee employee) {//for the promotion at the Hr Director class
 		super(employee);
+	}
+	
+	@Override
+	public String toString() {
+		return "Manager [firstname=" + getFirstname() + ", surname=" + getSurname() + ", position=" + getPosition() + ", employee_Id="
+				+ getEmployee_Id() + ", salary=" + getSalary()  + "]";
 	}
 	
 	public void getMenu() {
@@ -73,7 +80,7 @@ public class Manager extends Employee { // responsible for the Employees who hav
 				//call inbox
 	
 			}else if (selection == 5){
-				printShift(this);
+				printShift(this.getWeekShift());
 			}else if (selection == 6) {
 				boolean onefound = false;
 				for (Employee a : super.Employees) {
@@ -397,25 +404,26 @@ public class Manager extends Employee { // responsible for the Employees who hav
 							requested = posInEmployees;
 							flag1 = false;
 							break;
-						}else {
+						} else {
 							flag1 = true;
 							System.out.println("You are not allowed to do that.");
 						}
-					}else {
+					} else {
 						flag1 = true;
 						System.out.println("That is not a valid Id.");
 					}
-				}catch(Exception b) {
+				} catch (Exception b) {
 					flag1 = true;
 					System.out.println("Please insert an Integer.");
 				}
-			}	
+			}
 		} while (flag1);
 		return requested;
 	}
-	
-	public static int binarySearch (int x) {//x the id you want to find in the Employees and returns the position in Employees
-		int l = 0, r = Employee.Employees.size()-1;
+
+	public static int binarySearch(int x) {// x the id you want to find in the Employees and returns the position in
+											// Employees
+		int l = 0, r = Employee.Employees.size() - 1;
 		while (l <= r) {
 			int m = l + (r - l) / 2;
 			if (Employee.Employees.get(m).getEmployee_Id() == x)
@@ -428,5 +436,19 @@ public class Manager extends Employee { // responsible for the Employees who hav
 		}
 		return -1;
 	}
-	
+
+	public static int whereIsManager(int id) {// if the inserted id is a valid Manager id, the method returns the position in Employees, else returns -1.
+		for (int i = 0; i < Employee.Employees.size(); i ++) {
+			if (Employee.Employees.get(i).getEmployee_Id() == id) {
+				if (Employee.Employees.get(i) instanceof Manager) {
+					return i;
+				} else {
+					break;
+				}
+
+			}
+		}
+		return -1;
+	}
+
 }
