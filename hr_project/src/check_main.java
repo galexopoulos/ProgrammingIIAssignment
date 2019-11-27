@@ -24,7 +24,7 @@ public class check_main {
 		d.setWeekShift(weekShift);
 		System.out.println(d.getWeekShift()[0][0].get(Calendar.YEAR));
 		Employee.printShift(d.getWeekShift());
-		/*Calendar dailyTimes[] = new Calendar[8]; //shows the arrivals and departures of the employee in one day
+		Calendar dailyTimes[] = new Calendar[8]; //shows the arrivals and departures of the employee in one day
 		int dayCounter = 0;// shows how many indexes of the array dailyTimes are filled
 		boolean checkedIn = false; //true when the employee has checked in but hasn't checked out
 	    boolean flag=false;
@@ -36,9 +36,7 @@ public class check_main {
 	    c = new Manager(c);
 	    System.out.println(c instanceof Manager);
 	    boss.getMenu();
-	    */
-		Hr_surface.toRun();
-
+	   
 	
 	}
 }

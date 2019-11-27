@@ -387,6 +387,9 @@ public class Hr_Director extends Manager{ // is resposible for all the Managers 
 								if (posInEmployees == -1) {
 									flag1 = true;
 									System.out.println("That is not a valid Id.");
+								}else if (posInEmployees == this.getEmployee_Id()) {
+									flag1 = true;
+									System.out.println("Hr Director doesn't have a shift."); //Hr Director doesn't have a shift, must be changes if he has
 								}else {
 									flag1 = false;
 								}
