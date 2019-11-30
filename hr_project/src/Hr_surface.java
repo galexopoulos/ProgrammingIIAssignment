@@ -435,5 +435,36 @@ public class Hr_surface {
 		for(int i = firstemppos; i < Employee.Employees.size(); i++) {
 			System.out.println(Employee.Employees.get(i).toString());
 		}
+		
+		
+		boolean alwaystrue = true;
+		do {
+			boolean noLogin;
+			do {
+				noLogin = false;
+				System.out.println("LOGIN \n------");
+				boolean  wrongInput;
+				int id = -1;
+				do {
+					 wrongInput = false; 
+					 try {
+						System.out.print("Id:");
+						id = sc.nextInt();
+					 }catch (InputMismatchException ime) {
+						 System.out.println("Invalid input.");
+						 wrongInput = true;	 
+					 }
+				}while (wrongInput);			
+				System.out.print("Password:");
+				String password = sc.nextLine();
+				int posInEmployees = Employee.login(id, password);
+				if (posInEmployees != -1) {
+					Employee.Employees.get(posInEmployees).getMenu();
+				}else {
+					System.out.println("Wrong id or password.");
+					noLogin = true;
+				}
+			}while (noLogin);
+		}while(alwaystrue);
 	}
 }
