@@ -403,10 +403,11 @@ public class Employee {
 		Employees.remove(Employees.size() - 1);
 		add--;
 	}
-	
-	public static int login(int idGiven,String passwordGiven) {
-		int j=-1;
-		for(int i=0;i<Employees.size();i++) {
+
+	public static int login(int idGiven, String passwordGiven) { // returns -1 if the id and password are wrong or the
+																	// position in Employees if it is correct
+		int j = -1;
+		for (int i = 0; i < Employees.size(); i++) {
 			int id = Employees.get(i).getEmployee_Id();
 			String password = Employees.get(i).getPassword();
 			if (idGiven == id) {
