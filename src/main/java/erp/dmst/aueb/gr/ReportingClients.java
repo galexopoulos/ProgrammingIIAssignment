@@ -183,4 +183,25 @@ public class ReportingClients {
 		}
 	}
 	
+	public static void percentageAlone_Family_Friends() {
+		int s1 = 0;// sum of clients that came alone
+		int s2 = 0;// sum of clients that came with their family
+		int s3 = 0;//sum of clients that came with friends
+		try {
+			for(ReportingClients i : ReportingClients.coustomerBase) {
+				if (i.family_alone_friends == 1) {
+					s1++;
+				}else if (i.family_alone_friends == 2) {
+					s2++;
+				}else {
+					s3++;
+				}
+			}
+			System.out.printf("Average of clients that came alone is: %f /n "
+					+ "Average of clients that came with their family is: %f /n"
+					+ "Average of clients that came with their friends is: %f ", s1/ (s1+s2+s3), s2/ (s1+s2+s3), s3/ (s1+s2+s3) );
+		}catch(Exception e) {
+			System.out.println("No clients available.");
+		}
+	}
 }

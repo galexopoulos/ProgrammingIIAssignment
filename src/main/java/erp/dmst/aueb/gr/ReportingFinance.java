@@ -19,6 +19,8 @@ public class ReportingFinance { //This class must be called once a month.
 		private static int months = 1;
 		private static int current_month;
 		
+		//minieos pinakas me kerdi
+		
 		public ReportingFinance(double electricity, double waterSupply, double phone_internetSupply,
 				int numberOfShareHolders, int rate	) {
 			super();
@@ -54,12 +56,12 @@ public class ReportingFinance { //This class must be called once a month.
 		}
 		
 		public static double getProceeds() { //theloume kapos na tsekaroume oti allazei o minas gia na midenizonte ta miniea esoda
-			if(current_month == months)	{
-				if(Booking.getchecks > 0) {
-					return Booking.getchecks;
-					current_month = months;
-				}else return 0;
-			}
+		//	if(current_month == months)	{
+		//		if(Booking.getchecks > 0) {
+		//			return Booking.getchecks;
+		//			current_month = months;
+		//		}else return 0;
+		//	}
 		}
 		
 		public static String getExpenses() {
@@ -156,10 +158,11 @@ public class ReportingFinance { //This class must be called once a month.
 			currentmonth++;
 		}
 		
+		public static void distribution() {
+			//pending
+		}
 		/** 
 		* complete menu -pending
-		* 
-		* 
 		* try catch for new methods
 		* method to 0 income every month
 		* */
