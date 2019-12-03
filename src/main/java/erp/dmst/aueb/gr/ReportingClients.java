@@ -12,7 +12,7 @@ public class ReportingClients {
 	private int counter_st = 0;
 	private int arrival; //! months? !
 	private String email;
-	private int know;//pos mathane to ksenodoxio
+	private int know;//pos mathane to ksenodoxio, 0 gia 
 	private double payment;
 	private int family_alone_friends;
 	private int checkin;
@@ -45,7 +45,7 @@ public class ReportingClients {
 		this.reasonfortravel = reasonfortravel;
 		counter_st++;
 		coustomerBase.add(this);
-	}
+	} //COMMENTS! EINAI MOGLIDES
 
 	public String getName() {
 		return name;
@@ -146,5 +146,41 @@ public class ReportingClients {
 	public void setReasonfortravel(int reasonfortravel) {
 		this.reasonfortravel = reasonfortravel;
 	}
-
+	
+	public static void averageSatisfaction() {
+		int s = 0;
+		try {
+			for(ReportingClients i : ReportingClients.coustomerBase) {
+				s += i.getSatisfuction();
+			}
+			System.out.println("Average Satisfaction:"+ s/ReportingClients.coustomerBase.size());
+		}catch(Exception e) {
+			System.out.println("No clients available.");
+		}
+	}
+	
+	public static void averageDaysOfStay() {
+		int s = 0 ;
+		try {
+			for(ReportingClients i : ReportingClients.coustomerBase) {
+				s += i.getCheckout() - i.getCheckin();
+			}
+			System.out.println("Average days of stay:"+ s /ReportingClients.coustomerBase.size());
+		}catch(Exception e) {
+			System.out.println("No clients available.");
+		}
+	}
+	
+	public static void averagePayment() {
+		int s = 0;
+		try {
+			for(ReportingClients i : ReportingClients.coustomerBase) {
+				s += i.getPayment();
+			}
+			System.out.println("Average of payments is:"+ s /ReportingClients.coustomerBase.size());
+		}catch(Exception e) {
+			System.out.println("No payments available.");
+		}
+	}
+	
 }

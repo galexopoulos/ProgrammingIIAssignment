@@ -120,5 +120,45 @@ public class ReportingHR {
 	public ArrayList<ReportingHR> getHrList(){
 		return hr;
 	}
+	
+	public static double averageWage() {
+		int S = 0;
+		for (ReportingHR i : ReportingHR.hr) {
+			S += i.getWage();
+		}
+		if (!(ReportingHR.hr.isEmpty())){
+			return S/ReportingHR.hr.size();
+		}else return 0;
+	}
+
+	public static void getAverageSex() {
+		int sM = 0;
+		int sW = 0;
+		try {
+			for (ReportingHR i : ReportingHR.hr) {
+				if(i.getSex() == 0) {//MEN
+					sM ++;
+				}else sW++; //Women
+			}
+			
+			double perMen = (double) sM/ReportingHR.hr.size() * 100;
+			double perWomen = (double) sW/ReportingHR.hr.size() * 100;
+			System.out.printf("The percentage of Woman is %f and of men is %f",perMen,perWomen);
+		}catch(Exception e) {
+			System.out.println("No employees available.");
+		}
+	}
+
+	public static void getAvaAge() {
+		int s = 0;
+		try {
+			for(ReportingHR i : ReportingHR.hr) {
+				s = i.getAge();
+			}
+			System.out.println("The average age of the hotel's employees is: " + s / ReportingHR.hr.size());
+		}catch(Exception e) {
+			System.out.println("No employees available.");
+		}
+	}
 
 }

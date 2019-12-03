@@ -16,12 +16,14 @@ public class ReportingFinance { //This class must be called once a month.
 		private static double cashAvailableBeforeTaxes;
 		private static double loan = 0;
 		private static int rate; //shareholders rate of payment 
-		private static int months = 0;
+		private static int months = 1;
+		private static int current_month;
 		
 		public ReportingFinance(double electricity, double waterSupply, double phone_internetSupply,
 				int numberOfShareHolders, int rate	) {
 			super();
-			months++;
+			current_month = months;
+			++months;
 			ReportingFinance.electricity = electricity;
 			ReportingFinance.waterSupply = waterSupply;
 			ReportingFinance.phone_internetSupply = phone_internetSupply;
@@ -51,10 +53,13 @@ public class ReportingFinance { //This class must be called once a month.
 			
 		}
 		
-		public static double getProceeds() {
-			if(Booking.getchecks > 0) {
-				return Booking.getchecks;
-			}else return 0;
+		public static double getProceeds() { //theloume kapos na tsekaroume oti allazei o minas gia na midenizonte ta miniea esoda
+			if(current_month == months)	{
+				if(Booking.getchecks > 0) {
+					return Booking.getchecks;
+					current_month = months;
+				}else return 0;
+			}
 		}
 		
 		public static String getExpenses() {
@@ -151,10 +156,10 @@ public class ReportingFinance { //This class must be called once a month.
 			currentmonth++;
 		}
 		
-		/** method for cash availability -pending 
+		/** 
 		* complete menu -pending
-		* buffet and suppliers payments -pending
-		* needs to be optimize
+		* 
+		* 
 		* try catch for new methods
 		* method to 0 income every month
 		* */
