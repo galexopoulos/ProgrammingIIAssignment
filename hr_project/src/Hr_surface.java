@@ -47,8 +47,8 @@ public class Hr_surface {
 							if (selected.equals("")) {
 								flag3 = true;
 								break;
-		
-							} else {
+		  
+							} else { 
 								try {
 									salary = Integer.parseInt(selected);
 									if (salary < 0) {

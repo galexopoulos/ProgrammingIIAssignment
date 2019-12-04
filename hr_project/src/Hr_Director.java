@@ -69,9 +69,10 @@ public class Hr_Director extends Manager{ // is resposible for all the Managers 
 							}
 							String timeChecked = String.format("%02d:%02d", a.getLastChecked().get(Calendar.HOUR_OF_DAY), a.getLastChecked().get(Calendar.MINUTE));
 							String dayChecked = String.format("%d/%d", a.getLastChecked().get(Calendar.DAY_OF_MONTH), a.getLastChecked().get(Calendar.MONTH));
-							System.out.println("Id:" + a.getEmployee_Id() + a.getFirstname() + a.getSurname() + "status: " + status + " at " + timeChecked + " of "  + dayChecked);
+							System.out.println("Id: " + a.getEmployee_Id() + " " + a.getFirstname() + " " +  a.getSurname() + " status: " + status + " at " + timeChecked + " of "  + dayChecked);
 						}else { //if a.getLastChecked().get(Calendar.YEAR) == 1990 the Employee has never checked in
-							System.out.println("Id:" + a.getEmployee_Id() + a.getFirstname() + a.getSurname() + "status: Checked out");
+							System.out.println(a.getLastChecked().getTime());
+							System.out.println("Id: " + a.getEmployee_Id() + " " + a.getFirstname() + " " +  a.getSurname() + " status: Checked out");
 						}
 					}
 				}
@@ -841,17 +842,16 @@ public class Hr_Director extends Manager{ // is resposible for all the Managers 
 					System.out.println(Employee.Employees.get(posInEmployees).toString());
 					System.out.println("You are going to remove " + Employee.Employees.get(posInEmployees).getFirstname() 
 							+ " " + Employee.Employees.get(posInEmployees).getSurname() + ". \nAre you sure?");
-					boolean flag2 = false;
+					boolean flag2;
 					do {
+						flag2 = false;
 						System.out.println("yes/no");
 						String verify = sc.nextLine();
 						if (verify.toLowerCase().equals("yes")) {
 							Employee.Employees.remove(posInEmployees);
 							System.out.println("The removal has been made.");
-							flag2 = false;
 						}else if (verify.toLowerCase().equals("no")){
 							System.out.println("Removal cancelled.");
-							flag2 = false;
 						}else {
 							flag2 = true;
 						}
@@ -871,21 +871,12 @@ public class Hr_Director extends Manager{ // is resposible for all the Managers 
 					} else {
 						try {
 							selectedId = Integer.parseInt(selected);
-							boolean found = false;
-							for (int i = 0; i < Employee.Employees.size(); i++) { //BINARY SEARCH CAN BE USED HERE
-								if (Employee.Employees.get(i).getEmployee_Id() == selectedId) {
-									found = true;
-									if (Employee.Employees.get(i) instanceof Manager == false)	{ //if it isn't instanceof Manager it is a basic Employee
-										posInEmployees = i;
-									}else {
-										System.out.println("Already a Manager.");
-									}
-									break;
-								}
-							}
-							if (!found) {
+							posInEmployees = binarySearch(selectedId);
+							if (posInEmployees == -1) {
 								flag1 = true;
 								System.out.println("That is not a valid Id.");
+							}else {
+								flag1 = false;
 							}
 						}catch(Exception b) {
 							flag1 = true;
@@ -894,8 +885,28 @@ public class Hr_Director extends Manager{ // is resposible for all the Managers 
 					}	
 				} while (flag1);
 				if (posInEmployees != -1) {
-					Manager a = new Manager(Employee.Employees.get(posInEmployees));
-					Employee.Employees.set(posInEmployees, a);
+					if (Employee.Employees.get(posInEmployees) instanceof Manager == false) {
+						System.out.println(Employee.Employees.get(posInEmployees).toString());
+						System.out.println("You are going to promote " + Employee.Employees.get(posInEmployees).getFirstname() 
+								+ " " + Employee.Employees.get(posInEmployees).getSurname() + " to Manager. \nAre you sure?");
+						boolean flag2;
+						do {
+							flag2 = false;
+							System.out.println("yes/no");
+							String verify = sc.nextLine();
+							if (verify.toLowerCase().equals("yes")) {
+								Manager a = new Manager(Employee.Employees.get(posInEmployees));
+								//Employee.Employees.set(posInEmployees, a); NOT NEEDED IF NOT MISTAKEN
+								System.out.println("Promotion has been succesfully done.");
+							}else if (verify.toLowerCase().equals("no")){
+								System.out.println("Promotion cancelled.");
+							}else {
+								flag2 = true;
+							}
+						}while(flag2);
+					}else {
+						System.out.println("Already a Manager.");
+					}
 				}
 			}else if(selection == 11) {
 				menuflag = false;

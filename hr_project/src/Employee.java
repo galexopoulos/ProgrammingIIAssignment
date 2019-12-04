@@ -198,13 +198,21 @@ public class Employee {
 				}
 			} while (flag);
 			if (selection == 1) {
-				lastChecked = Calendar.getInstance();
-				checkedIn = true;
-				System.out.println("Check in successful!");
+				if (!checkedIn) { 
+					setLastChecked(Calendar.getInstance());
+					checkedIn = true;
+					System.out.println("Check in successful!");
+				}else {
+					System.out.println("Already checked in.");
+				}
 			} else if (selection == 2) {
-				lastChecked = Calendar.getInstance();
-				checkedIn = false;
-				System.out.println("Check out successful!");
+				if (checkedIn) {
+					setLastChecked(Calendar.getInstance());
+					checkedIn = false; 
+					System.out.println("Check out successful!");
+				}else {
+					System.out.println("Already checked out.");
+				}
 			} else if (selection == 3) {// you can request for free day only in the current week
 				Calendar freeRequest = Calendar.getInstance();
 				freeRequest = enterWeekDay();
@@ -235,9 +243,10 @@ public class Employee {
 		Calendar lastDay = Calendar.getInstance();
 		Calendar requested = Calendar.getInstance();
 		int day = 0, month = 0, year = 0;
-		boolean flag2 = false;
+		boolean flag2;
 		String selected;
 		do {
+			flag2 = false;
 			System.out.println("Insert the day of the month or press Enter to return to the central menu.");
 			boolean flag3 = false;
 			do {

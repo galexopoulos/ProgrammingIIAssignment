@@ -1,4 +1,4 @@
-
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Scanner;
@@ -9,7 +9,7 @@ public class Manager extends Employee { // responsible for the Employees who hav
 	private int monthPayment;
 	private Calendar[][]thisWeekShift = new Calendar[7][8];
 	private boolean checkedIn = false; // true when the employee has checked in but hasn't checked out
-	private Calendar lastChecked;
+	private Calendar lastChecked = Calendar.getInstance();
 	
 	public Manager(String firstname, String surname, String position, String password, int salary, Manager manager) {
 		super(firstname, surname, position, password, salary, manager);
@@ -53,13 +53,21 @@ public class Manager extends Employee { // responsible for the Employees who hav
 				}
 			} while (flag);
 			if (selection == 1) {
-				lastChecked = Calendar.getInstance();;
-				checkedIn = true;
-				System.out.println("Check in successful!");
+				if (!checkedIn) { 
+					setLastChecked(Calendar.getInstance());
+					checkedIn = true;
+					System.out.println("Check in successful!");
+				}else {
+					System.out.println("Already checked in.");
+				}
 			} else if (selection == 2) {
-				lastChecked = Calendar.getInstance();
-				checkedIn = false; 
-				System.out.println("Check out successful!");
+				if (checkedIn) {
+					setLastChecked(Calendar.getInstance());
+					checkedIn = false; 
+					System.out.println("Check out successful!");
+				}else {
+					System.out.println("Already checked out.");
+				}
 			} else if (selection == 3) {// you can request for free day only in the current week
 				Calendar freeRequest = Calendar.getInstance();
 				freeRequest = enterWeekDay();
@@ -101,9 +109,9 @@ public class Manager extends Employee { // responsible for the Employees who hav
 							}
 							String timeChecked = String.format("%02d:%02d", a.getLastChecked().get(Calendar.HOUR_OF_DAY), a.getLastChecked().get(Calendar.MINUTE));
 							String dayChecked = String.format("%d/%d", a.getLastChecked().get(Calendar.DAY_OF_MONTH), a.getLastChecked().get(Calendar.MONTH));
-							System.out.println("Id:" + a.getEmployee_Id() + a.getFirstname() + a.getSurname() + "status: " + status + " at " + timeChecked + " of "  + dayChecked);
+							System.out.println("Id: " + a.getEmployee_Id() + " " + a.getFirstname() + " " +  a.getSurname() + " status: " + status + " at " + timeChecked + " of "  + dayChecked);
 						}else { //if a.getLastChecked().get(Calendar.YEAR) == 1990 the Employee has never checked in
-							System.out.println("Id:" + a.getEmployee_Id() + a.getFirstname() + a.getSurname() + "status: Checked out");
+							System.out.println("Id: " + a.getEmployee_Id() + " " + a.getFirstname() + " " +  a.getSurname() + " status: Checked out");
 						}
 					}
 				}
