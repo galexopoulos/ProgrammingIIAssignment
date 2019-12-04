@@ -89,19 +89,21 @@ public class Goals {
 		
 	}
 	
-	public static void loadgoals() { 
-		goals[0] = 2000; //IANOUARIOS
-		goals[1] = 2500; //FEVROUARIOS
-		goals[2] = 2550; //MARTIOS
-		goals[3] = 3500; //APRILIOS
-		goals[4] = 4500; //MAIOS
-		goals[5] = 7500; //IOUNIOS
-		goals[6] = 9800; //IOULIOS
-		goals[7] = 10000; //AVGOUSTOS
-		goals[8] = 6500; //SEPTEMVRIOS
-		goals[9] = 2500; //OKTOVRIOS
-		goals[10] = 1000; //NOEMVRIOS
-		goals[11] = 900; //DEKEMVRIOS
+	public static void loadgoals(double ja, double feb, double mar, double ap, double may,
+			double june, double july, double au, double se, double oc,
+			double no, double dec) { 
+		goals[0] = ja; //IANOUARIOS
+		goals[1] = feb; //FEVROUARIOS
+		goals[2] = mar; //MARTIOS
+		goals[3] = ap; //APRILIOS
+		goals[4] = may; //MAIOS
+		goals[5] = june; //IOUNIOS
+		goals[6] = july; //IOULIOS
+		goals[7] = au; //AVGOUSTOS
+		goals[8] = se; //SEPTEMVRIOS
+		goals[9] = oc; //OKTOVRIOS
+		goals[10] = no; //NOEMVRIOS
+		goals[11] = dec; //DEKEMVRIOS
 		
 	}
 }
