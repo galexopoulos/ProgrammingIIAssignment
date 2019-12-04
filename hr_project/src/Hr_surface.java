@@ -4,9 +4,13 @@ public class Hr_surface {
 	
 	public static void toRun(){
 		Scanner sc = new Scanner(System.in);
-		System.out.println("Welcome to Hr part! \nAt the beginning is necessary to set up the hr data. \n");
+		System.out.println("Welcome to Hr part!");
+		// if (main.firstTime){ 	firstTime a boolean variable from main that shows if it
+									// is the first time that the client enters Hr part
+		//BEGINNING OF IF
+		System.out.println("At the beginning is necessary to set up the hr data. \n");
 		boolean directornotset;
-		Hr_Director hrDirector = new Hr_Director("" ,"" ,"Hr Director" , "", -1, null);
+		Hr_Director hrDirector = new Hr_Director("", "", "Hr Director", "", -1, null);
 		do {
 			directornotset = false;
 			System.out.println("Hr Director's set up. \n");
@@ -182,14 +186,14 @@ public class Hr_surface {
 												break;
 											}
 											try {
-												manager.setWeekShift(Shift.createShift(shiftStr));								
+												manager.setThisWeekShift(Shift.createShift(shiftStr));								
 											}catch (Exception e) {
 												System.out.println("Mistake with the inserted shift.");
 												flag7 = true;
 												continue;
 											}
 											System.out.println("Manager's shift:");
-											Employee.printShift(manager.getWeekShift());
+											Employee.printShift(manager.getThisWeekShift());
 											System.out.println("Do you want to save the shift for the Manager?");
 											boolean flag8;
 											do {
@@ -357,14 +361,14 @@ public class Hr_surface {
 													break;
 												}
 												try {
-													employee.setWeekShift(Shift.createShift(shiftStr));								
+													employee.setThisWeekShift(Shift.createShift(shiftStr));								
 												}catch (Exception e) {
 													System.out.println("Mistake with the inserted shift.");
 													flag7 = true;
 													continue;
 												}
 												System.out.println("Employee's shift:");
-												Employee.printShift(employee.getWeekShift());
+												Employee.printShift(employee.getThisWeekShift());
 												System.out.println("Do you want to save the shift for the Employee?");
 												boolean flag8;
 												do {
@@ -435,13 +439,16 @@ public class Hr_surface {
 		for(int i = firstemppos; i < Employee.Employees.size(); i++) {
 			System.out.println(Employee.Employees.get(i).toString());
 		}
+		//END OF IF
+		//}
 		
 		
-		boolean alwaystrue = true;
+		boolean stayAtHR;
 		do {
-			boolean noLogin;
-			do {
-				noLogin = false;
+			stayAtHR = true;	
+			System.out.println("Press Enter to login or Space to return to basic menu.");
+			String selection = sc.nextLine();
+			if (selection.equals("")){ 
 				System.out.println("LOGIN \n------");
 				boolean  wrongInput;
 				int id = -1;
@@ -462,9 +469,32 @@ public class Hr_surface {
 					Employee.Employees.get(posInEmployees).getMenu();
 				}else {
 					System.out.println("Wrong id or password.");
-					noLogin = true;
-				}
-			}while (noLogin);
-		}while(alwaystrue);
+				}	
+			}else if(selection.equals(" ")) {
+				stayAtHR = false;
+			}
+		}while(stayAtHR);
+	}
+
+	public static void toBeDoneEveryWeek() {// has not a purpose at this project because of the difficulties at the
+											// check but it could be used in real circumstances
+		for (Employee a : Employee.Employees) {
+			try {
+				a.setThisWeekShift(Shift.createShift(a.getShiftStr()));
+			} catch (Exception e) {
+				// check has been done it will never reach here, i there was an error with the
+				// input Exception has been handled before
+			}
+		}
+	}
+
+	public static void toBeDoneEveryMonth() {
+		double totalSalaryOutcome = 0;
+		for (Employee a : Employee.Employees) {
+			totalSalaryOutcome += a.getMonthPayment();
+			a.setMonthPayment(a.getSalary());
+			a.setExtraHoursMonth(0);
+		}
+		//SEND totalSalaryOutcome to Finance and Reporting
 	}
 }
