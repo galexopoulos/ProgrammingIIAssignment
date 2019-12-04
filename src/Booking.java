@@ -3,6 +3,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Scanner;
 
+
 public class Booking {
 	static Scanner sc = new Scanner(System.in);
 	private Date checkIn;
