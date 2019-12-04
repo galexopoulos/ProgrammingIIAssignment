@@ -12,7 +12,7 @@ public class Shift {
 
 
 	
-	public static int[][] arr_Dep_Times_int(String day_schedule)  throws Exception{ // uses a String     
+	private static int[][] arr_Dep_Times_int(String day_schedule)  throws Exception{ // uses a String     
 															// input of a daily
 															// timetable
 															// with "," between time periods, "-"
@@ -159,7 +159,7 @@ public class Shift {
 		return cal;
 	}
 
-	public static Calendar[][] arr_Dep_Times_Cal(int[][] arrH_arrM_depH_depM, Calendar cal, int daysFromMonday) { // cal when
+	private static Calendar[][] arr_Dep_Times_Cal(int[][] arrH_arrM_depH_depM, Calendar cal, int daysFromMonday) { // cal when
 																											// the next
 																											// monday
 																											// is, uses
@@ -212,7 +212,7 @@ public class Shift {
 
 	}
 
-	public static Calendar[] connect_Arr_Dep(Calendar[][] cal) { // connects the Arrival and Departure times at the right order of the array that the arr_Dep_Times_Cal created
+	private static Calendar[] connect_Arr_Dep(Calendar[][] cal) { // connects the Arrival and Departure times at the right order of the array that the arr_Dep_Times_Cal created
 		Calendar[] day_Schedule = new Calendar[8];
 		for (int i = 0; i < 4; i++) {
 			day_Schedule[2*i] = cal[0][i];
@@ -222,7 +222,7 @@ public class Shift {
 
 	}
 
-	public static Calendar[] week_Schedule(Calendar[][] calSchedule) {// connects the indexes of an Array Calendar[][] at an
+	private static Calendar[] week_Schedule(Calendar[][] calSchedule) {// connects the indexes of an Array Calendar[][] at an
 																// Array Calendar[]
 
 		Calendar[] fullWeek = new Calendar[64];
@@ -235,7 +235,7 @@ public class Shift {
 
 	}
 
-	public static boolean Check_week_Schedule(Calendar[] fullWeek) {// checks that there are no back to back arrivals
+	private static boolean Check_week_Schedule(Calendar[] fullWeek) {// checks that there are no back to back arrivals
 																// or departures and that the fullWeek indexes
 																// are at the right order
 		boolean everythingOk = true;
