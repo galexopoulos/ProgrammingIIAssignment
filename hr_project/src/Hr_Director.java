@@ -1,5 +1,5 @@
 import java.util.*;
-public class Hr_Director extends Manager{ // is resposible for all the Managers (even if they have another Manager) and the basic shifts of all the Employees
+public class Hr_Director extends Manager{ // is resposible for all the Managers (even if they have another Manager)
 	private String firstname, surname, position , password;
 	private int employee_Id, extraHoursMonth = 0 /*need to be set to 0 every month*/, salary, monthPayment;
 	
@@ -17,25 +17,25 @@ public class Hr_Director extends Manager{ // is resposible for all the Managers 
 	
 	public void getMenu() {
 		Scanner sc = new Scanner(System.in);
-		boolean menuflag = true;//must add a log out option that makes menuflag false
+		boolean menuflag = true;
 		System.out.println("Welcome!");
 		do {
 			System.out.println(" HR DIRECT0R MENU \n------------- \n Select: \n1)Inbox. \n2)View Managers. \n3)Show check in status of Managers. \n"
 					+ "4)Set extra hours for a Manager. \n5)Edit a Manager's payment. \n6)Edit a Manager's fields. \n7)Edit an Employee's shift. "
-					+ "\n8)Hire a new member. \n9)Remove a member. \n10)Promote to Manager. ");
+					+ "\n8)Hire a new member. \n9)Remove a member. \n10)Promote to Manager. \n11)Log out.");
 			boolean flag = false;
 			int selection = 0;
 			do { 
 				if (!sc.hasNextInt()) {
-					System.out.println("Please insert an integer 1 - 10");
+					System.out.println("Please insert an integer 1 - 11");
 					flag = true;
 					sc.next();
 	
 				} else {
 					selection = sc.nextInt();
-					if (selection > 10 || selection < 1) {
+					if (selection > 11 || selection < 1) {
 						flag = true;
-						System.out.println("input an integer [1,10]");
+						System.out.println("input an integer [1,11]");
 					} else {
 						flag = false;
 						sc.nextLine();
@@ -61,12 +61,18 @@ public class Hr_Director extends Manager{ // is resposible for all the Managers 
 				for (Employee a : Employee.Employees) { 
 					if (a instanceof Manager && !a.equals(this)) {
 						onefound = true;
-						if (a.isCheckedIn()) {
-							status = "Checked in";
-						}else {
-							status = "Checked out";
+						if (a.getLastChecked().get(Calendar.YEAR) != 1990) {
+							if (a.isCheckedIn()) {
+								status = "Checked in";
+							}else {
+								status = "Checked out";
+							}
+							String timeChecked = String.format("%02d:%02d", a.getLastChecked().get(Calendar.HOUR_OF_DAY), a.getLastChecked().get(Calendar.MINUTE));
+							String dayChecked = String.format("%d/%d", a.getLastChecked().get(Calendar.DAY_OF_MONTH), a.getLastChecked().get(Calendar.MONTH));
+							System.out.println("Id:" + a.getEmployee_Id() + a.getFirstname() + a.getSurname() + "status: " + status + " at " + timeChecked + " of "  + dayChecked);
+						}else { //if a.getLastChecked().get(Calendar.YEAR) == 1990 the Employee has never checked in
+							System.out.println("Id:" + a.getEmployee_Id() + a.getFirstname() + a.getSurname() + "status: Checked out");
 						}
-						System.out.println("Id: " + a.getEmployee_Id() + " " + a.getFirstname() + " " + a.getSurname() + " status: " + status);
 					}
 				}
 				if (!onefound) {
@@ -366,7 +372,7 @@ public class Hr_Director extends Manager{ // is resposible for all the Managers 
 				}else {
 					menuflag = true;
 				}
-			}else if(selection == 7) {//the change will be applied the next week
+			}else if(selection == 7) {
 				boolean shiftflag = false;
 				do {
 					String selected;
@@ -404,7 +410,7 @@ public class Hr_Director extends Manager{ // is resposible for all the Managers 
 						do {
 							flag2 = false;
 							System.out.println(Employee.Employees.get(posInEmployees).toString());
-							printShift(Employee.Employees.get(posInEmployees).getWeekShift());
+							printShift(Employee.Employees.get(posInEmployees).getThisWeekShift());
 							boolean flag3;
 							int dayInt = -1;
 							do {	
@@ -464,7 +470,7 @@ public class Hr_Director extends Manager{ // is resposible for all the Managers 
 											shiftStr[dayInt] = inputShift;
 											}
 										try {
-											Employee.Employees.get(posInEmployees).setWeekShift(Shift.createShift(shiftStr));
+											Employee.Employees.get(posInEmployees).setThisWeekShift(Shift.createShift(shiftStr));
 											//if it moves on the input is correct as creatShift method throws Exception for wrong input
 											Employee.Employees.get(posInEmployees).setShiftStr(shiftStr);
 											System.out.println("The change has been made.");
@@ -596,14 +602,14 @@ public class Hr_Director extends Manager{ // is resposible for all the Managers 
 															break;
 														}
 														try {
-															employee.setWeekShift(Shift.createShift(shiftStr));								
+															employee.setThisWeekShift(Shift.createShift(shiftStr));								
 														}catch (Exception e) {
 															System.out.println("Mistake with the inserted shift.");
 															flag7 = true;
 															continue;
 														}
 														System.out.println("Employee's shift:");
-														Employee.printShift(employee.getWeekShift());
+														Employee.printShift(employee.getThisWeekShift());
 														System.out.println("Do you want to save the shift for the Employee?");
 														boolean flag8;
 														do {
@@ -747,14 +753,14 @@ public class Hr_Director extends Manager{ // is resposible for all the Managers 
 													break;
 												}
 												try {
-													manager.setWeekShift(Shift.createShift(shiftStr));								
+													manager.setThisWeekShift(Shift.createShift(shiftStr));								
 												}catch (Exception e) {
 													System.out.println("Mistake with the inserted shift.");
 													flag7 = true;
 													continue;
 												}
 												System.out.println("Manager's shift:");
-												Employee.printShift(manager.getWeekShift());
+												Employee.printShift(manager.getThisWeekShift());
 												System.out.println("Do you want to save the shift for the Manager?");
 												boolean flag8;
 												do {
@@ -891,6 +897,8 @@ public class Hr_Director extends Manager{ // is resposible for all the Managers 
 					Manager a = new Manager(Employee.Employees.get(posInEmployees));
 					Employee.Employees.set(posInEmployees, a);
 				}
+			}else if(selection == 11) {
+				menuflag = false;
 			}
 		}while(menuflag);
 	}

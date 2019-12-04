@@ -4,15 +4,13 @@ import java.util.*;
 public class Employee {
 	private String firstname, surname, position, password;
 	private int employee_Id, extraHoursMonth = 0 /*need to be set to 0 every month*/, salary, monthPayment;
-	private Calendar[][]weekShift = new Calendar[7][8];
-	private Calendar[][]thisweekShift = new Calendar[7][8];
+	private Calendar[][]thisWeekShift = new Calendar[7][8];
 	private Manager manager;
-	private static int add = 0; //the Hr Director has the id = 0
+	private static int add = 0; 
 	static ArrayList<Employee> Employees = new ArrayList<Employee>();
-	private Calendar dailyTimes[] = new Calendar[8]; // shows the arrivals and departures of the employee in one day
-	private int dayCounter = 0;// shows how many indexes of the array dailyTimes are filled
 	private boolean checkedIn = false; // true when the employee has checked in but hasn't checked out
 	private String[] shiftStr = new String[8];
+	private Calendar lastChecked = Calendar.getInstance();
 
 	public Employee(String firstname, String surname, String position, String password, int salary,
 			Manager manager) {
@@ -23,7 +21,7 @@ public class Employee {
 		this.salary = salary;
 		this.manager = manager;
 		this.employee_Id = add;
-
+		lastChecked.set(Calendar.YEAR, 1990);
 		Employees.add(this);
 		add++;
 	}
@@ -38,17 +36,17 @@ public class Employee {
 		this.employee_Id = employee.employee_Id;
 		this.extraHoursMonth = employee.extraHoursMonth;
 		this.monthPayment = employee.monthPayment;
-		this.dailyTimes = employee.dailyTimes;
-		this.dayCounter = employee.dayCounter;
 		this.checkedIn = employee.checkedIn;
 		this.shiftStr = employee.shiftStr;
-		this.thisweekShift = employee.thisweekShift;
+		this.thisWeekShift = employee.thisWeekShift;
+		this.lastChecked = employee.lastChecked;
 		for(int i = 0; i < Employees.size(); i++ ) {
 			if (Employees.get(i).equals(employee) ) {
 				Employees.set(i, this);
 			}
 				
 		}
+
 	}
 
 	public String getFirstname() {
@@ -100,15 +98,6 @@ public class Employee {
 	}
 
 
-
-	public Calendar[][] getWeekShift() {
-		return weekShift;
-	}
-
-	public void setWeekShift(Calendar[][] weekShift) {
-		this.weekShift = weekShift;
-	}
-
 	public Manager getManager() {
 		return manager;
 	}
@@ -117,13 +106,6 @@ public class Employee {
 		this.manager = manager;
 	}
 
-	public Calendar[] getDailyTimes() {
-		return dailyTimes;
-	}
-
-	public void setDailyTimes(Calendar[] dailyTimes) {
-		this.dailyTimes = dailyTimes;
-	}
 	
 	
 	public int getMonthPayment() {
@@ -166,12 +148,21 @@ public class Employee {
 	
 	
 
-	public Calendar[][] getThisweekShift() {
-		return thisweekShift;
+	public Calendar[][] getThisWeekShift() {
+		return thisWeekShift;
 	}
 
-	public void setThisweekShift(Calendar[][] thisweekShift) {
-		this.thisweekShift = thisweekShift;
+	public void setThisWeekShift(Calendar[][] thisWeekShift) {
+		this.thisWeekShift = thisWeekShift;
+	}
+
+		
+	public Calendar getLastChecked() {
+		return lastChecked;
+	}
+
+	public void setLastChecked(Calendar lastChecked) {
+		this.lastChecked = lastChecked;
 	}
 
 	@Override
@@ -182,24 +173,24 @@ public class Employee {
 
 	public void getMenu() {
 		Scanner sc = new Scanner(System.in);
-		boolean menuflag = true;//must add a log out option that makes menuflag false
+		boolean menuflag = true;
 		System.out.println("Welcome!");
 		do{	
 			System.out.println("    MENU \n------------- \n Select: \n1)Check in.\n2)Check out. \n"
-					+ "3)Day off request. \n4)Inbox. \n5)Show shift of the week.");
+					+ "3)Day off request. \n4)Inbox. \n5)Show shift of the week. \n6)Log out.");
 			boolean flag = false;
 			int selection = 0;
 			do {
 				if (!sc.hasNextInt()) {
-					System.out.println("Please insert 1 or 2 or 3 or 4 or 5");
+					System.out.println("Please insert 1 or 2 or 3 or 4 or 5 or 6");
 					flag = true;
 					sc.next();
 	
 				} else {
 					selection = sc.nextInt();
-					if (selection > 5 || selection < 1) {
+					if (selection > 6 || selection < 1) {
 						flag = true;
-						System.out.println("input an integer [1,5]");
+						System.out.println("input an integer [1,6]");
 					} else {
 						flag = false;
 						sc.nextLine();
@@ -207,16 +198,12 @@ public class Employee {
 				}
 			} while (flag);
 			if (selection == 1) {
-				Calendar arrTime = Calendar.getInstance();
-				dailyTimes[dayCounter] = arrTime;
+				lastChecked = Calendar.getInstance();
 				checkedIn = true;
-				dayCounter++;
 				System.out.println("Check in successful!");
 			} else if (selection == 2) {
-				Calendar depTime = Calendar.getInstance();
-				dailyTimes[dayCounter] = depTime;
+				lastChecked = Calendar.getInstance();
 				checkedIn = false;
-				dayCounter++;
 				System.out.println("Check out successful!");
 			} else if (selection == 3) {// you can request for free day only in the current week
 				Calendar freeRequest = Calendar.getInstance();
@@ -233,7 +220,9 @@ public class Employee {
 				//call inbox
 	
 			}else if (selection == 5){
-				printShift(this.getWeekShift());
+				printShift(this.getThisWeekShift());
+			}else if (selection == 6) {
+				menuflag = false;
 			}
 		}while (menuflag);
 	}
