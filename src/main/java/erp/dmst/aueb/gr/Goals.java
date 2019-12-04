@@ -82,12 +82,26 @@ public class Goals {
 				}else System.out.println("Profits of current year are equal to goal" + years[month][ans]);
 			}
 		}catch(IndexOutOfBoundsException e) {
-			System.out.println("ERROR");
+			System.out.println("ERROR.");
+		}catch(Exception e) {
+			System.out.println("RunTimeError.");
 		}
 		
 	}
 	
-	public void loadgoals() {
+	public static void loadgoals() { 
+		goals[0] = 2000; //IANOUARIOS
+		goals[1] = 2500; //FEVROUARIOS
+		goals[2] = 2550; //MARTIOS
+		goals[3] = 3500; //APRILIOS
+		goals[4] = 4500; //MAIOS
+		goals[5] = 7500; //IOUNIOS
+		goals[6] = 9800; //IOULIOS
+		goals[7] = 10000; //AVGOUSTOS
+		goals[8] = 6500; //SEPTEMVRIOS
+		goals[9] = 2500; //OKTOVRIOS
+		goals[10] = 1000; //NOEMVRIOS
+		goals[11] = 900; //DEKEMVRIOS
 		
 	}
 }
