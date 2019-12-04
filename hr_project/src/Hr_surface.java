@@ -166,6 +166,7 @@ public class Hr_surface {
 												if (mngrId != -1 && mngrPosition == -1) {
 													flag6 = true;
 													System.out.println("That is not a valid Manager id.");
+													continue;
 												}else if (mngrId == -1) {
 													managerName = "no Manager";
 												}else {
@@ -175,6 +176,7 @@ public class Hr_surface {
 											}catch(Exception b) {
 												flag6 = true;
 												System.out.println("Please insert an Integer.");
+												continue;
 											}
 										}
 										boolean flag7;
@@ -345,6 +347,7 @@ public class Hr_surface {
 											if (mngrPosition == -1) {
 												flag6 = true;
 												System.out.println("That is not a valid Manager id.");
+												continue;
 											}else {
 												managerName = Employee.Employees.get(mngrPosition).getFirstname();
 												managerName += " " + Employee.Employees.get(mngrPosition).getSurname();
@@ -352,41 +355,42 @@ public class Hr_surface {
 										}catch(Exception b) {
 											flag6 = true;
 											System.out.println("Please insert an Integer.");
-											boolean flag7;
-											do {
-												flag7 = false;
-												String [] shiftStr = Shift.insertShiftStr();
-												if (shiftStr[0].equals("no shift")){
-													flag6 = true;
-													break;
-												}
-												try {
-													employee.setThisWeekShift(Shift.createShift(shiftStr));								
-												}catch (Exception e) {
-													System.out.println("Mistake with the inserted shift.");
-													flag7 = true;
-													continue;
-												}
-												System.out.println("Employee's shift:");
-												Employee.printShift(employee.getThisWeekShift());
-												System.out.println("Do you want to save the shift for the Employee?");
-												boolean flag8;
-												do {
-													flag8 = false;
-													System.out.println("yes/no");
-													String verify = sc.nextLine();
-													if (verify.toLowerCase().equals("yes")) {
-														System.out.println("Succesfully saved. ");
-													}else if (verify.toLowerCase().equals("no")){
-														System.out.println("Shift has not been saved, please insert a new shift.");
-														flag7 = true;
-													}else {
-														flag8 = true;
-													}
-												}while(flag8);
-											}while(flag7);
+											continue;
 										}
 									}
+									boolean flag7;
+									do {
+										flag7 = false;
+										String [] shiftStr = Shift.insertShiftStr();
+										if (shiftStr[0].equals("no shift")){
+											flag6 = true;
+											break;
+										}
+										try {
+											employee.setThisWeekShift(Shift.createShift(shiftStr));								
+										}catch (Exception e) {
+											System.out.println("Mistake with the inserted shift.");
+											flag7 = true;
+											continue;
+										}
+										System.out.println("Manager's shift:");
+										Employee.printShift(employee.getThisWeekShift());
+										System.out.println("Do you want to save the shift for the Employee?");
+										boolean flag8;
+										do {
+											flag8 = false;
+											System.out.println("yes/no");
+											String verify = sc.nextLine();
+											if (verify.toLowerCase().equals("yes")) {
+												System.out.println("Succesfully saved. ");
+											}else if (verify.toLowerCase().equals("no")){
+												System.out.println("Shift has not been saved, please insert a new shift.");
+												flag7 = true;
+											}else {
+												flag8 = true;
+											}
+										}while(flag8);
+									}while(flag7);
 								}while(flag6);
 							}while(flag5);
 						}while(flag4);
@@ -457,6 +461,7 @@ public class Hr_surface {
 					 try {
 						System.out.print("Id:");
 						id = sc.nextInt();
+						sc.nextLine();
 					 }catch (InputMismatchException ime) {
 						 System.out.println("Invalid input.");
 						 wrongInput = true;	 

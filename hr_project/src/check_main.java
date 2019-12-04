@@ -3,7 +3,7 @@ import java.time.*;
 public class check_main {
 
 	public static void main(String args[]) {
-		Scanner sc = new Scanner(System.in);
+		/*Scanner sc = new Scanner(System.in);
 		String daySchedule = "3:00-4:00";
 		String[] a = new String[8];
 		
@@ -31,8 +31,8 @@ public class check_main {
 	    Hr_Director boss = new Hr_Director("boss", "no1","a","b",10,null);
 	    c = new Manager(c);
 	    System.out.println(c instanceof Manager);
-	    boss.getMenu();
-	   
+	    boss.getMenu();*/
+	   Hr_surface.toRun();
 	
 	}
 }
