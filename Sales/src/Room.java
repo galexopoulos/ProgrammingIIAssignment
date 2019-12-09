@@ -6,17 +6,15 @@ public class Room {
 	private double pricePerNight;
 	private static int counter = 0;
 	private int roomNumber;
-	//private String[] extras;
 	private static ArrayList<Room> rooms = new ArrayList<Room>();
 
 	public Room(int floor, int capacity, double pricePerNight) {
 		this.floor = floor;
 		this.capacity = capacity;
 		this.pricePerNight = pricePerNight;
-		//this.extras = extras;
-		this.roomNumber = ++counter;
-		rooms.add(this);
-		Booking.getBookings().add(new ArrayList());
+		this.roomNumber = ++counter; // room numbers start from 1 and add up when a new room is added
+		rooms.add(this); //add a new room to the list
+		Booking.getBookings().add(new ArrayList<Booking>()); // add a new row in the bookings list for every new room
 	}
 
 	public int getFloor() {
