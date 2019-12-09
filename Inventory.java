@@ -1,0 +1,277 @@
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class Inventory {
+	static Scanner sc = new Scanner(System.in);
+	private String type; // the type of product. it can only be fixed, urgent or buffet//
+	private String name; // name of product//
+	private int stock; // the remaining amount of the given product//
+	private int pricepreunit; // the price per unit of the given product//
+	private int minstock; // the minimum amount that that should be in the inventory for the given
+							// product//
+	private Supplier suplier;// a list of the suppliers for the hotel//
+	private double balance; // the amount of money that we have spent for the particular product//
+	static ArrayList<Inventory> fixedInventory = new ArrayList<Inventory>();// generates the list of for all the
+	// inventory subjects//
+	static ArrayList<Inventory> urgentInventory = new ArrayList<Inventory>();
+	static private int buffet = 300;// the number of people the buffet can go throughout without needing a new order
+									// to be placed. the fixed price for the buffet per visitor is 50$//
+
+	public Inventory(String name, int stock, int pricepreunit, int minstock, Supplier suplier, String type,
+			double balance) {
+		super();
+		this.name = name;
+		this.stock = stock;
+		this.pricepreunit = pricepreunit;
+		this.minstock = minstock;
+		this.suplier = suplier;
+		this.type = type;
+		this.balance = balance;
+		if (this.type.equals("Fixed")) {// if statement that places the products to the according category which they
+										// belong in//
+			fixedInventory.add(this);
+		} else if (this.type.equals("Urgent")) {
+			urgentInventory.add(this);
+		}
+	}
+
+	// Start of the Inventory Menu Section//
+	public static void displayInvMenu() {
+		System.out.println("Welcome to the Inventory manager Menu");
+		System.out.println(
+				"1)To Update and ckeck the Fixed Invetory please input 1\n2)To Update ckeck the Urgent Invetory please input 2\n3)To Update and ckeck the Buffet please input 3");
+		System.out.print("Selection: ");
+	}
+
+	public static void question() {
+		System.out.println("Would you like to proceed or quit?");
+		System.out.println("To proceed enter 9.");
+		System.out.println("If you wish to quit enter 0.");
+		Scanner q = new Scanner(System.in);
+
+		switch (q.nextInt()) {
+		case 0:
+			System.out.println("Thank you and godbye.");
+			break;
+
+		case 9:
+			System.out.println("Please proceed.");
+			InvMenu();
+			break;
+		default:
+			System.err.println("Unrecognized option");
+			break;
+		}
+	}
+
+	public static void InvMenu() {
+		displayInvMenu();
+
+		switch (sc.nextInt()) {
+		case 1:
+			updateFixed(100);
+			checkFixed();
+			question();
+			break;
+
+		case 2:
+			updateUrgent();
+			checkUrgent();
+			question();
+			break;
+
+		case 3:
+			updateBuffet(251);
+			question();
+			break;
+		default:
+			System.err.println("Unrecognized option");
+			break;
+		}
+	}
+
+//buffet section//
+	public static void updateBuffet(int visitorswithbuffet) {// Updates the buffet based on how many visitors included
+																// buffet to their package//
+		buffet -= visitorswithbuffet;
+		if (buffet <= 50) {// its <= 50 because we use the the supplies for 50 visitors as protection //
+			orderBuffet();
+		}
+	}
+
+	public static void orderBuffet() {// order either the fixed amount(for 300 visitors or orders by input
+		String x;
+			do {
+				System.out.println(
+						"The supplies for the buffet are running low and there should be an order\n. Do you want to order the fixed supply (For 300 visitors), or order by input?\n( Select 0 for fixed amount or 1 for order by input)");
+				x = sc.nextLine();
+			} while (!(x.equals("0") || x.equals("1")));
+		if (x.equals("1")) {
+
+			System.out.println(
+					"For how many visitors do you want to order ?\n( the order cannot be 1000 or more at once or less than 50)");
+			int y;
+			try {
+				do {
+					y = sc.nextInt();
+				} while (y < 50 || y > 1000);
+			} catch (Exception e) {
+				System.out.println("Please order an amount bitween 50 and 1000 that is not a double");
+				y = sc.nextInt();
+			}
+			buffet += y;
+			System.out.println("The nummber of visitors that the buffet can acompany is " + buffet + " ?");
+		} else if (x.equals("0")) {
+			buffet += 300;
+			System.out.println("The nummber of visitors that the buffet can acompany is " + buffet + " ?");
+		}
+
+	}
+
+	public static int getBuffetFin(int visitorswithbuffet) {// Visitors with buffet will be calculated by the
+		int x = visitorswithbuffet * 50;
+		return x;
+	}
+
+//end of buffet section//
+
+// Start of fixedInventory section//
+	public static void updateFixed(int totalnumberofpeople) {// gets the total number of people that are in the hotel
+																// and subtracts it from the fixed list for very
+																// product//
+		for (int i = 0; i < fixedInventory.size(); i++) {
+			System.out.println("The stock for the product " + fixedInventory.get(i).name + "\nbefore update is "
+					+ fixedInventory.get(i).stock + "");
+			fixedInventory.get(i).stock = fixedInventory.get(i).stock - totalnumberofpeople;
+			System.out.println("The stock for the product " + fixedInventory.get(i).name + "\nafter update is "
+					+ fixedInventory.get(i).stock + "\n*********************************");
+		}
+	}
+
+	public static void checkFixed() {// checks the list or items that have minstock>stock//
+		for (int i = 0; i < fixedInventory.size(); i++) {
+			if (fixedInventory.get(i).stock < fixedInventory.get(i).minstock) {
+				orderFixed(i);
+			}
+		}
+
+	}
+
+	public static void orderFixed(int i) {// updates the fixedlist item with index i//
+		System.out.println("\nThe suply of the product " + fixedInventory.get(i).name
+				+ " is running low and there should be an order\n Do you want to order the fixed amount ("
+				+ fixedInventory.get(i).minstock * 2
+				+ ")\nor order by input ( Select 0 for fixed amount or 1 for order by input)");
+		int ans;
+		try {
+			ans = sc.nextInt();// order starts
+		} catch (Exception e) {
+			System.out.println("Please insert 0 or 1");
+			ans = sc.nextInt();
+		}
+		if (ans == 0) {
+			fixedInventory.get(i).stock += fixedInventory.get(i).minstock * 3;
+			fixedInventory.get(i).balance += fixedInventory.get(i).minstock * 3 * fixedInventory.get(i).pricepreunit;
+
+		} else if (ans == 1) {
+			System.out.println("Give me the order");
+			int order = sc.nextInt();
+			fixedInventory.get(i).stock += order;
+			fixedInventory.get(i).balance += order * fixedInventory.get(i).pricepreunit;// order ends
+		}
+	}
+
+	public static double[] getInvFixFin() {// gives an array with all the balances of the products. The product names
+											// can be accessed with fixedInventory.get(i).name; and there connected to
+											// the array via the index.//
+		double x[] = new double[fixedInventory.size()];
+		for (int i = 0; i <= fixedInventory.size(); i++) {
+			x[i] = fixedInventory.get(i).balance;
+		}
+		return x;
+	}
+
+// End of fixedInventory section//
+
+// Start of urgentInventort section//
+	public static void updateUrgent() {
+
+	}
+
+	public static void checkUrgent() {
+		for (int i = 0; i < urgentInventory.size(); i++) {
+			if (urgentInventory.get(i).stock < urgentInventory.get(i).minstock) {
+				orderUrgent(i);
+
+			}
+		}
+
+	}
+
+	public static void orderUrgent(int i) {// takes the index of a product that is low on stock and an order should be
+											// made//
+
+		System.out.println("the suply of the product " + urgentInventory.get(i).name
+				+ " is running low and there should be an order. Do you want to order the fixed amount ("
+				+ urgentInventory.get(i).minstock * 3
+				+ ") or order by input ( Select 0 for fixed amount or 1 for order by input)");
+		int ans = sc.nextInt();// order starts
+		if (ans == 0) {
+			urgentInventory.get(i).stock += urgentInventory.get(i).minstock * 3;
+			urgentInventory.get(i).balance += urgentInventory.get(i).minstock * 3 * urgentInventory.get(i).pricepreunit;
+		} else if (ans == 1) {
+			System.out.println("Give me the order");
+			int order = sc.nextInt();
+			urgentInventory.get(i).stock += order;// order ends
+			urgentInventory.get(i).balance += order * urgentInventory.get(i).pricepreunit;
+		}
+
+	}
+
+// this code should be used as one by the finance manager//
+	public static double[] getInvUrgFin() {// gives an array with all the balances of the products. The product names
+		// can be accessed with urgentInventory.get(i).name; and there connected to
+		// the array via the index.//
+		double x[] = new double[urgentInventory.size()];
+		for (int i = 0; i <= urgentInventory.size(); i++) {
+			x[i] = urgentInventory.get(i).balance;
+		}
+		return x;
+	}
+
+	public static void setInvUrgFin() {
+		for (int i = 0; i <= urgentInventory.size(); i++) {
+			urgentInventory.get(i).setBalance(0);
+		}
+	}
+	// end of the finance block
+	// End of urgentInventory section//
+
+	public double getBalance() {
+		return balance;
+	}
+
+	public void setBalance(double balance) {
+		this.balance = balance;
+	}
+
+	public static void main(String args[]) {
+		Supplier s1 = new Supplier("s1", 1, "@1");
+		Supplier s2 = new Supplier("s2", 2, "@2");
+		Supplier s3 = new Supplier("s3", 3, "@3");
+		Supplier s4 = new Supplier("s4", 4, "@4");
+		Supplier s5 = new Supplier("s5", 5, "@5");
+		Inventory i1 = new Inventory("z1", 100, 5, 70, s1, "Fixed", 0);
+		Inventory i2 = new Inventory("z2", 150, 25, 20, s2, "Fixed", 0);
+		Inventory i3 = new Inventory("z3", 200, 50, 20, s3, "Fixed", 0);
+		Inventory i4 = new Inventory("z4", 120, 10, 10, s4, "Fixed", 0);
+		Inventory i5 = new Inventory("z5", 125, 20, 30, s5, "Fixed", 0);
+		Inventory iu1 = new Inventory("u1", 100, 5, 70, s1, "Urgent", 0);
+		Inventory iu2 = new Inventory("u2", 150, 25, 20, s2, "Urgent", 0);
+		Inventory iu3 = new Inventory("u3", 200, 50, 20, s3, "Urgent", 0);
+		Inventory iu4 = new Inventory("u4", 120, 10, 10, s4, "Urgent", 0);
+		Inventory iu5 = new Inventory("u5", 125, 20, 30, s5, "Urgent", 0);
+		InvMenu();
+	}
+}
