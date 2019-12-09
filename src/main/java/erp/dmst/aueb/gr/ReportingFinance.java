@@ -21,8 +21,6 @@ public class ReportingFinance { //This class must be called once a month.
 		private static double [] urgInv;
 		private static final double TAXRATE = 0.23;
 		
-		//minieos pinakas me kerdi
-		
 		public ReportingFinance(double electricity, double waterSupply, double phone_internetSupply,
 				int numberOfShareHolders, int rate	) {
 			super();
@@ -73,7 +71,11 @@ public class ReportingFinance { //This class must be called once a month.
 			}else return 0;
 		}
 		
-		public static String getExpenses() {
+		public static String getExpenses() { //This method is to used once a month
+			electricity = 0; //every month are 0
+			waterSupply = 0;
+			phone_internetSupply = 0;
+			
 			Date date = new Date(System.currentTimeMillis());
 			Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("Europe/Athens"));
 			cal.setTime(date);
@@ -186,8 +188,4 @@ public class ReportingFinance { //This class must be called once a month.
 			//pending
 		}
 		
-		
-		/** 
-		* method to 0 income every month
-		* */
 }
