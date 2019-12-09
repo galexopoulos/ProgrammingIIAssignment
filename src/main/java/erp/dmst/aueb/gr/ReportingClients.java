@@ -12,7 +12,7 @@ public class ReportingClients {
 	private int counter_st = 0;
 	private int arrival; //! months? !
 	private String email;
-	private int know;//pos mathane to ksenodoxio, 0 gia 
+	private int know;
 	private double payment;
 	private int family_alone_friends;
 	private int checkin;
