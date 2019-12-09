@@ -19,7 +19,7 @@ public class Booking {
 	private boolean checkedOut;
 	private static ArrayList<ArrayList<Booking>> bookings = new ArrayList<ArrayList<Booking>>();
 	protected static double getChecks = 0;
-	
+
 	public Booking(Date checkIn, Date checkOut, int roomNumber, boolean buffet) {
 		this.buffet = buffet;
 		this.checkedIn = false;
@@ -58,6 +58,22 @@ public class Booking {
 
 	public void setBookings() { // add the booking to the list in the right row depending on room's number
 		bookings.get(roomNumber - 1).add(this);
+	}
+	
+	public static int[] getVisitors() {
+		int sum[] = { 0, 0 };
+		for (Room room : Room.getRooms()) {
+			for (Booking booking : bookings.get(room.getRoomNumber() - 1)) {
+				if (booking.checkedIn) {
+					sum[0] += Room.getRooms().get(booking.roomNumber).getCapacity();
+					if (booking.buffet) {
+						sum[1] += Room.getRooms().get(booking.roomNumber).getCapacity();
+					}
+					break;
+				}
+			}
+		}
+		return sum;
 	}
 
 	public static Room Availability(int capacity, Date checkIn, Date checkOut) {
@@ -410,13 +426,13 @@ public class Booking {
 					}
 				}
 				if (already == true) {
-					System.out.println("This room has already Checked In!");
+					System.out.println("This room has already Checked In!\n");
 				} else if (b1 == null) {
-					System.out.println("It is not the time or day for this room to Check In!");
+					System.out.println("It is not the time or day for this room to Check In!\n");
 				} else {
 					b1.checkIn = today1.getTime();
 					System.out.println("Check In for Room no : " + b1.roomNumber + ", with Booking Code : "
-							+ b1.bookingCode + ", completed succesfully at : " + b1.checkIn);
+							+ b1.bookingCode + ", completed succesfully at : " + b1.checkIn + "\n");
 				}
 				break;
 			case 3:
@@ -459,14 +475,14 @@ public class Booking {
 					}
 				}
 				if (already2 == true) {
-					System.out.println("This room has already Checked Out!");
+					System.out.println("This room has already Checked Out!\n");
 				} else if (b2 == null) {
-					System.out.println("This room is not Checking Out today!");
+					System.out.println("This room is not Checking Out today!\n");
 				} else {
 					b2.checkOut = today2.getTime();
 					bookings.get(roomOut - 1).remove(b2);
 					System.out.println("Room : " + roomOut + ",with Booking Code : " + b2.bookingCode
-							+ ", Checked Out with final check : " + b2.check + "€" + ", at :" + b2.checkOut);
+							+ ", Checked Out with final check : " + b2.check + "€" + ", at :" + b2.checkOut + "\n");
 				}
 				break;
 			case 4:
