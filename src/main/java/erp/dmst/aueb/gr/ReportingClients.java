@@ -1,4 +1,5 @@
 package main.java.erp.dmst.aueb.gr;
+
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -6,13 +7,10 @@ public class ReportingClients {
 
 	private String name;
 	private String surname;
-	private boolean loyalty;
-	private String SSN;
-	private int satisfuction; //apo 1 eos 5
+	private int satisfuction; //apo 0 eos 5
 	private int counter_st = 0;
-	private int arrival; //! months? !
+	private int id;
 	private String email;
-	private int know;
 	private double payment;
 	private int family_alone_friends;
 	private int checkin;
@@ -27,23 +25,20 @@ public class ReportingClients {
 
 	static ArrayList<ReportingClients> coustomerBase = new ArrayList<ReportingClients>();
 
-	public ReportingClients(String name, String surname, boolean loyalty, String sSN, int satisfuction, int arrival,
-			String email, int know, double payment, int family, int checkin, int checkout,int reasonfortravel) {
+	public ReportingClients(String name, String surname, int satisfuction, 
+			String email, double payment, int family, int checkin, int checkout,int reasonfortravel) {
 		super();
 		this.name = name;
 		this.surname = surname;
-		this.loyalty = loyalty;
-		SSN = sSN;
 		this.satisfuction = satisfuction;
-		this.arrival = arrival;
 		this.email = email;
-		this.know = know;
 		this.payment = payment;
 		this.family_alone_friends = family;
 		this.checkin = checkin;
 		this.checkout = checkout;
 		this.reasonfortravel = reasonfortravel;
 		counter_st++;
+		this.id = counter_st;
 		coustomerBase.add(this);
 	} //COMMENTS! EINAI MOGLIDES
 
@@ -63,22 +58,6 @@ public class ReportingClients {
 		this.surname = surname;
 	}
 
-	public boolean isLoyalty() {
-		return loyalty;
-	}
-
-	public void setLoyalty(boolean loyalty) {
-		this.loyalty = loyalty;
-	}
-
-	public String getSSN() {
-		return SSN;
-	}
-
-	public void setSSN(String sSN) {
-		SSN = sSN;
-	}
-
 	public int getSatisfuction() {
 		return satisfuction;
 	}
@@ -87,28 +66,12 @@ public class ReportingClients {
 		this.satisfuction = satisfuction;
 	}
 
-	public int getArrival() {
-		return arrival;
-	}
-
-	public void setArrival(int arrival) {
-		this.arrival = arrival;
-	}
-
 	public String getEmail() {
 		return email;
 	}
 
 	public void setEmail(String email) {
 		this.email = email;
-	}
-
-	public int getKnow() {
-		return know;
-	}
-
-	public void setKnow(int know) {
-		this.know = know;
 	}
 
 	public double getPayment() {
