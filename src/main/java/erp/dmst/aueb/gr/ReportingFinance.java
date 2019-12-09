@@ -57,8 +57,8 @@ public class ReportingFinance { //This class must be called once a month.
 		
 		public static double getProceeds() { //theloume kapos na tsekaroume oti allazei o minas gia na midenizonte ta miniea esoda
 		//	if(current_month == months)	{
-		//		if(Booking.getchecks > 0) {
-		//			return Booking.getchecks;
+		//		if(Booking.getChecks > 0) {
+		//			return Booking.getChecks;
 		//			current_month = months;
 		//		}else return 0;
 		//	}
