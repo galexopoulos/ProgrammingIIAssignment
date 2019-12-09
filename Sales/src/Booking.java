@@ -18,7 +18,8 @@ public class Booking {
 	private boolean checkedIn;
 	private boolean checkedOut;
 	private static ArrayList<ArrayList<Booking>> bookings = new ArrayList<ArrayList<Booking>>();
-
+	protected static double getChecks = 0;
+	
 	public Booking(Date checkIn, Date checkOut, int roomNumber, boolean buffet) {
 		this.buffet = buffet;
 		this.checkedIn = false;
@@ -29,7 +30,8 @@ public class Booking {
 		this.nights = ((Math.abs((int) (checkIn.getTime() - checkOut.getTime()))) / (1000 * 60 * 60 * 24)) + 1; //count nights for a new booking
 		bookingCode = ++counter; //booking codes start from 1 and add up when a new room is added
 		this.extraExpenses = 0;
-		this.check = computeCheck(buffet); 
+		this.check = computeCheck(buffet);
+		getChecks += this.check;
 		setBookings(); //add the booking to the list 
 	}
 
@@ -38,7 +40,7 @@ public class Booking {
 		for (Room a : Room.getRooms()) {
 			if (a.getRoomNumber() == roomNumber) {
 				if (buffet) {
-					check = (nights * a.getPricePerNight()) + (nights * 12);
+					check = (nights * a.getPricePerNight()) + (nights * 12 * Room.getRooms().get(roomNumber - 1).getCapacity());
 				} else {
 					check = nights * a.getPricePerNight();
 					break;
@@ -51,6 +53,7 @@ public class Booking {
 	public void increaseCheck(double x) {
 		extraExpenses += x;
 		check += x;
+		getChecks +=x;
 	}
 
 	public void setBookings() { // add the booking to the list in the right row depending on room's number
@@ -572,7 +575,7 @@ public class Booking {
 						for (Room room : Room.getRooms()) {
 							for (Booking booking : bookings.get(counter10)) {
 								if (booking.bookingCode == bookCode) {
-									f = true;
+									f2 = true;
 									System.out.println("Booking code : " + booking.bookingCode);
 									System.out.println("Room : " + room.getRoomNumber() + "\tCheck In date : "
 											+ booking.checkIn + ", (checked in : " + booking.checkedIn + ")"
