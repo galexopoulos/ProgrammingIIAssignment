@@ -17,14 +17,12 @@ public class ReportingFinance { //This class must be called once a month.
 		private static double loan = 0;
 		private static int rate; //shareholders rate of payment 
 		private static int months = 1;
-		private static int current_month;
 		
 		//minieos pinakas me kerdi
 		
 		public ReportingFinance(double electricity, double waterSupply, double phone_internetSupply,
 				int numberOfShareHolders, int rate	) {
 			super();
-			current_month = months;
 			++months;
 			ReportingFinance.electricity = electricity;
 			ReportingFinance.waterSupply = waterSupply;
@@ -56,12 +54,9 @@ public class ReportingFinance { //This class must be called once a month.
 		}
 		
 		public static double getProceeds() { //theloume kapos na tsekaroume oti allazei o minas gia na midenizonte ta miniea esoda
-		//	if(current_month == months)	{
-		//		if(Booking.getChecks > 0) {
-		//			return Booking.getChecks;
-		//			current_month = months;
-		//		}else return 0;
-		//	}
+			if(Booking.getChecks > 0) {
+				return Booking.getChecks;
+			}else return 0;
 		}
 		
 		public static String getExpenses() {
