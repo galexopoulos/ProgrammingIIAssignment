@@ -17,6 +17,9 @@ public class ReportingFinance { //This class must be called once a month.
 		private static double loan = 0;
 		private static int rate; //shareholders rate of payment 
 		private static int months = 1;
+		private static double [] fixInv;
+		private static double [] urgInv;
+		private static final double TAXRATE = 0.23;
 		
 		//minieos pinakas me kerdi
 		
@@ -42,7 +45,18 @@ public class ReportingFinance { //This class must be called once a month.
 				try {
 					int ans = sc.nextInt();
 					switch(ans) {
-						case 1: // expenses and income  after taxes and dividends
+						case 1: System.out.println("This months income is:" + getProceeds());
+								getExpenses();
+								if (cashAvailableBeforeTaxes >= 0 ) {
+									System.out.println("Profits are: " + cashAvailableBeforeTaxes);
+								}else {
+									System.out.println("Losses are: " + cashAvailableBeforeTaxes);
+								}
+						case 2: if (loan > 0 ) {
+									System.out.println("Current loans are: " + loan);
+						 		}else System.out.println("There are no Loans to show");
+						case 3: taxLiabilities();
+						case 4: ShareHolders.getShareHoldersMenu();
 					}
 					
 				confirm = false;
@@ -60,18 +74,33 @@ public class ReportingFinance { //This class must be called once a month.
 		}
 		
 		public static String getExpenses() {
-			double totalexpenses = waterSupply + electricity + phone_internetSupply + wages ;// + George's Markou Buffet expenses - pending 
 			Date date = new Date(System.currentTimeMillis());
 			Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("Europe/Athens"));
 			cal.setTime(date);
 			int month = cal.get(Calendar.MONTH);
 			int year = cal.get(Calendar.YEAR);
+			fixInv = Inventory.getInvFixFin();
+			urgInv = Inventory.getInvUrgFin();
+			double sumFixInv = 0;
+			double sumUrgInv = 0;
+			try {	
+				for (int i = 0; i < fixInv.length; i++) {
+					sumFixInv += fixInv[i];
+				}
+				for (int i = 0; i < urgInv.length; i++ ) {
+					sumUrgInv += urgInv[i]; 
+				}
+			}catch(Exception w) {
+				System.out.println("Error");
+			}
+			double totalexpenses = waterSupply + electricity + phone_internetSupply + wages + sumFixInv + sumUrgInv;
 			return "Total expenses of" + getCurrentMonth(month) + " of "+ year
 					+ "are " + totalexpenses + " "
-							+ "\n Water Supply bill:  "+ waterSupply 
-							+ "\n Electrisity bill:   "+ electricity 
-							+ "\n Telecommunications: "+ phone_internetSupply
-							+ "\n Employees payments: "+ wages
+							+ "\n Water Supply bill:  " + waterSupply 
+							+ "\n Electrisity bill:   " + electricity 
+							+ "\n Telecommunications: " + phone_internetSupply
+							+ "\n Employees payments: " + wages
+							+ "\n Inventory expenses: " + sumFixInv + sumUrgInv
 							+ "\n -------------------------------------------";  //needs more data.
 		}
 		
@@ -129,18 +158,18 @@ public class ReportingFinance { //This class must be called once a month.
 			}
 		}
 		
-		public static void setTaxLiabilities(int taxRate) {
+		public static void taxLiabilities() {
 			try {
 				if(cashAvailableBeforeTaxes > 0 ) {
 					Date date = new Date(System.currentTimeMillis());
 					Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("Europe/Athens"));
 					cal.setTime(date);
 					int month = cal.get(Calendar.MONTH);
-					cashAvailableAfterTaxes = cashAvailableBeforeTaxes - cashAvailableBeforeTaxes * taxRate;
-					System.out.println("Hotel's TAX liablities of " + month + "are: " + cashAvailableBeforeTaxes * taxRate );
+					cashAvailableAfterTaxes = cashAvailableBeforeTaxes - cashAvailableBeforeTaxes * TAXRATE;
+					System.out.println("Hotel's TAX liablities of " + month + "are: " + cashAvailableBeforeTaxes * TAXRATE);
 				}
 			}catch(Exception e){
-				System.err.println();
+				System.err.println("Error.");
 			}
 		}
 		
@@ -156,9 +185,9 @@ public class ReportingFinance { //This class must be called once a month.
 		public static void distribution() {
 			//pending
 		}
+		
+		
 		/** 
-		* complete menu -pending
-		* try catch for new methods
 		* method to 0 income every month
 		* */
 }

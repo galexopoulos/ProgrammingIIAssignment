@@ -1,6 +1,7 @@
 package main.java.erp.dmst.aueb.gr;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
@@ -21,6 +22,27 @@ public class ShareHolders {
 		counter++;
 		dividend = ReportingFinance.dividends();
 		shareholders.add(this);
+	}
+	
+	public static void getShareHoldersMenu() {
+		boolean flag = true;
+		do {
+			try {
+				Scanner sc = new Scanner(System.in);
+				System.out.println("Please insert Username");
+				String usnm = sc.nextLine();
+				System.out.println("Please insert password");
+				String pass = sc.nextLine();
+				for(ShareHolders i : shareholders) {
+					if(i.getUsername().equals(usnm) && i.getPswrd().equals(pass)) {
+						System.out.println(i.toString());
+						flag = false;
+					}
+				}
+			}catch(Exception e) {
+				System.out.println("Please insert valid Username or Password.");
+			}
+		}while(flag);
 	}
 
 	public String getUsername() {
