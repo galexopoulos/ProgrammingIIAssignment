@@ -53,17 +53,17 @@ public class Manager extends Employee { // responsible for the Employees who hav
 				}
 			} while (flag);
 			if (selection == 1) {
-				if (!checkedIn) { 
-					setLastChecked(Calendar.getInstance());
-					checkedIn = true;
+				if (!this.isCheckedIn()) { 
+					this.setLastChecked(Calendar.getInstance());
+					this.setCheckedIn(true);
 					System.out.println("Check in successful!");
 				}else {
 					System.out.println("Already checked in.");
 				}
 			} else if (selection == 2) {
-				if (checkedIn) {
-					setLastChecked(Calendar.getInstance());
-					checkedIn = false; 
+				if (this.isCheckedIn()) {
+					this.setLastChecked(Calendar.getInstance());
+					this.setCheckedIn(false); 
 					System.out.println("Check out successful!");
 				}else {
 					System.out.println("Already checked out.");
@@ -108,7 +108,7 @@ public class Manager extends Employee { // responsible for the Employees who hav
 								status = "Checked out";
 							}
 							String timeChecked = String.format("%02d:%02d", a.getLastChecked().get(Calendar.HOUR_OF_DAY), a.getLastChecked().get(Calendar.MINUTE));
-							String dayChecked = String.format("%d/%d", a.getLastChecked().get(Calendar.DAY_OF_MONTH), a.getLastChecked().get(Calendar.MONTH));
+							String dayChecked = String.format("%d/%d", a.getLastChecked().get(Calendar.DAY_OF_MONTH), a.getLastChecked().get(Calendar.MONTH) + 1);
 							System.out.println("Id: " + a.getEmployee_Id() + " " + a.getFirstname() + " " +  a.getSurname() + " status: " + status + " at " + timeChecked + " of "  + dayChecked);
 						}else { //if a.getLastChecked().get(Calendar.YEAR) == 1990 the Employee has never checked in
 							System.out.println("Id: " + a.getEmployee_Id() + " " + a.getFirstname() + " " +  a.getSurname() + " status: Checked out");

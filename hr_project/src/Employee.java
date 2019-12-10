@@ -198,17 +198,17 @@ public class Employee {
 				}
 			} while (flag);
 			if (selection == 1) {
-				if (!checkedIn) { 
-					setLastChecked(Calendar.getInstance());
-					checkedIn = true;
+				if (!this.isCheckedIn()) { 
+					this.setLastChecked(Calendar.getInstance());
+					this.setCheckedIn(true);
 					System.out.println("Check in successful!");
 				}else {
 					System.out.println("Already checked in.");
 				}
 			} else if (selection == 2) {
-				if (checkedIn) {
-					setLastChecked(Calendar.getInstance());
-					checkedIn = false; 
+				if (this.isCheckedIn()) {
+					this.setLastChecked(Calendar.getInstance());
+					this.setCheckedIn(false); 
 					System.out.println("Check out successful!");
 				}else {
 					System.out.println("Already checked out.");

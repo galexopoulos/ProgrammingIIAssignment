@@ -68,7 +68,7 @@ public class Hr_Director extends Manager{ // is resposible for all the Managers 
 								status = "Checked out";
 							}
 							String timeChecked = String.format("%02d:%02d", a.getLastChecked().get(Calendar.HOUR_OF_DAY), a.getLastChecked().get(Calendar.MINUTE));
-							String dayChecked = String.format("%d/%d", a.getLastChecked().get(Calendar.DAY_OF_MONTH), a.getLastChecked().get(Calendar.MONTH));
+							String dayChecked = String.format("%d/%d", a.getLastChecked().get(Calendar.DAY_OF_MONTH), a.getLastChecked().get(Calendar.MONTH) + 1);
 							System.out.println("Id: " + a.getEmployee_Id() + " " + a.getFirstname() + " " +  a.getSurname() + " status: " + status + " at " + timeChecked + " of "  + dayChecked);
 						}else { //if a.getLastChecked().get(Calendar.YEAR) == 1990 the Employee has never checked in
 							System.out.println(a.getLastChecked().getTime());
@@ -848,6 +848,13 @@ public class Hr_Director extends Manager{ // is resposible for all the Managers 
 						System.out.println("yes/no");
 						String verify = sc.nextLine();
 						if (verify.toLowerCase().equals("yes")) {
+							if (Employee.Employees.get(posInEmployees) instanceof Manager) {
+								for (Employee a : super.Employees) {
+									if (Employee.Employees.get(posInEmployees).equals(a.getManager())) {
+										a.setManager(null);
+									}
+								}
+							}
 							Employee.Employees.remove(posInEmployees);
 							System.out.println("The removal has been made.");
 						}else if (verify.toLowerCase().equals("no")){
