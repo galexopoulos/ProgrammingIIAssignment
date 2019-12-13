@@ -144,14 +144,12 @@ public class Shift {
 		return arrH_arrM_depH_depM;
 	}
 
-	public static Calendar getNextMonday() { // returns when the next monday is (Calendar type)
+	public static Calendar getCurrentMonday() { // returns when the next monday is (Calendar type)
 		Calendar cal = Calendar.getInstance();
 		int weekday = cal.get(Calendar.DAY_OF_WEEK);
 		if (weekday != Calendar.MONDAY) {
-			int days = (Calendar.SATURDAY - weekday + 2) % 7;
+			int days = (Calendar.SATURDAY - weekday + 2) % 7 - 7;
 			cal.add(Calendar.DAY_OF_YEAR, days);
-		} else {
-			cal.add(Calendar.DAY_OF_YEAR, 7);
 		}
 		cal.set(Calendar.HOUR_OF_DAY, 00);
 		cal.set(Calendar.MINUTE, 00);
@@ -285,7 +283,7 @@ public class Shift {
 		}
 		int[][] arrH_arrM_depH_depM = new int[4][4];
 		Calendar[][] arr_depTimesCal = new Calendar[2][4];
-		Calendar nextMonday = getNextMonday();
+		Calendar nextMonday = getCurrentMonday();
 		Calendar[] daySchedule = new Calendar[8];
 		Calendar[] weekSchedule = new Calendar[64];
 		for (int i = 0; i < 8; i++) { 	

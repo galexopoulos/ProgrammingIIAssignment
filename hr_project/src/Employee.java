@@ -335,7 +335,8 @@ public class Employee {
 			requested.set(Calendar.DAY_OF_MONTH, day);
 			requested.set(Calendar.MONTH, month - 1);
 			requested.set(Calendar.YEAR, year);
-			lastDay = Shift.getNextMonday();
+			lastDay = Shift.getCurrentMonday();
+			lastDay.add(Calendar.DAY_OF_WEEK, 7); //to find next Monday
 			if (current.after(requested) || requested.after(lastDay)) {
 				System.out.println("Insert a date of the current week. \n");
 				flag2 = true;
