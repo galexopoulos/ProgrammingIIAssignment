@@ -1,7 +1,7 @@
 import java.util.*;
 public class Hr_Director extends Manager{ // is resposible for all the Managers (even if they have another Manager)
-	private String firstname, surname, position , password;
-	private int employee_Id, extraHoursMonth = 0 /*need to be set to 0 every month*/, salary, monthPayment;
+	//private String firstname, surname, position , password;
+//	private int employee_Id, extraHoursMonth = 0 /*need to be set to 0 every month*/, salary, monthPayment;
 	
 	public Hr_Director(String firstname, String surname, String position, String password, int salary,
 			Manager manager) {// position will be set to Hr Director and Manager to null
@@ -110,9 +110,9 @@ public class Hr_Director extends Manager{ // is resposible for all the Managers 
 					switch (sel) {
 					
 					case 1:
-						System.out.println("The current salary is " + super.Employees.get(posInEmployees).getSalary() + ".");
+						System.out.println("The current salary is " + Employee.Employees.get(posInEmployees).getSalary() + ".");
 						String selected;
-						int selectedSalary = -1;
+						double selectedSalary = -1;
 						boolean flag2 = false;
 						do {
 							System.out.println("Set the new salary or press Enter to return to the basic Menu:");
@@ -123,19 +123,23 @@ public class Hr_Director extends Manager{ // is resposible for all the Managers 
 
 							} else {
 								try {
-									selectedSalary = Integer.parseInt(selected);
+									selectedSalary = Double.parseDouble(selected);
 									if (selectedSalary < 0) {
 										flag2 = true;
-										System.out.println("Insert a non negative Integer.");
-									}else if(selectedSalary == super.Employees.get(posInEmployees).getSalary()) {
+										System.out.println("Insert a non negative salary.");
+									}else if(selectedSalary == Employee.Employees.get(posInEmployees).getSalary()) {
 										flag2 = true;
 										System.out.println("Insert a salary different than the previous one.");
+									}else if (!checkDecimalsSalary(selectedSalary)) {
+										flag2 = true;
+										System.out.println("Insert a number with 2 or less decimals.");
+										continue;
 									}else {
 										flag2 = false;
 									}
 								}catch(Exception b) {
 									flag2 = true;
-									System.out.println("Please insert an Integer.");
+									System.out.println("Please insert a number.");
 								}
 							}	
 						} while (flag2);
@@ -160,9 +164,9 @@ public class Hr_Director extends Manager{ // is resposible for all the Managers 
 						break;
 					
 					case 2:
-						System.out.println("The current payment is " + super.Employees.get(posInEmployees).getMonthPayment() + ".");
+						System.out.println("The current payment is " + Employee.Employees.get(posInEmployees).getMonthPayment() + ".");
 						String selected2;
-						int selectedPayment = -1;
+						double selectedPayment = -1;
 						boolean flag4 = false;
 						do {
 							System.out.println("Set the new payment or press Enter to return to the basic Menu:");
@@ -173,19 +177,23 @@ public class Hr_Director extends Manager{ // is resposible for all the Managers 
 
 							} else {
 								try {
-									selectedPayment = Integer.parseInt(selected2);
+									selectedPayment = Double.parseDouble(selected2);
 									if (selectedPayment < 0) {
 										flag4 = true;
-										System.out.println("Input an integer greater than zero.");
-									}else if(selectedPayment == super.Employees.get(posInEmployees).getMonthPayment()) {
+										System.out.println("Insert a number greater than zero.");
+									}else if(selectedPayment == Employee.Employees.get(posInEmployees).getMonthPayment()) {
 										flag4 = true;
 										System.out.println("Insert a payment different than the previous one.");
+									}else if (!checkDecimalsSalary(selectedPayment)) {
+										flag4 = true;
+										System.out.println("Insert a number with 2 or less decimals.");
+										continue;
 									}else {
 										flag4 = false;
 									}
 								}catch(Exception b) {
 									flag4 = true;
-									System.out.println("Please insert an Integer.");
+									System.out.println("Please insert a number.");
 								}
 							}	
 						} while (flag4);
@@ -343,14 +351,14 @@ public class Hr_Director extends Manager{ // is resposible for all the Managers 
 								}
 						
 							if (posInEmpOfManager != -1) {	
-								Manager newManager =(Manager) super.Employees.get(posInEmpOfManager);
+								Manager newManager =(Manager) Employee.Employees.get(posInEmpOfManager);
 								System.out.println("The new Manager is going to be: " + newManager.getFirstname() + " " + newManager.getSurname() + "." + "\nAre you sure you want to make that change?");
 								boolean flag10 = false;
 								do {
 									System.out.println("yes/no");
 									String verify = sc.nextLine();
 									if (verify.toLowerCase().equals("yes")) {
-										super.Employees.get(posInEmployees).setManager(newManager);
+										Employee.Employees.get(posInEmployees).setManager(newManager);
 										System.out.println("The change has been made.");
 										flag10 = false;
 									}else if (verify.toLowerCase().equals("no")){
@@ -564,7 +572,7 @@ public class Hr_Director extends Manager{ // is resposible for all the Managers 
 													flag5 = true;
 													System.out.println("Insert a non negative salary.");
 													continue;
-												}else if (!checkSalary(salary)) {
+												}else if (!checkDecimalsSalary(salary)) {
 													flag5 = true;
 													System.out.println("Insert a number with 2 or less decimals.");
 													continue;
@@ -854,7 +862,7 @@ public class Hr_Director extends Manager{ // is resposible for all the Managers 
 						String verify = sc.nextLine();
 						if (verify.toLowerCase().equals("yes")) {
 							if (Employee.Employees.get(posInEmployees) instanceof Manager) {
-								for (Employee a : super.Employees) {
+								for (Employee a : Employee.Employees) {
 									if (Employee.Employees.get(posInEmployees).equals(a.getManager())) {
 										a.setManager(null);
 									}
@@ -907,7 +915,7 @@ public class Hr_Director extends Manager{ // is resposible for all the Managers 
 							System.out.println("yes/no");
 							String verify = sc.nextLine();
 							if (verify.toLowerCase().equals("yes")) {
-								Manager a = new Manager(Employee.Employees.get(posInEmployees));
+								Manager a = new Manager(Employee.Employees.get(posInEmployees));//TO BE CHECKED
 								//Employee.Employees.set(posInEmployees, a); NOT NEEDED IF NOT MISTAKEN
 								System.out.println("Promotion has been succesfully done.");
 							}else if (verify.toLowerCase().equals("no")){

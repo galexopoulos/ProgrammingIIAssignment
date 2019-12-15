@@ -54,7 +54,7 @@ public class Hr_surface {
 									if (salary < 0) {
 										flag4 = true;
 										System.out.println("Insert a non negative salary.");
-									}else if (!Employee.checkSalary(salary)) {
+									}else if (!Employee.checkDecimalsSalary(salary)) {
 										flag4 = true;
 										System.out.println("Insert a number with 2 or less decimals.");
 									}
@@ -146,7 +146,7 @@ public class Hr_surface {
 												flag5 = true;
 												System.out.println("Insert a non negative salary.");
 												continue;
-											}else if (!Employee.checkSalary(salary)) {
+											}else if (!Employee.checkDecimalsSalary(salary)) {
 												flag5 = true;
 												System.out.println("Insert a number with 2 or less decimals.");
 												continue;
@@ -332,7 +332,7 @@ public class Hr_surface {
 											flag5 = true;
 											System.out.println("Insert a non negative salary.");
 											continue;
-										}else if (!Employee.checkSalary(salary)) {
+										}else if (!Employee.checkDecimalsSalary(salary)) {
 											flag5 = true;
 											System.out.println("Insert a number with 2 or less decimals.");
 											continue;

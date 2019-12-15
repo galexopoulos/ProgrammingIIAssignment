@@ -423,7 +423,7 @@ public class Employee {
 		return -1;	        
 	}
 	
-	public static boolean checkSalary(double x) {
+	public static boolean checkDecimalsSalary(double x) {
 		String text = Double.toString(Math.abs(x));
 		int integerPlaces = text.indexOf('.');
 		int decimalPlaces = text.length() - integerPlaces - 1;
