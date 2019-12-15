@@ -5,17 +5,17 @@ public class Hr_surface {
 	public static void toRun(){
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Welcome to Hr part!");
-		// if (main.firstTime){ 	firstTime a boolean variable from main that shows if it
-									// is the first time that the client enters Hr part
+		//if (main.firstTime){ 	firstTime a boolean variable from main that shows if it
+								// is the first time that the client enters Hr part
 		//BEGINNING OF IF
-		/*System.out.println("At the beginning is necessary to set up the hr data. \n");
+		System.out.println("At the beginning is necessary to set up the hr data. \n");
 		boolean directornotset;
 		Hr_Director hrDirector = new Hr_Director("", "", "Hr Director", "", -1, null);
 		do {
 			directornotset = false;
 			System.out.println("Hr Director's set up. \n");
 			String firstname, surname, password = "";
-			int salary = 0;
+			double salary = 0;
 			boolean flag1;
 			do {
 				flag1 = false;
@@ -50,14 +50,17 @@ public class Hr_surface {
 		  
 							} else { 
 								try {
-									salary = Integer.parseInt(selected);
+									salary = Double.parseDouble(selected);
 									if (salary < 0) {
 										flag4 = true;
-										System.out.println("Insert a non negative integer.");
+										System.out.println("Insert a non negative salary.");
+									}else if (!Employee.checkSalary(salary)) {
+										flag4 = true;
+										System.out.println("Insert a number with 2 or less decimals.");
 									}
 								}catch(Exception b) {
 									flag4 = true;
-									System.out.println("Please insert an Integer.");
+									System.out.println("Please insert a number.");
 								}
 							}
 						}while(flag4);
@@ -93,7 +96,8 @@ public class Hr_surface {
 			moremanagers = false;
 			Manager manager = new Manager("" ,"" ,"" , "", -1, null);
 				String firstname, surname, position = "", password = "", managerName = "";
-				int salary = 0, mngrId, mngrPosition = -1;
+				int mngrId, mngrPosition = -1;
+				double salary = 0;
 				boolean flag1;
 				do {
 					flag1 = false;
@@ -137,15 +141,19 @@ public class Hr_surface {
 				
 									} else {
 										try {
-											salary = Integer.parseInt(selected);
+											salary = Double.parseDouble(selected);
 											if (salary < 0) {
 												flag5 = true;
-												System.out.println("Insert a non negative integer.");
+												System.out.println("Insert a non negative salary.");
+												continue;
+											}else if (!Employee.checkSalary(salary)) {
+												flag5 = true;
+												System.out.println("Insert a number with 2 or less decimals.");
 												continue;
 											}
 										}catch(Exception b) {
 											flag5 = true;
-											System.out.println("Please insert an Integer.");
+											System.out.println("Please insert a number.");
 											continue;
 										}
 									}
@@ -274,7 +282,8 @@ public class Hr_surface {
 			moreemployees = false;
 			Employee employee = new Employee("" ,"" ,"" , "", -1, null);
 			String firstname, surname, position = "", password = "", managerName = "";
-			int salary = 0, mngrId, mngrPosition = -1;
+			int mngrId, mngrPosition = -1;
+			double salary = 0;
 			boolean flag1;
 			do {
 				flag1 = false;
@@ -318,15 +327,19 @@ public class Hr_surface {
 				
 								} else {
 									try {
-										salary = Integer.parseInt(selected);
+										salary = Double.parseDouble(selected);
 										if (salary < 0) {
 											flag5 = true;
-											System.out.println("Insert a non negative Integer.");
+											System.out.println("Insert a non negative salary.");
+											continue;
+										}else if (!Employee.checkSalary(salary)) {
+											flag5 = true;
+											System.out.println("Insert a number with 2 or less decimals.");
 											continue;
 										}
 									}catch(Exception b) {
 										flag5 = true;
-										System.out.println("Please insert an Integer.");
+										System.out.println("Please insert a number.");
 										continue;
 									}
 								}
@@ -445,7 +458,7 @@ public class Hr_surface {
 		}
 		//END OF IF
 		//}
-		*/
+	
 		
 		boolean stayAtHR;
 		do {

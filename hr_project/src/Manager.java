@@ -5,11 +5,11 @@ import java.util.Scanner;
 
 public class Manager extends Employee { // responsible for the Employees who have him as Manager
 	
-	private int employee_Id, extraHoursMonth = 0 /* need to be set to 0 every month */;
-	private int monthPayment;
-	private Calendar[][]thisWeekShift = new Calendar[7][8];
-	private boolean checkedIn = false; // true when the employee has checked in but hasn't checked out
-	private Calendar lastChecked = Calendar.getInstance();
+	//private int employee_Id, extraHoursMonth = 0 /* need to be set to 0 every month */;
+	//private int monthPayment;
+	//private Calendar[][]thisWeekShift = new Calendar[7][8];
+	//private boolean checkedIn = false; // true when the employee has checked in but hasn't checked out
+	//private Calendar lastChecked = Calendar.getInstance();
 	
 	public Manager(String firstname, String surname, String position, String password, int salary, Manager manager) {
 		super(firstname, surname, position, password, salary, manager);

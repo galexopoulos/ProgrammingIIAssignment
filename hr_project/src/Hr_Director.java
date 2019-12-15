@@ -515,7 +515,8 @@ public class Hr_Director extends Manager{ // is resposible for all the Managers 
 				if(sel == 1) {
 					Employee employee = new Employee("" ,"" ,"" , "", -1, null);
 					String firstname, surname, position = "", password = "", managerName = "";
-					int salary = 0, mngrId, mngrPosition = -1;
+					int mngrId, mngrPosition = -1;
+					double salary = 0;
 					do {
 						flag1 = false;
 						System.out.print("Insert Employee's first name:");
@@ -558,15 +559,19 @@ public class Hr_Director extends Manager{ // is resposible for all the Managers 
 						
 										} else {
 											try {
-												salary = Integer.parseInt(selected);
+												salary = Double.parseDouble(selected);
 												if (salary < 0) {
 													flag5 = true;
-													System.out.println("Insert a non negative Integer.");
+													System.out.println("Insert a non negative salary.");
+													continue;
+												}else if (!checkSalary(salary)) {
+													flag5 = true;
+													System.out.println("Insert a number with 2 or less decimals.");
 													continue;
 												}
 											}catch(Exception b) {
 												flag5 = true;
-												System.out.println("Please insert an Integer.");
+												System.out.println("Please insert a number.");
 												continue;
 											}
 										}

@@ -3,7 +3,8 @@ import java.util.*;
 
 public class Employee {
 	private String firstname, surname, position, password;
-	private int employee_Id, extraHoursWeek = 0 /*need to be set to 0 every month*/, salary, monthPayment;
+	private int employee_Id, extraHoursWeek = 0 /*need to be set to 0 every month*/;
+	private double  salary, monthPayment;
 	private Calendar[][]thisWeekShift = new Calendar[7][8];
 	private Manager manager;
 	private static int add = 0; 
@@ -89,11 +90,11 @@ public class Employee {
 		this.employee_Id = employee_Id;
 	}
 
-	public int getSalary() {
+	public double getSalary() {
 		return salary;
 	}
 
-	public void setSalary(int salary) {
+	public void setSalary(double salary) {
 		this.salary = salary;
 	}
 
@@ -108,11 +109,11 @@ public class Employee {
 
 	
 	
-	public int getMonthPayment() {
+	public double getMonthPayment() {
 		return monthPayment;
 	}
 
-	public synchronized void setMonthPayment(int monthPayment) {
+	public synchronized void setMonthPayment(double monthPayment) {
 		this.monthPayment = monthPayment;
 	}
 	
@@ -420,6 +421,16 @@ public class Employee {
 		}  
 		
 		return -1;	        
+	}
+	
+	public static boolean checkSalary(double x) {
+		String text = Double.toString(Math.abs(x));
+		int integerPlaces = text.indexOf('.');
+		int decimalPlaces = text.length() - integerPlaces - 1;
+		if (decimalPlaces <= 2) {
+			return true;
+		}
+		return false;
 	}
 
 }
