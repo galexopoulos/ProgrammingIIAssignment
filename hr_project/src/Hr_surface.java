@@ -481,14 +481,16 @@ public class Hr_surface {
 		}while(stayAtHR);
 	}
 
-	public static void toBeDoneEveryWeek() {// has not a purpose at this project because of the difficulties at the
-											// check but it could be used in real circumstances
+	public static void toBeDoneEveryWeek() {
 		for (Employee a : Employee.Employees) {
 			try {
-				a.setThisWeekShift(Shift.createShift(a.getShiftStr()));
+				a.setThisWeekShift(Shift.createShift(a.getShiftStr()));// has not a purpose at this project because of
+																		// the difficulties at the check but it could be
+																		// used in real circumstances
+				a.setExtraHoursWeek(0);
 			} catch (Exception e) {
-				// check has been done it will never reach here, i there was an error with the
-				// input Exception has been handled before
+				// check has been done it will never reach here, if there was an error with the
+				// input Exception would have been caught and handled before
 			}
 		}
 	}
@@ -498,7 +500,6 @@ public class Hr_surface {
 		for (Employee a : Employee.Employees) {
 			totalSalaryOutcome += a.getMonthPayment();
 			a.setMonthPayment(a.getSalary());
-			a.setExtraHoursMonth(0);
 		}
 		//SEND totalSalaryOutcome to Finance and Reporting
 	}

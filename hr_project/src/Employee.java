@@ -3,7 +3,7 @@ import java.util.*;
 
 public class Employee {
 	private String firstname, surname, position, password;
-	private int employee_Id, extraHoursMonth = 0 /*need to be set to 0 every month*/, salary, monthPayment;
+	private int employee_Id, extraHoursWeek = 0 /*need to be set to 0 every month*/, salary, monthPayment;
 	private Calendar[][]thisWeekShift = new Calendar[7][8];
 	private Manager manager;
 	private static int add = 0; 
@@ -27,19 +27,19 @@ public class Employee {
 	}
 	
 	public Employee (Employee employee) {//for the second constructor at Manager
-		this.firstname = employee.firstname;
-		this.surname = employee.surname;
-		this.position = employee.position;
-		this.password = employee.password;
-		this.salary = employee.salary;
-		this.manager = employee.manager;
-		this.employee_Id = employee.employee_Id;
-		this.extraHoursMonth = employee.extraHoursMonth;
-		this.monthPayment = employee.monthPayment;
-		this.checkedIn = employee.checkedIn;
-		this.shiftStr = employee.shiftStr;
-		this.thisWeekShift = employee.thisWeekShift;
-		this.lastChecked = employee.lastChecked;
+		this.firstname = employee.getFirstname();
+		this.surname = employee.getSurname();
+		this.position = employee.getPosition();
+		this.password = employee.getPassword();
+		this.salary = employee.getSalary();
+		this.manager = employee.getManager();
+		this.employee_Id = employee.getEmployee_Id();
+		this.extraHoursWeek = employee.getExtraHoursWeek();
+		this.monthPayment = employee.getMonthPayment();
+		this.checkedIn = employee.isCheckedIn();
+		this.shiftStr = employee.getShiftStr();
+		this.thisWeekShift = employee.getThisWeekShift();
+		this.lastChecked = employee.getLastChecked();
 		for(int i = 0; i < Employees.size(); i++ ) {
 			if (Employees.get(i).equals(employee) ) {
 				Employees.set(i, this);
@@ -112,18 +112,18 @@ public class Employee {
 		return monthPayment;
 	}
 
-	public void setMonthPayment(int monthPayment) {
+	public synchronized void setMonthPayment(int monthPayment) {
 		this.monthPayment = monthPayment;
 	}
 	
 	
 
-	public int getExtraHoursMonth() {
-		return extraHoursMonth;
+	public int getExtraHoursWeek() {
+		return extraHoursWeek;
 	}
 
-	public void setExtraHoursMonth(int extraHoursMonth) {
-		this.extraHoursMonth = extraHoursMonth;
+	public synchronized void setExtraHoursWeek(int extraHoursWeek) {
+		this.extraHoursWeek = extraHoursWeek;
 	}
 	
 	
@@ -152,7 +152,7 @@ public class Employee {
 		return thisWeekShift;
 	}
 
-	public void setThisWeekShift(Calendar[][] thisWeekShift) {
+	public synchronized void setThisWeekShift(Calendar[][] thisWeekShift) {
 		this.thisWeekShift = thisWeekShift;
 	}
 
