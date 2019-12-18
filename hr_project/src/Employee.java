@@ -3,7 +3,7 @@ import java.util.*;
 
 public class Employee {
 	private String firstname, surname, position, password;
-	private int employee_Id, extraHoursWeek = 0 /* need to be set to 0 every month */;
+	private int employee_Id;
 	private double salary, monthPayment;
 	private Calendar[][] thisWeekShift = new Calendar[7][8];
 	private Manager manager;
@@ -39,12 +39,14 @@ public class Employee {
 		this.salary = employee.getSalary();
 		this.manager = employee.getManager();
 		this.employee_Id = employee.getEmployee_Id();
-		this.extraHoursWeek = employee.getExtraHoursWeek();
 		this.monthPayment = employee.getMonthPayment();
 		this.checkedIn = employee.isCheckedIn();
 		this.shiftStr = employee.getShiftStr();
 		this.thisWeekShift = employee.getThisWeekShift();
 		this.lastChecked = employee.getLastChecked();
+		this.wresyperergasias_evdomadiaiws = employee.getWresyperergasias_evdomadiaiws();
+		this.maxmail = employee.getMaxmail();
+		this.newmail = employee.getNewmail();
 		for (int i = 0; i < Employees.size(); i++) {
 			if (Employees.get(i).equals(employee)) {
 				Employees.set(i, this);
@@ -140,14 +142,6 @@ public class Employee {
 
 	public synchronized void setMonthPayment(double monthPayment) {
 		this.monthPayment = monthPayment;
-	}
-
-	public int getExtraHoursWeek() {
-		return extraHoursWeek;
-	}
-
-	public synchronized void setExtraHoursWeek(int extraHoursWeek) {
-		this.extraHoursWeek = extraHoursWeek;
 	}
 
 	public boolean isCheckedIn() {
