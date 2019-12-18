@@ -476,8 +476,6 @@ public  void mhnyma() {
 		Employee.Employees.get(thesh).newmail[Employee.Employees.get(thesh).maxmail] = b;
 		Employee.Employees.get(thesh).maxmail++;
 	}
-
-	in.close();
 }
 	public void Yperoria() {
 
