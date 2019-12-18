@@ -15,7 +15,7 @@ public class Employee {
 	String[] newmail = new String[200];
 	int maxmail = 0;
 	int wresyperergasias_evdomadiaiws = 0;
-	boolean apagoreysh = true;
+
 
 	public Employee(String firstname, String surname, String position, String password, double salary,
 			Manager manager) {
@@ -505,91 +505,6 @@ public class Employee {
 		}
 	}
 
-	public void Yperoria() {
-
-		Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
-		boolean flag3 = false;
-		Scanner in = new Scanner(System.in);
-		int x = 0;
-		boolean wrongValue;
-
-		wrongValue = false;
-		x = enterAnyId();
-		do {
-			if (x != -1) {
-				System.out.printf("How many hours of overtime for %s %s ?\n", Employee.Employees.get(x).getFirstname(),
-						Employee.Employees.get(x).getSurname());
-
-				int epilogh = 0;
-
-				do {
-					if (!in.hasNextInt()) {
-						System.out.println("Give an Integer ");
-						flag3 = true;
-						in.next();
-
-					} else {
-						epilogh = in.nextInt();
-						if (Employee.Employees.get(x).getWresyperergasias_evdomadiaiws() < 5) {
-							if (epilogh + Employee.Employees.get(x).getWresyperergasias_evdomadiaiws() > 5
-									|| epilogh < 1) {
-								flag3 = true;
-								System.out.println(
-										"Δώσε έγυκρο αριθμό!\nΟ υπάλληλος επιτρέπεται να δουλέψει εως και 5 ώρες υπερωρίας εβδομαδιαίως ");
-								System.out.printf("Ο υπάλληλος έχει δουλέψει ήδη %d ώρες αυτή τη βδομάδα\n",
-										Employee.Employees.get(x).getWresyperergasias_evdomadiaiws());
-							} else {
-								flag3 = false;
-								Employee.Employees.get(x).setWresyperergasias_evdomadiaiws(
-										Employee.Employees.get(x).getWresyperergasias_evdomadiaiws() + epilogh);
-							}
-							in.nextLine();
-						} else {
-							System.err.println(
-									"Συμφωνα με τον Ν.3863/2010 ο υπάλληλος απαγορεύεται να δουλέψει περισσότερες ώρες υπερωρίας αυτήν την εδβομάδα ");
-							apagoreysh = false;
-							flag3 = false;
-						}
-					}
-				} while (flag3);
-				if (apagoreysh) {
-					System.out.printf("Είστε σίγουρος οτι θέλετε ο %s να κάνει" + epilogh + "ωρες υπερωρίας;\n",
-							Employee.Employees.get(x).getFirstname(), Employee.Employees.get(x).getSurname());
-					do {
-						System.out.println("yes/no");
-						String verify = in.nextLine();
-						if (verify.toLowerCase().equals("yes")) {
-							// Ypografh1.ypografh();
-							flag3 = false;
-
-							/*
-							 * System.out.println(thisweekShift[0][0].get(Calendar.YEAR)); for (int i = 7; i
-							 * > 0; i = i -2) { if (thisweekShift[Calendar.DAY_OF_WEEK -
-							 * 1][i].get(Calendar.YEAR) != 1990) { int dayAtFirst =
-							 * thisweekShift[Calendar.DAY_OF_WEEK - 1][i].get(Calendar.DAY_OF_WEEK);
-							 * thisweekShift[Calendar.DAY_OF_WEEK - 1][i - 1].add(Calendar.HOUR_OF_DAY,
-							 * epilogh); int dayAtEnd = thisweekShift[Calendar.DAY_OF_WEEK -
-							 * 1][i].get(Calendar.DAY_OF_WEEK); if (dayAtFirst == dayAtEnd) { break; }else {
-							 * System.out.println("Mistake with the inserted value (overpassed midnight)");
-							 * thisweekShift[Calendar.DAY_OF_WEEK - 1][i - 1].add(Calendar.HOUR_OF_DAY,
-							 * -epilogh); wrongValue = true; break; } } }
-							 */
-						} else if (verify.toLowerCase().equals("no")) {
-							Employee.Employees.get(x).setWresyperergasias_evdomadiaiws(
-									Employee.Employees.get(x).getWresyperergasias_evdomadiaiws() - epilogh);
-							break;
-						} else {
-							flag3 = true;
-						}
-					} while (flag3);
-				}
-				apagoreysh = true;
-
-			}
-		} while (wrongValue);
-
-	}
-
 	public void adeia() {
 		if (this.getManager() != null) {
 			String mail_ston_Supervisor = this.getFirstname() + this.getSurname() + " whose id is: "
@@ -711,4 +626,5 @@ public class Employee {
 		} while (flag1);
 		return requested;
 	}
+
 }
