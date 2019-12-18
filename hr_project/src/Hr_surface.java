@@ -8,7 +8,7 @@ public class Hr_surface {
 		//if (main.firstTime){ 	firstTime a boolean variable from main that shows if it
 								// is the first time that the client enters Hr part
 		//BEGINNING OF IF
-		System.out.println("At the beginning is necessary to set up the hr data. \n");
+		/*System.out.println("At the beginning is necessary to set up the hr data. \n");
 		boolean directornotset;
 		Hr_Director hrDirector = new Hr_Director("", "", "Hr Director", "", -1, null);
 		do {
@@ -458,7 +458,7 @@ public class Hr_surface {
 		}
 		//END OF IF
 		//}
-	
+	*/
 		
 		boolean stayAtHR;
 		do {
@@ -477,7 +477,8 @@ public class Hr_surface {
 						sc.nextLine();
 					 }catch (InputMismatchException ime) {
 						 System.out.println("Invalid input.");
-						 wrongInput = true;	 
+						 wrongInput = true;	
+						 sc.nextLine();
 					 }
 				}while (wrongInput);			
 				System.out.print("Password:");
