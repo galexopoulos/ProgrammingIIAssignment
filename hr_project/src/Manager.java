@@ -541,7 +541,7 @@ public class Manager extends Employee { // responsible for the Employees who hav
 		} while (menuflag);
 	}
 
-	public int enterEmpId() {
+	public int enterEmpId() {// a manager can only find the id of his employees
 		Scanner sc = new Scanner(System.in);
 		String selected;
 		int selectedId, requested = -1;
@@ -559,6 +559,44 @@ public class Manager extends Employee { // responsible for the Employees who hav
 					int posInEmployees = binarySearch(selectedId);
 					if (posInEmployees != -1) {
 						if (this.equals(Employee.Employees.get(posInEmployees).getManager())) {
+							requested = posInEmployees;
+							flag1 = false;
+							break;
+						} else {
+							flag1 = true;
+							System.out.println("You are not allowed to do that.");
+						}
+					} else {
+						flag1 = true;
+						System.out.println("That is not a valid Id.");
+					}
+				} catch (Exception b) {
+					flag1 = true;
+					System.out.println("Please insert an Integer.");
+				}
+			}
+		} while (flag1);
+		return requested;
+	}
+
+	public int enterAnyId() {// find the posinemployees except of yourself in that case it returns -1
+		Scanner sc = new Scanner(System.in);
+		String selected;
+		int selectedId, requested = -1;
+		boolean flag1 = false;
+		do {
+			System.out.println("Enter the Employee's id or press Enter to return to central Menu.");
+			selected = sc.nextLine();
+			if (selected.equals("")) {
+				flag1 = false;
+				break;
+
+			} else {
+				try {
+					selectedId = Integer.parseInt(selected);
+					int posInEmployees = binarySearch(selectedId);
+					if (posInEmployees != -1) {
+						if (!this.equals(Employee.Employees.get(posInEmployees))) {
 							requested = posInEmployees;
 							flag1 = false;
 							break;
