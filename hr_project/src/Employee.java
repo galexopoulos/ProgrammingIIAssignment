@@ -472,14 +472,16 @@ public class Employee {
 	}
 
 	public void mhnyma() {
-
+		int thesh=0;
 		// System.out.println(this.getEmployee_Id());
 		// String ans1 = JOptionPane.showInputDialog("Πληκτρολογήστε το μήνυμα που
 		// επιθυμείτε να στείλετε");
 		Scanner in = new Scanner(System.in);
+		
 		int epilogh = enterAnyId();
-
-		int thesh = binarySearch(Employees, epilogh);// binarySearch(Employee.Employees, epilogh);
+		 thesh = binarySearch(Employees, epilogh);
+	
+		if(thesh!=-1) {
 		System.out.printf("Πληκτρολογήστε το μήνυμα που επιθυμείτε να στείλετε στον %s %s\n",
 				Employee.Employees.get(thesh).getFirstname(), Employee.Employees.get(thesh).getSurname());
 		String a = "Mail from " + this.getFirstname() + this.getSurname() + ":\n";
@@ -497,7 +499,8 @@ public class Employee {
 			Employee.Employees.get(thesh).newmail[Employee.Employees.get(thesh).maxmail] = b;
 			Employee.Employees.get(thesh).maxmail++;
 		}
-	}
+		}
+		}
 
 	public void adeia() {
 		if (this.getManager() != null) {
