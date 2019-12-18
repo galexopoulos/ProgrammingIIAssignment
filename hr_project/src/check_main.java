@@ -32,6 +32,8 @@ public class check_main {
 	    c = new Manager(c);
 	    System.out.println(c instanceof Manager);
 	    boss.getMenu();*/
+		Calendar cal = Calendar.getInstance();
+		System.out.println(cal.get(Calendar.DAY_OF_WEEK));
 		Hr_Director Kobe= new Hr_Director("Kobe", "Bryant", "Hr Director", "123456",  213142, null);
 		Manager Barney= new Manager("Barney", "Stinson", "P.L.E.A.S.E.","robin", 1434133, null);
 		Employee Rachel = new Employee ("Rachel", "Green", "waitress","LaPooh", 980, Barney);

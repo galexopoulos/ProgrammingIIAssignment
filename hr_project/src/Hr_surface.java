@@ -501,7 +501,7 @@ public class Hr_surface {
 				a.setThisWeekShift(Shift.createShift(a.getShiftStr()));// has not a purpose at this project because of
 																		// the difficulties at the check but it could be
 																		// used in real circumstances
-				a.setExtraHoursWeek(0);
+				a.setWresyperergasias_evdomadiaiws(0);
 			} catch (Exception e) {
 				// check has been done it will never reach here, if there was an error with the
 				// input Exception would have been caught and handled before
