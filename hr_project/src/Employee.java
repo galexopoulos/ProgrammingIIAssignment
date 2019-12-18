@@ -267,7 +267,7 @@ public class Employee {
 					for (int i = 0; i < Employee.Employees.get(this.getEmployee_Id()).getMaxmail(); i++) {
 						System.out.println(Employee.Employees.get(this.getEmployee_Id()).newmail[i]);
 					}
-					if (Employee.Employees.get(this.getEmployee_Id()).getMaxmail()==0){
+					if (Employee.Employees.get(this.getEmployee_Id()).getMaxmail() == 0) {
 						System.out.println("You've got no mails :(");
 					}
 				}
@@ -477,34 +477,34 @@ public class Employee {
 		return false;
 	}
 
+	public void mhnyma() {
 
-public  void mhnyma() {
-	
-	// System.out.println(this.getEmployee_Id());
-	// String ans1 = JOptionPane.showInputDialog("Πληκτρολογήστε το μήνυμα που
-	// επιθυμείτε να στείλετε");
-	Scanner in = new Scanner(System.in);
-	int epilogh = enterEmpId();
+		// System.out.println(this.getEmployee_Id());
+		// String ans1 = JOptionPane.showInputDialog("Πληκτρολογήστε το μήνυμα που
+		// επιθυμείτε να στείλετε");
+		Scanner in = new Scanner(System.in);
+		int epilogh = enterAnyId();
 
-	int thesh = binarySearch(Employees, epilogh);// binarySearch(Employee.Employees, epilogh);
-	System.out.printf("Πληκτρολογήστε το μήνυμα που επιθυμείτε να στείλετε στον %s %s\n",
-			Employee.Employees.get(thesh).getFirstname(), Employee.Employees.get(thesh).getSurname());
-	String a = "Mail from " + this.getFirstname() + this.getSurname() + ":\n";
-	a = a + in.nextLine();
-	Employee.Employees.get(thesh).newmail[Employee.Employees.get(thesh).maxmail] = a;
-	Employee.Employees.get(thesh).maxmail++;
-
-	// System.out.printf("%s", Employee.mail[Employee.max_mail[thesh]][thesh]);
-
-	// System.out.println(thesh);
-	System.out.println();
-	if (Employee.Employees.get(thesh).getMaxmail() == 201) {
-		String b = "Τα εισερχόμενα σας είναι πάνω απο 200. Τα νέα εισερχόμενα θα λάβουν τη θέση των παλαιότερων";
-		Employee.Employees.get(thesh).setMaxmail(0);
-		Employee.Employees.get(thesh).newmail[Employee.Employees.get(thesh).maxmail] = b;
+		int thesh = binarySearch(Employees, epilogh);// binarySearch(Employee.Employees, epilogh);
+		System.out.printf("Πληκτρολογήστε το μήνυμα που επιθυμείτε να στείλετε στον %s %s\n",
+				Employee.Employees.get(thesh).getFirstname(), Employee.Employees.get(thesh).getSurname());
+		String a = "Mail from " + this.getFirstname() + this.getSurname() + ":\n";
+		a = a + in.nextLine();
+		Employee.Employees.get(thesh).newmail[Employee.Employees.get(thesh).maxmail] = a;
 		Employee.Employees.get(thesh).maxmail++;
+
+		// System.out.printf("%s", Employee.mail[Employee.max_mail[thesh]][thesh]);
+
+		// System.out.println(thesh);
+		System.out.println();
+		if (Employee.Employees.get(thesh).getMaxmail() == 201) {
+			String b = "Τα εισερχόμενα σας είναι πάνω απο 200. Τα νέα εισερχόμενα θα λάβουν τη θέση των παλαιότερων";
+			Employee.Employees.get(thesh).setMaxmail(0);
+			Employee.Employees.get(thesh).newmail[Employee.Employees.get(thesh).maxmail] = b;
+			Employee.Employees.get(thesh).maxmail++;
+		}
 	}
-}
+
 	public void Yperoria() {
 
 		Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
@@ -514,7 +514,7 @@ public  void mhnyma() {
 		boolean wrongValue;
 
 		wrongValue = false;
-		x = enterEmpId();
+		x = enterAnyId();
 		do {
 			if (x != -1) {
 				System.out.printf("How many hours of overtime for %s %s ?\n", Employee.Employees.get(x).getFirstname(),
@@ -559,7 +559,7 @@ public  void mhnyma() {
 						System.out.println("yes/no");
 						String verify = in.nextLine();
 						if (verify.toLowerCase().equals("yes")) {
-							//Ypografh1.ypografh();
+							// Ypografh1.ypografh();
 							flag3 = false;
 
 							/*
@@ -658,4 +658,57 @@ public  void mhnyma() {
 		return -1;
 	}
 
+	public static int binarySearch(int x) {// x the id you want to find in the Employees and returns the position in
+		// Employees
+		int l = 0, r = Employee.Employees.size() - 1;
+		while (l <= r) {
+			int m = l + (r - l) / 2;
+			if (Employee.Employees.get(m).getEmployee_Id() == x)
+				return m;
+
+			if (Employee.Employees.get(m).getEmployee_Id() < x)
+				l = m + 1;
+			else
+				r = m - 1;
+		}
+		return -1;
+	}
+
+	public int enterAnyId() {// find the posinemployees except of yourself in that case it returns -1
+		Scanner sc = new Scanner(System.in);
+		String selected;
+		int selectedId, requested = -1;
+		boolean flag1 = false;
+		do {
+			System.out.println("Enter the Employee's id or press Enter to return to central Menu.");
+			selected = sc.nextLine();
+			if (selected.equals("")) {
+				flag1 = false;
+				break;
+
+			} else {
+				try {
+					selectedId = Integer.parseInt(selected);
+					int posInEmployees = binarySearch(selectedId);
+					if (posInEmployees != -1) {
+						if (!this.equals(Employee.Employees.get(posInEmployees))) {
+							requested = posInEmployees;
+							flag1 = false;
+							break;
+						} else {
+							flag1 = true;
+							System.out.println("You are not allowed to do that.");
+						}
+					} else {
+						flag1 = true;
+						System.out.println("That is not a valid Id.");
+					}
+				} catch (Exception b) {
+					flag1 = true;
+					System.out.println("Please insert an Integer.");
+				}
+			}
+		} while (flag1);
+		return requested;
+	}
 }
