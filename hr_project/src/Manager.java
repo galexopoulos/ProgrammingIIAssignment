@@ -1,6 +1,7 @@
 
 import java.util.Calendar;
 import java.util.Scanner;
+import java.util.TimeZone;
 
 public class Manager extends Employee { // responsible for the Employees who have him as Manager
 
@@ -610,5 +611,118 @@ public class Manager extends Employee { // responsible for the Employees who hav
 		}
 		return -1;
 	}
+	
+	public void Yperoria() {
 
+		Calendar calendar = Calendar.getInstance();
+		boolean flag3 = false;
+		Scanner in = new Scanner(System.in);
+		int x = 0;
+		boolean somethingWrong = true;
+		x = enterAnyId();
+		if (x != -1) {	
+			do {
+				System.out.printf("How many hours of overtime for %s %s ?\n", Employee.Employees.get(x).getFirstname(),
+						Employee.Employees.get(x).getSurname());
+
+				int epilogh = 0;
+
+				do {
+					if (!in.hasNextInt()) {
+						System.out.println("Give an Integer ");
+						flag3 = true;
+						in.next();
+
+					} else {
+						epilogh = in.nextInt();
+						in.nextLine();
+					}
+				} while (flag3);
+				if (epilogh + Employee.Employees.get(x).getWresyperergasias_evdomadiaiws() > 5) {
+					System.err.println(
+							"Συμφωνα με τον Ν.3863/2010 ο υπάλληλος απαγορεύεται να δουλέψει περισσότερες από 5 ώρες υπερωρίας την εδβομάδα. ");
+					System.out.printf("Ο υπάλληλος έχει δουλέψει ήδη %d ώρες αυτή τη βδομάδα\n",
+							Employee.Employees.get(x).getWresyperergasias_evdomadiaiws());
+					continue;
+				}else if (epilogh < 1) {
+					System.out.println("Insert an Integer greater than zero.");
+					continue;
+				} else {
+					somethingWrong = false;
+				}
+				
+				int posInShift =ShiftIndexToChange(epilogh, Employee.Employees.get(x).getThisWeekShift()[calendar.get(Calendar.DAY_OF_WEEK - 1)]);
+				if(posInShift == -1) {
+					continue;
+				}else {
+					somethingWrong = false;
+					System.out.printf("Είστε σίγουρος οτι θέλετε ο %s να κάνει" + epilogh + "ωρες υπερωρίας;\n",
+							Employee.Employees.get(x).getFirstname(), Employee.Employees.get(x).getSurname());
+					boolean flag4;
+					do {
+						System.out.println("yes/no");
+						String verify = in.nextLine();
+						if (verify.toLowerCase().equals("yes")) {
+							// Ypografh1.ypografh();
+							Employee.Employees.get(x).setWresyperergasias_evdomadiaiws(
+									Employee.Employees.get(x).getWresyperergasias_evdomadiaiws() + epilogh);
+							Calendar[][] newShift = Employee.Employees.get(x).getThisWeekShift();
+							Calendar newValue = Employee.Employees.get(x).getThisWeekShift()[calendar.get(Calendar.DAY_OF_WEEK - 1)][posInShift];
+							newValue.add(Calendar.HOUR_OF_DAY, epilogh);
+							newShift[calendar.get(Calendar.DAY_OF_WEEK - 1)][posInShift] = newValue;
+							Employee.Employees.get(x).setThisWeekShift(newShift);
+							double paymentIncrease = epilogh*Math.round((Employee.Employees.get(x).getSalary()*0.015)*100)/100;//we increase the payment by 0.015 of employee's salary for every extra hour
+																															   //Math.round(a*100)/100 rounds up a to 2 decimals
+							
+							Employee.Employees.get(x).setMonthPayment(Employee.Employees.get(x).getMonthPayment() + paymentIncrease);
+							flag4 = false;
+	
+							 
+						} else if (verify.toLowerCase().equals("no")) {
+							Employee.Employees.get(x).setWresyperergasias_evdomadiaiws(
+									Employee.Employees.get(x).getWresyperergasias_evdomadiaiws() - epilogh);
+							break;
+						} else {
+							flag4 = true;
+						}
+					} while (flag4);
+				}
+			} while (somethingWrong);
+		}
+
+	}
+
+	public int ShiftIndexToChange(int extraHours, Calendar[] dayShift) {//returns -1 if 1)extra hours overpass midnight
+																					//  2)employee has a shift that continues the next day
+																			 		//  3)extra hours added after the emmployee finished his shift
+																					//  4)employee doesn't work the requested day
+		boolean midnightError = false;
+		for (int i = 7; i> 0; i = i -2) {
+			if (dayShift[i].get(Calendar.YEAR) != 1990) {
+				if (i == 7 || i != 7 && dayShift[i + 1].get(Calendar.YEAR) != 1990) {//we want to check that the next index is empty
+					Calendar rightNow = Calendar.getInstance();
+					if(rightNow.after(dayShift[i])){
+						System.out.println("Employee's shift for today has ended.");
+						return -1;
+
+					}
+					int dayAtFirst = dayShift[i].get(Calendar.DAY_OF_WEEK);
+					dayShift[i - 1].add(Calendar.HOUR_OF_DAY, extraHours);
+					int dayAtEnd = dayShift[i].get(Calendar.DAY_OF_WEEK); 
+					if (dayAtFirst == dayAtEnd) { 
+						return i; 
+					}else {
+						System.out.println("Mistake with the inserted value (overpassed midnight)");
+						midnightError = true;
+						break;
+					}
+				} 
+			} 
+		}
+		if (!midnightError) {
+			System.out.println("The Employee doesn't work today.");
+		}
+		return -1;
+	}
 }
+
