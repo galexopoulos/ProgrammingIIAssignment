@@ -241,8 +241,36 @@ public class Employee {
 				} // if year = 1990 the employee has requested to return to the central Menu
 
 			} else if (selection == 4) {
-				// call inbox
+				int epilogh = 0;
+				boolean flag3 = false;
+				do {
+					System.out.println("Select: \n ------------- \n\n1)Send Mail. \n2)View Mails.");
+					if (!sc.hasNextInt()) {
+						System.out.println("Δώστε 1 ή 2 ");
+						flag3 = true;
+						sc.next();
 
+					} else {
+						epilogh = sc.nextInt();
+						if (epilogh > 2 || epilogh < 1) {
+							flag3 = true;
+							System.out.println("input an integer [1,2]");
+						} else {
+							flag3 = false;
+						}
+						sc.nextLine();
+					}
+				} while (flag3);
+				if (epilogh == 1) {
+					mhnyma();
+				} else {
+					for (int i = 0; i < Employee.Employees.get(this.getEmployee_Id()).getMaxmail(); i++) {
+						System.out.println(Employee.Employees.get(this.getEmployee_Id()).newmail[i]);
+					}
+					if (Employee.Employees.get(this.getEmployee_Id()).getMaxmail()==0){
+						System.out.println("You've got no mails :(");
+					}
+				}
 			} else if (selection == 5) {
 				printShift(this.getThisWeekShift());
 			} else if (selection == 6) {
