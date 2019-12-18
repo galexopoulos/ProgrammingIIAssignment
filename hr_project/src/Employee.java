@@ -16,7 +16,6 @@ public class Employee {
 	int maxmail = 0;
 	int wresyperergasias_evdomadiaiws = 0;
 
-
 	public Employee(String firstname, String surname, String position, String password, double salary,
 			Manager manager) {
 		this.firstname = firstname;
@@ -472,35 +471,36 @@ public class Employee {
 	}
 
 	public void mhnyma() {
-		int thesh=0;
+		int thesh = 0;
 		// System.out.println(this.getEmployee_Id());
 		// String ans1 = JOptionPane.showInputDialog("Πληκτρολογήστε το μήνυμα που
 		// επιθυμείτε να στείλετε");
 		Scanner in = new Scanner(System.in);
-		
+
 		int epilogh = enterAnyId();
-		 thesh = binarySearch(Employees, epilogh);
-	
-		if(thesh!=-1) {
-		System.out.printf("Πληκτρολογήστε το μήνυμα που επιθυμείτε να στείλετε στον %s %s\n",
-				Employee.Employees.get(thesh).getFirstname(), Employee.Employees.get(thesh).getSurname());
-		String a = "Mail from " + this.getFirstname() + this.getSurname() + ":\n";
-		a = a + in.nextLine();
-		Employee.Employees.get(thesh).newmail[Employee.Employees.get(thesh).maxmail] = a;
-		Employee.Employees.get(thesh).maxmail++;
+		thesh = binarySearch(Employees, epilogh);
 
-		// System.out.printf("%s", Employee.mail[Employee.max_mail[thesh]][thesh]);
-
-		// System.out.println(thesh);
-		System.out.println();
-		if (Employee.Employees.get(thesh).getMaxmail() == 201) {
-			String b = "Τα εισερχόμενα σας είναι πάνω απο 200. Τα νέα εισερχόμενα θα λάβουν τη θέση των παλαιότερων";
-			Employee.Employees.get(thesh).setMaxmail(0);
-			Employee.Employees.get(thesh).newmail[Employee.Employees.get(thesh).maxmail] = b;
+		if (thesh != -1) {
+			System.out.printf("Πληκτρολογήστε το μήνυμα που επιθυμείτε να στείλετε στον %s %s\n",
+					Employee.Employees.get(thesh).getFirstname(), Employee.Employees.get(thesh).getSurname());
+			int mtbl = Employee.Employees.get(thesh).maxmail + 1;
+			String a = "       -------\n" + mtbl + ")Mail from " + this.getFirstname() + this.getSurname() + ":\n";
+			a = a + in.nextLine();
+			Employee.Employees.get(thesh).newmail[Employee.Employees.get(thesh).maxmail] = a;
 			Employee.Employees.get(thesh).maxmail++;
+
+			// System.out.printf("%s", Employee.mail[Employee.max_mail[thesh]][thesh]);
+
+			// System.out.println(thesh);
+			System.out.println();
+			if (Employee.Employees.get(thesh).getMaxmail() == 201) {
+				String b = "Τα εισερχόμενα σας είναι πάνω απο 200. Τα νέα εισερχόμενα θα λάβουν τη θέση των παλαιότερων";
+				Employee.Employees.get(thesh).setMaxmail(0);
+				Employee.Employees.get(thesh).newmail[Employee.Employees.get(thesh).maxmail] = b;
+				Employee.Employees.get(thesh).maxmail++;
+			}
 		}
-		}
-		}
+	}
 
 	public void adeia() {
 		if (this.getManager() != null) {
@@ -509,9 +509,13 @@ public class Employee {
 			this.getManager().newmail[this.getManager().getMaxmail()] = mail_ston_Supervisor;
 			mail_ston_Supervisor = mail_ston_Supervisor + "Inform the Employee whether you approve the day off \n ";
 			this.getManager().setMaxmail(this.getManager().getMaxmail() + 1);
-			;
+
 			if (this.getManager().getMaxmail() == 201) {
+				String b = "Τα εισερχόμενα σας είναι πάνω απο 200. Τα νέα εισερχόμενα θα λάβουν τη θέση των παλαιότερων";
+
 				this.getManager().setMaxmail(0);
+				this.getManager().newmail[getMaxmail()] = b;
+				this.getManager().setMaxmail(getMaxmail() + 1);
 			}
 		}
 
@@ -624,5 +628,4 @@ public class Employee {
 		return requested;
 	}
 
-	
 }

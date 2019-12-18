@@ -33,7 +33,6 @@ public class check_main {
 		Employee Ivan = new Employee("Ivan", "Zaytsev", "Athlete", "Petreasismydaddy", 12000, Petreas);
 		Employee Rick = new Employee("Rick", "Sanchez", "scientist", "Wubalubadubdub", 2, Barney);
 		Employee Rachel = new Employee("Rachel", "Green", "waitress", "l", 980, Barney);
-
 		Employee NF = new Employee("Nate", "Feuerstein", "GOAT", "paidmydues", 3034308, Barney);
 		String[] shift = { "11:00-17:00", "10:00-18:30", "-", "7:00-14:00", "22:00-", "-7:00,12:00-13:00", "-",
 				"11:00-17:00" };
