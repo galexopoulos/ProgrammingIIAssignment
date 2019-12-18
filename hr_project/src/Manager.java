@@ -91,7 +91,7 @@ public class Manager extends Employee { // responsible for the Employees who hav
 
 					} else {
 						epilogh = sc.nextInt();
-						if (epilogh > 3 || epilogh < 1) {
+						if (epilogh > 2 || epilogh < 1) {
 							flag3 = true;
 							System.out.println("input an integer [1,2]");
 						} else {
