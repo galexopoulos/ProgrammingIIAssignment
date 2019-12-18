@@ -13,7 +13,7 @@ public class Employee {
 	private String[] shiftStr = new String[8];
 	private Calendar lastChecked = Calendar.getInstance();
 
-	public Employee(String firstname, String surname, String position, String password, int salary,
+	public Employee(String firstname, String surname, String position, String password, double salary,
 			Manager manager) {
 		this.firstname = firstname;
 		this.surname = surname;
@@ -174,9 +174,10 @@ public class Employee {
 
 	public void getMenu() {
 		Scanner sc = new Scanner(System.in);
-		boolean menuflag = true;
+		boolean menuflag;
 		System.out.println("Welcome!");
 		do{	
+			menuflag = true;
 			System.out.println("    MENU \n------------- \n Select: \n1)Check in.\n2)Check out. \n"
 					+ "3)Day off request. \n4)Inbox. \n5)Show shift of the week. \n6)Log out.");
 			boolean flag = false;
@@ -217,13 +218,11 @@ public class Employee {
 			} else if (selection == 3) {// you can request for free day only in the current week
 				Calendar freeRequest = Calendar.getInstance();
 				freeRequest = enterWeekDay();
-				if (freeRequest.get(Calendar.YEAR) == 1990) {
-					//SHOW THE MENU AGAIN
-				}else {
+				if (freeRequest.get(Calendar.YEAR) != 1990) {
 					System.out.println("Day off request succesfully sent to Manager.");
 					//inboxrelated
 					//can be added an option to send a message with the request
-				}
+				}//if year = 1990 the employee has requested to return to the central Menu
 				
 			}else if (selection == 4) {
 				//call inbox

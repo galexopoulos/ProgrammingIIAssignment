@@ -70,13 +70,11 @@ public class Manager extends Employee { // responsible for the Employees who hav
 			} else if (selection == 3) {// you can request for free day only in the current week
 				Calendar freeRequest = Calendar.getInstance();
 				freeRequest = enterWeekDay();
-				if (freeRequest.get(Calendar.YEAR) == 1990) {
-					//SHOW THE MENU AGAIN
-				}else {
+				if (freeRequest.get(Calendar.YEAR) != 1990) {
 					System.out.println("Day off request succesfully sent to Manager.");
 					//inboxrelated
 					//can be added an option to send a message with the request
-				}
+				}//if year = 1990 the employee has requested to return to the central Menu
 			
 			}else if (selection == 4) {
 				//call inbox
