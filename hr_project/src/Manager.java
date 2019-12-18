@@ -3,35 +3,38 @@ import java.util.Calendar;
 import java.util.Scanner;
 
 public class Manager extends Employee { // responsible for the Employees who have him as Manager
-	
-	//private int employee_Id, extraHoursMonth = 0 /* need to be set to 0 every month */;
-	//private int monthPayment;
-	//private Calendar[][]thisWeekShift = new Calendar[7][8];
-	//private boolean checkedIn = false; // true when the employee has checked in but hasn't checked out
-	//private Calendar lastChecked = Calendar.getInstance();
-	
+
+	// private int employee_Id, extraHoursMonth = 0 /* need to be set to 0 every
+	// month */;
+	// private int monthPayment;
+	// private Calendar[][]thisWeekShift = new Calendar[7][8];
+	// private boolean checkedIn = false; // true when the employee has checked in
+	// but hasn't checked out
+	// private Calendar lastChecked = Calendar.getInstance();
+
 	public Manager(String firstname, String surname, String position, String password, double salary, Manager manager) {
 		super(firstname, surname, position, password, salary, manager);
-	} 
-	
-	public Manager (Employee employee) {//for the promotion at the Hr Director class
+	}
+
+	public Manager(Employee employee) {// for the promotion at the Hr Director class
 		super(employee);
 	}
-	
+
 	@Override
 	public String toString() {
-		return "Manager [firstname=" + getFirstname() + ", surname=" + getSurname() + ", position=" + getPosition() + ", employee_Id="
-				+ getEmployee_Id() + ", salary=" + getSalary()  + "]";
+		return "Manager [firstname=" + getFirstname() + ", surname=" + getSurname() + ", position=" + getPosition()
+				+ ", employee_Id=" + getEmployee_Id() + ", salary=" + getSalary() + "]";
 	}
-	
+
 	public void getMenu() {
 		Scanner sc = new Scanner(System.in);
 		boolean menuflag = true;
 		System.out.println("Welcome!");
 		do {
-			System.out.println(" MANAGER MENU \n------------- \n Select: \n1)Check in.\n2)Check out. \n3)Day off request. \n4)Inbox. \n5)Show shift of the week. "
-					+ "\n6)View Employees. \n7)Show check in status of Employees. \n8)Change an Employee's shift. \n9)Set  extra hours for an Employee."
-					+ " \n10)Edit an Employee's payment. \n11)Edit an Employee's fields. \n12)Log out.");
+			System.out.println(
+					" MANAGER MENU \n------------- \n Select: \n1)Check in.\n2)Check out. \n3)Day off request. \n4)Inbox. \n5)Show shift of the week. "
+							+ "\n6)View Employees. \n7)Show check in status of Employees. \n8)Change an Employee's shift. \n9)Set  extra hours for an Employee."
+							+ " \n10)Edit an Employee's payment. \n11)Edit an Employee's fields. \n12)Log out.");
 			boolean flag = false;
 			int selection = 0;
 			do {
@@ -39,7 +42,7 @@ public class Manager extends Employee { // responsible for the Employees who hav
 					System.out.println("Please insert an integer 1 - 12");
 					flag = true;
 					sc.next();
-	
+
 				} else {
 					selection = sc.nextInt();
 					if (selection > 12 || selection < 1) {
@@ -52,19 +55,19 @@ public class Manager extends Employee { // responsible for the Employees who hav
 				}
 			} while (flag);
 			if (selection == 1) {
-				if (!this.isCheckedIn()) { 
+				if (!this.isCheckedIn()) {
 					this.setLastChecked(Calendar.getInstance());
 					this.setCheckedIn(true);
 					System.out.println("Check in successful!");
-				}else {
+				} else {
 					System.out.println("Already checked in.");
 				}
 			} else if (selection == 2) {
 				if (this.isCheckedIn()) {
 					this.setLastChecked(Calendar.getInstance());
-					this.setCheckedIn(false); 
+					this.setCheckedIn(false);
 					System.out.println("Check out successful!");
-				}else {
+				} else {
 					System.out.println("Already checked out.");
 				}
 			} else if (selection == 3) {// you can request for free day only in the current week
@@ -72,16 +75,45 @@ public class Manager extends Employee { // responsible for the Employees who hav
 				freeRequest = enterWeekDay();
 				if (freeRequest.get(Calendar.YEAR) != 1990) {
 					System.out.println("Day off request succesfully sent to Manager.");
-					//inboxrelated
-					//can be added an option to send a message with the request
-				}//if year = 1990 the employee has requested to return to the central Menu
-			
-			}else if (selection == 4) {
-				//call inbox
-	
-			}else if (selection == 5){
+					// inboxrelated
+					// can be added an option to send a message with the request
+				} // if year = 1990 the employee has requested to return to the central Menu
+
+			} else if (selection == 4) {
+				int epilogh = 0;
+				boolean flag3 = false;
+				do {
+					System.out.println("Select: \n ------------- \n\n1)Send Mail. \n2)View Mails.");
+					if (!sc.hasNextInt()) {
+						System.out.println("Δώστε 1 ή 2 ");
+						flag3 = true;
+						sc.next();
+
+					} else {
+						epilogh = sc.nextInt();
+						if (epilogh > 3 || epilogh < 1) {
+							flag3 = true;
+							System.out.println("input an integer [1,2]");
+						} else {
+							flag3 = false;
+						}
+						sc.nextLine();
+					}
+				} while (flag3);
+				if (epilogh == 1) {
+					mhnyma();
+				} else {
+					for (int i = 0; i < Employee.Employees.get(this.getEmployee_Id()).getMaxmail(); i++) {
+						System.out.println(Employee.Employees.get(this.getEmployee_Id()).newmail[i]);
+					}
+					if (Employee.Employees.get(this.getEmployee_Id()).getMaxmail()==0){
+						System.out.println("You've got no mails :(");
+					}
+				}
+
+			} else if (selection == 5) {
 				printShift(this.getThisWeekShift());
-			}else if (selection == 6) {
+			} else if (selection == 6) {
 				boolean onefound = false;
 				for (Employee a : Employee.Employees) {
 					if (this.equals(a.getManager())) {
@@ -92,33 +124,40 @@ public class Manager extends Employee { // responsible for the Employees who hav
 				if (!onefound) {
 					System.out.println("No employees found.");
 				}
-			}else if (selection == 7) {
+			} else if (selection == 7) {
 				boolean onefound = false;
 				String status;
-				for (Employee a : Employee.Employees) { 
+				for (Employee a : Employee.Employees) {
 					if (this.equals(a.getManager())) {
 						onefound = true;
 						if (a.getLastChecked().get(Calendar.YEAR) != 1990) {
 							if (a.isCheckedIn()) {
 								status = "Checked in";
-							}else {
+							} else {
 								status = "Checked out";
 							}
-							String timeChecked = String.format("%02d:%02d", a.getLastChecked().get(Calendar.HOUR_OF_DAY), a.getLastChecked().get(Calendar.MINUTE));
-							String dayChecked = String.format("%d/%d", a.getLastChecked().get(Calendar.DAY_OF_MONTH), a.getLastChecked().get(Calendar.MONTH) + 1);
-							System.out.println("Id: " + a.getEmployee_Id() + " " + a.getFirstname() + " " +  a.getSurname() + " status: " + status + " at " + timeChecked + " of "  + dayChecked);
-						}else { //if a.getLastChecked().get(Calendar.YEAR) == 1990 the Employee has never checked in
-							System.out.println("Id: " + a.getEmployee_Id() + " " + a.getFirstname() + " " +  a.getSurname() + " status: Checked out");
+							String timeChecked = String.format("%02d:%02d",
+									a.getLastChecked().get(Calendar.HOUR_OF_DAY),
+									a.getLastChecked().get(Calendar.MINUTE));
+							String dayChecked = String.format("%d/%d", a.getLastChecked().get(Calendar.DAY_OF_MONTH),
+									a.getLastChecked().get(Calendar.MONTH) + 1);
+							System.out
+									.println("Id: " + a.getEmployee_Id() + " " + a.getFirstname() + " " + a.getSurname()
+											+ " status: " + status + " at " + timeChecked + " of " + dayChecked);
+						} else { // if a.getLastChecked().get(Calendar.YEAR) == 1990 the Employee has never
+									// checked in
+							System.out.println("Id: " + a.getEmployee_Id() + " " + a.getFirstname() + " "
+									+ a.getSurname() + " status: Checked out");
 						}
 					}
 				}
 				if (!onefound) {
 					System.out.println("No employees found.");
 				}
-			}else if (selection == 8) {
+			} else if (selection == 8) {
 				boolean shiftflag = false;
 				do {
-					int posInEmployees = enterEmpId(); 
+					int posInEmployees = enterEmpId();
 					if (posInEmployees != -1) {
 						boolean flag2;
 						do {
@@ -127,13 +166,13 @@ public class Manager extends Employee { // responsible for the Employees who hav
 							printShift(Employee.Employees.get(posInEmployees).getThisWeekShift());
 							boolean flag3;
 							int dayInt = -1;
-							do {	
+							do {
 								flag3 = false;
 								System.out.println("Insert the day of the week, press Enter to choose a different Id \n"
 										+ "or type \"exit\" to return to the basic menu:");
 								String dayOfWeek = sc.nextLine();
 								dayOfWeek = dayOfWeek.toLowerCase();
-								switch (dayOfWeek ) {
+								switch (dayOfWeek) {
 								case "":
 									shiftflag = true;
 									break;
@@ -164,59 +203,62 @@ public class Manager extends Employee { // responsible for the Employees who hav
 									System.out.println("That is not a valid input.");
 									flag3 = true;
 								}
-							}while (flag3);
-							if(!shiftflag && dayInt !=-1) {
+							} while (flag3);
+							if (!shiftflag && dayInt != -1) {
 								String[] shiftStr = new String[8];
 								shiftStr = Employee.Employees.get(posInEmployees).getShiftStr();
 								boolean flag4;
-								do {	
+								do {
 									flag4 = false;
 									System.out.println("Insert the new shift for the day or type \"back\" to go back.");
 									String inputShift = sc.nextLine();
 									if (inputShift.toLowerCase().equals("back")) {
 										flag2 = true;
 										break;
-									}else {
+									} else {
 										if (dayInt == 0) { // monday is both at positions 0 and 7
 											shiftStr[0] = inputShift;
 											shiftStr[7] = inputShift;
-										}else {
+										} else {
 											shiftStr[dayInt] = inputShift;
-											}
+										}
 										try {
-											Employee.Employees.get(posInEmployees).setThisWeekShift(Shift.createShift(shiftStr));
-											//if it moves on the input is correct as creatShift method throws Exception for wrong input
+											Employee.Employees.get(posInEmployees)
+													.setThisWeekShift(Shift.createShift(shiftStr));
+											// if it moves on the input is correct as creatShift method throws Exception
+											// for wrong input
 											Employee.Employees.get(posInEmployees).setShiftStr(shiftStr);
 											System.out.println("The change has been made.");
-										}catch (Exception e) {
+										} catch (Exception e) {
 											System.out.println("Invalid input");
 											flag4 = true;
 										}
 									}
-								}while(flag4);
+								} while (flag4);
 							}
-							
-						}while(flag2);
-					}else {
+
+						} while (flag2);
+					} else {
 						menuflag = true;
 					}
-					
-				}while (shiftflag);
-			
-			}else  if (selection == 9) {
-				//related to inbox 		
-			}else if (selection == 10) {
+
+				} while (shiftflag);
+
+			} else if (selection == 9) {
+			Yperoria();	
+			} else if (selection == 10) {
 				int posInEmployees = enterEmpId();
 				if (posInEmployees != -1) {
 					boolean flag1 = false;
 					int sel = 0;
-					System.out.println("Select \n1)Edit salary. \n2)Edit payment for the current month. \n3)Return to central menu.");
+					System.out.println(
+							"Select \n1)Edit salary. \n2)Edit payment for the current month. \n3)Return to central menu.");
 					do {
 						if (!sc.hasNextInt()) {
 							System.out.println("Please insert a number, 1 or 2 or 3.");
 							flag1 = true;
 							sc.next();
-	
+
 						} else {
 							sel = sc.nextInt();
 							if (sel > 3 || sel < 1) {
@@ -227,12 +269,13 @@ public class Manager extends Employee { // responsible for the Employees who hav
 								sc.nextLine();
 							}
 						}
-	
+
 					} while (flag1);
 					switch (sel) {
-					
+
 					case 1:
-						System.out.println("The current salary is " + Employee.Employees.get(posInEmployees).getSalary() + ".");
+						System.out.println(
+								"The current salary is " + Employee.Employees.get(posInEmployees).getSalary() + ".");
 						String selected;
 						double selectedSalary = -1;
 						boolean flag2 = false;
@@ -249,24 +292,25 @@ public class Manager extends Employee { // responsible for the Employees who hav
 									if (selectedSalary < 0) {
 										flag2 = true;
 										System.out.println("Insert a number greater than zero.");
-									}else if(selectedSalary == Employee.Employees.get(posInEmployees).getSalary()) {
+									} else if (selectedSalary == Employee.Employees.get(posInEmployees).getSalary()) {
 										flag2 = true;
 										System.out.println("Insert a salary different than the previous one.");
-									}else if (!checkDecimalsSalary(selectedSalary)) {
+									} else if (!checkDecimalsSalary(selectedSalary)) {
 										flag2 = true;
 										System.out.println("Insert a number with 2 or less decimals.");
 										continue;
-									}else {
+									} else {
 										flag2 = false;
 									}
-								}catch(Exception b) {
+								} catch (Exception b) {
 									flag2 = true;
 									System.out.println("Please insert a number.");
 								}
-							}	
+							}
 						} while (flag2);
 						if (selectedSalary != -1) {
-							System.out.println("The new salary is going to be set to " + selectedSalary + ".\nAre you sure you want to make that change?");
+							System.out.println("The new salary is going to be set to " + selectedSalary
+									+ ".\nAre you sure you want to make that change?");
 							boolean flag3 = false;
 							do {
 								System.out.println("yes/no");
@@ -275,17 +319,18 @@ public class Manager extends Employee { // responsible for the Employees who hav
 									Employee.Employees.get(posInEmployees).setSalary(selectedSalary);
 									System.out.println("The change has been made.");
 									flag3 = false;
-								}else if (verify.toLowerCase().equals("no")){
+								} else if (verify.toLowerCase().equals("no")) {
 									System.out.println("Change cancelled");
 									flag3 = false;
-								}else {
+								} else {
 									flag3 = true;
 								}
-							}while(flag3);
+							} while (flag3);
 						}
 						break;
 					case 2:
-						System.out.println("The current payment is " + Employee.Employees.get(posInEmployees).getMonthPayment() + ".");
+						System.out.println("The current payment is "
+								+ Employee.Employees.get(posInEmployees).getMonthPayment() + ".");
 						String selected2;
 						double selectedPayment = -1;
 						boolean flag4 = false;
@@ -302,24 +347,26 @@ public class Manager extends Employee { // responsible for the Employees who hav
 									if (selectedPayment < 0) {
 										flag4 = true;
 										System.out.println("Insert a number greater than zero.");
-									}else if(selectedPayment == Employee.Employees.get(posInEmployees).getMonthPayment()) {
+									} else if (selectedPayment == Employee.Employees.get(posInEmployees)
+											.getMonthPayment()) {
 										flag4 = true;
 										System.out.println("Insert a payment different than the previous one.");
-									}else if (!checkDecimalsSalary(selectedPayment)) {
+									} else if (!checkDecimalsSalary(selectedPayment)) {
 										flag4 = true;
 										System.out.println("Insert a number with 2 or less decimals.");
 										continue;
-									}else {
+									} else {
 										flag4 = false;
 									}
-								}catch(Exception b) {
+								} catch (Exception b) {
 									flag4 = true;
 									System.out.println("Please insert a number.");
 								}
-							}	
+							}
 						} while (flag4);
 						if (selectedPayment != -1) {
-							System.out.println("The new payment is going to be set to " + selectedPayment + ".\nAre you sure you want to make that change?");
+							System.out.println("The new payment is going to be set to " + selectedPayment
+									+ ".\nAre you sure you want to make that change?");
 							boolean flag5 = false;
 							do {
 								System.out.println("yes/no");
@@ -328,37 +375,37 @@ public class Manager extends Employee { // responsible for the Employees who hav
 									Employee.Employees.get(posInEmployees).setSalary(selectedPayment);
 									System.out.println("The change has been made.");
 									flag5 = false;
-								}else if (verify.toLowerCase().equals("no")){
+								} else if (verify.toLowerCase().equals("no")) {
 									System.out.println("Change cancelled");
 									flag5 = false;
-								}else {
+								} else {
 									flag5 = true;
 								}
-							}while(flag5);
+							} while (flag5);
 						}
 						break;
 					case 3:
 						menuflag = true;
 						break;
-					}	
-				}else {
+					}
+				} else {
 					menuflag = true;
 				}
-			}else if(selection == 11) {
+			} else if (selection == 11) {
 				int posInEmployees = enterEmpId();
 				if (posInEmployees != -1) {
 					System.out.println(Employee.Employees.get(posInEmployees).toString());
 					boolean flag1 = false;
 					int sel = 0;
-					
+
 					System.out.println("Select \n1)Change position. \n2)Change manager. \n3)Return to central Menu.");
-	
+
 					do {
 						if (!sc.hasNextInt()) {
 							System.out.println("Please insert a number, 1 or 2 or 3.");
 							flag1 = true;
 							sc.next();
-	
+
 						} else {
 							sel = sc.nextInt();
 							if (sel > 3 || sel < 1) {
@@ -371,14 +418,16 @@ public class Manager extends Employee { // responsible for the Employees who hav
 						}
 						switch (sel) {
 						case 1:
-							System.out.println("The current position is " + Employee.Employees.get(posInEmployees).getPosition());
+							System.out.println(
+									"The current position is " + Employee.Employees.get(posInEmployees).getPosition());
 							System.out.println("Set the new position or press Enter to return to central Menu:");
 							String pos;
 							pos = sc.nextLine();
 							if (pos.equals("")) {
 								menuflag = true;
-							}else {
-								System.out.println("The new position is going to be set to: " + pos + ". \nAre you sure you want to make that change?");
+							} else {
+								System.out.println("The new position is going to be set to: " + pos
+										+ ". \nAre you sure you want to make that change?");
 								boolean flag2 = false;
 								do {
 									System.out.println("yes/no");
@@ -387,105 +436,111 @@ public class Manager extends Employee { // responsible for the Employees who hav
 										Employee.Employees.get(posInEmployees).setPosition(pos);
 										System.out.println("The change has been made.");
 										flag2 = false;
-									}else if (verify.toLowerCase().equals("no")){
+									} else if (verify.toLowerCase().equals("no")) {
 										System.out.println("Change cancelled.");
 										flag2 = false;
-									}else {
+									} else {
 										flag2 = true;
 									}
-								}while(flag2);
+								} while (flag2);
 							}
 							break;
-						case 2: 
-							System.out.println("The current manager is " + Employee.Employees.get(posInEmployees).getManager().getFirstname() +
-									" " + Employee.Employees.get(posInEmployees).getManager().getSurname() +".");
+						case 2:
+							System.out.println("The current manager is "
+									+ Employee.Employees.get(posInEmployees).getManager().getFirstname() + " "
+									+ Employee.Employees.get(posInEmployees).getManager().getSurname() + ".");
 							String selected;
 							int selectedId, posInEmpOfManager = -1;
 							boolean flag3 = false;
-							do {	
-								System.out.println("Enter the id of the new Manager or press Enter to return to central Menu.");
+							do {
+								System.out.println(
+										"Enter the id of the new Manager or press Enter to return to central Menu.");
 								selected = sc.nextLine();
 								if (selected.equals("")) {
 									flag3 = false;
 									posInEmpOfManager = -1;
-								}else {
+								} else {
 									try {
 										selectedId = Integer.parseInt(selected);
 										posInEmpOfManager = binarySearch(selectedId);
-									
+
 										if (posInEmpOfManager != -1) {
 											if (selectedId != this.getEmployee_Id()
 													&& selectedId != Employee.Employees.get(posInEmployees)
 															.getEmployee_Id()
-													&& Employee.Employees.get(posInEmpOfManager) instanceof Manager) { // checks that
-																									// the new
-																									// Manager is
-																									// not the same
-																									// with the
-																									// current or
-																									// with the
-																									// employee whom
-																									// field we want
-																									// to edit and
-																									// that the new
-																									// Manager is a
-																									// Manager and
-																									// not a basic
-																									// Employee
+													&& Employee.Employees.get(posInEmpOfManager) instanceof Manager) { // checks
+																														// that
+												// the new
+												// Manager is
+												// not the same
+												// with the
+												// current or
+												// with the
+												// employee whom
+												// field we want
+												// to edit and
+												// that the new
+												// Manager is a
+												// Manager and
+												// not a basic
+												// Employee
 												flag3 = false;
 											} else {
 												posInEmpOfManager = -1;
 												flag3 = true;
 												System.out.println("You are not allowed to do that.");
 											}
-										}else {
+										} else {
 											posInEmpOfManager = -1;
 											flag3 = true;
 											System.out.println("That is not a valid id.");
 										}
-									}catch (Exception d) {
+									} catch (Exception d) {
 										posInEmpOfManager = -1;
 										System.out.println("Please insert an Integer.");
 										flag3 = true;
 									}
 								}
-						
-							if (posInEmpOfManager != -1) {	
-								Manager newManager =(Manager) Employee.Employees.get(posInEmpOfManager);
-								System.out.println("The new Manager is going to be: " + newManager.getFirstname() + " " + newManager.getSurname() + "." + "\nAre you sure you want to make that change?");
-								boolean flag10 = false;
-								do {
-									System.out.println("yes/no");
-									String verify = sc.nextLine();
-									if (verify.toLowerCase().equals("yes")) {
-										Employee.Employees.get(posInEmployees).setManager(newManager);
-										System.out.println("The change has been made.");
-										flag10 = false;
-									}else if (verify.toLowerCase().equals("no")){
-										System.out.println("Change cancelled.");
-										flag10 = false;
-									}else {
-										flag10 = true;
-									}
-									}while(flag10);
-							}
-							}while(flag3);
+
+								if (posInEmpOfManager != -1) {
+									Manager newManager = (Manager) Employee.Employees.get(posInEmpOfManager);
+									System.out.println("The new Manager is going to be: " + newManager.getFirstname()
+											+ " " + newManager.getSurname() + "."
+											+ "\nAre you sure you want to make that change?");
+									boolean flag10 = false;
+									do {
+										System.out.println("yes/no");
+										String verify = sc.nextLine();
+										if (verify.toLowerCase().equals("yes")) {
+											Employee.Employees.get(posInEmployees).setManager(newManager);
+											System.out.println("The change has been made.");
+											flag10 = false;
+										} else if (verify.toLowerCase().equals("no")) {
+											System.out.println("Change cancelled.");
+											flag10 = false;
+										} else {
+											flag10 = true;
+										}
+									} while (flag10);
+								}
+							} while (flag3);
 							break;
 						case 3:
 							menuflag = true;
 							break;
 						}
-						
+
 					} while (flag1);
-					
-				}else {
+
+				} else {
 					menuflag = true;
 				}
-			}else if(selection == 12) {
+			} else if (selection == 12) {
 				menuflag = false;
 			}
-		}while (menuflag);
+		} while (menuflag);
 	}
+
 	public int enterEmpId() {
 		Scanner sc = new Scanner(System.in);
 		String selected;
@@ -540,8 +595,9 @@ public class Manager extends Employee { // responsible for the Employees who hav
 		return -1;
 	}
 
-	public static int whereIsManager(int id) {// if the inserted id is a valid Manager id, the method returns the position in Employees, else returns -1.
-		for (int i = 0; i < Employee.Employees.size(); i ++) {
+	public static int whereIsManager(int id) {// if the inserted id is a valid Manager id, the method returns the
+												// position in Employees, else returns -1.
+		for (int i = 0; i < Employee.Employees.size(); i++) {
 			if (Employee.Employees.get(i).getEmployee_Id() == id) {
 				if (Employee.Employees.get(i) instanceof Manager) {
 					return i;
