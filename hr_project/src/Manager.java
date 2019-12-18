@@ -10,7 +10,7 @@ public class Manager extends Employee { // responsible for the Employees who hav
 	//private boolean checkedIn = false; // true when the employee has checked in but hasn't checked out
 	//private Calendar lastChecked = Calendar.getInstance();
 	
-	public Manager(String firstname, String surname, String position, String password, int salary, Manager manager) {
+	public Manager(String firstname, String surname, String position, String password, double salary, Manager manager) {
 		super(firstname, surname, position, password, salary, manager);
 	} 
 	
