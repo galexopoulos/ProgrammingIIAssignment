@@ -229,6 +229,7 @@ public class Employee {
 				freeRequest = enterWeekDay();
 				if (freeRequest.get(Calendar.YEAR) != 1990) {
 					System.out.println("Day off request succesfully sent to Manager.");
+					adeia();
 					// inboxrelated
 					// can be added an option to send a message with the request
 				} // if year = 1990 the employee has requested to return to the central Menu
@@ -504,14 +505,14 @@ public class Employee {
 
 	public void adeia() {
 		if (this.getManager() != null) {
-			String mail_ston_Supervisor = this.getFirstname() + this.getSurname() + " whose id is: "
-					+ this.getEmployee_Id() + "would like to take a day off on \n";
+			int mtbl = this.getManager().getMaxmail() + 1;
+			String mail_ston_Supervisor = "       -------\n" + mtbl + ")" + this.getFirstname() + this.getSurname()
+					+ " whose id is:" + this.getEmployee_Id() + " would like to take a day off on \n";
 			this.getManager().newmail[this.getManager().getMaxmail()] = mail_ston_Supervisor;
 			mail_ston_Supervisor = mail_ston_Supervisor + "Inform the Employee whether you approve the day off \n ";
 			this.getManager().setMaxmail(this.getManager().getMaxmail() + 1);
-
 			if (this.getManager().getMaxmail() == 201) {
-				String b = "Τα εισερχόμενα σας είναι πάνω απο 200. Τα νέα εισερχόμενα θα λάβουν τη θέση των παλαιότερων";
+				String b = "       -------\nΤα εισερχόμενα σας είναι πάνω απο 200. Τα νέα εισερχόμενα θα λάβουν τη θέση των παλαιότερων";
 
 				this.getManager().setMaxmail(0);
 				this.getManager().newmail[getMaxmail()] = b;
