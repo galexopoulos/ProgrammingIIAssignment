@@ -619,7 +619,7 @@ public class Manager extends Employee { // responsible for the Employees who hav
 		Scanner in = new Scanner(System.in);
 		int x = 0;
 		boolean somethingWrong = true;
-		x = enterAnyId();
+		x = enterEmpId();
 		if (x != -1) {	
 			do {
 				System.out.printf("How many hours of overtime for %s %s ?\n", Employee.Employees.get(x).getFirstname(),
@@ -651,7 +651,7 @@ public class Manager extends Employee { // responsible for the Employees who hav
 					somethingWrong = false;
 				}
 				
-				int posInShift =ShiftIndexToChange(epilogh, Employee.Employees.get(x).getThisWeekShift()[calendar.get(Calendar.DAY_OF_WEEK - 1)]);
+				int posInShift =ShiftIndexToChange(epilogh, Employee.Employees.get(x).getThisWeekShift()[calendar.get(Calendar.DAY_OF_WEEK - 1)]);	
 				if(posInShift == -1) {
 					continue;
 				}else {
