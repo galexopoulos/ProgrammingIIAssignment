@@ -663,6 +663,9 @@ public class Manager extends Employee { // responsible for the Employees who hav
 						System.out.println("yes/no");
 						String verify = in.nextLine();
 						if (verify.toLowerCase().equals("yes")) {
+							String b="The Manager has setted "+epilogh+" extra hours for today";
+							Employee.Employees.get(x).newmail[Employee.Employees.get(x).maxmail] = b;
+							Employee.Employees.get(x).maxmail++;
 							// Ypografh1.ypografh();
 							Employee.Employees.get(x).setWresyperergasias_evdomadiaiws(
 									Employee.Employees.get(x).getWresyperergasias_evdomadiaiws() + epilogh);
