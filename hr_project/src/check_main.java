@@ -28,13 +28,13 @@ public class check_main {
 		 */
 		Calendar cal = Calendar.getInstance();
 		System.out.println(cal.get(Calendar.DAY_OF_WEEK));
-		Hr_Director Kobe = new Hr_Director("Kobe", "Bryant", "Hr Director", "123456", 213141, null);
-		Manager Petreas = new Manager("Petreas", "Giorgos", "Athlete", "DaddyofIvan", 19000, null);
-		Manager Barney = new Manager("Barney", "Stinson", "P.L.E.A.S.E.", "robin", 1434133, null);
-		Employee Ivan = new Employee("Ivan", "Zaytsev", "Athlete", "Petreasismydaddy", 12000, Petreas);
-		Employee Rick = new Employee("Rick", "Sanchez", "scientist", "Wubalubadubdub", 2, Barney);
-		Employee Rachel = new Employee("Rachel", "Green", "waitress", "LaPooh", 980, Barney);
-		Employee NF = new Employee("Nate", "Feuerstein", "GOAT", "paidmydues", 3034308, Barney);  	
+/*0*/		Hr_Director Kobe = new Hr_Director("Kobe", "Bryant", "Hr Director", "123456", 213141, null);
+/*1*/	Manager Petreas = new Manager("Petreas", "Giorgos", "Athlete", "DaddyofIvan", 19000, null);
+/*2*/	Manager Barney = new Manager("Barney", "Stinson", "P.L.E.A.S.E.", "robin", 1434133, null);
+/*3*/	Employee Ivan = new Employee("Ivan", "Zaytsev", "Athlete", "Petreasismydaddy", 12000, Petreas);
+/*4*/	Employee Rick = new Employee("Rick", "Sanchez", "scientist", "Wubalubadubdub", 2, Barney);
+/*5*/	Employee Rachel = new Employee("Rachel", "Green", "waitress", "LaPooh", 980, Barney);
+/*6*/	Employee NF = new Employee("Nate", "Feuerstein", "GOAT", "paidmydues", 3034308, Barney);  	
 	
 
 		String[] shift = { "11:00-17:00", "10:00-18:30", "-", "7:00-14:00", "22:00-", "-7:00,12:00-13:00", "-",
