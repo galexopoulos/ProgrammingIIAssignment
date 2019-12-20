@@ -1,7 +1,8 @@
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.*;
 
-public class Employee {
+public class Employee implements Serializable {
 	private String firstname, surname, position, password;
 	private int employee_Id;
 	private double salary, monthPayment;
