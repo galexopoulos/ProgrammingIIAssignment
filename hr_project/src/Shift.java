@@ -33,57 +33,63 @@ public class Shift {
 		int[] int_Departure_mins = new int[4];
 		int[][] arrH_arrM_depH_depM = new int[4][4];
 		boolean starthyphen = false, endhyphen = false;
-
-		String[] timePeriods = new String[4];
-		String[] timePeriods_fromStr = day_schedule.split(",");
-		if (day_schedule.length() > 0) {
-			if (day_schedule.charAt(0) == '-') { //checks if the string starts with '-', it will help for overnight shifts
-				day_schedule = "clear:clear" + day_schedule;
-				starthyphen = true;
-				
-			}
-			
-			if (day_schedule.charAt(day_schedule.length() - 1) == '-') { // checks if the string ends with '-', it will help for overnight shifts
-				day_schedule = day_schedule + "clear:clear";
-				endhyphen = true;
-			}
 		
-			timePeriods_fromStr = day_schedule.split(",");
+		try {
+			String[] timePeriods = new String[4];
+			String[] timePeriods_fromStr = day_schedule.split(",");
+			if (day_schedule.length() > 0) {
+				if (day_schedule.charAt(0) == '-') { //checks if the string starts with '-', it will help for overnight shifts
+					day_schedule = "clear:clear" + day_schedule;
+					starthyphen = true;
+					
+				}
+				
+				if (day_schedule.charAt(day_schedule.length() - 1) == '-') { // checks if the string ends with '-', it will help for overnight shifts
+					day_schedule = day_schedule + "clear:clear";
+					endhyphen = true;
+				}
 			
-			for (int i = 0; i< timePeriods_fromStr.length; i++) {
-				timePeriods[i] = timePeriods_fromStr[i];
+				timePeriods_fromStr = day_schedule.split(",");
+				
+				for (int i = 0; i< timePeriods_fromStr.length; i++) {
+					timePeriods[i] = timePeriods_fromStr[i];
+				}
+				for (int i= timePeriods_fromStr.length; i<4; i++) {
+					timePeriods[i] = "empty";
+				}
+			}else {
+				for (int i = 0; i<4; i++) {
+					timePeriods[i] = "empty";
+				}
 			}
-			for (int i= timePeriods_fromStr.length; i<4; i++) {
-				timePeriods[i] = "empty";
-			}
-		}else {
-			for (int i = 0; i<4; i++) {
-				timePeriods[i] = "empty";
-			}
-		}
-		for (int i = 0; i < 4; i++) {
-			if (timePeriods[i].equals("empty")) {
-				str_Arrival_hours[i] = "-1";
-				str_Arrival_mins[i] = "-1";
-				str_Departure_hours[i] = "-1";
-				str_Departure_mins[i] = "-1";
-			} else {
-				String[] Times = timePeriods[i].split("-", 2); 
-				if (starthyphen == true && i == 0) {
+			for (int i = 0; i < 4; i++) {
+				if (timePeriods[i].equals("empty")) {
 					str_Arrival_hours[i] = "-1";
 					str_Arrival_mins[i] = "-1";
-				}else {
-					str_Arrival_hours[i] = Times[0].substring(0, Times[0].indexOf(":"));
-					str_Arrival_mins[i] = Times[0].substring(Times[0].indexOf(":") + 1, Times[0].length());
-				}
-				if (endhyphen == true && i == timePeriods_fromStr.length-1) {
 					str_Departure_hours[i] = "-1";
 					str_Departure_mins[i] = "-1";
-				}else {
-					str_Departure_hours[i] = Times[1].substring(0, Times[1].indexOf(":"));
-					str_Departure_mins[i] = Times[1].substring(Times[1].indexOf(":") + 1, Times[1].length());
+				} else {
+					String[] Times = timePeriods[i].split("-", 2); 
+					if (starthyphen == true && i == 0) {
+						str_Arrival_hours[i] = "-1";
+						str_Arrival_mins[i] = "-1";
+					}else {
+						str_Arrival_hours[i] = Times[0].substring(0, Times[0].indexOf(":"));
+						str_Arrival_mins[i] = Times[0].substring(Times[0].indexOf(":") + 1, Times[0].length());
+					}
+					if (endhyphen == true && i == timePeriods_fromStr.length-1) {
+						str_Departure_hours[i] = "-1";
+						str_Departure_mins[i] = "-1";
+					}else {
+						str_Departure_hours[i] = Times[1].substring(0, Times[1].indexOf(":"));
+						str_Departure_mins[i] = Times[1].substring(Times[1].indexOf(":") + 1, Times[1].length());
+					}
 				}
 			}
+		}catch (ArrayIndexOutOfBoundsException aioobe) {
+			throw new ShiftException ("Misused characters, possibly out of bounds input.");
+		}catch (StringIndexOutOfBoundsException sioobe) {
+			throw new ShiftException ("Misused characters, possibly out of bounds input.");
 		}
 		
 
@@ -105,10 +111,15 @@ public class Shift {
 			}
 			
 			if (str_Arrival_mins[i].length() != 2) {//if the string that represents mins has not two position exactly then it throws Exception and does not move on
-				throw new ShiftException("Out of bounds number."); 
+				throw new ShiftException("Problem with characters after \":\"."); 
 			}
 			
-			x = Integer.parseInt(str_Arrival_mins[i]);
+			try {
+				x = Integer.parseInt(str_Arrival_mins[i]);
+			}catch (NumberFormatException nfe) {
+				throw new ShiftException("Unparsable inserted value.");
+			}
+			
 			if (x >= 0 && x <= 59 || x == -1) {// 0 <= x <= 59 because x represents minutes here, -1 positions needed in order
 										// to check that there are no back to back arrivals or departures
 				int_Arrival_mins[i] = x;
@@ -116,8 +127,12 @@ public class Shift {
 				throw new ShiftException("Out of bounds number.");    
 			}
 
-			x = Integer.parseInt(str_Departure_hours[i]);
-
+			try {
+				x = Integer.parseInt(str_Departure_hours[i]);
+			}catch (NumberFormatException nfe) {
+				throw new ShiftException("Unparsable inserted value.");
+			}
+			
 			if (x >= 0 && x <= 23 || x == -1) {// 0 <= x <= 23 because x represents hours here, -1 positions needed in order to
 									// check that there are no back to back arrivals or departures
 				int_Departure_hours[i] = x;
@@ -126,10 +141,14 @@ public class Shift {
 			}
 			
 			if (str_Departure_mins[i].length() != 2) {//if the string that represents mins has not two position exactly then it throws Exception and does not move on
-				throw new ShiftException("Out of bounds number.");               
+				throw new ShiftException("Problem with characters after \":\".");              
 			}
 			
-			x = Integer.parseInt(str_Departure_mins[i]);
+			try {
+				x = Integer.parseInt(str_Departure_mins[i]);
+			}catch (NumberFormatException nfe) {
+				throw new ShiftException("Unparsable inserted value.");
+			}
 
 			if (x >= 0 && x <= 59 || x == -1) {// 0 <= x <= 59 because x represents minutes here, -1 positions needed in order
 										// to check that there are no back to back arrivals or departures

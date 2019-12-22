@@ -45,7 +45,7 @@ public class check_main {
 		}
 		Barney.setShiftStr(shift);
 		Barney.setThisWeekShift(shiftcal);
-		String[] shift2 = { "12:00-18:00", "23:00-", "-1:00", "12:00-17:00", "7:00-14:00", "9:00-17:00", "2:0-23:00",
+		String[] shift2 = { "12:00-18:00", "23:00-", "-1:00", "12:00-17:00", "7:00-14:00", "9:00-17:00", "23:00-23:30,23:31-23:45,23:46-23:47,23:48-23:49",
 				"12:00-18:00" };
 		try {
 			shiftcal = Shift.createShift(shift2);
