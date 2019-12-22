@@ -136,10 +136,10 @@ public class Booking {
 				if (chosen != 0) {
 					ret = Room.getRooms().get(chosen - 1);
 				} else {
-					System.out.println("No booking created!");
+					System.out.println("No booking created!\n");
 				}
 			} else { // no rooms were available 
-				System.out.println("No rooms available for these dates!");
+				System.out.println("No rooms available for these dates!\n");
 			}
 			break;
 		}
@@ -154,7 +154,8 @@ public class Booking {
 				System.out.println("1. Search for availability and create a booking");
 				System.out.println("2. Check In procedure");
 				System.out.println("3. Check Out procedure");
-				System.out.println("4. Search for bookings ");
+				System.out.println("4. Cancel a booking");
+				System.out.println("5. Search for bookings ");
 				try {
 					choose1 = sc.nextInt();
 				} catch (InputMismatchException e) {
@@ -162,10 +163,10 @@ public class Booking {
 					sc.nextLine();
 					continue;
 				}
-				if (choose1 != 1 && choose1 != 2 && choose1 != 3 && choose1 != 4) {
-					System.out.println("Insert 1 or 2 or 3 or 4! ");
+				if (choose1 != 1 && choose1 != 2 && choose1 != 3 && choose1 != 4 && choose1 != 5) {
+					System.out.println("Insert 1 or 2 or 3 or 4 or 5! ");
 				}
-			} while (choose1 != 1 && choose1 != 2 && choose1 != 3 && choose1 != 4); // check menu input 
+			} while (choose1 != 1 && choose1 != 2 && choose1 != 3 && choose1 != 4 && choose1 != 5); // check menu input 
 			switch (choose1) {
 			case 1:
 				boolean f = false;
@@ -181,6 +182,7 @@ public class Booking {
 					} catch (InputMismatchException e) {
 						System.out.println("Insert an Integer!");
 						sc.nextLine();
+						counter1 = 0;
 						continue;
 					}
 					counter1++;
@@ -380,8 +382,9 @@ public class Booking {
 					sc.nextLine();
 					System.out.println("Email : ");
 					String email = sc.nextLine();
-					new Booking(checkIn, checkOut, roomForBook.getRoomNumber(), buffet); // create the booking
-					System.out.println("The booking have been completed successfully! ");
+					Booking a = new Booking(checkIn, checkOut, roomForBook.getRoomNumber(), buffet); // create the booking
+					System.out.println("The booking with code : " + a.bookingCode + " in the room no." + a.roomNumber + " and check : " + a.check + "€" 
+							+ "\n has been completed successfully!\n ");
 					break;
 				}
 			case 2:
@@ -397,6 +400,7 @@ public class Booking {
 					} catch (InputMismatchException e) {
 						System.out.println("Insert an Integer!");
 						sc.nextLine();
+						counter4 = 0;
 						continue;
 					}
 					counter4++;
@@ -448,6 +452,7 @@ public class Booking {
 					} catch (InputMismatchException e) {
 						System.out.println("Insert an Integer!");
 						sc.nextLine();
+						counter5 = 0;
 						continue;
 					}
 					counter5++;
@@ -486,6 +491,41 @@ public class Booking {
 				}
 				break;
 			case 4:
+				int bookCode1 = -1;
+				do {
+					System.out.println("Insert the code of the booking you want to cancel : (press 0 to cancel the procedure) ");
+					try {
+						bookCode1 = sc.nextInt();
+					} catch (InputMismatchException e) {
+						System.out.println("Insert an Integer!");
+						sc.nextLine();
+						continue;
+					}
+				} while (bookCode1 < 0);
+				if (bookCode1 == 0) {
+					break;
+				}
+				int counter13 = 0;
+				boolean f4 = false;
+				for (Room room : Room.getRooms()) {
+					for (Booking booking : bookings.get(counter13)) {
+						if (booking.bookingCode == bookCode1) {
+							f4 = true;
+							System.out.println("Booking with code : " + booking.bookingCode + " in the room no." + booking.roomNumber + " and check : " + booking.check + "€" + " has been canceled!\n");
+							bookings.get(counter13).remove(booking);
+							break;
+						}
+					}
+					if (f4) {
+						break;
+					}
+					counter13++;
+				}
+				if (f4 == false) {
+					System.out.println("No booking with this code!\n");
+				}
+				break;
+			case 5:
 				for (;;) {
 					boolean f3 = false;
 					int choose2 = 0;
@@ -544,6 +584,7 @@ public class Booking {
 							} catch (InputMismatchException e) {
 								System.out.println("Insert an Integer!");
 								sc.nextLine();
+								counter8 = 0;
 								continue;
 							}
 							counter8++;
@@ -571,11 +612,11 @@ public class Booking {
 						}
 						break;
 					case 3:
-						int bookCode;
+						int bookCode2;
 						do {
 							System.out.println("Insert the booking's code (press 0 to cancel the procedure) :  ");
 							try {
-								bookCode = sc.nextInt();
+								bookCode2 = sc.nextInt();
 							} catch (InputMismatchException e) {
 								System.out.println("Insert an Integer!");
 								sc.nextLine();
@@ -583,14 +624,14 @@ public class Booking {
 							}
 							break;
 						} while (true);
-						if (bookCode == 0) {
+						if (bookCode2 == 0) {
 							break;
 						}
 						int counter10 = 0;
 						boolean f2 = false;
 						for (Room room : Room.getRooms()) {
 							for (Booking booking : bookings.get(counter10)) {
-								if (booking.bookingCode == bookCode) {
+								if (booking.bookingCode == bookCode2) {
 									f2 = true;
 									System.out.println("Booking code : " + booking.bookingCode);
 									System.out.println("Room : " + room.getRoomNumber() + "\tCheck In date : "
