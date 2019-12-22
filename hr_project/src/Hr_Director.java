@@ -455,7 +455,7 @@ public class Hr_Director extends Manager{ // is resposible for all the Managers 
 							int dayInt = -1;
 							do {	
 								flag3 = false;
-								System.out.println("Insert the day of the week, press Enter to choose a different Id \n"
+								System.out.println("Insert the day of the week(eg Monday), press Enter to choose a different Id \n"
 										+ "or type \"exit\" to return to the basic menu:");
 								String dayOfWeek = sc.nextLine();
 								dayOfWeek = dayOfWeek.toLowerCase();
