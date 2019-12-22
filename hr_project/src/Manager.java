@@ -231,7 +231,7 @@ public class Manager extends Employee { // responsible for the Employees who hav
 											Employee.Employees.get(posInEmployees).setShiftStr(shiftStr);
 											System.out.println("The change has been made.");
 										} catch (ShiftException e) {
-											System.out.println("Invalid input. " + e);
+											System.err.println("Invalid input. " + e);
 											flag4 = true;
 										}
 									}
@@ -303,7 +303,7 @@ public class Manager extends Employee { // responsible for the Employees who hav
 									} else {
 										flag2 = false;
 									}
-								} catch (Exception b) {
+								} catch (NumberFormatException b) {
 									flag2 = true;
 									System.out.println("Please insert a number.");
 								}
@@ -359,7 +359,7 @@ public class Manager extends Employee { // responsible for the Employees who hav
 									} else {
 										flag4 = false;
 									}
-								} catch (Exception b) {
+								} catch (NumberFormatException b) {
 									flag4 = true;
 									System.out.println("Please insert a number.");
 								}
@@ -496,7 +496,7 @@ public class Manager extends Employee { // responsible for the Employees who hav
 											flag3 = true;
 											System.out.println("That is not a valid id.");
 										}
-									} catch (Exception d) {
+									} catch (NumberFormatException d) {
 										posInEmpOfManager = -1;
 										System.out.println("Please insert an Integer.");
 										flag3 = true;
@@ -571,7 +571,7 @@ public class Manager extends Employee { // responsible for the Employees who hav
 						flag1 = true;
 						System.out.println("That is not a valid Id.");
 					}
-				} catch (Exception b) {
+				} catch (NumberFormatException b) {
 					flag1 = true;
 					System.out.println("Please insert an Integer.");
 				}
