@@ -196,7 +196,7 @@ public class Hr_Director extends Manager{ // is resposible for all the Managers 
 									}else {
 										flag2 = false;
 									}
-								}catch(Exception b) {
+								}catch(NumberFormatException b) {
 									flag2 = true;
 									System.out.println("Please insert a number.");
 								}
@@ -250,7 +250,7 @@ public class Hr_Director extends Manager{ // is resposible for all the Managers 
 									}else {
 										flag4 = false;
 									}
-								}catch(Exception b) {
+								}catch(NumberFormatException b) {
 									flag4 = true;
 									System.out.println("Please insert a number.");
 								}
@@ -402,7 +402,7 @@ public class Hr_Director extends Manager{ // is resposible for all the Managers 
 											flag3 = true;
 											System.out.println("That is not a valid id.");
 										}
-									}catch (Exception d) {
+									}catch (NumberFormatException d) {
 										posInEmpOfManager = -1;
 										System.out.println("Please insert an Integer.");
 										flag3 = true;
@@ -467,7 +467,7 @@ public class Hr_Director extends Manager{ // is resposible for all the Managers 
 								}else {
 									flag1 = false;
 								}
-							}catch(Exception b) {
+							}catch(NumberFormatException b) {
 								flag1 = true;
 								System.out.println("Please insert an Integer.");
 							}
@@ -543,7 +543,7 @@ public class Hr_Director extends Manager{ // is resposible for all the Managers 
 											Employee.Employees.get(posInEmployees).setShiftStr(shiftStr);
 											System.out.println("The change has been made.");
 										}catch (ShiftException e) {
-											System.out.println("Invalid input. " + e);
+											System.err.println("Invalid input. " + e);
 											flag4 = true;
 										}
 									}
@@ -636,7 +636,7 @@ public class Hr_Director extends Manager{ // is resposible for all the Managers 
 													System.out.println("Insert a number with 2 or less decimals.");
 													continue;
 												}
-											}catch(Exception b) {
+											}catch(NumberFormatException b) {
 												flag5 = true;
 												System.out.println("Please insert a number.");
 												continue;
@@ -663,7 +663,7 @@ public class Hr_Director extends Manager{ // is resposible for all the Managers 
 														managerName = Employee.Employees.get(mngrPosition).getFirstname();
 														managerName += " " + Employee.Employees.get(mngrPosition).getSurname();
 													}
-												}catch(Exception b) {
+												}catch(NumberFormatException b) {
 													flag6 = true;
 													System.out.println("Please insert an Integer.");
 													boolean flag7;
@@ -677,7 +677,7 @@ public class Hr_Director extends Manager{ // is resposible for all the Managers 
 														try {
 															employee.setThisWeekShift(Shift.createShift(shiftStr));								
 														}catch (ShiftException e) {
-															System.out.println("Mistake with the inserted shift. " + e);
+															System.err.println("Mistake with the inserted shift. " + e);
 															flag7 = true;
 															continue;
 														}
@@ -783,7 +783,7 @@ public class Hr_Director extends Manager{ // is resposible for all the Managers 
 													System.out.println("Insert a non negative integer.");
 													continue;
 												}
-											}catch(Exception b) {
+											}catch(NumberFormatException b) {
 												flag5 = true;
 												System.out.println("Please insert an Integer.");
 												continue;
@@ -828,7 +828,7 @@ public class Hr_Director extends Manager{ // is resposible for all the Managers 
 												try {
 													manager.setThisWeekShift(Shift.createShift(shiftStr));								
 												}catch (ShiftException e) {
-													System.out.println("Mistake with the inserted shift. " + e);
+													System.err.println("Mistake with the inserted shift. " + e);
 													flag7 = true;
 													continue;
 												}
@@ -904,7 +904,7 @@ public class Hr_Director extends Manager{ // is resposible for all the Managers 
 							}else {
 								flag1 = false;
 							}
-						}catch(Exception b) {
+						}catch(NumberFormatException b) {
 							flag1 = true;
 							System.out.println("Please insert an Integer.");
 						}
@@ -957,7 +957,7 @@ public class Hr_Director extends Manager{ // is resposible for all the Managers 
 							}else {
 								flag1 = false;
 							}
-						}catch(Exception b) {
+						}catch(NumberFormatException b) {
 							flag1 = true;
 							System.out.println("Please insert an Integer.");
 						}

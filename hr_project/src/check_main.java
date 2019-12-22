@@ -41,16 +41,16 @@ public class check_main {
 		try {
 			shiftcal = Shift.createShift(shift);
 		} catch (ShiftException a) {
-			System.out.println("wrong1" + a);
+			System.err.println("wrong1 " + a);
 		}
 		Barney.setShiftStr(shift);
 		Barney.setThisWeekShift(shiftcal);
-		String[] shift2 = { "12:00-18:00", "23:00-", "-1:00", "12:00-17:00", "7:00-14:00", "9:00-17:00", "2:00-23:00",
+		String[] shift2 = { "12:00-18:00", "23:00-", "-1:00", "12:00-17:00", "7:00-14:00", "9:00-17:00", "2:0-23:00",
 				"12:00-18:00" };
 		try {
 			shiftcal = Shift.createShift(shift2);
 		} catch (ShiftException a) {
-			System.out.println("wrong2" + a);
+			System.err.println("wrong2 " + a);
 		}
 		Rachel.setShiftStr(shift2);
 		Rachel.setThisWeekShift(shiftcal);
@@ -67,7 +67,7 @@ public class check_main {
 		try {
 			shiftcal = Shift.createShift(shift3);
 		} catch (ShiftException a) {
-			System.out.println("wrong3" + a);
+			System.err.println("wrong3 " + a);
 		}
 		NF.setShiftStr(shift3);
 		NF.setThisWeekShift(shiftcal); 

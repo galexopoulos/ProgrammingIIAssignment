@@ -7,7 +7,7 @@ public class Hr_surface {
 		System.out.println("Welcome to Hr part!");
 		//if (main.firstTime){ 	firstTime a boolean variable from main that shows if it
 								// is the first time that the client enters Hr part
-		/*
+		
 		//BEGINNING OF IF
 		System.out.println("At the beginning is necessary to set up the hr data. \n");
 		boolean directornotset;
@@ -59,7 +59,7 @@ public class Hr_surface {
 										flag4 = true;
 										System.out.println("Insert a number with 2 or less decimals.");
 									}
-								}catch(Exception b) {
+								}catch(NumberFormatException b) {
 									flag4 = true;
 									System.out.println("Please insert a number.");
 								}
@@ -152,7 +152,7 @@ public class Hr_surface {
 												System.out.println("Insert a number with 2 or less decimals.");
 												continue;
 											}
-										}catch(Exception b) {
+										}catch(NumberFormatException b) {
 											flag5 = true;
 											System.out.println("Please insert a number.");
 											continue;
@@ -182,7 +182,7 @@ public class Hr_surface {
 													managerName = Employee.Employees.get(mngrPosition).getFirstname();
 													managerName += " " + Employee.Employees.get(mngrPosition).getSurname();
 												}
-											}catch(Exception b) {
+											}catch(NumberFormatException b) {
 												flag6 = true;
 												System.out.println("Please insert an Integer.");
 												continue;
@@ -199,7 +199,7 @@ public class Hr_surface {
 											try {
 												manager.setThisWeekShift(Shift.createShift(shiftStr));								
 											}catch (ShiftException e) {
-												System.out.println("Mistake with the inserted shift. " + e);
+												System.err.println("Mistake with the inserted shift. " + e);
 												flag7 = true;
 												continue;
 											}
@@ -338,7 +338,7 @@ public class Hr_surface {
 											System.out.println("Insert a number with 2 or less decimals.");
 											continue;
 										}
-									}catch(Exception b) {
+									}catch(NumberFormatException b) {
 										flag5 = true;
 										System.out.println("Please insert a number.");
 										continue;
@@ -366,7 +366,7 @@ public class Hr_surface {
 												managerName = Employee.Employees.get(mngrPosition).getFirstname();
 												managerName += " " + Employee.Employees.get(mngrPosition).getSurname();
 											}
-										}catch(Exception b) {
+										}catch(NumberFormatException b) {
 											flag6 = true;
 											System.out.println("Please insert an Integer.");
 											continue;
@@ -383,7 +383,7 @@ public class Hr_surface {
 										try {
 											employee.setThisWeekShift(Shift.createShift(shiftStr));								
 										}catch (ShiftException e) {
-											System.out.println("Mistake with the inserted shift. " + e);
+											System.err.println("Mistake with the inserted shift. " + e);
 											flag7 = true;
 											continue;
 										}
@@ -459,7 +459,7 @@ public class Hr_surface {
 		}
 		//END OF IF
 		//}
-	*/
+	
 		
 		boolean stayAtHR;
 		do {
