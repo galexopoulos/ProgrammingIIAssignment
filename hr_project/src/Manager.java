@@ -650,13 +650,17 @@ public class Manager extends Employee { // responsible for the Employees who hav
 				} else {
 					somethingWrong = false;
 				}
+				int valueOfI = 6; //if the day is sunday
+				if (calendar.get(Calendar.DAY_OF_WEEK) != 1) {//if the day is not sunday (calendar shows at the moment the current day)
+					valueOfI = calendar.get(Calendar.DAY_OF_WEEK) - 2;
+				}	
 				
-				int posInShift =ShiftIndexToChange(epilogh, Employee.Employees.get(x).getThisWeekShift()[calendar.get(Calendar.DAY_OF_WEEK - 1)]);	
+				int posInShift = ShiftIndexToChange(epilogh, Employee.Employees.get(x).getThisWeekShift()[valueOfI]);	
 				if(posInShift == -1) {
 					continue;
 				}else {
 					somethingWrong = false;
-					System.out.printf("Είστε σίγουρος οτι θέλετε ο %s να κάνει" + epilogh + "ωρες υπερωρίας;\n",
+					System.out.printf("Είστε σίγουρος οτι θέλετε ο %s να κάνει " + epilogh + " ώρα/ώρες υπερωρίας;\n",
 							Employee.Employees.get(x).getFirstname(), Employee.Employees.get(x).getSurname());
 					boolean flag4;
 					do {
@@ -670,9 +674,9 @@ public class Manager extends Employee { // responsible for the Employees who hav
 							Employee.Employees.get(x).setWresyperergasias_evdomadiaiws(
 									Employee.Employees.get(x).getWresyperergasias_evdomadiaiws() + epilogh);
 							Calendar[][] newShift = Employee.Employees.get(x).getThisWeekShift();
-							Calendar newValue = Employee.Employees.get(x).getThisWeekShift()[calendar.get(Calendar.DAY_OF_WEEK - 1)][posInShift];
+							Calendar newValue = Employee.Employees.get(x).getThisWeekShift()[valueOfI][posInShift];
 							newValue.add(Calendar.HOUR_OF_DAY, epilogh);
-							newShift[calendar.get(Calendar.DAY_OF_WEEK - 1)][posInShift] = newValue;
+							newShift[valueOfI][posInShift] = newValue;
 							Employee.Employees.get(x).setThisWeekShift(newShift);
 							double paymentIncrease = epilogh*Math.round((Employee.Employees.get(x).getSalary()*0.015)*100)/100;//we increase the payment by 0.015 of employee's salary for every extra hour
 																															   //Math.round(a*100)/100 rounds up a to 2 decimals
@@ -702,7 +706,7 @@ public class Manager extends Employee { // responsible for the Employees who hav
 		boolean midnightError = false;
 		for (int i = 7; i> 0; i = i -2) {
 			if (dayShift[i].get(Calendar.YEAR) != 1990) {
-				if (i == 7 || i != 7 && dayShift[i + 1].get(Calendar.YEAR) != 1990) {//we want to check that the next index is empty
+				if (i == 7 || dayShift[i + 1].get(Calendar.YEAR) == 1990) {//we want to check that the next index is empty
 					Calendar rightNow = Calendar.getInstance();
 					if(rightNow.after(dayShift[i])){
 						System.out.println("Employee's shift for today has ended.");
@@ -710,7 +714,7 @@ public class Manager extends Employee { // responsible for the Employees who hav
 
 					}
 					int dayAtFirst = dayShift[i].get(Calendar.DAY_OF_WEEK);
-					dayShift[i - 1].add(Calendar.HOUR_OF_DAY, extraHours);
+					dayShift[i].add(Calendar.HOUR_OF_DAY, extraHours);
 					int dayAtEnd = dayShift[i].get(Calendar.DAY_OF_WEEK); 
 					if (dayAtFirst == dayAtEnd) { 
 						return i; 
