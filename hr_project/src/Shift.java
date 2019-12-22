@@ -157,32 +157,19 @@ public class Shift {
 		return cal;
 	}
 
-	private static Calendar[][] arr_Dep_Times_Cal(int[][] arrH_arrM_depH_depM, Calendar cal, int daysFromMonday) { // cal when
-																											// the next
-																											// monday
-																											// is, uses
-																											// the list
-																											// the
-																											// arr_Dep_Times_int
-																											// method
-																											// created
-																											// to create
-																											// two Arrays
-																											// (in an
-																											// Array)
-																											// of type
-																											// Calendar
-																											// (cal_Arrival,
-																											// cal_Departure)
-																											// that
-																											// contain
-																											// when an
-																											// Employee
-																											// arrives
-																											// and
-																											// leaves
-
-		cal.add(Calendar.DAY_OF_YEAR, daysFromMonday);
+	private static Calendar[][] arr_Dep_Times_Cal(int[][] arrH_arrM_depH_depM, Calendar cal) { // we will create the
+																								// shift of the day cal,
+																								// uses the list the
+																								// arr_Dep_Times_int
+																								// method created to
+																								// create two Arrays (in
+																								// an Array) of type
+																								// Calendar
+																								// (cal_Arrival,
+																								// cal_Departure) that
+																								// contain when an
+																								// Employee arrives and
+																								// leaves
 		Calendar[][] calArrDep = new Calendar[2][4];
 		for (int i = 0; i < 4; i++) { // arrH_arrM_depH_depM[0][] = int_Arrival_hours[]
 			calArrDep[0][i] = Calendar.getInstance();// arrivals
@@ -283,12 +270,13 @@ public class Shift {
 		}
 		int[][] arrH_arrM_depH_depM = new int[4][4];
 		Calendar[][] arr_depTimesCal = new Calendar[2][4];
-		Calendar nextMonday = getCurrentMonday();
+		Calendar dayToChange = getCurrentMonday();
 		Calendar[] daySchedule = new Calendar[8];
 		Calendar[] weekSchedule = new Calendar[64];
 		for (int i = 0; i < 8; i++) { 	
 			arrH_arrM_depH_depM = arr_Dep_Times_int(strSchedule[i]);
-			arr_depTimesCal = arr_Dep_Times_Cal(arrH_arrM_depH_depM, nextMonday, i - 1);
+			arr_depTimesCal = arr_Dep_Times_Cal(arrH_arrM_depH_depM, dayToChange);
+			dayToChange.add(Calendar.DAY_OF_YEAR, 1);
 			daySchedule = connect_Arr_Dep(arr_depTimesCal);
 			dayScheduleNextWeek8[i] = daySchedule;
 		}
