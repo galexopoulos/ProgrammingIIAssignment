@@ -26,8 +26,6 @@ public class check_main {
 		 * Hr_Director boss = new Hr_Director("boss", "no1","a","b",10,null); c = new
 		 * Manager(c); System.out.println(c instanceof Manager); boss.getMenu();
 		 */
-		Calendar cal = Calendar.getInstance();
-		System.out.println(cal.get(Calendar.DAY_OF_WEEK));
 /*0*/		Hr_Director Kobe = new Hr_Director("Kobe", "Bryant", "Hr Director", "123456", 213141, null);
 /*1*/	Manager Petreas = new Manager("Petreas", "Giorgos", "Athlete", "DaddyofIvan", 19000, null);
 /*2*/	Manager Barney = new Manager("Barney", "Stinson", "P.L.E.A.S.E.", "robin", 1434133, null);
@@ -47,7 +45,7 @@ public class check_main {
 		}
 		Barney.setShiftStr(shift);
 		Barney.setThisWeekShift(shiftcal);
-		String[] shift2 = { "12:00-18:00", "23:00-", "-1:00", "12:00-17:00", "7:00-14:00", "9:00-17:00", "-",
+		String[] shift2 = { "12:00-18:00", "23:00-", "-1:00", "12:00-17:00", "7:00-14:00", "9:00-17:00", "2:00-23:00",
 				"12:00-18:00" };
 		try {
 			shiftcal = Shift.createShift(shift2);
@@ -58,6 +56,14 @@ public class check_main {
 		Rachel.setThisWeekShift(shiftcal);
 		String[] shift3 = { "7:00-14:00", "7:00-14:00", "7:00-14:00", "7:00-14:00", "7:00-14:00", "-", "-",
 				"7:00-14:00" };
+		Calendar cal = Calendar.getInstance();
+		int weekday = cal.get(Calendar.DAY_OF_WEEK);
+		if (weekday != Calendar.MONDAY) {
+			int days = (Calendar.SATURDAY - weekday + 2) % 7 - 7;
+			cal.add(Calendar.DAY_OF_YEAR, days);
+		}
+		//System.out.println(cal.get(Calendar.DAY_OF_MONTH));
+		//System.out.println(Rachel.getThisWeekShift()[5][1].get(Calendar.DAY_OF_MONTH));
 		try {
 			shiftcal = Shift.createShift(shift3);
 		} catch (Exception a) {
