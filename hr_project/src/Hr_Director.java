@@ -46,17 +46,17 @@ public class Hr_Director extends Manager{ // is resposible for all the Managers 
 				int epilogh = 0;
 				boolean flag3 = false;
 				do {
-					System.out.println("Select: \n ------------- \n\n1)Send Mail. \n2)View Mails.");
+					System.out.println("Select: \n ------------- \n\n1)Send Mail. \n2)View Mails. \n3) Return to the central menu");
 					if (!sc.hasNextInt()) {
-						System.out.println("Δώστε 1 ή 2 ");
+						System.out.println("Δώστε 1 ή 2 ή 3");
 						flag3 = true;
 						sc.next();
 
 					} else {
 						epilogh = sc.nextInt();
-						if (epilogh > 2 || epilogh < 1) {
+						if (epilogh > 3 || epilogh < 1) {
 							flag3 = true;
-							System.out.println("input an integer [1,2]");
+							System.out.println("input an integer [1,3]");
 						} else {
 							flag3 = false;
 						}
@@ -65,13 +65,15 @@ public class Hr_Director extends Manager{ // is resposible for all the Managers 
 				} while (flag3);
 				if (epilogh == 1) {
 					mhnyma();
-				} else {
+				} else if ( epilogh==2) {
 					for (int i = 0; i < Employee.Employees.get(this.getEmployee_Id()).getMaxmail(); i++) {
 						System.out.println(Employee.Employees.get(this.getEmployee_Id()).newmail[i]);
 					}
 					if (Employee.Employees.get(this.getEmployee_Id()).getMaxmail()==0){
 						System.out.println("You've got no mails :(");
 					}
+				} else {
+					
 				}
 			}else if (selection == 2){
 				boolean onefound = false;
@@ -109,37 +111,7 @@ public class Hr_Director extends Manager{ // is resposible for all the Managers 
 					System.out.println("No Managers found.");
 				}
 			}else if (selection == 4) {
-				int epilogh = 0;
-				boolean flag3 = false;
-				do {
-					System.out.println("Select: \n ------------- \n\n1)Send Mail. \n2)View Mails.");
-					if (!sc.hasNextInt()) {
-						System.out.println("Δώστε 1 ή 2 ");
-						flag3 = true;
-						sc.next();
-
-					} else {
-						epilogh = sc.nextInt();
-						if (epilogh > 2 || epilogh < 1) {
-							flag3 = true;
-							System.out.println("input an integer [1,2]");
-						} else {
-							flag3 = false;
-						}
-						sc.nextLine();
-					}
-				} while (flag3);
-				if (epilogh == 1) {
-					mhnyma();
-				} else {
-					for (int i = 0; i < Employee.Employees.get(this.getEmployee_Id()).getMaxmail(); i++) {
-						System.out.println(Employee.Employees.get(this.getEmployee_Id()).newmail[i]);
-					}
-					if (Employee.Employees.get(this.getEmployee_Id()).getMaxmail()==0){
-						System.out.println("You've got no mails :(");
-					}
-				}
-
+		Yperoria();
 			}else if (selection == 5) {
 				int posInEmployees = enterManagerId();
 				
@@ -1031,5 +1003,90 @@ public class Hr_Director extends Manager{ // is resposible for all the Managers 
 		} while (flag1);
 		return requested;
 	}
+	public void Yperoria() {
+
+		Calendar calendar = Calendar.getInstance();
+		boolean flag3 = false;
+		Scanner in = new Scanner(System.in);
+		int x = 0;
+		boolean somethingWrong = true;
+		x = enterManagerId();
+		if (x != -1) {	
+			do {
+				System.out.printf("How many hours of overtime for %s %s ?\n", Employee.Employees.get(x).getFirstname(),
+						Employee.Employees.get(x).getSurname());
+
+				int epilogh = 0;
+
+				do {
+					if (!in.hasNextInt()) {
+						System.out.println("Give an Integer ");
+						flag3 = true;
+						in.next();
+
+					} else {
+						epilogh = in.nextInt();
+						in.nextLine();
+					}
+				} while (flag3);
+				if (epilogh + Employee.Employees.get(x).getWresyperergasias_evdomadiaiws() > 5) {
+					System.err.println(
+							"Συμφωνα με τον Ν.3863/2010 ο υπάλληλος απαγορεύεται να δουλέψει περισσότερες από 5 ώρες υπερωρίας την εδβομάδα. ");
+					System.out.printf("Ο υπάλληλος έχει δουλέψει ήδη %d ώρες αυτή τη βδομάδα\n",
+							Employee.Employees.get(x).getWresyperergasias_evdomadiaiws());
+					continue;
+				}else if (epilogh < 1) {
+					System.out.println("Insert an Integer greater than zero.");
+					continue;
+				} else {
+					somethingWrong = false;
+				}
+				int valueOfI = 6; //if the day is sunday
+				if (calendar.get(Calendar.DAY_OF_WEEK) != 1) {//if the day is not sunday (calendar shows at the moment the current day)
+					valueOfI = calendar.get(Calendar.DAY_OF_WEEK) - 2;
+				}	
+				
+				int posInShift = ShiftIndexToChange(epilogh, Employee.Employees.get(x).getThisWeekShift()[valueOfI]);	
+				if(posInShift == -1) {
+					continue;
+				}else {
+					somethingWrong = false;
+					System.out.printf("Είστε σίγουρος οτι θέλετε ο %s να κάνει " + epilogh + " ώρα/ώρες υπερωρίας;\n",
+							Employee.Employees.get(x).getFirstname(), Employee.Employees.get(x).getSurname());
+					boolean flag4;
+					do {
+						System.out.println("yes/no");
+						String verify = in.nextLine();
+						if (verify.toLowerCase().equals("yes")) {
+							String b="The Manager has setted "+epilogh+" extra hours for today";
+							Employee.Employees.get(x).newmail[Employee.Employees.get(x).maxmail] = b;
+							Employee.Employees.get(x).maxmail++;
+							// Ypografh1.ypografh();
+							Employee.Employees.get(x).setWresyperergasias_evdomadiaiws(
+									Employee.Employees.get(x).getWresyperergasias_evdomadiaiws() + epilogh);
+							Calendar[][] newShift = Employee.Employees.get(x).getThisWeekShift();
+							Calendar newValue = Employee.Employees.get(x).getThisWeekShift()[valueOfI][posInShift];
+							newValue.add(Calendar.HOUR_OF_DAY, epilogh);
+							newShift[valueOfI][posInShift] = newValue;
+							Employee.Employees.get(x).setThisWeekShift(newShift);
+							double paymentIncrease = epilogh*Math.round((Employee.Employees.get(x).getSalary()*0.015)*100)/100;//we increase the payment by 0.015 of employee's salary for every extra hour
+																															   //Math.round(a*100)/100 rounds up a to 2 decimals
+							
+							Employee.Employees.get(x).setMonthPayment(Employee.Employees.get(x).getMonthPayment() + paymentIncrease);
+							flag4 = false;
 	
+							 
+						} else if (verify.toLowerCase().equals("no")) {
+							Employee.Employees.get(x).setWresyperergasias_evdomadiaiws(
+									Employee.Employees.get(x).getWresyperergasias_evdomadiaiws() - epilogh);
+							break;
+						} else {
+							flag4 = true;
+						}
+					} while (flag4);
+				}
+			} while (somethingWrong);
+		}
+
+	}
 }
