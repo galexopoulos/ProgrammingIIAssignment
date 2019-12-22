@@ -542,8 +542,8 @@ public class Hr_Director extends Manager{ // is resposible for all the Managers 
 											//if it moves on the input is correct as creatShift method throws Exception for wrong input
 											Employee.Employees.get(posInEmployees).setShiftStr(shiftStr);
 											System.out.println("The change has been made.");
-										}catch (Exception e) {
-											System.out.println("Invalid input");
+										}catch (ShiftException e) {
+											System.out.println("Invalid input. " + e);
 											flag4 = true;
 										}
 									}
@@ -676,8 +676,8 @@ public class Hr_Director extends Manager{ // is resposible for all the Managers 
 														}
 														try {
 															employee.setThisWeekShift(Shift.createShift(shiftStr));								
-														}catch (Exception e) {
-															System.out.println("Mistake with the inserted shift.");
+														}catch (ShiftException e) {
+															System.out.println("Mistake with the inserted shift. " + e);
 															flag7 = true;
 															continue;
 														}
@@ -827,8 +827,8 @@ public class Hr_Director extends Manager{ // is resposible for all the Managers 
 												}
 												try {
 													manager.setThisWeekShift(Shift.createShift(shiftStr));								
-												}catch (Exception e) {
-													System.out.println("Mistake with the inserted shift.");
+												}catch (ShiftException e) {
+													System.out.println("Mistake with the inserted shift. " + e);
 													flag7 = true;
 													continue;
 												}

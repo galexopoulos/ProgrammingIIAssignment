@@ -40,8 +40,8 @@ public class check_main {
 		Calendar[][] shiftcal = { null, null, null, null, null, null, null };
 		try {
 			shiftcal = Shift.createShift(shift);
-		} catch (Exception a) {
-			System.out.println("wrong1");
+		} catch (ShiftException a) {
+			System.out.println("wrong1" + a);
 		}
 		Barney.setShiftStr(shift);
 		Barney.setThisWeekShift(shiftcal);
@@ -49,8 +49,8 @@ public class check_main {
 				"12:00-18:00" };
 		try {
 			shiftcal = Shift.createShift(shift2);
-		} catch (Exception a) {
-			System.out.println("wrong2");
+		} catch (ShiftException a) {
+			System.out.println("wrong2" + a);
 		}
 		Rachel.setShiftStr(shift2);
 		Rachel.setThisWeekShift(shiftcal);
@@ -66,8 +66,8 @@ public class check_main {
 		//System.out.println(Rachel.getThisWeekShift()[5][1].get(Calendar.DAY_OF_MONTH));
 		try {
 			shiftcal = Shift.createShift(shift3);
-		} catch (Exception a) {
-			System.out.println("wrong3");
+		} catch (ShiftException a) {
+			System.out.println("wrong3" + a);
 		}
 		NF.setShiftStr(shift3);
 		NF.setThisWeekShift(shiftcal); 

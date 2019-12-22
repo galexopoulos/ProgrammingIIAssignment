@@ -230,8 +230,8 @@ public class Manager extends Employee { // responsible for the Employees who hav
 											// for wrong input
 											Employee.Employees.get(posInEmployees).setShiftStr(shiftStr);
 											System.out.println("The change has been made.");
-										} catch (Exception e) {
-											System.out.println("Invalid input");
+										} catch (ShiftException e) {
+											System.out.println("Invalid input. " + e);
 											flag4 = true;
 										}
 									}

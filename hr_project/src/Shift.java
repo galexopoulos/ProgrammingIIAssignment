@@ -12,7 +12,7 @@ public class Shift {
 
 
 	
-	private static int[][] arr_Dep_Times_int(String day_schedule)  throws Exception{ // uses a String     
+	private static int[][] arr_Dep_Times_int(String day_schedule)  throws ShiftException{ // uses a String     
 															// input of a daily
 															// timetable
 															// with "," between time periods, "-"
@@ -89,8 +89,11 @@ public class Shift {
 
 		for (int i = 0; i < 4; i++) {
 			int x;
-
-			x = Integer.parseInt(str_Arrival_hours[i]);
+			try {
+				x = Integer.parseInt(str_Arrival_hours[i]);
+			}catch (NumberFormatException nfe) {
+				throw new ShiftException("Unparsable inserted value.");
+			}
 
 
 			if (x >= 0 && x <= 23 || x == -1) {// 0 <= x <= 23 because x represents hours here, -1 positions needed
@@ -98,11 +101,11 @@ public class Shift {
 													// departures
 				int_Arrival_hours[i] = x;
 			}else {
-				throw new Exception(); 				
+				throw new ShiftException("Out of bounds number."); 				
 			}
 			
 			if (str_Arrival_mins[i].length() != 2) {//if the string that represents mins has not two position exactly then it throws Exception and does not move on
-				throw new Exception(); 	
+				throw new ShiftException("Out of bounds number."); 
 			}
 			
 			x = Integer.parseInt(str_Arrival_mins[i]);
@@ -110,7 +113,7 @@ public class Shift {
 										// to check that there are no back to back arrivals or departures
 				int_Arrival_mins[i] = x;
 			} else {
-				throw new Exception();     
+				throw new ShiftException("Out of bounds number.");    
 			}
 
 			x = Integer.parseInt(str_Departure_hours[i]);
@@ -119,11 +122,11 @@ public class Shift {
 									// check that there are no back to back arrivals or departures
 				int_Departure_hours[i] = x;
 			} else {
-				throw new Exception();                
+				throw new ShiftException("Out of bounds number.");               
 			}
 			
 			if (str_Departure_mins[i].length() != 2) {//if the string that represents mins has not two position exactly then it throws Exception and does not move on
-				throw new Exception();               
+				throw new ShiftException("Out of bounds number.");               
 			}
 			
 			x = Integer.parseInt(str_Departure_mins[i]);
@@ -132,7 +135,7 @@ public class Shift {
 										// to check that there are no back to back arrivals or departures
 				int_Departure_mins[i] = x;
 			} else {
-				throw new Exception();                     
+				throw new ShiftException("Out of bounds number.");                   
 			}
 			
 		}
@@ -144,7 +147,7 @@ public class Shift {
 		return arrH_arrM_depH_depM;
 	}
 
-	public static Calendar getCurrentMonday() { // returns when the next monday is (Calendar type)
+	public static Calendar getCurrentMonday() { // returns when the monday in the current week is (Calendar type)
 		Calendar cal = Calendar.getInstance();
 		int weekday = cal.get(Calendar.DAY_OF_WEEK);
 		if (weekday != Calendar.MONDAY) {
@@ -220,10 +223,12 @@ public class Shift {
 
 	}
 
-	private static boolean Check_week_Schedule(Calendar[] fullWeek) {// checks that there are no back to back arrivals
-																// or departures and that the fullWeek indexes
-																// are at the right order
-		boolean everythingOk = true;
+	private static void checkWeekSchedule(Calendar[] fullWeek) throws ShiftException {// checks that there are no back
+																						// to back arrivals or
+																						// departures and that the
+																						// fullWeek indexes are at the
+																						// right order else it throws
+																						// ShiftException
 		int y1990inrow = 0;
 		for (int i = 1; i < fullWeek.length - 1; i++) {// checks that there are no back to back arrivals or departures,
 														// there must be an evem number of indexes with YEAR = 1990 in
@@ -235,8 +240,7 @@ public class Shift {
 				y1990inrow++;
 			}else if (y1990inrow != 0){
 				if (y1990inrow % 2 != 0) {
-					everythingOk = false;
-					break;
+					throw new ShiftException("Arrival - Departure's order exception.");
 				}else {
 					y1990inrow = 0;
 				}
@@ -254,19 +258,17 @@ public class Shift {
 															// indexes with YEAR = 1990 because these indexes are from
 															// diffent days and that means that their order is correct
 
-					everythingOk = false;
-					break;
+					throw new ShiftException("Chronical order exception.");
 				}
 		}
 
-		return everythingOk;
 	}
 
-	public static Calendar[][] createShift(String[] strSchedule) throws Exception{
+	public static Calendar[][] createShift(String[] strSchedule) throws ShiftException{
 		Calendar[][] dayScheduleNextWeek8 = new Calendar[8][8];
 		Calendar[][] dayScheduleNextWeek = new Calendar[7][8];
 		if (strSchedule.length != 8) {
-			throw new Exception();
+			throw new ShiftException("Wrong length of input.");
 		}
 		int[][] arrH_arrM_depH_depM = new int[4][4];
 		Calendar[][] arr_depTimesCal = new Calendar[2][4];
@@ -282,9 +284,8 @@ public class Shift {
 		}
 	
 		weekSchedule = week_Schedule(dayScheduleNextWeek8); 
-		if (!Check_week_Schedule(weekSchedule)) {
-			throw new Exception ();                 
-		}
+		checkWeekSchedule(weekSchedule);//executes the check and throws ShiftException if there is a mistake
+	
 		for (int i = 0; i < 7; i++) { 
 			dayScheduleNextWeek[i] = dayScheduleNextWeek8[i];
 				

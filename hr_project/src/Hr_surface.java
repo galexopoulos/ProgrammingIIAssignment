@@ -7,8 +7,9 @@ public class Hr_surface {
 		System.out.println("Welcome to Hr part!");
 		//if (main.firstTime){ 	firstTime a boolean variable from main that shows if it
 								// is the first time that the client enters Hr part
+		/*
 		//BEGINNING OF IF
-		/*System.out.println("At the beginning is necessary to set up the hr data. \n");
+		System.out.println("At the beginning is necessary to set up the hr data. \n");
 		boolean directornotset;
 		Hr_Director hrDirector = new Hr_Director("", "", "Hr Director", "", -1, null);
 		do {
@@ -197,8 +198,8 @@ public class Hr_surface {
 											}
 											try {
 												manager.setThisWeekShift(Shift.createShift(shiftStr));								
-											}catch (Exception e) {
-												System.out.println("Mistake with the inserted shift.");
+											}catch (ShiftException e) {
+												System.out.println("Mistake with the inserted shift. " + e);
 												flag7 = true;
 												continue;
 											}
@@ -381,8 +382,8 @@ public class Hr_surface {
 										}
 										try {
 											employee.setThisWeekShift(Shift.createShift(shiftStr));								
-										}catch (Exception e) {
-											System.out.println("Mistake with the inserted shift.");
+										}catch (ShiftException e) {
+											System.out.println("Mistake with the inserted shift. " + e);
 											flag7 = true;
 											continue;
 										}
@@ -502,7 +503,7 @@ public class Hr_surface {
 																		// the difficulties at the check but it could be
 																		// used in real circumstances
 				a.setWresyperergasias_evdomadiaiws(0);
-			} catch (Exception e) {
+			} catch (ShiftException e) {
 				// check has been done it will never reach here, if there was an error with the
 				// input Exception would have been caught and handled before
 			}
