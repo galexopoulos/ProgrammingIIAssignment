@@ -241,17 +241,17 @@ public class Employee implements Serializable {
 				int epilogh = 0;
 				boolean flag3 = false;
 				do {
-					System.out.println("Select: \n ------------- \n\n1)Send Mail. \n2)View Mails.");
+					System.out.println("Select: \n ------------- \n\n1)Send Mail. \n2)View Mails. \n3)Return to the central menu");
 					if (!sc.hasNextInt()) {
-						System.out.println("Δώστε 1 ή 2 ");
+						System.out.println("Δώστε 1 ή 2 ή 3");
 						flag3 = true;
 						sc.next();
 
 					} else {
 						epilogh = sc.nextInt();
-						if (epilogh > 2 || epilogh < 1) {
+						if (epilogh > 3 || epilogh < 1) {
 							flag3 = true;
-							System.out.println("input an integer [1,2]");
+							System.out.println("input an integer [1,3]");
 						} else {
 							flag3 = false;
 						}
@@ -260,13 +260,15 @@ public class Employee implements Serializable {
 				} while (flag3);
 				if (epilogh == 1) {
 					mhnyma();
-				} else {
+				} else if ( epilogh==2) {
 					for (int i = 0; i < Employee.Employees.get(this.getEmployee_Id()).getMaxmail(); i++) {
 						System.out.println(Employee.Employees.get(this.getEmployee_Id()).newmail[i]);
 					}
-					if (Employee.Employees.get(this.getEmployee_Id()).getMaxmail() == 0) {
+					if (Employee.Employees.get(this.getEmployee_Id()).getMaxmail()==0){
 						System.out.println("You've got no mails :(");
 					}
+				} else {
+					
 				}
 			} else if (selection == 5) {
 				printShift(this.getThisWeekShift());

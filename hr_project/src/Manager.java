@@ -84,7 +84,7 @@ public class Manager extends Employee { // responsible for the Employees who hav
 				int epilogh = 0;
 				boolean flag3 = false;
 				do {
-					System.out.println("Select: \n ------------- \n\n1)Send Mail. \n2)View Mails. \n3) Return to the central menu");
+					System.out.println("Select: \n ------------- \n\n1)Send Mail. \n2)View Mails. \n3)Return to the central menu");
 					if (!sc.hasNextInt()) {
 						System.out.println("Δώστε 1 ή 2 ή 3");
 						flag3 = true;
