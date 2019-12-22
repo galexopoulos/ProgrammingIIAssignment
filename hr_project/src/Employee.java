@@ -274,7 +274,7 @@ public class Employee implements Serializable {
 		} while (menuflag);
 	}
 
-	public Calendar enterWeekDay() { // checks if the day that will be given is vaid and in the current week
+	public Calendar enterWeekDay() { // checks if the day that will be given is vaid and in the next 7 days
 		Scanner sc = new Scanner(System.in);
 		Calendar current = Calendar.getInstance();
 		current.add(Calendar.SECOND, -1); // in order to be able to get the current day
@@ -338,46 +338,23 @@ public class Employee implements Serializable {
 			if (requested.get(Calendar.YEAR) == 1990) {
 				break;
 			}
-			System.out.println("Insert the year or press Enter to return to the central menu.");
-			flag3 = false;
-			do {
-				selected = sc.nextLine();
-				if (selected.equals("")) {
-					requested.set(Calendar.YEAR, 1990);// that means that the user exited without completing the request
-					flag3 = false;
-					break;
-
-				} else {
-					try {
-						year = Integer.parseInt(selected);
-						if (year != current.get(Calendar.YEAR) && year != current.get(Calendar.YEAR) + 1) {
-							flag3 = true;
-							System.err.println("Insert an integer [" + current.get(Calendar.YEAR) + ","
-									+ (current.get(Calendar.YEAR) + 1) + "]:");
-						} else {
-							flag3 = false;
-						}
-					} catch (Exception a) {
-						System.out.println("Please insert an Integer.");
-						flag3 = true;
-					}
-				}
-			} while (flag3);
 			try {
-				LocalDate.of(year, month, day);
-			} catch (Exception e) { // checks that the date is valid, for example day == 31, month == 2 is invalid
+				LocalDate.of(current.get(Calendar.YEAR), month, day);
+			} catch (Exception e) { // checks that the given month and day are valid, for example day == 31, month == 2 is invalid
 				System.out.println("Invalid date, please try again. \n");
 				flag2 = true;
 				continue;
 			}
 			requested.set(Calendar.DAY_OF_MONTH, day);
 			requested.set(Calendar.MONTH, month - 1);
-			requested.set(Calendar.YEAR, year);
-			lastDay = Shift.getCurrentMonday();
-			lastDay.add(Calendar.DAY_OF_WEEK, 7); // to find next Monday
+			lastDay.add(Calendar.DAY_OF_WEEK, 7); // to find the day 7 days after today
 			if (current.after(requested) || requested.after(lastDay)) {
-				System.out.println("Insert a date of the current week. \n");
-				flag2 = true;
+				requested.add(Calendar.YEAR, 1);
+				if (current.after(requested) || requested.after(lastDay)) {
+					System.out.println("Insert a date of the current week. \n");
+					flag2 = true;
+					requested.add(Calendar.YEAR, -1);
+				}
 			}
 		} while (flag2);
 		return requested;
