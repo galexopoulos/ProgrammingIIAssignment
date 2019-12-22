@@ -1,5 +1,7 @@
 import java.io.Serializable;
+
 import java.time.LocalDate;
+import java.time.DateTimeException;
 import java.util.*;
 
 public class Employee implements Serializable {
@@ -329,7 +331,7 @@ public class Employee implements Serializable {
 						} else {
 							flag3 = false;
 						}
-					} catch (Exception a) {
+					} catch (NumberFormatException a) {
 						System.out.println("Please insert an Integer.");
 						flag3 = true;
 					}
@@ -340,7 +342,7 @@ public class Employee implements Serializable {
 			}
 			try {
 				LocalDate.of(current.get(Calendar.YEAR), month, day);
-			} catch (Exception e) { // checks that the given month and day are valid, for example day == 31, month == 2 is invalid
+			} catch (DateTimeException e) { // checks that the given month and day are valid, for example day == 31, month == 2 is invalid
 				System.out.println("Invalid date, please try again. \n");
 				flag2 = true;
 				continue;
@@ -531,7 +533,7 @@ public class Employee implements Serializable {
 						flag1 = true;
 						System.out.println("That is not a valid Id.");
 					}
-				} catch (Exception b) {
+				} catch (NumberFormatException b) {
 					flag1 = true;
 					System.out.println("Please insert an Integer.");
 				}
@@ -600,7 +602,7 @@ public class Employee implements Serializable {
 						flag1 = true;
 						System.out.println("That is not a valid Id.");
 					}
-				} catch (Exception b) {
+				} catch (NumberFormatException b) {
 					flag1 = true;
 					System.out.println("Please insert an Integer.");
 				}
