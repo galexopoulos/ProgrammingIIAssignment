@@ -75,16 +75,7 @@ public class MainClass {
 		System.out.print("-----------CHOOSE A NUMBER BETWEEN 1 AND 7------------ \n");
 	}
 
-	public static void question() {
 
-		System.out.println("Πατήστε 0 αν θελετε να γυρίσετε πίσω");
-		System.out.println("Για να συνεχίσετε πατήστε Enter.");
-
-		Scanner q = new Scanner(System.in);
-
-		int i = q.nextInt();
-
-	}
 
 	public void toBeDoneEveryMonth() {
 		Hr_surface.toBeDoneEveryMonth();
