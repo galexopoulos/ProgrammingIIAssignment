@@ -52,6 +52,7 @@ public class ReportingFinance { //This class must be called once a month.
 					+ "\n 2. Loans "
 					+ "\n 3. TAX liabilities "
 					+ "\n 4. Connect to Investments menu. Username and password required."
+					+ "\n 5. Create new Investor."
 					+ "\n PRESS 0 TO EXIT."
 					+ "\n ------------------------------------------------------------------"); 
 			int ans = 0;
@@ -69,19 +70,28 @@ public class ReportingFinance { //This class must be called once a month.
 						 }else {
 							 System.out.println("Losses are: " + cashAvailableBeforeTaxes);
 						 }
+						 System.out.println("To continue press one of the suggested numbers.");
 					}else if(ans == 2) {
 						 if (loan > 0 ) {
 							 System.out.println("Current loans are: " + loan);
 						 }else {
 							 System.out.println("There are no Loans to show"); 
 						 }
+						 System.out.println("To continue press one of the suggested numbers.");
 					}else if (ans == 3) {
 						 taxLiabilities();
+						 System.out.println("To continue press one of the suggested numbers.");
 					}else if(ans == 4) {
-							ShareHolders.getShareHoldersMenu(); 
+						ShareHolders.getShareHoldersMenu(); 
+						System.out.println("To continue press one of the suggested numbers.");
+					}else if(ans == 5) {
+						setNewInvestor();
+						getMenu();
+						System.out.println("To continue press one of the suggested numbers.");
 					}
-					if(ans > 4 || ans < 0) {
+					if(ans > 5 || ans < 0) {
 						System.err.println("Wrong input, please try again.");
+						System.out.println("To continue press one of the suggested numbers.");
 					}
 				}catch(InputMismatchException e) {
 					System.out.println("Wrong input, please try again.");
@@ -216,6 +226,24 @@ public class ReportingFinance { //This class must be called once a month.
 				ReportingFinance.loan -= payment;
 			}
 			currentmonth++;
+		}
+		
+		public static void setNewInvestor() {
+			Scanner sc = new Scanner(System.in);
+			for(;;) {
+				System.out.println("Insert a username of your choice.");
+				String usr = sc.nextLine();
+				System.out.println("Insert a password of your choice.");
+				String pass = sc.nextLine();
+				System.out.println("Please reinsert your password.");
+				String passvalid = sc.nextLine();
+				if(pass.equals(passvalid)) {
+					new ShareHolders(usr,pass);
+					System.out.println("New investor stored succesful!"
+							+ "Reconnecting to Finance menu... ");
+					break;
+				}
+			}
 		}
 		
 }
