@@ -37,12 +37,12 @@ public class mainClass {
 		switch (epilogh) {
 		case 1:
 			System.out.println("WELCOME TO HR DEPARTMENT");
-			toRun();
+			Hr_surface.toRun();
 			break;
 
 		case 2:
 			System.out.println("WELCOME TO SALES DEPARTMENT");
-			question();
+			Booking.getMenu();
 			break;
 
 		case 3:
@@ -51,7 +51,7 @@ public class mainClass {
 			break;
 		case 4:
 			System.out.println("WELCOME TO INVENTORY MANAGMENT DEPARTMENT");
-			question();
+			Inventory.invMenu();
 			break;
 		case 5:
 			System.out.println("WELCOME TO CRM DEPARTMENT");
