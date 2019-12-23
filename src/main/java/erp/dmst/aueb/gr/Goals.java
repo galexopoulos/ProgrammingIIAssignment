@@ -1,5 +1,4 @@
 package main.java.erp.dmst.aueb.gr;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Goals {
@@ -28,30 +27,16 @@ public class Goals {
 				flag = false;
 				if(ans == -1){
 					break;
-				}
+				}//iparxei lathos prepei na to diorthosei i aggelina
 			}catch(Exception e) {
 				System.err.println("WRONG INPUT");
 			}
 		}while(flag);
+		sc.close();
 		return ans;
 	}
 	
 	public static void comparison(int ans, int month) { // ans einai to year pou thelei na sigrinei
-	//	double [] year_3 = new double [12]; // 3 xronia prin
-	//	double [] year_2 = new double [12]; // 2 xronia prin
-	//	double [] year_1 = new double [12]; // 1 xrono prin
-	//	double [] year_cur = new double [12]; // current year
-	//	
-	//	try {
-	//		for (int i = 0; i <= 12;i++) {
-	//			year_3[i] = years[i][0];
-	//			year_2[i] = years[i][1];
-	//			year_1[i] = years[i][2];
-	//			year_cur[i] = years[i][3];
-	//		}
-	//	}catch(Exception e) {
-	//		System.err.println("Error.");
-	//	}
 		try {
 			if (ans == 0) {
 				if (years[month][3] > years[month][ans]) {

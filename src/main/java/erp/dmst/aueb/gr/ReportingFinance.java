@@ -5,6 +5,7 @@ import java.util.TimeZone;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.InputMismatchException;
 
 public class ReportingFinance { //This class must be called once a month.
 	
@@ -15,54 +16,84 @@ public class ReportingFinance { //This class must be called once a month.
 		private static double cashAvailableAfterTaxes; //after taxes and Dividends
 		private static double cashAvailableBeforeTaxes;
 		private static double loan = 0;
-		private static int rate; //shareholders rate of payment 
-		private static int months = 1;
+		private static final double RATE = 0.3; //shareholders rate of payment 
+		private static int months = 0;
 		private static double [] fixInv;
 		private static double [] urgInv;
 		private static final double TAXRATE = 0.23;
 		
-		public ReportingFinance(double electricity, double waterSupply, double phone_internetSupply,
-				int numberOfShareHolders, int rate	) {
+		public static double [] ProfLosBase = new double[12];
+		
+		public ReportingFinance(double electricity, double waterSupply, double phone_internetSupply) {
 			super();
-			++months;
 			ReportingFinance.electricity = electricity;
 			ReportingFinance.waterSupply = waterSupply;
 			ReportingFinance.phone_internetSupply = phone_internetSupply;
+			months++;
 		}
 		
-		public static void getMenu() {
+		public static void setYearAndBase() {
+			for(;;) {
+				if (months == 11) {
+					months = 0;
+					cashAvailableBeforeTaxes = 0;
+					cashAvailableAfterTaxes = 0;
+					for (int i = 0; i < ProfLosBase.length; i++) {
+						ProfLosBase[i] = 0;
+					}
+				}
+			}
+		}
+		
+		public static void getMenu() throws InputMismatchException, Exception{
 			Scanner sc = new Scanner(System.in);
 			System.out.println("------------------ MENU FINANCE ---- " + getDate() +" --------"
 					+ "\n 1. Proceeds - Εxpenses - Profits - Losses" 
 					+ "\n 2. Loans "
 					+ "\n 3. TAX liabilities "
-					+ "\n 4. Connect to Investments menu. Username and password is needed.");
-			
-			boolean confirm = true;
+					+ "\n 4. Connect to Investments menu. Username and password required."
+					+ "\n PRESS 0 TO EXIT."
+					+ "\n ------------------------------------------------------------------"); 
+			int ans = 0;
+			boolean flag = true;
 			do {
 				try {
-					int ans = sc.nextInt();
-					switch(ans) {
-						case 1: System.out.println("This months income is:" + getProceeds());
-								getExpenses();
-								if (cashAvailableBeforeTaxes >= 0 ) {
-									System.out.println("Profits are: " + cashAvailableBeforeTaxes);
-								}else {
-									System.out.println("Losses are: " + cashAvailableBeforeTaxes);
-								}
-						case 2: if (loan > 0 ) {
-									System.out.println("Current loans are: " + loan);
-						 		}else System.out.println("There are no Loans to show");
-						case 3: taxLiabilities();
-						case 4: ShareHolders.getShareHoldersMenu();
+					ans = sc.nextInt();
+					if (ans == 0) {
+						flag = false;
+					}else if(ans == 1){
+						 System.out.println("This months income is:" + getProceeds());
+						 getExpenses();
+						 if (cashAvailableBeforeTaxes >= 0 ) {
+							 System.out.println("Profits are: " + cashAvailableBeforeTaxes);
+						 }else {
+							 System.out.println("Losses are: " + cashAvailableBeforeTaxes);
+						 }
+					}else if(ans == 2) {
+						 if (loan > 0 ) {
+							 System.out.println("Current loans are: " + loan);
+						 }else {
+							 System.out.println("There are no Loans to show"); 
+						 }
+					}else if (ans == 3) {
+						 taxLiabilities();
+					}else if(ans == 4) {
+							ShareHolders.getShareHoldersMenu(); 
 					}
-					
-				confirm = false;
+					if(ans > 4 || ans < 0) {
+						System.err.println("Wrong input, please try again.");
+					}
+				}catch(InputMismatchException e) {
+					System.out.println("Wrong input, please try again.");
+					System.out.println("Reconnecting to homepage...");
+					ReportingFinance.getMenu();
 				}catch(Exception e) {
-					System.err.println("Wrong input, please try again.");
+					System.out.println("Something went wrong.");
+					System.out.println("Reconnecting to homepage...");
+					ReportingFinance.getMenu();
 				}
-			}while(confirm);
-			
+			}while(flag);
+			Reporting.Menu();
 		}
 		
 		public static double getProceeds() { //theloume kapos na tsekaroume oti allazei o minas gia na midenizonte ta miniea esoda
@@ -142,6 +173,7 @@ public class ReportingFinance { //This class must be called once a month.
 				wages += i.getWage();
 			}
 			cashAvailableBeforeTaxes =  sumOfIncome - sumOfFixedExpenses  - wages;
+			ProfLosBase [months] = cashAvailableBeforeTaxes;
 		}
 		
 		public static String getDate() {
@@ -151,8 +183,8 @@ public class ReportingFinance { //This class must be called once a month.
 		}
 		
 		public static double dividends() { //this divides the profits to the shareholders depending on the rate 
-			if(cashAvailableBeforeTaxes > 0 ) {						 
-				double totalDiv = cashAvailableAfterTaxes * rate;
+			if(cashAvailableAfterTaxes > 0 ) {						 
+				double totalDiv = cashAvailableAfterTaxes * RATE;
 				double monthlyDividends = totalDiv / ShareHolders.shareholders.size() ;
 				return monthlyDividends;
 			}else {
@@ -169,6 +201,8 @@ public class ReportingFinance { //This class must be called once a month.
 					int month = cal.get(Calendar.MONTH);
 					cashAvailableAfterTaxes = cashAvailableBeforeTaxes - cashAvailableBeforeTaxes * TAXRATE;
 					System.out.println("Hotel's TAX liablities of " + month + "are: " + cashAvailableBeforeTaxes * TAXRATE);
+				}else {
+					System.out.println("All Tax liabilities are sutisfied.");
 				}
 			}catch(Exception e){
 				System.err.println("Error.");
@@ -182,10 +216,6 @@ public class ReportingFinance { //This class must be called once a month.
 				ReportingFinance.loan -= payment;
 			}
 			currentmonth++;
-		}
-		
-		public static void distribution() {
-			//pending
 		}
 		
 }

@@ -1,67 +1,7 @@
 package main.java.erp.dmst.aueb.gr;
 
 public class Distribution_Stars {
-	
-	public static int [] getfreqAges() {
-		int [] agesFreq = {0,0,0,0,0};
-		try {	
-			for( ReportingHR i : ReportingHR.hr) {
-				if(i.getAge() < 25) {
-					agesFreq[0]++;
-				}else if(i.getAge() < 35) {
-					agesFreq[1]++;
-				}else if(i.getAge() < 45) {
-					agesFreq[2]++;
-				}else if(i.getAge() < 55) {
-					agesFreq[3]++;
-				}else {
-					agesFreq[4]++;
-				}
-			}
-		}catch(IndexOutOfBoundsException e) {
-			System.out.println("Error.");
-		}
-		return agesFreq;
-	}
-	
-	public static void getDistributionOfAges() {
-		System.out.println("Ages Distribution: ");
-		int[] freqs =  getfreqAges();
-		for(int i = 0; i < 5; i++) {
-			if (i == 0) {
-				System.out.print("18 - 24: " );
-				for(int stars =0 ; stars < freqs[0] / 2 ; stars++ ) {
-					System.out.print("*");
-				}
-				System.out.println();
-			}else if (i == 1) {
-				System.out.print("25 - 34: " );
-				for(int stars =0 ; stars < freqs[1] / 2 ; stars++ ) {
-					System.out.print("*");
-				}
-				System.out.println();
-			}else if (i == 2) {
-				System.out.print("35 - 44: " );
-				for(int stars =0 ; stars < freqs[2] / 2 ; stars++ ) {
-					System.out.print("*");
-				}
-				System.out.println();
-			}else if (i == 3) {
-				System.out.print("45 - 54: " );
-				for(int stars =0 ; stars < freqs[3] / 2 ; stars++ ) {
-					System.out.print("*");
-				}
-				System.out.println();
-			}else if (i == 4) {
-				System.out.print("55 - 65: " );
-				for(int stars =0 ; stars < freqs[4] / 2 ; stars++ ) {
-					System.out.print("*");
-				}
-				System.out.println();
-			}
-		}
-	}
-	
+	// Ages Distribution cut, lack of methods to change the age of each employee
 	//------------------------------------------------------------------------
 	
 	public static int [] getfreqDaysOfStay() {
@@ -93,19 +33,19 @@ public class Distribution_Stars {
 		int[] freqs =  getfreqDaysOfStay();
 		for(int i = 0; i < 6; i++) {
 			if (i == 0) {
-				System.out.print("1 - 3: " );
+				System.out.print("1 - 3  : " );
 				for(int stars =0 ; stars < freqs[0] / 2 ; stars++ ) {
 					System.out.print("*");
 				}
 				System.out.println();
 			}else if (i == 1) {
-				System.out.print("4 - 6: " );
+				System.out.print("4 - 6  : " );
 				for(int stars =0 ; stars < freqs[1] / 2 ; stars++ ) {
 					System.out.print("*");
 				}
 				System.out.println();
 			}else if (i == 2) {
-				System.out.print("7 - 9: " );
+				System.out.print("7 - 9  : " );
 				for(int stars =0 ; stars < freqs[2] / 2 ; stars++ ) {
 					System.out.print("*");
 				}
@@ -122,7 +62,7 @@ public class Distribution_Stars {
 					System.out.print("*");
 				}
 				System.out.println();
-			}else { System.out.print("15 - : " );
+			}else { System.out.print("15 -   : " );
 				for(int stars =0 ; stars < freqs[5] / 2 ; stars++ ) {
 					System.out.print("*");
 				}
@@ -160,11 +100,11 @@ public class Distribution_Stars {
 	}
 	
 	public static void getDistributionOfWages() {
-		System.out.println("Wages Distribution: ");
+		System.out.println("HR Wages Distribution: ");
 		int[] freqs =  getfreqOfWages();
 		for(int i = 0; i < 7; i++) {
 			if (i == 0) {
-				System.out.print("600 - 1000: " );
+				System.out.print("600 - 1000 : " );
 				for(int stars =0 ; stars < freqs[0] / 2 ; stars++ ) {
 					System.out.print("*");
 				}
@@ -199,7 +139,7 @@ public class Distribution_Stars {
 					System.out.print("*");
 				}
 				System.out.println();
-			}else System.out.print("3000 - :");
+			}else System.out.print("3000 -     : ");
 				for(int stars =0 ; stars < freqs[6] / 2 ; stars++ ) {
 					System.out.print("*");
 				}
@@ -269,6 +209,68 @@ public class Distribution_Stars {
 				System.out.println();
 			}else { System.out.print("5: " );
 				for(int stars =0 ; stars < freqs[5] / 2 ; stars++ ) {
+					System.out.print("*");
+				}
+				System.out.println();
+			}
+		}
+	}
+	
+	//-----------------------------------------------------------------------
+	
+	public static int [] getfreqOfReasonForTravel() {
+		int [] reasonFreq = {0,0,0,0,0};
+		try {	
+			for( ReportingClients i : ReportingClients.coustomerBase) {
+				if(i.getReasonfortravel() == 0) {
+					reasonFreq[0]++;
+				}else if(i.getReasonfortravel() == 1) {
+					reasonFreq[1]++;
+				}else if(i.getReasonfortravel() == 2) {
+					reasonFreq[2]++;
+				}else if(i.getReasonfortravel() == 3) {
+					reasonFreq[3]++;
+				}else {
+					reasonFreq[4]++;
+				}
+			}
+		}catch(IndexOutOfBoundsException e) {
+			System.out.println("Error.");
+		}
+		return reasonFreq;
+	}
+	
+	public static void getDistributionOfReasons() {
+		System.out.println("Reasons Distribution: ");
+		int[] freqs = getfreqOfReasonForTravel();
+		for(int i = 0; i < 5; i++) {
+			if (i == 0) {
+				System.out.print("Business purpose : " );
+				for(int stars = 0 ; stars < freqs[0] / 2 ; stars++ ) {
+					System.out.print("*");
+				}
+				System.out.println();
+			}else if (i == 1) {
+				System.out.print("Pleasure         : " );
+				for(int stars = 0 ; stars < freqs[1] / 2 ; stars++ ) {
+					System.out.print("*");
+				}
+				System.out.println();
+			}else if (i == 2) {
+				System.out.print("Family           : " );
+				for(int stars = 0 ; stars < freqs[2] / 2 ; stars++ ) {
+					System.out.print("*");
+				}
+				System.out.println();
+			}else if (i == 3) {
+				System.out.print("Tourism          : " );
+				for(int stars = 0 ; stars < freqs[3] / 2 ; stars++ ) {
+					System.out.print("*");
+				}
+				System.out.println();
+			}else if (i == 4) {
+				System.out.print("Group agency     : " );
+				for(int stars = 0 ; stars < freqs[4] / 2 ; stars++ ) {
 					System.out.print("*");
 				}
 				System.out.println();

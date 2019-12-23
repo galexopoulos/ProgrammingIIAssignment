@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.InputMismatchException;
 import java.util.TimeZone;
 
 public class ShareHolders {
@@ -15,33 +16,46 @@ public class ShareHolders {
 	private double dividend = 0;
 	public static ArrayList<ShareHolders> shareholders = new ArrayList<ShareHolders>();
 	
-	public ShareHolders(String username, String pswrd) {
+	public ShareHolders(String username, String pswrd) { //Prepei na bei sthn main create user
 		this.username = username;
 		this.pswrd = pswrd;
 		id = counter;
 		counter++;
 		dividend = ReportingFinance.dividends();
 		shareholders.add(this);
+		
 	}
 	
 	public static void getShareHoldersMenu() {
 		boolean flag = true;
+		Scanner sc = new Scanner(System.in);
 		do {
 			try {
-				Scanner sc = new Scanner(System.in);
-				System.out.println("Please insert Username");
-				String usnm = sc.nextLine();
-				System.out.println("Please insert password");
-				String pass = sc.nextLine();
-				for(ShareHolders i : shareholders) {
-					if(i.getUsername().equals(usnm) && i.getPswrd().equals(pass)) {
-						System.out.println(i.toString());
-						flag = false;
+				boolean flag2 = getMenuflag();
+				if(flag2) {
+					System.out.println("Please insert Username");
+					String usnm = sc.nextLine();
+					System.out.println("Please insert password");
+					String pass = sc.nextLine();
+					for(ShareHolders i : shareholders) {
+						if(i.getUsername().equals(usnm) && i.getPswrd().equals(pass)) {
+							System.out.println("Username & password are correct.");				
+							System.out.println(i.toString());
+							flag = false;
+							sc.close();
+						}else if (i.equals(shareholders.get(shareholders.size()-1))){
+							System.out.println("Please insert valid Username or Password.");
+						}
 					}
+				}else {
+					flag = false;
+					ReportingFinance.getMenu();
 				}
-			}catch(Exception e) {
-				System.out.println("Please insert valid Username or Password.");
-			}
+			}catch(InputMismatchException e){
+		        System.out.println("Input exception. Try again.");
+			}catch(Exception e){
+		        System.out.println("Error try again later.");
+		    }
 		}while(flag);
 	}
 
@@ -82,5 +96,29 @@ public class ShareHolders {
 	public static String getCurrentMonth(int minas) {
 		String [] months = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
 		return months[minas + 1]; 
+	}
+	
+	public static boolean getMenuflag() {
+		Scanner sc = new Scanner(System.in);
+		System.out.println("---Share Holders menu---"
+				+ "\nTo proceed Press 1"
+				+ "\nExit Press 0");
+		boolean flag = true;
+		int ans = 0;
+		do {
+			try {
+				ans = sc.nextInt();
+				if(ans == 1 || ans == 0) {
+					flag = false;
+				}
+			}catch(InputMismatchException e) {
+				System.err.println("Wrong answer please try again");
+			}catch(Exception e) {
+				System.err.println("Something went wrong");
+			}
+		}while(flag);
+		if(ans == 1) {
+			return true;
+		}else return false;
 	}
 }

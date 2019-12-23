@@ -1,16 +1,12 @@
 package main.java.erp.dmst.aueb.gr;
 
 import java.util.ArrayList;
-import java.util.Date;
 
-public class ReportingClients {
+public class ReportingClients { // (main) throws exception stis apadisis gia sutisfaction kai reason for travel prepei nane mesa stis epitreptes times
 
 	private String name;
 	private String surname;
 	private int satisfuction; //apo 0 eos 5
-	private int counter_st = 0;
-	private int id;
-	private String email;
 	private double payment;
 	private int family_alone_friends;
 	private int checkin;
@@ -26,21 +22,18 @@ public class ReportingClients {
 	static ArrayList<ReportingClients> coustomerBase = new ArrayList<ReportingClients>();
 
 	public ReportingClients(String name, String surname, int satisfuction, 
-			String email, double payment, int family, int checkin, int checkout,int reasonfortravel) {
+			 double payment, int family, int checkin, int checkout,int reasonfortravel) { //main payment + na vro tropo na kano int to check in kai to check out
 		super();
 		this.name = name;
 		this.surname = surname;
 		this.satisfuction = satisfuction;
-		this.email = email;
 		this.payment = payment;
 		this.family_alone_friends = family;
 		this.checkin = checkin;
 		this.checkout = checkout;
 		this.reasonfortravel = reasonfortravel;
-		counter_st++;
-		this.id = counter_st;
 		coustomerBase.add(this);
-	} //COMMENTS! EINAI MOGLIDES
+	} 
 
 	public String getName() {
 		return name;
@@ -64,14 +57,6 @@ public class ReportingClients {
 
 	public void setSatisfuction(int satisfuction) {
 		this.satisfuction = satisfuction;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
 	}
 
 	public double getPayment() {
@@ -162,7 +147,7 @@ public class ReportingClients {
 			}
 			System.out.printf("Average of clients that came alone is: %f /n "
 					+ "Average of clients that came with their family is: %f /n"
-					+ "Average of clients that came with their friends is: %f ", s1/ (s1+s2+s3), s2/ (s1+s2+s3), s3/ (s1+s2+s3) );
+					+ "Average of clients that came with their friends is: %f ", s1 / (s1+s2+s3), s2 / (s1+s2+s3), s3 / (s1+s2+s3) );
 		}catch(Exception e) {
 			System.out.println("No clients available.");
 		}
