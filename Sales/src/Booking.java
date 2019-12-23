@@ -158,6 +158,7 @@ public class Booking {
 				System.out.println("3. Check Out procedure");
 				System.out.println("4. Cancel a booking");
 				System.out.println("5. Search for bookings ");
+				System.out.println("6. Go Back ");
 				System.out.print("Selection : ");
 				try {
 					choose1 = sc.nextInt();
@@ -537,12 +538,15 @@ public class Booking {
 						if (booking.bookingCode == bookCode1) {
 							f4 = true;
 							if (booking.checkedIn == false) {
-							System.out.println("Booking with code : " + booking.bookingCode + " in the room no." + booking.roomNumber + " and check : 0€" + " has been canceled!\n");
-							bookings.get(counter13).remove(booking);
+								getChecks -= booking.check;
+								System.out.println("Booking with code : " + booking.bookingCode + " in the room no." + booking.roomNumber + " and check : 0€" + " has been canceled!\n");
+								bookings.get(counter13).remove(booking);
 							} else {
+								double oldCheck = booking.check;
 								Date canceledCheckOut = new Date();
 								booking.nights = ((Math.abs((int) (booking.checkIn.getTime() - canceledCheckOut.getTime()))) / (1000 * 60 * 60 * 24)) + 1;
 								booking.check = booking.computeCheck(booking.buffet);
+								getChecks -= oldCheck - booking.check;
 								System.out.println("Booking with code : " + booking.bookingCode + " in the room no." + booking.roomNumber + " and check : " + booking.check + "€" + " has been canceled!\n");
 								bookings.get(counter13).remove(booking);
 							}
