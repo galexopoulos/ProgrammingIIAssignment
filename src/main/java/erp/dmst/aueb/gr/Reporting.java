@@ -1,4 +1,5 @@
 package main.java.erp.dmst.aueb.gr;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -7,12 +8,12 @@ public class Reporting {
 
 	public static void Menu()  {
 		Scanner sc = new Scanner(System.in);
-		System.out.println("---------------REPORTING MENU---------------"
+		System.out.println("---------------REPORTING MENU---- " + getDate() + " -----------"
 							+"\n  1. HR"
 							+"\n  2. FINANCIAL AND INVESTMENTS SERVICES"
 							+"\n  3. CLIENTS DATA "
 							+"\n  0. EXIT"
-							+"\n---------------------------------------------");
+							+"\n------------------------------------------------------------------");
 		boolean confirm = true ;
 		do {
 			try {
@@ -29,6 +30,7 @@ public class Reporting {
 						Distribution_Stars.getDistributionOfWages();
 						System.out.println();
 					}
+					System.out.println("To continue press one of the suggested numbers.");
 					System.out.println("-----------------------");
 				}else if(dep == 2) {
 					try {
@@ -36,6 +38,7 @@ public class Reporting {
 					}catch(Exception e) {
 						
 					}
+					System.out.println("To continue press one of the suggested numbers.");
 				}else if(dep == 3) {
 					System.out.println();
 					System.out.println("== Welcome to CLIENTS DATA reporting! ==");
@@ -53,6 +56,7 @@ public class Reporting {
 					System.out.println();
 					Distribution_Stars.getDistributionOfReasons();
 					System.out.println("---------------------------------");
+					System.out.println("To continue press one of the suggested numbers.");
 				}else if(dep == 0) {
 					confirm = false;
 				}else if(dep > 3 || dep < 0) {
@@ -64,5 +68,11 @@ public class Reporting {
 				Reporting.Menu();
 			}
 		}while(confirm);
+	}
+	
+	public static String getDate() {
+		SimpleDateFormat formatter= new SimpleDateFormat("dd-MM-yyyy, HH:mm:ss");
+		Date date = new Date(System.currentTimeMillis());
+		return formatter.format(date);
 	}
 }
