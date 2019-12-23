@@ -48,7 +48,7 @@ public class Hr_Director extends Manager{ // is resposible for all the Managers 
 				do {
 					System.out.println("Select: \n ------------- \n\n1)Send Mail. \n2)View Mails. \n3 Return to the central menu");
 					if (!sc.hasNextInt()) {
-						System.out.println("Δώστε 1 ή 2 ή 3");
+						System.out.println("Γ„ΓΎΓ³Γ΄Γ¥ 1 Γ 2 Γ 3");
 						flag3 = true;
 						sc.next();
 
@@ -662,6 +662,7 @@ public class Hr_Director extends Manager{ // is resposible for all the Managers 
 															System.out.println("yes/no");
 															String verify = sc.nextLine();
 															if (verify.toLowerCase().equals("yes")) {
+																employee.setShiftStr(shiftStr);
 																System.out.println("Succesfully saved. ");
 															}else if (verify.toLowerCase().equals("no")){
 																System.out.println("Shift has not been saved, please insert a new shift.");
@@ -813,6 +814,7 @@ public class Hr_Director extends Manager{ // is resposible for all the Managers 
 													System.out.println("yes/no");
 													String verify = sc.nextLine();
 													if (verify.toLowerCase().equals("yes")) {
+														manager.setShiftStr(shiftStr);
 														System.out.println("Succesfully saved. ");
 													}else if (verify.toLowerCase().equals("no")){
 														System.out.println("Shift has not been saved, please insert a new shift.");
@@ -1031,8 +1033,8 @@ public class Hr_Director extends Manager{ // is resposible for all the Managers 
 				} while (flag3);
 				if (epilogh + Employee.Employees.get(x).getWresyperergasias_evdomadiaiws() > 5) {
 					System.err.println(
-							"Συμφωνα με τον Ν.3863/2010 ο υπάλληλος απαγορεύεται να δουλέψει περισσότερες από 5 ώρες υπερωρίας την εδβομάδα. ");
-					System.out.printf("Ο υπάλληλος έχει δουλέψει ήδη %d ώρες αυτή τη βδομάδα\n",
+							"Ξ£Ο…ΞΌΟ†Ο‰Ξ½Ξ± ΞΌΞµ Ο„ΞΏΞ½ Ξ.3863/2010 ΞΏ Ο…Ο€Ξ¬Ξ»Ξ»Ξ·Ξ»ΞΏΟ‚ Ξ±Ο€Ξ±Ξ³ΞΏΟΞµΟΞµΟ„Ξ±ΞΉ Ξ½Ξ± Ξ΄ΞΏΟ…Ξ»Ξ­ΟΞµΞΉ Ο€ΞµΟΞΉΟƒΟƒΟΟ„ΞµΟΞµΟ‚ Ξ±Ο€Ο 5 ΟΟΞµΟ‚ Ο…Ο€ΞµΟΟ‰ΟΞ―Ξ±Ο‚ Ο„Ξ·Ξ½ ΞµΞ΄Ξ²ΞΏΞΌΞ¬Ξ΄Ξ±. ");
+					System.out.printf("Ξ Ο…Ο€Ξ¬Ξ»Ξ»Ξ·Ξ»ΞΏΟ‚ Ξ­Ο‡ΞµΞΉ Ξ΄ΞΏΟ…Ξ»Ξ­ΟΞµΞΉ Ξ®Ξ΄Ξ· %d ΟΟΞµΟ‚ Ξ±Ο…Ο„Ξ® Ο„Ξ· Ξ²Ξ΄ΞΏΞΌΞ¬Ξ΄Ξ±\n",
 							Employee.Employees.get(x).getWresyperergasias_evdomadiaiws());
 					continue;
 				}else if (epilogh < 1) {
@@ -1051,7 +1053,7 @@ public class Hr_Director extends Manager{ // is resposible for all the Managers 
 					continue;
 				}else {
 					somethingWrong = false;
-					System.out.printf("Είστε σίγουρος οτι θέλετε ο %s να κάνει " + epilogh + " ώρα/ώρες υπερωρίας;\n",
+					System.out.printf("Ξ•Ξ―ΟƒΟ„Ξµ ΟƒΞ―Ξ³ΞΏΟ…ΟΞΏΟ‚ ΞΏΟ„ΞΉ ΞΈΞ­Ξ»ΞµΟ„Ξµ ΞΏ %s Ξ½Ξ± ΞΊΞ¬Ξ½ΞµΞΉ " + epilogh + " ΟΟΞ±/ΟΟΞµΟ‚ Ο…Ο€ΞµΟΟ‰ΟΞ―Ξ±Ο‚;\n",
 							Employee.Employees.get(x).getFirstname(), Employee.Employees.get(x).getSurname());
 					boolean flag4;
 					do {

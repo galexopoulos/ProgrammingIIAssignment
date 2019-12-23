@@ -35,7 +35,7 @@ public class check_main {
 /*6*/	Employee NF = new Employee("Nate", "Feuerstein", "GOAT", "paidmydues", 3034308, Barney);  	
 	
 
-		String[] shift = { "11:00-17:00", "10:00-18:30", "-", "7:00-14:00", "22:00-", "-7:00,12:00-13:00", "-",
+		String[] shift = { "9:00-17:00", "1:00-9:00", "-", "7:00-14:00", "19:00-", "-1:00,12:00-13:00", "-",
 				"11:00-17:00" };
 		Calendar[][] shiftcal = { null, null, null, null, null, null, null };
 		try {
@@ -45,7 +45,9 @@ public class check_main {
 		}
 		Barney.setShiftStr(shift);
 		Barney.setThisWeekShift(shiftcal);
-		String[] shift2 = { "12:00-18:00", "23:00-", "-1:00", "12:00-17:00", "7:00-14:00", "9:00-17:00", "23:00-23:30,23:31-23:45,23:46-23:47,23:48-23:49",
+		Petreas.setShiftStr(shift);
+		Petreas.setThisWeekShift(shiftcal);
+		String[] shift2 = { "12:00-13:00", "16:00-", "-8:00", "12:00-20:00", "7:00-14:00", "9:01-17:00", "23:00-23:30,23:31-23:45,23:46-23:47,23:48-23:49",
 				"12:00-18:00" };
 		try {
 			shiftcal = Shift.createShift(shift2);
@@ -54,6 +56,8 @@ public class check_main {
 		}
 		Rachel.setShiftStr(shift2);
 		Rachel.setThisWeekShift(shiftcal);
+		Ivan.setShiftStr(shift2);
+		Ivan.setThisWeekShift(shiftcal);
 		String[] shift3 = { "7:00-14:00", "7:00-14:00", "7:00-14:00", "7:00-14:00", "7:00-14:00", "-", "-",
 				"7:00-14:00" };
 		Calendar cal = Calendar.getInstance();
@@ -71,6 +75,8 @@ public class check_main {
 		}
 		NF.setShiftStr(shift3);
 		NF.setThisWeekShift(shiftcal); 
+		Rick.setShiftStr(shift3);
+		Rick.setThisWeekShift(shiftcal); 
 		Hr_surface.toRun();
 	}
 }

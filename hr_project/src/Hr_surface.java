@@ -214,6 +214,7 @@ public class Hr_surface {
 												System.out.println("yes/no");
 												String verify = sc.nextLine();
 												if (verify.toLowerCase().equals("yes")) {
+													manager.setShiftStr(shiftStr);
 													System.out.println("Succesfully saved. ");
 												}else if (verify.toLowerCase().equals("no")){
 													System.out.println("Shift has not been saved, please insert a new shift.");
@@ -398,6 +399,7 @@ public class Hr_surface {
 											System.out.println("yes/no");
 											String verify = sc.nextLine();
 											if (verify.toLowerCase().equals("yes")) {
+												employee.setShiftStr(shiftStr);
 												System.out.println("Succesfully saved. ");
 											}else if (verify.toLowerCase().equals("no")){
 												System.out.println("Shift has not been saved, please insert a new shift.");
