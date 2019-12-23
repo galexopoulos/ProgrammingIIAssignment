@@ -1,10 +1,13 @@
+package mainProject;
 
-public class MainClass {
-	public static void main(String args[]) {	
+public class theMain {
+
+	public static void main(String[] args) {
 		/*
 		 * Thread tWeek = new Thread(new weekThread()); Thread tMonth = new Thread(new
 		 * monthThread()); tWeek.start(); tMonth.start();
 		 */
+		System.out.println("hi");
 		while (true) {
 					InputMenu();
 		}
@@ -84,4 +87,7 @@ public class MainClass {
 	public void toBeDoneEveryWeek() {
 		Hr_surface.toBeDoneEveryWeek();
 	}
+}
+
+
 }
