@@ -582,22 +582,6 @@ public class Manager extends Employee { // responsible for the Employees who hav
 	}
 
 
-	public static int binarySearch(int x) {// x the id you want to find in the Employees and returns the position in
-											// Employees
-		int l = 0, r = Employee.Employees.size() - 1;
-		while (l <= r) {
-			int m = l + (r - l) / 2;
-			if (Employee.Employees.get(m).getEmployee_Id() == x)
-				return m;
-
-			if (Employee.Employees.get(m).getEmployee_Id() < x)
-				l = m + 1;
-			else
-				r = m - 1;
-		}
-		return -1;
-	}
-
 	public static int whereIsManager(int id) {// if the inserted id is a valid Manager id, the method returns the
 												// position in Employees, else returns -1.
 		for (int i = 0; i < Employee.Employees.size(); i++) {
