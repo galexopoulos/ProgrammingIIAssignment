@@ -1,20 +1,39 @@
-import java.util.*;
-public class Hr_Director extends Manager{ // is resposible for all the Managers (even if they have another Manager)
-	//private String firstname, surname, position , password;
-//	private int employee_Id, extraHoursMonth = 0 /*need to be set to 0 every month*/, salary, monthPayment;
+import java.util.Scanner;
+import java.util.Calendar;
+
+
+/**
+ * The class that refers to the Hr Director
+ * Extends the Manager class and has not any extra fields.
+ * Every Manager is responsible for the Employees who have him as Manager.
+ * Hr Director is responsible for all the Managers (even if they have another Manager).
+ * @author Nilolaos Antonopoulos, Georgios Sideris
+ *
+ */
+public class Hr_Director extends Manager{
 	
-	public Hr_Director(String firstname, String surname, String position, String password, int salary,
-			Manager manager) {// position will be set to Hr Director and Manager to null
-		super(firstname, surname, position, password, salary, manager);
+	/**
+	 * Constructor of Hr_Director with arguments firstname, surname, password, salary
+	 * position set to "Hr Director" and Manager to null
+	 * @param firstname
+	 * @param surname
+	 * @param password
+	 * @param salary
+	 */
+	public Hr_Director(String firstname, String surname, String password, int salary) {
+		super(firstname, surname, password, salary);
+		this.setPosition("Hr director");
+		this.setManager(null);
 	}
 	
-	
+	/** The method that prints the basic characteristics of the Hr_Director, except of manager. */
 	@Override
 	public String toString() {
 		return "Hr Director [firstname=" + getFirstname() + ", surname=" + getSurname() + ", position=" + getPosition() + ", employee_Id="
 				+ getEmployee_Id() + ", salary=" + getSalary()  + "]";
 	}
 	
+	/** The method of the menu of the Hr_Director. */
 	public void getMenu() {
 		Scanner sc = new Scanner(System.in);
 		boolean menuflag = true;
@@ -48,7 +67,7 @@ public class Hr_Director extends Manager{ // is resposible for all the Managers 
 				do {
 					System.out.println("Select: \n ------------- \n\n1)Send Mail. \n2)View Mails. \n3 Return to the central menu");
 					if (!sc.hasNextInt()) {
-						System.out.println("Γ„ΓΎΓ³Γ΄Γ¥ 1 Γ 2 Γ 3");
+						System.out.println("Δώστε 1 ή 2 ή 3");
 						flag3 = true;
 						sc.next();
 
@@ -321,7 +340,7 @@ public class Hr_Director extends Manager{ // is resposible for all the Managers 
 								}else {
 									try {
 										selectedId = Integer.parseInt(selected);
-										posInEmpOfManager = binarySearch(selectedId);
+										posInEmpOfManager = empBinarySearch(selectedId);
 
 										if (posInEmpOfManager != -1) {
 											if (selectedId != Employee.Employees.get(posInEmployees).getManager()
@@ -429,7 +448,7 @@ public class Hr_Director extends Manager{ // is resposible for all the Managers 
 						} else {
 							try {
 								selectedId = Integer.parseInt(selected);
-								posInEmployees = binarySearch(selectedId);
+								posInEmployees = empBinarySearch(selectedId);
 								if (posInEmployees == -1) {
 									flag1 = true;
 									System.out.println("That is not a valid Id.");
@@ -871,7 +890,7 @@ public class Hr_Director extends Manager{ // is resposible for all the Managers 
 					} else {
 						try {
 							selectedId = Integer.parseInt(selected);
-							posInEmployees = binarySearch(selectedId);
+							posInEmployees = empBinarySearch(selectedId);
 							if (posInEmployees == -1) {
 								flag1 = true;
 								System.out.println("That is not a valid Id.");
@@ -924,7 +943,7 @@ public class Hr_Director extends Manager{ // is resposible for all the Managers 
 					} else {
 						try {
 							selectedId = Integer.parseInt(selected);
-							posInEmployees = binarySearch(selectedId);
+							posInEmployees = empBinarySearch(selectedId);
 							if (posInEmployees == -1) {
 								flag1 = true;
 								System.out.println("That is not a valid Id.");
@@ -967,7 +986,12 @@ public class Hr_Director extends Manager{ // is resposible for all the Managers 
 		}while(menuflag);
 	}
 	
-	
+	/**
+	 * Inmethod enter an id and returns -1 if the id is invalid
+	 * or the employee's who requested it, or doesn't refer to a Manager,
+	 * else returns the position in list Employees.
+	 * @return posInEmployees
+	 */
 	public int enterManagerId() {
 		Scanner sc = new Scanner(System.in);
 		String selected;
@@ -983,7 +1007,7 @@ public class Hr_Director extends Manager{ // is resposible for all the Managers 
 			} else {
 				try {
 					selectedId = Integer.parseInt(selected);
-					int posInEmployees = binarySearch(selectedId);
+					int posInEmployees = empBinarySearch(selectedId);
 					if (posInEmployees != -1) {
 						if (Employee.Employees.get(posInEmployees) instanceof Manager) {
 							requested = posInEmployees;
@@ -1005,6 +1029,10 @@ public class Hr_Director extends Manager{ // is resposible for all the Managers 
 		} while (flag1);
 		return requested;
 	}
+	
+	/**
+	 * NIKO JAVADOC
+	 */
 	public void Yperoria() {
 
 		Calendar calendar = Calendar.getInstance();
@@ -1033,8 +1061,8 @@ public class Hr_Director extends Manager{ // is resposible for all the Managers 
 				} while (flag3);
 				if (epilogh + Employee.Employees.get(x).getWresyperergasias_evdomadiaiws() > 5) {
 					System.err.println(
-							"Ξ£Ο…ΞΌΟ†Ο‰Ξ½Ξ± ΞΌΞµ Ο„ΞΏΞ½ Ξ.3863/2010 ΞΏ Ο…Ο€Ξ¬Ξ»Ξ»Ξ·Ξ»ΞΏΟ‚ Ξ±Ο€Ξ±Ξ³ΞΏΟΞµΟΞµΟ„Ξ±ΞΉ Ξ½Ξ± Ξ΄ΞΏΟ…Ξ»Ξ­ΟΞµΞΉ Ο€ΞµΟΞΉΟƒΟƒΟΟ„ΞµΟΞµΟ‚ Ξ±Ο€Ο 5 ΟΟΞµΟ‚ Ο…Ο€ΞµΟΟ‰ΟΞ―Ξ±Ο‚ Ο„Ξ·Ξ½ ΞµΞ΄Ξ²ΞΏΞΌΞ¬Ξ΄Ξ±. ");
-					System.out.printf("Ξ Ο…Ο€Ξ¬Ξ»Ξ»Ξ·Ξ»ΞΏΟ‚ Ξ­Ο‡ΞµΞΉ Ξ΄ΞΏΟ…Ξ»Ξ­ΟΞµΞΉ Ξ®Ξ΄Ξ· %d ΟΟΞµΟ‚ Ξ±Ο…Ο„Ξ® Ο„Ξ· Ξ²Ξ΄ΞΏΞΌΞ¬Ξ΄Ξ±\n",
+							"Συμφωνα με τον Ν.3863/2010 ο υπάλληλος απαγορεύεται να δουλέψει περισσότερες από 5 ώρες υπερωρίας την εδβομάδα. ");
+					System.out.printf("Ο υπάλληλος έχει δουλέψει ήδη %d ώρες αυτή τη βδομάδα\n",
 							Employee.Employees.get(x).getWresyperergasias_evdomadiaiws());
 					continue;
 				}else if (epilogh < 1) {
@@ -1048,12 +1076,12 @@ public class Hr_Director extends Manager{ // is resposible for all the Managers 
 					valueOfI = calendar.get(Calendar.DAY_OF_WEEK) - 2;
 				}	
 				
-				int posInShift = ShiftIndexToChange(epilogh, Employee.Employees.get(x).getThisWeekShift()[valueOfI]);	
+				int posInShift = shiftIndexToChange(epilogh, Employee.Employees.get(x).getThisWeekShift()[valueOfI]);	
 				if(posInShift == -1) {
 					continue;
 				}else {
 					somethingWrong = false;
-					System.out.printf("Ξ•Ξ―ΟƒΟ„Ξµ ΟƒΞ―Ξ³ΞΏΟ…ΟΞΏΟ‚ ΞΏΟ„ΞΉ ΞΈΞ­Ξ»ΞµΟ„Ξµ ΞΏ %s Ξ½Ξ± ΞΊΞ¬Ξ½ΞµΞΉ " + epilogh + " ΟΟΞ±/ΟΟΞµΟ‚ Ο…Ο€ΞµΟΟ‰ΟΞ―Ξ±Ο‚;\n",
+					System.out.printf("Είστε σίγουρος οτι θέλετε ο %s να κάνει " + epilogh + " ώρα/ώρες υπερωρίας;\n",
 							Employee.Employees.get(x).getFirstname(), Employee.Employees.get(x).getSurname());
 					boolean flag4;
 					do {

@@ -1,7 +1,20 @@
-import java.util.*;
+import java.util.Scanner;
+import java.util.InputMismatchException;
+
+/**
+ * The class that contains the methods the will be directly called by the main class.
+ * 
+ * @author Nilolaos Antonopoulos, Georgios Sideris
+ */
 
 public class Hr_surface {
 	
+	/** 
+	 * The basic Hr method
+	 * Contains the first initializations of the Hr, possibly won't be used at this project though
+	 * Contains the logging in procedure that will call the proper getMenu method
+	 */
+	 
 	public static void toRun(){
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Welcome to Hr part!");
@@ -9,11 +22,11 @@ public class Hr_surface {
 								// is the first time that the client enters Hr part
 		
 		
-		/*
+	/*	
 		//BEGINNING OF IF
 		System.out.println("At the beginning is necessary to set up the hr data. \n");
 		boolean directornotset;
-		Hr_Director hrDirector = new Hr_Director("", "", "Hr Director", "", -1, null);
+		Hr_Director hrDirector = new Hr_Director("", "", "", -1);
 		do {
 			directornotset = false;
 			System.out.println("Hr Director's set up. \n");
@@ -463,7 +476,7 @@ public class Hr_surface {
 		}
 		//END OF IF
 		//}
-	*/
+*/
 		
 		boolean stayAtHR;
 		do {
@@ -500,6 +513,9 @@ public class Hr_surface {
 		}while(stayAtHR);
 	}
 
+	/**
+	 * The method called from main for the weekly procedures.
+	 */
 	public static void toBeDoneEveryWeek() {
 		for (Employee a : Employee.Employees) {
 			try {
@@ -514,6 +530,9 @@ public class Hr_surface {
 		}
 	}
 
+	/**
+	 * The method called from main for the monthly procedures.
+	 */
 	public static void toBeDoneEveryMonth() {
 		double totalSalaryOutcome = 0;
 		for (Employee a : Employee.Employees) {

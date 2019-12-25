@@ -1,32 +1,61 @@
 
 import java.util.Calendar;
 import java.util.Scanner;
-import java.util.TimeZone;
 
-public class Manager extends Employee { // responsible for the Employees who have him as Manager
 
-	// private int employee_Id, extraHoursMonth = 0 /* need to be set to 0 every
-	// month */;
-	// private int monthPayment;
-	// private Calendar[][]thisWeekShift = new Calendar[7][8];
-	// private boolean checkedIn = false; // true when the employee has checked in
-	// but hasn't checked out
-	// private Calendar lastChecked = Calendar.getInstance();
+/**
+ * The class that refers to the Managers.
+ * Extends the Employee class and has not any extra fields.
+ * Every Manager is responsible for the Employees who have him as Manager.
+ * @author Nikolaos Antonopoulos, Georgios Sideris
+ *
+ */
 
+public class Manager extends Employee { 
+	
+	/**
+	 * Constructor of the Manager with arguments that initialize the basic fields.
+	 * @param firstname
+	 * @param surname
+	 * @param position
+	 * @param password
+	 * @param salary
+	 * @param manager
+	 */
 	public Manager(String firstname, String surname, String position, String password, double salary, Manager manager) {
 		super(firstname, surname, position, password, salary, manager);
 	}
 
+	/**
+	 * Constructor using an Employee as parameter,
+	 * this constructor is used to promote an Employee to Manager.
+	 * @param employee
+	 */
 	public Manager(Employee employee) {// for the promotion at the Hr Director class
 		super(employee);
 	}
 
+	
+	/**
+	 * Constructor used for the Hr Director.
+	 * @param firstname
+	 * @param surname
+	 * @param password
+	 * @param salary
+	 */
+	Manager (String firstname, String surname, String password, int salary){
+		super(firstname, surname, password, salary);
+	}
+	
+	
+	/** The method that prints the basic characteristics of a Manager, except of manager. */
 	@Override
 	public String toString() {
 		return "Manager [firstname=" + getFirstname() + ", surname=" + getSurname() + ", position=" + getPosition()
 				+ ", employee_Id=" + getEmployee_Id() + ", salary=" + getSalary() + "]";
 	}
 
+	/** The method of the menu of a Manager. */
 	public void getMenu() {
 		Scanner sc = new Scanner(System.in);
 		boolean menuflag = true;
@@ -464,7 +493,7 @@ public class Manager extends Employee { // responsible for the Employees who hav
 								} else {
 									try {
 										selectedId = Integer.parseInt(selected);
-										posInEmpOfManager = binarySearch(selectedId);
+										posInEmpOfManager = empBinarySearch(selectedId);
 
 										if (posInEmpOfManager != -1) {
 											if (selectedId != this.getEmployee_Id()
@@ -543,6 +572,11 @@ public class Manager extends Employee { // responsible for the Employees who hav
 		} while (menuflag);
 	}
 
+	/**
+	 * Finds the position in the list Employees of the employee of the Manger with the inserted id.
+	 * @return the position in list Employees if there is an Employee with the inserted id and has 
+	 * as manager the Manager who requested, else returns -1.
+	 */
 	public int enterEmpId() {// a manager can only find the id of his employees
 		Scanner sc = new Scanner(System.in);
 		String selected;
@@ -558,7 +592,7 @@ public class Manager extends Employee { // responsible for the Employees who hav
 			} else {
 				try {
 					selectedId = Integer.parseInt(selected);
-					int posInEmployees = binarySearch(selectedId);
+					int posInEmployees = empBinarySearch(selectedId);
 					if (posInEmployees != -1) {
 						if (this.equals(Employee.Employees.get(posInEmployees).getManager())) {
 							requested = posInEmployees;
@@ -581,9 +615,13 @@ public class Manager extends Employee { // responsible for the Employees who hav
 		return requested;
 	}
 
-
-	public static int whereIsManager(int id) {// if the inserted id is a valid Manager id, the method returns the
-												// position in Employees, else returns -1.
+	/**
+	 * Finds the position in list Employees of the Manager with the input id.
+	 * @param id , the id of the Manager 
+	 * @return the position in list Employees if the input id is a valid Manager id,
+	 * else returns -1.
+	 */
+	public static int whereIsManager(int id) {
 		for (int i = 0; i < Employee.Employees.size(); i++) {
 			if (Employee.Employees.get(i).getEmployee_Id() == id) {
 				if (Employee.Employees.get(i) instanceof Manager) {
@@ -597,6 +635,9 @@ public class Manager extends Employee { // responsible for the Employees who hav
 		return -1;
 	}
 	
+	/**
+	 * NIKO JAVADOC
+	 */
 	public void Yperoria() {
 
 		Calendar calendar = Calendar.getInstance();
@@ -640,7 +681,7 @@ public class Manager extends Employee { // responsible for the Employees who hav
 					valueOfI = calendar.get(Calendar.DAY_OF_WEEK) - 2;
 				}	
 				
-				int posInShift = ShiftIndexToChange(epilogh, Employee.Employees.get(x).getThisWeekShift()[valueOfI]);	
+				int posInShift = shiftIndexToChange(epilogh, Employee.Employees.get(x).getThisWeekShift()[valueOfI]);	
 				if(posInShift == -1) {
 					continue;
 				}else {
@@ -684,7 +725,7 @@ public class Manager extends Employee { // responsible for the Employees who hav
 
 	}
 
-	public int ShiftIndexToChange(int extraHours, Calendar[] dayShift) {//returns -1 if 1)extra hours overpass midnight
+	public int shiftIndexToChange(int extraHours, Calendar[] dayShift) {//returns -1 if 1)extra hours overpass midnight
 																					//  2)employee has a shift that continues the next day
 																			 		//  3)extra hours added after the emmployee finished his shift
 																					//  4)employee doesn't work the requested day
