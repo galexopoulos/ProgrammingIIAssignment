@@ -4,7 +4,6 @@ import java.time.*;
 public class check_main {
 
 	public static void main(String args[]) {
-
 		/*
 		 * Scanner sc = new Scanner(System.in); String daySchedule = "3:00-4:00";
 		 * String[] a = new String[8];
