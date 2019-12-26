@@ -22,8 +22,8 @@ public class Hr_surface {
 								// is the first time that the client enters Hr part
 		
 		
-	/*	
-		//BEGINNING OF IF
+/*
+	//	if (mainClass.IsHrCalledOnce()) {
 		System.out.println("At the beginning is necessary to set up the hr data. \n");
 		boolean directornotset;
 		Hr_Director hrDirector = new Hr_Director("", "", "", -1);
@@ -474,7 +474,6 @@ public class Hr_surface {
 		for(int i = firstemppos; i < Employee.Employees.size(); i++) {
 			System.out.println(Employee.Employees.get(i).toString());
 		}
-		//END OF IF
 		//}
 */
 		
