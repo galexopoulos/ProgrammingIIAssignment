@@ -1,7 +1,17 @@
-
+import java.util.Scanner;
+/**
+ * The main class of our program,
+ * contains the main method.
+ * @author Nikolaos Antonopoulos, Georgios Sideris
+ *
+ */
 public class mainClass {
 
-
+	/**
+	 * main method, calls the starting menu
+	 * also contains some code related to threads, that won't be used at the presentation
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		/*
 		 * Thread tWeek = new Thread(new weekThread()); Thread tMonth = new Thread(new
@@ -12,9 +22,10 @@ public class mainClass {
 		}
 	}
 	
+	/** user chooses one of the options from the starting menu */
 	public static void InputMenu() {
 		Scanner in = new Scanner(System.in);
-		display_Menu();
+		display_menu();
 		int epilogh = 0;
 		boolean flag2 = false;
 		do {
@@ -71,19 +82,24 @@ public class mainClass {
 		}
 	}
 
-	public void display_menu() {
+	
+	/** shows the starting menu */
+	public static void display_menu() {
 		System.out.println(
 				"1) HR DEPARTMENT \n2) SALES DEPARTMENT \n3) FINANCE AND REPORTING DEPARTMENT \n4) INVENTORY MANAGMENT DEPARTMENT \n5) CRM DEPARTMENT\n");
 		System.out.print("-----------CHOOSE A NUMBER BETWEEN 1 AND 7------------ \n");
 	}
 
 
-
-	public void toBeDoneEveryMonth() {
+	
+	/** contains the actions we want to do at the start of every month */
+	public static void toBeDoneEveryMonth() {
 		Hr_surface.toBeDoneEveryMonth();
 	}
 
-	public void toBeDoneEveryWeek() {
+	
+	/** contains the actions we want to do at the start of every week (Monday) */
+	public static void toBeDoneEveryWeek() {
 		Hr_surface.toBeDoneEveryWeek();
 	}
 }

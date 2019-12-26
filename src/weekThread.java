@@ -1,7 +1,17 @@
 import java.util.Calendar;
 
-
+/**
+ * The thread that does automatically the actions need to be done at the start of every week (Monday).
+ * *** WON'T be used at the presentation of the project because of the difficulties at checking.
+ * @author Georgios Sideris
+ */
 public class weekThread  implements Runnable{
+	
+	/**
+	 * run method of the thread, 
+	 * calls the methods that contain the actions need to be done at the start of every week
+	 * after every execution of these actions sleeps till the next Monday (at 00:00)
+	 */
 	public void run() {
 		while (true) {
 			try{
@@ -15,6 +25,10 @@ public class weekThread  implements Runnable{
 		}
 	}
 	
+	/**
+	 * calculates the time till 00:00 of the next Monday
+	 * @return the time at milliseconds
+	 */
 	public long millisToNextMonday() {
 				long sleepTime = 0;
 				//method for current monday in shift

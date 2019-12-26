@@ -1,6 +1,18 @@
 import java.util.Calendar;
 
+/**
+ * The thread that does automatically the actions need to be done at the start of every month.
+ * *** WON'T be used at the presentation of the project because of the difficulties at checking.
+ * @author Georgios Sideris
+ *
+ */ 
 public class monthThread implements Runnable{
+	
+	/**
+	 * run method of the thread, 
+	 * calls the methods that contain the actions need to be done at the start of every month
+	 * after every execution of these actions sleeps till the 1st day of the next month
+	 */
 	public void run() {
 		while (true) {
 			try{
@@ -15,7 +27,11 @@ public class monthThread implements Runnable{
 	}
 	
 	
-	
+
+	/**
+	 * calculates the time till the 1st day of the next month
+	 * @return the time at milliseconds
+	 */
 	public long millisToNextMonth() {
 		long sleepTime = 0;
 		Calendar nextMonth = Calendar.getInstance();
