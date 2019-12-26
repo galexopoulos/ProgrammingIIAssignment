@@ -6,12 +6,16 @@ import java.util.Scanner;
  *
  */
 public class mainClass {
-
+	
+	///** variable that shows if the hr menu has been called once WON'T be used at the presentation */
+	//private static boolean hrCalledOnce = false;
 	/**
 	 * main method, calls the starting menu
 	 * also contains some code related to threads, that won't be used at the presentation
 	 * @param args
 	 */
+	
+	
 	public static void main(String[] args) {
 		/*
 		 * Thread tWeek = new Thread(new weekThread()); Thread tMonth = new Thread(new
@@ -22,6 +26,16 @@ public class mainClass {
 		}
 	}
 	
+	///** Getter of the variable hrCalledOnce, WON'T be used at the presentation */
+	//public static boolean isHrCalledOnce() {
+	//	return hrCalledOnce;
+	//}
+
+	///** Setter of the variable hrCalledOnce, WON'T be used at the presentation */
+	//public static void setHrCalledOnce(boolean hrCalledOnce) {
+	//	mainClass.hrCalledOnce = hrCalledOnce;
+	//}
+
 	/** user chooses one of the options from the starting menu */
 	public static void InputMenu() {
 		Scanner in = new Scanner(System.in);
@@ -49,6 +63,7 @@ public class mainClass {
 		case 1:
 			System.out.println("WELCOME TO HR DEPARTMENT");
 			Hr_surface.toRun();
+			//setHrCalledOnce(true);
 			break;
 
 		case 2:
