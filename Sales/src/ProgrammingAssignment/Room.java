@@ -1,3 +1,5 @@
+package ProgrammingAssignment;
+
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -23,11 +25,14 @@ public class Room {
 	}
 
 	public static void getMenu() {
+		boolean goBack = false;
 		for (;;) {
 			int choose = 0;
 			do {
 				System.out.println("Room's Menu :");
 				System.out.println("1. See the rooms");
+				System.out.println("2. Go Back");
+				System.out.print("Selection : ");
 				try {
 					choose = sc.nextInt();
 				} catch (InputMismatchException e) {
@@ -35,16 +40,23 @@ public class Room {
 					sc.nextLine();
 					continue;
 				}
-				if (choose != 1) {
-					System.out.println("Insert 1!");
+				if (choose != 1 && choose != 2) {
+					System.out.println("Insert 1 or 2!");
 				}
-			} while (choose != 1);
+			} while (choose != 1 && choose != 2); // check selection input
+			System.out.println();
 			switch (choose) {
 			case 1:
-				for (Room room : rooms) {
+				for (Room room : rooms) { // print for every room
 					System.out.println("Room no." + room.roomNumber + "\n" + "floor : " + room.floor + "\tcapacity : "
 							+ room.capacity + "\tprice per night : " + room.pricePerNight + "€\n");
 				}
+				break;
+			case 2:
+				goBack = true;
+				break;
+			}
+			if (goBack) {
 				break;
 			}
 			continue;

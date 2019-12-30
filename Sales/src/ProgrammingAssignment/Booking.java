@@ -1,3 +1,5 @@
+package ProgrammingAssignment;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -29,20 +31,24 @@ public class Booking {
 		this.roomNumber = roomNumber;
 		this.checkIn = checkIn;
 		this.checkOut = checkOut;
-		this.nights = ((Math.abs((int) (checkIn.getTime() - checkOut.getTime()))) / (1000 * 60 * 60 * 24)) + 1; //count nights for a new booking
-		bookingCode = ++counter; //booking codes start from 1 and add up when a new room is added
+		this.nights = ((Math.abs((int) (checkIn.getTime() - checkOut.getTime()))) / (1000 * 60 * 60 * 24)) + 1; // count
+																												// nights
+																												// for a
+																												// new
+																												// booking
+		bookingCode = ++counter; // booking codes start from 1 and add up when a new room is added
 		this.extraExpenses = 0;
 		this.check = computeCheck(buffet);
 		getChecks += this.check;
-		setBookings(); //add the booking to the list 
+		setBookings(); // add the booking to the list
 	}
 
-	public double computeCheck(boolean buffet) { //calculate the booking's check, bearing in mind buffet's charge (12)
+	public double computeCheck(boolean buffet) { // calculate the booking's check, bearing in mind buffet's charge (12)
 		double check = 0;
 		for (Room a : Room.getRooms()) {
 			if (a.getRoomNumber() == roomNumber) {
 				if (buffet) {
-					check = (nights * a.getPricePerNight()) + (nights * 12 );
+					check = (nights * a.getPricePerNight()) + (nights * 12);
 				} else {
 					check = nights * a.getPricePerNight();
 					break;
@@ -55,24 +61,24 @@ public class Booking {
 	public void increaseCheck(double x) {
 		extraExpenses += x;
 		check += x;
-		getChecks +=x;
+		getChecks += x;
 	}
 
 	public void setBookings() { // add the booking to the list in the right row depending on room's number
 		bookings.get(roomNumber - 1).add(this);
 	}
-	
+
 	public static int[] getVisitors() {
 		int sum[] = { 0, 0 };
 		for (Room room : Room.getRooms()) {
 			for (Booking booking : bookings.get(room.getRoomNumber() - 1)) {
 				if (booking.checkedIn) {
-					sum[0] += Room.getRooms().get(booking.roomNumber).getCapacity();
+					sum[0] += Room.getRooms().get(booking.roomNumber - 1).getCapacity();
 					if (booking.buffet) {
-						sum[1] += Room.getRooms().get(booking.roomNumber).getCapacity();
+						sum[1] += Room.getRooms().get(booking.roomNumber - 1).getCapacity();
 					}
-					break;
 				}
+				break;
 			}
 		}
 		return sum;
@@ -85,11 +91,35 @@ public class Booking {
 			boolean f1 = false;
 			int r[] = new int[Room.getRooms().size()];
 			for (Room room : Room.getRooms()) {
-				if (room.getCapacity() == capacity) { //check for every room
+				if (room.getCapacity() == capacity) { // check for every room
 					boolean f2 = true;
 					for (Booking booking : bookings.get(i)) { // check for every room's booking
 						if (!((checkIn.before(booking.checkIn) && checkOut.before(booking.checkIn))
-								|| (checkIn.after(booking.checkOut) && checkOut.after(booking.checkOut)))) { // check if the check in and check out is not affected by an other booking and reverse the condition and as a result check which rooms don't suit
+								|| (checkIn.after(booking.checkOut) && checkOut.after(booking.checkOut)))) { // check if
+																												// the
+																												// check
+																												// in
+																												// and
+																												// check
+																												// out
+																												// is
+																												// not
+																												// affected
+																												// by an
+																												// other
+																												// booking
+																												// and
+																												// reverse
+																												// the
+																												// condition
+																												// and
+																												// as a
+																												// result
+																												// check
+																												// which
+																												// rooms
+																												// don't
+																												// suit
 							f2 = false;
 							break;
 						}
@@ -106,12 +136,13 @@ public class Booking {
 				}
 				i++;
 			}
-			if (f1) { 
+			if (f1) {
 				int chosen = 0;
 				boolean f3;
 				do {
 					f3 = false;
-					System.out.println("Choose the room's number you want to book or press 0 to cancel the procedure : ");
+					System.out
+							.println("Choose the room's number you want to book or press 0 to cancel the procedure : ");
 					try {
 						chosen = sc.nextInt();
 					} catch (InputMismatchException e) {
@@ -121,17 +152,19 @@ public class Booking {
 					}
 					if (chosen > 0 && chosen <= r.length) {
 						for (int j = 0; j < r.length; j++) { // for every room
-							if ((j + 1 == chosen) && (r[j] == 1)) { // check if  the chosen room is not one of the printed rooms
+							if ((j + 1 == chosen) && (r[j] == 1)) { // check if the chosen room is not one of the
+																	// printed rooms
 								f3 = true;
 								break;
 							}
-							if (j + 1 == r.length) { // if the loop hasn't been broken this room is  not available 
-								System.out.println(ANSI_RED + "This room is not compatible to your requirements!" + ANSI_RESET);
+							if (j + 1 == r.length) { // if the loop hasn't been broken this room is not available
+								System.out.println(
+										ANSI_RED + "This room is not compatible to your requirements!" + ANSI_RESET);
 							}
 						}
 					} else if (chosen == 0) { // cancel the procedure if you choose 0
 						f3 = true;
-					} else  { // room number out of bounds
+					} else { // room number out of bounds
 						System.out.println(ANSI_RED + "This room does not exists!" + ANSI_RESET);
 					}
 				} while (f3 == false);
@@ -140,7 +173,7 @@ public class Booking {
 				} else {
 					System.out.println("No booking created!\n");
 				}
-			} else { // no rooms were available 
+			} else { // no rooms were available
 				System.out.println("No rooms available for these dates!\n");
 			}
 			break;
@@ -149,6 +182,7 @@ public class Booking {
 	}
 
 	public static void getMenu() {
+		boolean goBack = false;
 		for (;;) {
 			int choose1 = 0;
 			do {
@@ -167,10 +201,12 @@ public class Booking {
 					sc.nextLine();
 					continue;
 				}
-				if (choose1 != 1 && choose1 != 2 && choose1 != 3 && choose1 != 4 && choose1 != 5) {
-					System.out.println(ANSI_RED + "Insert 1 or 2 or 3 or 4 or 5! " + ANSI_RESET);
+				if (choose1 != 1 && choose1 != 2 && choose1 != 3 && choose1 != 4 && choose1 != 5 && choose1 != 6) {
+					System.out.println(ANSI_RED + "Insert 1 or 2 or 3 or 4 or 5 or 6! " + ANSI_RESET);
 				}
-			} while (choose1 != 1 && choose1 != 2 && choose1 != 3 && choose1 != 4 && choose1 != 5); // check menu input 
+			} while (choose1 != 1 && choose1 != 2 && choose1 != 3 && choose1 != 4 && choose1 != 5 && choose1 != 6); // check
+																													// menu
+																													// input
 			System.out.println();
 			switch (choose1) {
 			case 1:
@@ -191,7 +227,7 @@ public class Booking {
 						continue;
 					}
 					counter1++;
-				} while (capacity < 0 || capacity > 4 || capacity == 1); //check capacity input or 0 to break
+				} while (capacity < 0 || capacity > 4 || capacity == 1); // check capacity input or 0 to break
 				if (capacity == 0) {
 					break;
 				}
@@ -265,8 +301,8 @@ public class Booking {
 					Cal1.set(Calendar.MINUTE, 0);
 					Cal1.set(Calendar.SECOND, 0);
 					Cal1.set(Calendar.MILLISECOND, 0);
-					today = new Date(); //set today's date
-					checkIn = Cal1.getTime(); // set check in date from calendar to date 
+					today = new Date(); // set today's date
+					checkIn = Cal1.getTime(); // set check in date from calendar to date
 					Calendar Caltoday = Calendar.getInstance();
 					Calendar CalcheckIn = Calendar.getInstance();
 					// check if the check in is for today to accept the date
@@ -274,11 +310,11 @@ public class Booking {
 					if ((Caltoday.get(Calendar.DAY_OF_MONTH) == CalcheckIn.get(Calendar.DAY_OF_MONTH))
 							&& (Caltoday.get(Calendar.MONTH) == CalcheckIn.get(Calendar.MONTH))
 							&& (Caltoday.get(Calendar.YEAR) == CalcheckIn.get(Calendar.YEAR))) {
-						checkIn = Caltoday.getTime(); //set check in same as the today date to be accepted
+						checkIn = Caltoday.getTime(); // set check in same as the today date to be accepted
 						break;
 					}
 					counter2++;
-				} while (checkIn.before(today)); // check the check in date to be after today 
+				} while (checkIn.before(today)); // check the check in date to be after today
 				if (breaks) {
 					break;
 				}
@@ -352,12 +388,12 @@ public class Booking {
 					Cal2.set(Calendar.MILLISECOND, 0);
 					checkOut = Cal2.getTime();
 					counter2++;
-				} while (checkIn.after(checkOut)); // check the check out date to be after check in 
+				} while (checkIn.after(checkOut)); // check the check out date to be after check in
 
 				if (breaks) { // check if procedure is canceled in order to break
 					break;
 				}
-				Room roomForBook = Availability(capacity, checkIn, checkOut); //check for availability
+				Room roomForBook = Availability(capacity, checkIn, checkOut); // check for availability
 				if (roomForBook == null) { // if there was no room to be booked
 					break;
 				} else {
@@ -393,7 +429,8 @@ public class Booking {
 						if (counter14 > 0) { // check if there was a fail attempt for sure answer
 							System.out.println(ANSI_RED + "Only valid answers are 'YES' and 'NO'!" + ANSI_RESET);
 						}
-						System.out.println("Are you sure you want to create the booking for : " + checkIn + " and " + checkOut + ". Type 'YES' or 'NO' : ");
+						System.out.println("Are you sure you want to create the booking for : " + checkIn + " and "
+								+ checkOut + ". Type 'YES' or 'NO' : ");
 						String answer = sc.nextLine();
 						if (answer.toLowerCase().equals("yes")) {
 							sure = true;
@@ -405,9 +442,11 @@ public class Booking {
 						counter14++;
 					} while (true); // check answers to be yes or no
 					if (sure) {
-					Booking a = new Booking(checkIn, checkOut, roomForBook.getRoomNumber(), buffet); // create the booking
-					System.out.println("The booking with code : " + a.bookingCode + " in the room no." + a.roomNumber + " and check : " + a.check + "€" 
-							+ "\n has been completed successfully!\n ");
+						Booking a = new Booking(checkIn, checkOut, roomForBook.getRoomNumber(), buffet); // create the
+																											// booking
+						System.out
+								.println("The booking with code : " + a.bookingCode + " in the room no." + a.roomNumber
+										+ " and check : " + a.check + "€" + "\n has been completed successfully!\n ");
 					} else {
 						System.out.println("No booking created!\n");
 					}
@@ -430,11 +469,12 @@ public class Booking {
 						continue;
 					}
 					counter4++;
-				} while (roomIn < 0 || roomIn > Room.getRooms().size()); // check room's number not to be out of bounds or 0 to break
+				} while (roomIn < 0 || roomIn > Room.getRooms().size()); // check room's number not to be out of bounds
+																			// or 0 to break
 				if (roomIn == 0) {
 					break;
 				}
-				//set dates to calendar
+				// set dates to calendar
 				Calendar today1 = Calendar.getInstance();
 				Calendar checkInd = Calendar.getInstance();
 				Booking b1 = null;
@@ -444,7 +484,8 @@ public class Booking {
 					if ((today1.get(Calendar.DAY_OF_MONTH) == checkInd.get(Calendar.DAY_OF_MONTH))
 							&& (today1.get(Calendar.MONTH) == checkInd.get(Calendar.MONTH))
 							&& (today1.get(Calendar.YEAR) == checkInd.get(Calendar.YEAR))
-							&& (today1.get(Calendar.HOUR) >= checkInd.get(Calendar.HOUR))) { //check if its is the time for check in
+							&& (today1.get(Calendar.HOUR) >= checkInd.get(Calendar.HOUR))) { // check if its is the time
+																								// for check in
 						if (book.checkedIn == false) { // check if this booking has already checked in
 							book.checkedIn = true;
 							b1 = book;
@@ -462,7 +503,8 @@ public class Booking {
 				} else {
 					b1.checkIn = today1.getTime();
 					System.out.println("Check In for Room no : " + b1.roomNumber + ", with Booking Code : "
-							+ b1.bookingCode + ", completed succesfully at : " + b1.checkIn + "\n");
+							+ b1.bookingCode + ", completed succesfully at : " + b1.checkIn + "\n"); // complete check
+																										// in
 				}
 				break;
 			case 3:
@@ -482,20 +524,24 @@ public class Booking {
 						continue;
 					}
 					counter5++;
-				} while (roomOut < 0 || roomOut > Room.getRooms().size());
+				} while (roomOut < 0 || roomOut > Room.getRooms().size()); // check room's number not to be out of
+																			// bounds or 0 to break
 				if (roomOut == 0) {
 					break;
 				}
+				// set dates to calendar
 				Calendar today2 = Calendar.getInstance();
 				Calendar checkOutd = Calendar.getInstance();
 				Booking b2 = null;
 				boolean already2 = false;
-				for (Booking book : bookings.get(roomOut - 1)) {
+				for (Booking book : bookings.get(roomOut - 1)) { // for the chosen room
 					checkOutd.setTime(book.checkOut);
 					if ((today2.get(Calendar.DAY_OF_MONTH) == checkOutd.get(Calendar.DAY_OF_MONTH))
 							&& (today2.get(Calendar.MONTH) == checkOutd.get(Calendar.MONTH))
-							&& (today2.get(Calendar.YEAR) == checkOutd.get(Calendar.YEAR))) {
-						if (book.checkedOut == false) {
+							&& (today2.get(Calendar.YEAR) == checkOutd.get(Calendar.YEAR))) { // check if the date is
+																								// the right to check
+																								// out
+						if (book.checkedOut == false) { // check if this booking has already checked out
 							book.checkedOut = true;
 							b2 = book;
 							break;
@@ -512,43 +558,55 @@ public class Booking {
 				} else {
 					b2.checkOut = today2.getTime();
 					bookings.get(roomOut - 1).remove(b2);
-					System.out.println("Room : " + roomOut + ",with Booking Code : " + b2.bookingCode
+					System.out.println("Room : " + roomOut + ", with Booking Code : " + b2.bookingCode
 							+ ", Checked Out with final check : " + b2.check + "€" + ", at :" + b2.checkOut + "\n");
 				}
 				break;
 			case 4:
 				int bookCode1 = -1;
+				int counter14 = 0;
 				do {
-					System.out.println("Insert the code of the booking you want to cancel : (press 0 to cancel the procedure) ");
+					if (counter14 > 0) {
+						System.out.println("Wrong booking code!");
+					}
+					System.out.println(
+							"Insert the code of the booking you want to cancel : (press 0 to cancel the procedure) ");
 					try {
 						bookCode1 = sc.nextInt();
 					} catch (InputMismatchException e) {
 						System.out.println(ANSI_RED + "Insert an Integer!" + ANSI_RESET);
 						sc.nextLine();
+						counter14 = 0;
 						continue;
 					}
-				} while (bookCode1 < 0);
+					counter14++;
+				} while (bookCode1 < 0); // check to insert a valid booking code > 0
 				if (bookCode1 == 0) {
 					break;
 				}
-				int counter13 = 0;
 				boolean f4 = false;
-				for (Room room : Room.getRooms()) {
-					for (Booking booking : bookings.get(counter13)) {
-						if (booking.bookingCode == bookCode1) {
+				for (Room room : Room.getRooms()) { // check for every room
+					for (Booking booking : bookings.get(room.getRoomNumber() - 1)) {
+						if (booking.bookingCode == bookCode1) { // if its the right booking code
 							f4 = true;
-							if (booking.checkedIn == false) {
-								getChecks -= booking.check;
-								System.out.println("Booking with code : " + booking.bookingCode + " in the room no." + booking.roomNumber + " and check : 0€" + " has been canceled!\n");
-								bookings.get(counter13).remove(booking);
-							} else {
+							if (booking.checkedIn == false) { // if the room has not checked in
+								getChecks -= booking.check; // reduce the general earnings
+								System.out.println("Booking with code : " + booking.bookingCode + " in the room no."
+										+ booking.roomNumber + " and check : 0€" + " has been canceled!\n");
+								bookings.get(room.getRoomNumber() - 1).remove(booking); // remove the booking
+							} else { // if the room has checked in
+								// calculate the reduced check
 								double oldCheck = booking.check;
 								Date canceledCheckOut = new Date();
-								booking.nights = ((Math.abs((int) (booking.checkIn.getTime() - canceledCheckOut.getTime()))) / (1000 * 60 * 60 * 24)) + 1;
+								booking.nights = ((Math
+										.abs((int) (booking.checkIn.getTime() - canceledCheckOut.getTime())))
+										/ (1000 * 60 * 60 * 24)) + 1;
 								booking.check = booking.computeCheck(booking.buffet);
 								getChecks -= oldCheck - booking.check;
-								System.out.println("Booking with code : " + booking.bookingCode + " in the room no." + booking.roomNumber + " and check : " + booking.check + "€" + " has been canceled!\n");
-								bookings.get(counter13).remove(booking);
+								System.out.println("Booking with code : " + booking.bookingCode + " in the room no."
+										+ booking.roomNumber + " and check : " + booking.check + "€"
+										+ " has been canceled!\n");
+								bookings.get(room.getRoomNumber() - 1).remove(booking); // remove the booking
 							}
 							break;
 						}
@@ -556,15 +614,14 @@ public class Booking {
 					if (f4) {
 						break;
 					}
-					counter13++;
 				}
 				if (f4 == false) {
-					System.out.println("No booking with this code!\n");
+					System.out.println("No booking with this code!\n"); // no booking found with this code
 				}
 				break;
 			case 5:
+				boolean f3 = false;
 				for (;;) {
-					boolean f3 = false;
 					int choose2 = 0;
 					do {
 						System.out.println("Search for bookings :");
@@ -584,7 +641,9 @@ public class Booking {
 						if (choose2 != 1 && choose2 != 2 && choose2 != 3 && choose2 != 4 && choose2 != 5) {
 							System.out.println(ANSI_RED + "Insert 1 or 2 or 3 or 4 or 5 " + ANSI_RESET);
 						}
-					} while (choose2 != 1 && choose2 != 2 && choose2 != 3 && choose2 != 4 && choose2 != 5);
+					} while (choose2 != 1 && choose2 != 2 && choose2 != 3 && choose2 != 4 && choose2 != 5); // check
+																											// selection
+																											// input
 					System.out.println();
 					switch (choose2) {
 					case 1:
@@ -592,7 +651,7 @@ public class Booking {
 						int counter7 = 0;
 						for (Room room : Room.getRooms()) {
 							for (Booking booking : bookings.get(counter7)) {
-								if (booking.checkedIn) {
+								if (booking.checkedIn) { // check for ongoing bookings with the boolean checked in
 									counter6++;
 									System.out.println("Room : " + room.getRoomNumber());
 									System.out.println("Booking code : " + booking.bookingCode + "\tCheck In date : "
@@ -606,7 +665,7 @@ public class Booking {
 							}
 							counter7++;
 						}
-						if (counter6 == 0) {
+						if (counter6 == 0) { // check if there were no ongoing bookings
 							System.out.println("No ongoing bookings!\n");
 						}
 						break;
@@ -627,13 +686,14 @@ public class Booking {
 								continue;
 							}
 							counter8++;
-						} while (roomNum < 0 || roomNum > Room.getRooms().size());
+						} while (roomNum < 0 || roomNum > Room.getRooms().size()); // check room's number not to be out
+																					// of bounds or 0 to break
 						if (roomNum == 0) {
 							break;
 						}
 						int counter9 = 0;
 						System.out.println("Room : " + Room.getRooms().get(roomNum - 1).getRoomNumber());
-						for (Booking booking : bookings.get(roomNum - 1)) {
+						for (Booking booking : bookings.get(roomNum - 1)) { // for the chosen room
 							counter9++;
 							System.out.println("Booking code : " + booking.bookingCode + "\tCheck In date : "
 									+ booking.checkIn + ", (checked in : " + booking.checkedIn + ")"
@@ -642,7 +702,7 @@ public class Booking {
 									+ booking.check + "€" + "\t Extra expenses : " + booking.extraExpenses + "€\n");
 
 						}
-						if (counter9 > 0) {
+						if (counter9 > 0) { // print the sum of the bookings
 							System.out.println("Total bookings for Room no."
 									+ Room.getRooms().get(roomNum - 1).getRoomNumber() + " : " + counter8 + "\n");
 						} else {
@@ -651,26 +711,31 @@ public class Booking {
 						}
 						break;
 					case 3:
-						int bookCode2;
+						int bookCode2 = -1;
+						int counter13 = 0;
 						do {
+							if (counter13 > 0) {
+								System.out.println("Wrong booking code!");
+							}
 							System.out.println("Insert the booking's code (press 0 to cancel the procedure) :  ");
 							try {
 								bookCode2 = sc.nextInt();
 							} catch (InputMismatchException e) {
 								System.out.println(ANSI_RED + "Insert an Integer!" + ANSI_RESET);
 								sc.nextLine();
+								counter13 = 0;
 								continue;
 							}
-							break;
-						} while (true);
+							counter13++;
+						} while (bookCode2 < 0); //check booking code input
 						if (bookCode2 == 0) {
 							break;
 						}
 						int counter10 = 0;
 						boolean f2 = false;
-						for (Room room : Room.getRooms()) {
+						for (Room room : Room.getRooms()) { // for every room
 							for (Booking booking : bookings.get(counter10)) {
-								if (booking.bookingCode == bookCode2) {
+								if (booking.bookingCode == bookCode2) { // check if its the right code
 									f2 = true;
 									System.out.println("Booking code : " + booking.bookingCode);
 									System.out.println("Room : " + room.getRoomNumber() + "\tCheck In date : "
@@ -693,10 +758,10 @@ public class Booking {
 						break;
 					case 4:
 						int counter12 = 0;
-						for (Room room : Room.getRooms()) {
+						for (Room room : Room.getRooms()) { // for every room
 							int counter11 = 0;
 							System.out.println("Room : " + room.getRoomNumber());
-							for (Booking booking : bookings.get(counter12)) {
+							for (Booking booking : bookings.get(counter12)) { // for every booking
 								counter11++;
 								System.out.println("Booking code : " + booking.bookingCode + "\tCheck In date : "
 										+ booking.checkIn + ", (checked in : " + booking.checkedIn + ")"
@@ -721,10 +786,22 @@ public class Booking {
 					if (f3) {
 						break;
 					}
+					continue;
 				}
+				break;
+			case 6:
+				goBack = true;
+				break;
+			}
+			if (goBack) {
+				break;
 			}
 			continue;
 		}
+	}
+
+	public void setCheckedIn(boolean checkedIn) {
+		this.checkedIn = checkedIn;
 	}
 
 	public static ArrayList<ArrayList<Booking>> getBookings() {
