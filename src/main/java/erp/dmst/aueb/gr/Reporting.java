@@ -20,8 +20,8 @@ public class Reporting {
 				int dep = sc.nextInt();
 				if(dep == 1) {
 					System.out.println();
-					System.out.println("== Welcome to HR reporting! ==");
-					System.out.println("-----------------------");
+					System.out.println("-------------------- Welcome to HR reporting!-------------------");
+					System.out.println();
 					if (ReportingHR.hr.isEmpty()) {
 						System.out.println("NO employees available");
 					}else {
@@ -41,8 +41,7 @@ public class Reporting {
 					System.out.println("To continue press one of the suggested numbers.");
 				}else if(dep == 3) {
 					System.out.println();
-					System.out.println("== Welcome to CLIENTS DATA reporting! ==");
-					System.out.println("---------------------------------");
+					System.out.println("-------------- Welcome to CLIENTS DATA reporting! ----------------");
 					System.out.println();
 					ReportingClients.averageSatisfaction();
 					Distribution_Stars.getDistributionOfSatisfaction();
@@ -56,7 +55,7 @@ public class Reporting {
 					System.out.println();
 					Distribution_Stars.getDistributionOfReasons();
 					System.out.println("---------------------------------");
-					System.out.println("To continue press one of the suggested numbers.");
+					System.out.println("To continue press one of the suggested numbers of the homepage.");
 				}else if(dep == 0) {
 					confirm = false;
 				}else if(dep > 3 || dep < 0) {

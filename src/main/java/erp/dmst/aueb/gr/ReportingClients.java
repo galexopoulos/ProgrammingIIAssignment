@@ -2,27 +2,29 @@ package main.java.erp.dmst.aueb.gr;
 
 import java.util.ArrayList;
 
-public class ReportingClients { // (main) throws exception stis apadisis gia sutisfaction kai reason for travel prepei nane mesa stis epitreptes times
+public class ReportingClients { // (main) throws exception stis apadisis gia
+								// sutisfaction kai reason for travel prepei
+								// nane mesa stis epitreptes times
 
 	private String name;
 	private String surname;
-	private int satisfuction; //apo 0 eos 5
+	private int satisfuction; // apo 0 eos 5
 	private double payment;
 	private int family_alone_friends;
 	private int checkin;
 	private int checkout;
-	private int reasonfortravel; /**answers :
-								  * 0 gia epagelmatiko
-								  * 1 gia pleasure 
-								  * 2 family
-								  * 3 tourismos
-								  * 4 group trips 
-								  **/
+	private int reasonfortravel;
+	/**
+	 * answers : 0 gia epagelmatiko 1 gia pleasure 2 family 3 tourismos 4 group
+	 * trips
+	 **/
 
 	static ArrayList<ReportingClients> coustomerBase = new ArrayList<ReportingClients>();
 
-	public ReportingClients(String name, String surname, int satisfuction, 
-			 double payment, int family, int checkin, int checkout,int reasonfortravel) { //main payment + na vro tropo na kano int to check in kai to check out
+	public ReportingClients(String name, String surname, int satisfuction,
+			double payment, int family, int checkin, int checkout,
+			int reasonfortravel) { // main payment + na vro tropo na kano int to
+									// check in kai to check out
 		super();
 		this.name = name;
 		this.surname = surname;
@@ -33,7 +35,7 @@ public class ReportingClients { // (main) throws exception stis apadisis gia sut
 		this.checkout = checkout;
 		this.reasonfortravel = reasonfortravel;
 		coustomerBase.add(this);
-	} 
+	}
 
 	public String getName() {
 		return name;
@@ -94,61 +96,66 @@ public class ReportingClients { // (main) throws exception stis apadisis gia sut
 	public void setReasonfortravel(int reasonfortravel) {
 		this.reasonfortravel = reasonfortravel;
 	}
-	
+
 	public static void averageSatisfaction() {
 		int s = 0;
 		try {
-			for(ReportingClients i : ReportingClients.coustomerBase) {
+			for (ReportingClients i : ReportingClients.coustomerBase) {
 				s += i.getSatisfuction();
 			}
-			System.out.println("Average Satisfaction:"+ s/ReportingClients.coustomerBase.size());
-		}catch(Exception e) {
+			System.out.println("Average Satisfaction:"
+					+ s / ReportingClients.coustomerBase.size());
+		} catch (Exception e) {
 			System.out.println("No clients available.");
 		}
 	}
-	
+
 	public static void averageDaysOfStay() {
-		int s = 0 ;
+		int s = 0;
 		try {
-			for(ReportingClients i : ReportingClients.coustomerBase) {
+			for (ReportingClients i : ReportingClients.coustomerBase) {
 				s += i.getCheckout() - i.getCheckin();
 			}
-			System.out.println("Average days of stay:"+ s /ReportingClients.coustomerBase.size());
-		}catch(Exception e) {
+			System.out.println("Average days of stay:"
+					+ s / ReportingClients.coustomerBase.size());
+		} catch (Exception e) {
 			System.out.println("No clients available.");
 		}
 	}
-	
+
 	public static void averagePayment() {
 		int s = 0;
 		try {
-			for(ReportingClients i : ReportingClients.coustomerBase) {
+			for (ReportingClients i : ReportingClients.coustomerBase) {
 				s += i.getPayment();
 			}
-			System.out.println("Average of payments is:"+ s /ReportingClients.coustomerBase.size());
-		}catch(Exception e) {
+			System.out.println("Average of payments is:"
+					+ s / ReportingClients.coustomerBase.size());
+		} catch (Exception e) {
 			System.out.println("No payments available.");
 		}
 	}
-	
+
 	public static void percentageAlone_Family_Friends() {
 		int s1 = 0;// sum of clients that came alone
 		int s2 = 0;// sum of clients that came with their family
-		int s3 = 0;//sum of clients that came with friends
+		int s3 = 0;// sum of clients that came with friends
 		try {
-			for(ReportingClients i : ReportingClients.coustomerBase) {
+			for (ReportingClients i : ReportingClients.coustomerBase) {
 				if (i.family_alone_friends == 1) {
 					s1++;
-				}else if (i.family_alone_friends == 2) {
+				} else if (i.family_alone_friends == 2) {
 					s2++;
-				}else {
+				} else {
 					s3++;
 				}
 			}
 			System.out.printf("Average of clients that came alone is: %f /n "
 					+ "Average of clients that came with their family is: %f /n"
-					+ "Average of clients that came with their friends is: %f ", s1 / (s1+s2+s3), s2 / (s1+s2+s3), s3 / (s1+s2+s3) );
-		}catch(Exception e) {
+					+ "Average of clients that came with their friends is: %f ",
+					s1 / (s1 + s2 + s3), s2 / (s1 + s2 + s3),
+					s3 / (s1 + s2 + s3));
+		} catch (Exception e) {
 			System.out.println("No clients available.");
 		}
 	}

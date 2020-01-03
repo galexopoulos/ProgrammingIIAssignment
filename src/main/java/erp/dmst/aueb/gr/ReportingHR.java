@@ -44,7 +44,7 @@ public class ReportingHR {
 	}
 	
 	public static double averageWage() {
-		int S = 0;
+		double S = 0;
 		for (ReportingHR i : ReportingHR.hr) {
 			S += i.getWage();
 		}

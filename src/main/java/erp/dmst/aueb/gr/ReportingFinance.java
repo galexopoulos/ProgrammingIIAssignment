@@ -7,6 +7,12 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.InputMismatchException;
 
+/**
+ * 
+ * @author Ioannis Alexis perakis & Aggeliki Nina Kafouni 
+ *
+ */
+
 public class ReportingFinance { //This class must be called once a month.
 	
 		private static double electricity; //logariasmos DEH
@@ -15,44 +21,99 @@ public class ReportingFinance { //This class must be called once a month.
 		private static double wages = 0;
 		private static double cashAvailableAfterTaxes; //after taxes and Dividends
 		private static double cashAvailableBeforeTaxes;
-		private static double loan = 0;
+		private static int months = -1;
+		private static double totalexpenses ;
+		private static int years = 0;
+		
+		private static final double TAXRATE = 0.23;
 		private static final double RATE = 0.3; //shareholders rate of payment 
-		private static int months = 0;
+		
 		private static double [] fixInv;
 		private static double [] urgInv;
-		private static final double TAXRATE = 0.23;
-		
-		public static double [] ProfLosBase = new double[12];
+		protected static double [] ProfLosBase = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; //new double[12];
+		protected static double [] ProfLosPrev = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; //new double[12]; //pinakas me ta kerdoi zimies tou proigoumenou xronou
+		protected static double [] ProfLosPrev2 = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; //new double[12]; //pinakas me  ta kerdoi zimies prin apo dio xronia
+		protected static double [] ProfLosPrev3 = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; //new double[12];  // pinakas me  ta kerdoi zimies prin apo 3 xronia
 		
 		public ReportingFinance(double electricity, double waterSupply, double phone_internetSupply) {
 			super();
+			months++;
 			ReportingFinance.electricity = electricity;
 			ReportingFinance.waterSupply = waterSupply;
 			ReportingFinance.phone_internetSupply = phone_internetSupply;
-			months++;
 		}
 		
 		public static void setYearAndBase() {
 			for(;;) {
-				if (months == 11) {
-					months = 0;
-					cashAvailableBeforeTaxes = 0;
+				//if (years == 0 && months == 0) {
+				//	for (int i = 0; i <= 11; i++) {
+				//		ProfLosBase[i] = 0;
+				//		ProfLosPrev[i] = 0;
+				//		ProfLosPrev2[i] = 0;
+				//		ProfLosPrev2[i] = 0;
+				//	}
+				//	years ++;
+				//}
+				if(months == 0) { //ianouarios
 					cashAvailableAfterTaxes = 0;
-					for (int i = 0; i < ProfLosBase.length; i++) {
+					cashAvailableBeforeTaxes = 0;
+				}else if (months == 1) { //fevrouarios
+					cashAvailableAfterTaxes = 0;
+					cashAvailableBeforeTaxes = 0;
+				}else if (months == 2) {//martios
+					cashAvailableAfterTaxes = 0;
+					cashAvailableBeforeTaxes = 0;
+				}else if (months == 3) {//aprilios
+					cashAvailableAfterTaxes = 0;
+					cashAvailableBeforeTaxes = 0;
+				}else if (months == 4) {//maios
+					cashAvailableAfterTaxes = 0;
+					cashAvailableBeforeTaxes = 0;
+				}else if (months == 5) {//iounios
+					cashAvailableAfterTaxes = 0;
+					cashAvailableBeforeTaxes = 0;
+				}else if (months == 6) {//iouliios
+					cashAvailableAfterTaxes = 0;
+					cashAvailableBeforeTaxes = 0;
+				}else if (months == 7) {//avgoustos
+					cashAvailableAfterTaxes = 0;
+					cashAvailableBeforeTaxes = 0;
+				}else if (months == 8) {//septemvrios
+					cashAvailableAfterTaxes = 0;
+					cashAvailableBeforeTaxes = 0;
+				}else if (months == 9) {//oktomvrios
+					cashAvailableAfterTaxes = 0;
+					cashAvailableBeforeTaxes = 0;
+				}else if (months == 10) {//noemvrios
+					cashAvailableAfterTaxes = 0;
+					cashAvailableBeforeTaxes = 0;
+				}else if (months == 11) {//dekemvrios
+					cashAvailableAfterTaxes = 0;
+					cashAvailableBeforeTaxes = 0;
+				}else if (months == 12) {
+					years ++;
+					months = 0;
+					cashAvailableAfterTaxes = 0;
+					cashAvailableBeforeTaxes = 0;
+					ProfLosPrev3 = ProfLosPrev2;
+					ProfLosPrev2 = ProfLosPrev;
+					ProfLosPrev = ProfLosBase;
+					
+					for (int i = 0; i <= 11; i++) {
 						ProfLosBase[i] = 0;
 					}
 				}
 			}
+			
 		}
 		
-		public static void getMenu() throws InputMismatchException, Exception{
+		public static void getMenu() {
 			Scanner sc = new Scanner(System.in);
 			System.out.println("------------------ MENU FINANCE ---- " + getDate() +" --------"
 					+ "\n 1. Proceeds - Εxpenses - Profits - Losses" 
-					+ "\n 2. Loans "
-					+ "\n 3. TAX liabilities "
-					+ "\n 4. Connect to Investments menu. Username and password required."
-					+ "\n 5. Create new Investor."
+					+ "\n 2. TAX liabilities "
+					+ "\n 3. Connect to Investments menu. Username and password required."
+					+ "\n 4. Create new Investor."
 					+ "\n PRESS 0 TO EXIT."
 					+ "\n ------------------------------------------------------------------"); 
 			int ans = 0;
@@ -63,28 +124,22 @@ public class ReportingFinance { //This class must be called once a month.
 					if (ans == 0) {
 						flag = false;
 					}else if(ans == 1){
+						 profit_Losses();
 						 System.out.println("This months income is:" + getProceeds());
 						 getExpenses();
 						 if (cashAvailableBeforeTaxes >= 0 ) {
-							 System.out.println("Profits are: " + cashAvailableBeforeTaxes);
+							 System.out.println("Profits are: " + ProfLosBase[months]); 
 						 }else {
-							 System.out.println("Losses are: " + cashAvailableBeforeTaxes);
+							 System.out.println("Losses are: " + ProfLosBase[months]); 
 						 }
 						 System.out.println("To continue press one of the suggested numbers.");
-					}else if(ans == 2) {
-						 if (loan > 0 ) {
-							 System.out.println("Current loans are: " + loan);
-						 }else {
-							 System.out.println("There are no Loans to show"); 
-						 }
-						 System.out.println("To continue press one of the suggested numbers.");
-					}else if (ans == 3) {
+					}else if (ans == 2) {
 						 taxLiabilities();
 						 System.out.println("To continue press one of the suggested numbers.");
-					}else if(ans == 4) {
+					}else if(ans == 3) {
 						ShareHolders.getShareHoldersMenu(); 
 						System.out.println("To continue press one of the suggested numbers.");
-					}else if(ans == 5) {
+					}else if(ans == 4) {
 						setNewInvestor();
 						getMenu();
 						System.out.println("To continue press one of the suggested numbers.");
@@ -106,22 +161,20 @@ public class ReportingFinance { //This class must be called once a month.
 			Reporting.Menu();
 		}
 		
-		public static double getProceeds() { //theloume kapos na tsekaroume oti allazei o minas gia na midenizonte ta miniea esoda
+		public static double getProceeds() { 
 			if(Booking.getChecks > 0) {
 				return Booking.getChecks;
 			}else return 0;
 		}
 		
-		public static String getExpenses() { //This method is to used once a month
-			electricity = 0; //every month are 0
-			waterSupply = 0;
-			phone_internetSupply = 0;
+		public static void getExpenses() { //This method is to used once per month
 			
 			Date date = new Date(System.currentTimeMillis());
 			Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("Europe/Athens"));
 			cal.setTime(date);
 			int month = cal.get(Calendar.MONTH);
 			int year = cal.get(Calendar.YEAR);
+			
 			fixInv = Inventory.getInvFixFin();
 			urgInv = Inventory.getInvUrgFin();
 			double sumFixInv = 0;
@@ -134,17 +187,17 @@ public class ReportingFinance { //This class must be called once a month.
 					sumUrgInv += urgInv[i]; 
 				}
 			}catch(Exception w) {
-				System.out.println("Error");
+				System.out.println("Error -getExpenses()");
 			}
-			double totalexpenses = waterSupply + electricity + phone_internetSupply + wages + sumFixInv + sumUrgInv;
-			return "Total expenses of" + getCurrentMonth(month) + " of "+ year
-					+ "are " + totalexpenses + " "
+			totalexpenses = waterSupply + electricity + phone_internetSupply + wages + sumFixInv + sumUrgInv;
+			System.out.println("Total expenses of " + getCurrentMonth(month -1 ) + " " + year
+					+ " are " + totalexpenses + " "
 							+ "\n Water Supply bill:  " + waterSupply 
 							+ "\n Electrisity bill:   " + electricity 
 							+ "\n Telecommunications: " + phone_internetSupply
 							+ "\n Employees payments: " + wages
 							+ "\n Inventory expenses: " + sumFixInv + sumUrgInv
-							+ "\n -------------------------------------------";  //needs more data.
+							+ "\n -------------------------------------------");  
 		}
 		
 		public static String getCurrentMonth(int minas) {
@@ -177,13 +230,14 @@ public class ReportingFinance { //This class must be called once a month.
 		}
 		
 		public static void profit_Losses() {
-			double sumOfFixedExpenses = waterSupply + phone_internetSupply + electricity;// + George's Markou Buffet expenses - pending 
+			double sumOfExpenses = waterSupply + phone_internetSupply + electricity + totalexpenses;// + George's Markou Buffet expenses - pending 
 			double sumOfIncome = getProceeds(); 
 			for(ReportingHR i : ReportingHR.hr) {
 				wages += i.getWage();
 			}
-			cashAvailableBeforeTaxes =  sumOfIncome - sumOfFixedExpenses  - wages;
-			ProfLosBase [months] = cashAvailableBeforeTaxes;
+			cashAvailableBeforeTaxes =  sumOfIncome - sumOfExpenses  - wages;
+			cashAvailableAfterTaxes = cashAvailableBeforeTaxes - cashAvailableBeforeTaxes * TAXRATE;
+			ProfLosBase[months] = cashAvailableAfterTaxes ;
 		}
 		
 		public static String getDate() {
@@ -193,7 +247,7 @@ public class ReportingFinance { //This class must be called once a month.
 		}
 		
 		public static double dividends() { //this divides the profits to the shareholders depending on the rate 
-			if(cashAvailableAfterTaxes > 0 ) {						 
+			if(cashAvailableAfterTaxes > 1000 ) {						 
 				double totalDiv = cashAvailableAfterTaxes * RATE;
 				double monthlyDividends = totalDiv / ShareHolders.shareholders.size() ;
 				return monthlyDividends;
@@ -204,28 +258,18 @@ public class ReportingFinance { //This class must be called once a month.
 		
 		public static void taxLiabilities() {
 			try {
-				if(cashAvailableBeforeTaxes > 0 ) {
+				if(cashAvailableBeforeTaxes > 0  ) {
 					Date date = new Date(System.currentTimeMillis());
 					Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("Europe/Athens"));
 					cal.setTime(date);
 					int month = cal.get(Calendar.MONTH);
-					cashAvailableAfterTaxes = cashAvailableBeforeTaxes - cashAvailableBeforeTaxes * TAXRATE;
-					System.out.println("Hotel's TAX liablities of " + month + "are: " + cashAvailableBeforeTaxes * TAXRATE);
+					System.out.println("Hotel's TAX liablities of " + month + " are: " + cashAvailableBeforeTaxes * TAXRATE);
 				}else {
 					System.out.println("All Tax liabilities are sutisfied.");
 				}
 			}catch(Exception e){
 				System.err.println("Error.");
 			}
-		}
-		
-		public static void setloans(double loan, double payment) {
-			ReportingFinance.loan = loan;
-			int currentmonth = 0;
-			if(currentmonth < months) {
-				ReportingFinance.loan -= payment;
-			}
-			currentmonth++;
 		}
 		
 		public static void setNewInvestor() {

@@ -6,6 +6,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.InputMismatchException;
 import java.util.TimeZone;
+import java.util.stream.Collectors;
 
 public class ShareHolders {
 	
@@ -37,13 +38,16 @@ public class ShareHolders {
 					String usnm = sc.nextLine();
 					System.out.println("Please insert password");
 					String pass = sc.nextLine();
+					//shareholders.stream().sorted().collect(Collectors.toList());
+					System.out.println("bike");
 					for(ShareHolders i : shareholders) {
+						System.out.println("bike sto for");
 						if(i.getUsername().equals(usnm) && i.getPswrd().equals(pass)) {
 							System.out.println("Username & password are correct.");				
 							System.out.println(i.toString());
 							flag = false;
 							sc.close();
-						}else if (i.equals(shareholders.get(shareholders.size()-1))){
+						}else {
 							System.out.println("Please insert valid Username or Password.");
 						}
 					}
@@ -100,11 +104,12 @@ public class ShareHolders {
 	
 	public static boolean getMenuflag() {
 		Scanner sc = new Scanner(System.in);
-		System.out.println("---Share Holders menu---"
-				+ "\nTo proceed Press 1"
-				+ "\nExit Press 0");
+		System.out.println("------Share Holders menu------"
+				+ "\nTo proceed Press 1."
+				+ "\nExit Press 0.");
 		boolean flag = true;
 		int ans = 0;
+		
 		do {
 			try {
 				ans = sc.nextInt();
@@ -113,12 +118,19 @@ public class ShareHolders {
 				}
 			}catch(InputMismatchException e) {
 				System.err.println("Wrong answer please try again");
+				ans = 2;
+				flag = false;
 			}catch(Exception e) {
 				System.err.println("Something went wrong");
 			}
 		}while(flag);
+		if (ans == 2) {
+			getMenuflag();
+		}
 		if(ans == 1) {
 			return true;
-		}else return false;
+		}else {
+			return false;
+		}
 	}
 }
