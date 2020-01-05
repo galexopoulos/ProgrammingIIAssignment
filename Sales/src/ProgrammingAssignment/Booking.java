@@ -6,24 +6,53 @@ import java.util.Date;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+/**
+ * This class implements a booking.
+ * 
+ * @author Nikolas Moatsos
+ */
 public class Booking {
+	/** Scanner used for input. */
 	static Scanner sc = new Scanner(System.in);
 	public static final String ANSI_RESET = "\u001B[0m";
 	public static final String ANSI_RED = "\u001B[31m";
+	/** Check in date. */
 	private Date checkIn;
+	/** Check out date. */
 	private Date checkOut;
+	/** nights at the hotel. */
 	private int nights;
+	/** Static counter for the bookings codes. */
 	private static int counter = 0;
+	/** Booking's code. */
 	private int bookingCode;
+	/** Buffet offered or not boolean. */
 	private boolean buffet;
+	/** Room's number. */
 	private int roomNumber;
+	/** Room's extra expenses. */
 	private double extraExpenses;
+	/** Room's check. */
 	private double check;
+	/** Checked in or not boolean. */
 	private boolean checkedIn;
+	/** Checked out or not boolean. */
 	private boolean checkedOut;
+	/** Static array list with all the bookings. */
 	private static ArrayList<ArrayList<Booking>> bookings = new ArrayList<ArrayList<Booking>>();
+	/** Static total check for every booking. */
 	protected static double getChecks = 0;
 
+	/**
+	 * This constructs bookings specified by check in, check out, room number,
+	 * buffet, check, nights, extra expenses, booking code and add them to an array
+	 * list.
+	 * 
+	 * @param checkIn    check in date
+	 * @param checkOut   check out date
+	 * @param roomNumber booking's room number
+	 * @param buffet     if the booking offers buffet to the clients
+	 */
 	public Booking(Date checkIn, Date checkOut, int roomNumber, boolean buffet) {
 		this.buffet = buffet;
 		this.checkedIn = false;
@@ -43,6 +72,12 @@ public class Booking {
 		setBookings(); // add the booking to the list
 	}
 
+	/**
+	 * This computes the check of the booking and returns the result.
+	 * 
+	 * @param buffet if the booking offers buffet to the clients
+	 * @return final check
+	 */
 	public double computeCheck(boolean buffet) { // calculate the booking's check, bearing in mind buffet's charge (12)
 		double check = 0;
 		for (Room a : Room.getRooms()) {
@@ -58,16 +93,31 @@ public class Booking {
 		return check;
 	}
 
+	/**
+	 * This increases a booking's check during the stay.
+	 * 
+	 * @param x amount to add
+	 */
 	public void increaseCheck(double x) {
 		extraExpenses += x;
 		check += x;
 		getChecks += x;
 	}
 
+	/**
+	 * This sets the booking to the right place in the booking's array list.
+	 */
 	public void setBookings() { // add the booking to the list in the right row depending on room's number
 		bookings.get(roomNumber - 1).add(this);
 	}
 
+	/**
+	 * This calculates the number of visitors in the hotel this moment and
+	 * categorizes them to with buffet and without buffet.
+	 * 
+	 * @return array with total clients at the hotel and clients with buffet at the
+	 *         hotel
+	 */
 	public static int[] getVisitors() {
 		int sum[] = { 0, 0 };
 		for (Room room : Room.getRooms()) {
@@ -84,6 +134,14 @@ public class Booking {
 		return sum;
 	}
 
+	/**
+	 * This prints the available rooms and then returns the chosen room to book.
+	 * 
+	 * @param capacity room's capacity
+	 * @param checkIn  check in date
+	 * @param checkOut check out date
+	 * @return room to book
+	 */
 	public static Room Availability(int capacity, Date checkIn, Date checkOut) {
 		Room ret = null;
 		for (;;) {
@@ -181,6 +239,10 @@ public class Booking {
 		return ret; // return the room to be booked
 	}
 
+	/**
+	 * This prints the booking's menu and then navigates the user to the
+	 * functionalities offered.
+	 */
 	public static void getMenu() {
 		boolean goBack = false;
 		for (;;) {
@@ -727,7 +789,7 @@ public class Booking {
 								continue;
 							}
 							counter13++;
-						} while (bookCode2 < 0); //check booking code input
+						} while (bookCode2 < 0); // check booking code input
 						if (bookCode2 == 0) {
 							break;
 						}
@@ -800,18 +862,38 @@ public class Booking {
 		}
 	}
 
+	/**
+	 * This sets the check in boolean parameter to true or false when its needed.
+	 * 
+	 * @param checkedIn check in situation
+	 */
 	public void setCheckedIn(boolean checkedIn) {
 		this.checkedIn = checkedIn;
 	}
 
+	/**
+	 * This returns the bookings list.
+	 * 
+	 * @return booking array list
+	 */
 	public static ArrayList<ArrayList<Booking>> getBookings() {
 		return bookings;
 	}
 
+	/**
+	 * This return the check out date.
+	 * 
+	 * @return check out date
+	 */
 	public Date getCheckOut() {
 		return checkOut;
 	}
 
+	/**
+	 * This returns the check in date.
+	 * 
+	 * @return check in date
+	 */
 	public Date getCheckIn() {
 		return checkIn;
 	}

@@ -1,4 +1,5 @@
 package ProgrammingAssignment;
+
 import java.util.Calendar;
 import java.util.Date;
 import java.util.InputMismatchException;
@@ -9,6 +10,9 @@ public class Main {
 	public static final String ANSI_RESET = "\u001B[0m";
 	public static final String ANSI_RED = "\u001B[31m";
 
+	/**
+	 * This initializes Room and Booking objects.
+	 */
 	public static void Sales_LoadObjects() {
 
 		new Room(1, 2, 50);
@@ -38,31 +42,30 @@ public class Main {
 		new Room(3, 5, 150);
 		new Room(3, 5, 150);
 		new Room(3, 6, 200);
-		
-		  Calendar Cal = Calendar.getInstance(); 
-		  Cal.set(Calendar.YEAR, 2019);
-		 Cal.set(Calendar.MONTH, 12 - 1);
-		  Cal.set(Calendar.DAY_OF_MONTH,24);
-		  Cal.set(Calendar.HOUR_OF_DAY, 12);
-		   Cal.set(Calendar.MINUTE, 0);
-		  Cal.set(Calendar.SECOND, 0); 
-		  Cal.set(Calendar.MILLISECOND, 0); 
-		  Date checkIn = Cal.getTime();
-		  Cal = Calendar.getInstance(); 
-		  Cal.set(Calendar.YEAR, 2019);
-		 Cal.set(Calendar.MONTH, 12 - 1);
-		  Cal.set(Calendar.DAY_OF_MONTH,26);
-		  Cal.set(Calendar.HOUR_OF_DAY, 11);
-		   Cal.set(Calendar.MINUTE, 0);
-		  Cal.set(Calendar.SECOND, 0); 
-		  Cal.set(Calendar.MILLISECOND, 0);
-		  Date checkOut = Cal.getTime();
-		 Booking a = new Booking(checkIn, checkOut, 2, true);
-		 a.setCheckedIn(true);
+
+		Calendar Cal = Calendar.getInstance();
+		Cal.set(Calendar.YEAR, 2019);
+		Cal.set(Calendar.MONTH, 12 - 1);
+		Cal.set(Calendar.DAY_OF_MONTH, 24);
+		Cal.set(Calendar.HOUR_OF_DAY, 12);
+		Cal.set(Calendar.MINUTE, 0);
+		Cal.set(Calendar.SECOND, 0);
+		Cal.set(Calendar.MILLISECOND, 0);
+		Date checkIn = Cal.getTime();
+		Cal = Calendar.getInstance();
+		Cal.set(Calendar.YEAR, 2019);
+		Cal.set(Calendar.MONTH, 12 - 1);
+		Cal.set(Calendar.DAY_OF_MONTH, 26);
+		Cal.set(Calendar.HOUR_OF_DAY, 11);
+		Cal.set(Calendar.MINUTE, 0);
+		Cal.set(Calendar.SECOND, 0);
+		Cal.set(Calendar.MILLISECOND, 0);
+		Date checkOut = Cal.getTime();
+		Booking a = new Booking(checkIn, checkOut, 2, true);
+		a.setCheckedIn(true);
 	}
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		Sales_LoadObjects();
 		boolean goBack = false;
 		for (;;) {
