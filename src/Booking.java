@@ -13,8 +13,6 @@ import java.util.Scanner;
 public class Booking {
 	/** Scanner used for input. */
 	static Scanner sc = new Scanner(System.in);
-	public static final String ANSI_RESET = "\u001B[0m";
-	public static final String ANSI_RED = "\u001B[31m";
 	/** Check in date. */
 	private Date checkIn;
 	/** Check out date. */
@@ -203,7 +201,7 @@ public class Booking {
 					try {
 						chosen = sc.nextInt();
 					} catch (InputMismatchException e) {
-						System.out.println(ANSI_RED + "Insert an Integer!" + ANSI_RESET);
+						System.out.println("Insert an Integer!");
 						sc.nextLine();
 						continue;
 					}
@@ -215,14 +213,13 @@ public class Booking {
 								break;
 							}
 							if (j + 1 == r.length) { // if the loop hasn't been broken this room is not available
-								System.out.println(
-										ANSI_RED + "This room is not compatible to your requirements!" + ANSI_RESET);
+								System.out.println("This room is not compatible to your requirements!");
 							}
 						}
 					} else if (chosen == 0) { // cancel the procedure if you choose 0
 						f3 = true;
 					} else { // room number out of bounds
-						System.out.println(ANSI_RED + "This room does not exists!" + ANSI_RESET);
+						System.out.println("This room does not exists!");
 					}
 				} while (f3 == false);
 				if (chosen != 0) {
@@ -258,12 +255,12 @@ public class Booking {
 				try {
 					choose1 = sc.nextInt();
 				} catch (InputMismatchException e) {
-					System.out.println(ANSI_RED + "Insert an Integer!" + ANSI_RESET);
+					System.out.println("Insert an Integer!");
 					sc.nextLine();
 					continue;
 				}
 				if (choose1 != 1 && choose1 != 2 && choose1 != 3 && choose1 != 4 && choose1 != 5 && choose1 != 6) {
-					System.out.println(ANSI_RED + "Insert 1 or 2 or 3 or 4 or 5 or 6! " + ANSI_RESET);
+					System.out.println("Insert 1 or 2 or 3 or 4 or 5 or 6! ");
 				}
 			} while (choose1 != 1 && choose1 != 2 && choose1 != 3 && choose1 != 4 && choose1 != 5 && choose1 != 6); // check
 																													// menu
@@ -276,13 +273,13 @@ public class Booking {
 				int counter1 = 0;
 				do {
 					if (counter1 > 0) {
-						System.out.println(ANSI_RED + "No existing rooms with this capacity!" + ANSI_RESET);
+						System.out.println("No existing rooms with this capacity!");
 					}
 					try {
 						System.out.println("Insert room's capacity (press 0 to cancel the procedure) : ");
 						capacity = sc.nextInt();
 					} catch (InputMismatchException e) {
-						System.out.println(ANSI_RED + "Insert an Integer!" + ANSI_RESET);
+						System.out.println("Insert an Integer!");
 						sc.nextLine();
 						counter1 = 0;
 						continue;
@@ -303,7 +300,7 @@ public class Booking {
 				boolean breaks = false;
 				do {
 					if (counter2 > 0) { // check if there was a fail attempt for check in date
-						System.out.println(ANSI_RED + "Wrong Check In Date!" + ANSI_RESET);
+						System.out.println("Wrong Check In Date!");
 					}
 					System.out.println("Insert Check In date (press 0 to cancel the procedure) ,");
 					do {
@@ -311,7 +308,7 @@ public class Booking {
 							System.out.println("Day : ");
 							day1 = sc.nextInt();
 						} catch (InputMismatchException e) {
-							System.out.println(ANSI_RED + "Insert an Integer!" + ANSI_RESET);
+							System.out.println("Insert an Integer!");
 							sc.nextLine();
 							continue;
 						}
@@ -327,7 +324,7 @@ public class Booking {
 							System.out.println("Month : ");
 							month1 = sc.nextInt();
 						} catch (InputMismatchException e) {
-							System.out.println(ANSI_RED + "Insert an Integer!" + ANSI_RESET);
+							System.out.println("Insert an Integer!");
 							sc.nextLine();
 							continue;
 						}
@@ -343,7 +340,7 @@ public class Booking {
 							System.out.println("Year : ");
 							year1 = sc.nextInt();
 						} catch (InputMismatchException e) {
-							System.out.println(ANSI_RED + "Insert an Integer!" + ANSI_RESET);
+							System.out.println("Insert an Integer!");
 							sc.nextLine();
 							continue;
 						}
@@ -387,7 +384,7 @@ public class Booking {
 				counter2 = 0;
 				do {
 					if (counter2 > 0) { // check if there was a fail attempt for check out date
-						System.out.println(ANSI_RED + "Wrong Check Out Date!" + ANSI_RESET);
+						System.out.println("Wrong Check Out Date!");
 					}
 					f = false;
 					System.out.println("Insert Check Out date (press 0 to cancel the procedure) ,");
@@ -396,7 +393,7 @@ public class Booking {
 							System.out.println("Day : ");
 							day2 = sc.nextInt();
 						} catch (InputMismatchException e) {
-							System.out.println(ANSI_RED + "Insert an Integer!" + ANSI_RESET);
+							System.out.println("Insert an Integer!");
 							sc.nextLine();
 							continue;
 						}
@@ -412,7 +409,7 @@ public class Booking {
 							System.out.println("Month : ");
 							month2 = sc.nextInt();
 						} catch (InputMismatchException e) {
-							System.out.println(ANSI_RED + "Insert an Integer!" + ANSI_RESET);
+							System.out.println("Insert an Integer!");
 							sc.nextLine();
 							continue;
 						}
@@ -428,7 +425,7 @@ public class Booking {
 							System.out.println("Year : ");
 							year2 = sc.nextInt();
 						} catch (InputMismatchException e) {
-							System.out.println(ANSI_RED + "Insert an Integer!" + ANSI_RESET);
+							System.out.println("Insert an Integer!");
 							sc.nextLine();
 							continue;
 						}
@@ -463,7 +460,7 @@ public class Booking {
 					int counter3 = 0;
 					do {
 						if (counter3 > 0) { // check if there was a fail attempt for buffet answer
-							System.out.println(ANSI_RED + "Only valid answers are 'YES' and 'NO'!" + ANSI_RESET);
+							System.out.println("Only valid answers are 'YES' and 'NO'!");
 						}
 						System.out.println("If buffet is included to the "
 								+ "booking type 'YES' if it's not type 'NO' (Extra 12 € charge per day) : ");
@@ -488,7 +485,7 @@ public class Booking {
 					int counter14 = 0;
 					do {
 						if (counter14 > 0) { // check if there was a fail attempt for sure answer
-							System.out.println(ANSI_RED + "Only valid answers are 'YES' and 'NO'!" + ANSI_RESET);
+							System.out.println("Only valid answers are 'YES' and 'NO'!");
 						}
 						System.out.println("Are you sure you want to create the booking for : " + checkIn + " and "
 								+ checkOut + ". Type 'YES' or 'NO' : ");
@@ -518,13 +515,13 @@ public class Booking {
 				int counter4 = 0;
 				do {
 					if (counter4 > 0) { // check if there was a fail attempt for room number
-						System.out.println(ANSI_RED + "No room with this number, try again!" + ANSI_RESET);
+						System.out.println("No room with this number, try again!");
 					}
 					System.out.println("Insert the number of Checking In room (press 0 to cancel the procedure) : ");
 					try {
 						roomIn = sc.nextInt();
 					} catch (InputMismatchException e) {
-						System.out.println(ANSI_RED + "Insert an Integer!" + ANSI_RESET);
+						System.out.println("Insert an Integer!");
 						sc.nextLine();
 						counter4 = 0;
 						continue;
@@ -573,13 +570,13 @@ public class Booking {
 				int counter5 = 0;
 				do {
 					if (counter5 > 0) {
-						System.out.println(ANSI_RED + "No room with this number, try again!" + ANSI_RESET);
+						System.out.println("No room with this number, try again!");
 					}
 					System.out.println("Insert the number of Checking Out room (press 0 to cancel the procedure) :  ");
 					try {
 						roomOut = sc.nextInt();
 					} catch (InputMismatchException e) {
-						System.out.println(ANSI_RED + "Insert an Integer!" + ANSI_RESET);
+						System.out.println("Insert an Integer!");
 						sc.nextLine();
 						counter5 = 0;
 						continue;
@@ -635,7 +632,7 @@ public class Booking {
 					try {
 						bookCode1 = sc.nextInt();
 					} catch (InputMismatchException e) {
-						System.out.println(ANSI_RED + "Insert an Integer!" + ANSI_RESET);
+						System.out.println("Insert an Integer!");
 						sc.nextLine();
 						counter14 = 0;
 						continue;
@@ -695,12 +692,12 @@ public class Booking {
 						try {
 							choose2 = sc.nextInt();
 						} catch (InputMismatchException e) {
-							System.out.println(ANSI_RED + "Insert an Integer!" + ANSI_RESET);
+							System.out.println("Insert an Integer!");
 							sc.nextLine();
 							continue;
 						}
 						if (choose2 != 1 && choose2 != 2 && choose2 != 3 && choose2 != 4 && choose2 != 5) {
-							System.out.println(ANSI_RED + "Insert 1 or 2 or 3 or 4 or 5 " + ANSI_RESET);
+							System.out.println("Insert 1 or 2 or 3 or 4 or 5 ");
 						}
 					} while (choose2 != 1 && choose2 != 2 && choose2 != 3 && choose2 != 4 && choose2 != 5); // check
 																											// selection
@@ -735,13 +732,13 @@ public class Booking {
 						int roomNum = -1;
 						do {
 							if (counter8 > 0) {
-								System.out.println(ANSI_RED + "No room with this number, try again!" + ANSI_RESET);
+								System.out.println("No room with this number, try again!");
 							}
 							System.out.println("Insert the room's number (press 0 to cancel the procedure) :  ");
 							try {
 								roomNum = sc.nextInt();
 							} catch (InputMismatchException e) {
-								System.out.println(ANSI_RED + "Insert an Integer!" + ANSI_RESET);
+								System.out.println("Insert an Integer!");
 								sc.nextLine();
 								counter8 = 0;
 								continue;
@@ -782,7 +779,7 @@ public class Booking {
 							try {
 								bookCode2 = sc.nextInt();
 							} catch (InputMismatchException e) {
-								System.out.println(ANSI_RED + "Insert an Integer!" + ANSI_RESET);
+								System.out.println("Insert an Integer!");
 								sc.nextLine();
 								counter13 = 0;
 								continue;

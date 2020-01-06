@@ -11,8 +11,6 @@ import java.util.Scanner;
 public class Room {
 	/** Scanner used for input. */
 	static Scanner sc = new Scanner(System.in);
-	public static final String ANSI_RESET = "\u001B[0m";
-	public static final String ANSI_RED = "\u001B[31m";
 	/** Floor number of the room. */
 	private int floor;
 	/** Room's capacity. */
@@ -26,7 +24,6 @@ public class Room {
 	/** Static array list for every room. */
 	private static ArrayList<Room> rooms = new ArrayList<Room>();
 
-	
 	/**
 	 * This constructs rooms with specified capacity, floor, price per night, room
 	 * number and adds them to an array list.
@@ -60,7 +57,7 @@ public class Room {
 				try {
 					choose = sc.nextInt();
 				} catch (InputMismatchException e) {
-					System.out.println(ANSI_RED + "Insert an Integer!" + ANSI_RESET);
+					System.out.println("Insert an Integer!");
 					sc.nextLine();
 					continue;
 				}

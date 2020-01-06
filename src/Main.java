@@ -6,8 +6,6 @@ import java.util.Scanner;
 
 public class Main {
 	static Scanner sc = new Scanner(System.in);
-	public static final String ANSI_RESET = "\u001B[0m";
-	public static final String ANSI_RED = "\u001B[31m";
 
 	/**
 	 * This initializes Room and Booking objects.
@@ -211,12 +209,12 @@ public class Main {
 				try {
 					choose = sc.nextInt();
 				} catch (InputMismatchException e) {
-					System.out.println(ANSI_RED + "Insert an Integer!" + ANSI_RESET);
+					System.out.println("Insert an Integer!");
 					sc.nextLine();
 					continue;
 				}
 				if (choose != 1 && choose != 2 && choose != 3) {
-					System.out.println(ANSI_RED + "Insert 1 or 2 or 3! " + ANSI_RESET);
+					System.out.println("Insert 1 or 2 or 3! ");
 				}
 			} while (choose != 1 && choose != 2 && choose != 3); // check menu input
 			System.out.println();
