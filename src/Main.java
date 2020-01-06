@@ -197,7 +197,7 @@ public class Main {
 	//	a.setCheckedIn(true);
 	}
 
-	public static void main(String[] args) {
+	public static void getMenu() {
 		Sales_LoadObjects();
 		boolean goBack = false;
 		for (;;) {
