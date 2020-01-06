@@ -2,10 +2,17 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * 
+ * @author giorgos_markou
+ *
+ */
 public class Inventory {
 	static Scanner sc = new Scanner(System.in);
-	private String type; // the type of product. it can only be fixed, urgent or buffet//
-	private String name; // name of product//
+	private String type;
+	/** the type of product. it can only be fixed, urgent */
+	private String name;
+	/** name of product */
 	private int stock; // the remaining amount of the given product//
 	private int pricepreunit; // the price per unit of the given product//
 	private int minstock; // the minimum amount that that should be in the inventory for the given
@@ -37,6 +44,9 @@ public class Inventory {
 	}
 
 	// Start of the Inventory Menu Section//
+	/**
+	 * Prints the visual side of the Inventory menu
+	 */
 	public static void displayInvMenu() {
 		System.out.println("-------Welcome to the Inventory manager Menu-------\n");
 		System.out.println(
@@ -58,16 +68,19 @@ public class Inventory {
 
 		case 9:
 			System.out.println("Please proceed.");
-			InvMenu();
+			invMenu();
 			break;
 		default:
 			System.err.println("Unrecognized option");
-			InvMenu();
+			invMenu();
 			break;
 		}
 	}
 
-	public static void InvMenu() {
+	/**
+	 * Initiates the Inventory manager Menu
+	 */
+	public static void invMenu() {
 		displayInvMenu();
 		int x = 0;
 		do {
@@ -111,6 +124,10 @@ public class Inventory {
 	}
 
 //buffet section//
+	/**
+	 * Updates the buffet inventory based on the visitors that choose buffet in
+	 * their package
+	 */
 	public static void updateBuffet(int visitorswithbuffet) {// Updates the buffet based on how many visitors included
 																// buffet to their package//
 		buffet -= visitorswithbuffet;
@@ -119,7 +136,11 @@ public class Inventory {
 		}
 	}
 
-	public static void orderBuffet() {// order either the fixed amount(for 300 visitors or orders by input
+	/**
+	 * Calls for an order. The order can be either the fixed amount(for 300
+	 * visitors) or orders by input
+	 */
+	public static void orderBuffet() {
 		String x;
 		System.out.println("The supplies for the buffet are running low and there should be an order\n."
 				+ " Do you want to order the fixed supply (For 300 visitors), or order by input?\n( Select 0 for fixed amount or 1 for order by input)");
@@ -152,7 +173,8 @@ public class Inventory {
 
 	}
 
-	public static int getBuffetFin(int visitorswithbuffet) {// Visitors with buffet will be calculated by the
+	/** Send the finance team the expenses from the buffet inventory */
+	public static int getBuffetFin(int visitorswithbuffet) {
 		int x = visitorswithbuffet * 50;// 50 is the fee for having buffet
 		return x;
 	}
@@ -160,9 +182,13 @@ public class Inventory {
 //end of buffet section//
 
 // Start of fixedInventory section//
-	public static void updateFixed(int totalnumberofpeople) {// gets the total number of people that are in the hotel
-																// and subtracts it from the fixed list for very
-																// product//
+
+	/**
+	 * Gets the total number of people that are in the hotel and subtracts it from
+	 * the fixed list for very product.(because the products are made for every one
+	 * of the people)
+	 */
+	public static void updateFixed(int totalnumberofpeople) {
 		for (int i = 0; i < fixedInventory.size(); i++) {
 			System.out.println("Stock for " + fixedInventory.get(i).name + " before update is : "
 					+ fixedInventory.get(i).stock + "");
@@ -172,16 +198,24 @@ public class Inventory {
 		}
 	}
 
-	public static void checkFixed() {// checks the list or items that have minstock>stock//
+	/**
+	 * Checks the list for items that there stock is less than the minimal stock
+	 * (minstock>stock)
+	 */
+	public static void checkFixed() {
 		for (int i = 0; i < fixedInventory.size(); i++) {
 			if (fixedInventory.get(i).stock < fixedInventory.get(i).minstock) {
 				orderFixed(i);
 			}
 		}
-
 	}
 
-	public static void orderFixed(int i) {// updates the fixedlist item with index i//
+	/**
+	 * Updates the Fixedlist item with index i by ordering either by input or the
+	 * fixed amount
+	 */
+
+	public static void orderFixed(int i) {
 		System.out.println(
 				"\nOrder needed for " + fixedInventory.get(i).name + " \nDo you want to order the fixed amount ("
 						+ fixedInventory.get(i).minstock * 2 + ") or order by input");
@@ -213,16 +247,21 @@ public class Inventory {
 		}
 	}
 
-	public static double[] getInvFixFin() {// gives an array with all the balances of the products. The product names
-											// can be accessed with fixedInventory.get(i).name; and there connected to
-											// the array via the index.//
+	/**
+	 * Gives an array with all the balances of the products. The product names //
+	 * can be accessed with fixedInventory.get(i).name; and there connected to //
+	 * the array via the index.
+	 */
+	public static double[] getInvFixFin() {
 		double x[] = new double[fixedInventory.size()];
 		for (int i = 0; i <= fixedInventory.size(); i++) {
 			x[i] = fixedInventory.get(i).balance;
 		}
 		return x;
 	}
-
+	/**
+	 * Resets the balances for the prodcts(Has to be used after getInvFixFin()
+	 */
 	public static void setInvFixFin() {
 		for (int i = 0; i <= urgentInventory.size(); i++) {
 			urgentInventory.get(i).setBalance(0);
@@ -231,6 +270,10 @@ public class Inventory {
 // End of fixedInventory section//
 
 // Start of urgentInventort section//
+	/**
+	 * Updates every urgentList product by input depending on how many units were
+	 * used
+	 */
 	public static void updateUrgent() {
 		for (Inventory i : urgentInventory) {
 			System.out.println("How many units of " + i.name + " were used?");
@@ -252,6 +295,10 @@ public class Inventory {
 
 	}
 
+	/**
+	 * Checks the list for items that there stock is less than the minimal stock
+	 * (minstock>stock)
+	 */
 	public static void checkUrgent() {
 		for (int i = 0; i < urgentInventory.size(); i++) {
 			if (urgentInventory.get(i).stock < urgentInventory.get(i).minstock) {
@@ -262,8 +309,11 @@ public class Inventory {
 
 	}
 
-	public static void orderUrgent(int i) {// takes the index of a product that is low on stock and an order should be
-											// made//
+	/**
+	 * Updates the Fixedlist item with index i by ordering either by input or the
+	 * fixed amount
+	 */
+	public static void orderUrgent(int i) {
 
 		System.out.println("\nThe suply of the product " + urgentInventory.get(i).name
 				+ " is running low and there should be an order\n Do you want to order the fixed amount ("
@@ -296,9 +346,12 @@ public class Inventory {
 		}
 	}
 
-	public static double[] getInvUrgFin() {// gives an array with all the balances of the products. The product names
-											// can be accessed with fixedInventory.get(i).name; and there connected to
-											// the array via the index.//
+	/**
+	 * gives an array with all the balances of the products. The product names //
+	 * can be accessed with fixedInventory.get(i).name; and there connected to //
+	 * the array via the index.
+	 */
+	public static double[] getInvUrgFin() {
 		double x[] = new double[urgentInventory.size()];
 		for (int i = 0; i <= fixedInventory.size(); i++) {
 			x[i] = urgentInventory.get(i).balance;
@@ -306,14 +359,21 @@ public class Inventory {
 		return x;
 	}
 
+	/**
+	 * Resets the balances for the prodcts(Has to be used after getInvUrgFin()
+	 */
 	public static void setInvUrgFin() {
 		for (int i = 0; i <= urgentInventory.size(); i++) {
 			urgentInventory.get(i).setBalance(0);
 		}
 	}
+
 	// end of the finance block
 	// End of urgentInventory section//
-
+	/**
+	 * Prints the balance that has to be paid for the products depending on with
+	 * list their on
+	 */
 	public static void printBalance() {
 		System.out.println("Fixed list");
 		for (Inventory i : fixedInventory) {
@@ -350,6 +410,6 @@ public class Inventory {
 		Inventory iu3 = new Inventory("u3", 200, 50, 20, s3, "Urgent", 0);
 		Inventory iu4 = new Inventory("u4", 120, 10, 10, s4, "Urgent", 0);
 		Inventory iu5 = new Inventory("u5", 125, 20, 30, s5, "Urgent", 0);
-		InvMenu();
+		invMenu();
 	}
 }
