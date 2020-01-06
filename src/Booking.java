@@ -45,7 +45,7 @@ public class Booking {
 	/**
 	 * This constructs bookings specified by check in, check out, room number,
 	 * buffet, check, nights, extra expenses, booking code and add them to an array
-	 * list.
+	 * list .
 	 * 
 	 * @param checkIn    check in date
 	 * @param checkOut   check out date
@@ -895,6 +895,15 @@ public class Booking {
 	 */
 	public Date getCheckIn() {
 		return checkIn;
+	}
+	public static void Extras() {
+		for (Room room : Room.getRooms()) {
+			for (Booking booking : bookings.get(room.getRoomNumber()-1)) {
+				if (booking.checkedIn) {
+					
+				}
+			}
+		}
 	}
 
 }
