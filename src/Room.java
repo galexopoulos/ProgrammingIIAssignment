@@ -1,4 +1,5 @@
 
+
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -23,6 +24,7 @@ public class Room {
 	private int roomNumber;
 	/** Static array list for every room. */
 	private static ArrayList<Room> rooms = new ArrayList<Room>();
+
 
 	/**
 	 * This constructs rooms with specified capacity, floor, price per night, room
@@ -70,7 +72,7 @@ public class Room {
 			case 1:
 				for (Room room : rooms) { // print for every room
 					System.out.println("Room no." + room.roomNumber + "\n" + "floor : " + room.floor + "\tcapacity : "
-							+ room.capacity + "\tprice per night : " + room.pricePerNight + "€\n");
+							+ room.capacity + "\tprice per night : " + room.pricePerNight + "â‚¬\n");
 				}
 				break;
 			case 2:
