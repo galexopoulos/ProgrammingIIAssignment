@@ -43,8 +43,8 @@ public class Main {
 		new Room(3, 6, 200);
 
 		Calendar Cal = Calendar.getInstance();
-		Cal.set(Calendar.YEAR, 2020);
-		Cal.set(Calendar.MONTH, 2 - 1);
+		Cal.set(Calendar.YEAR, 2019);
+		Cal.set(Calendar.MONTH, 12 - 1);
 		Cal.set(Calendar.DAY_OF_MONTH, 24);
 		Cal.set(Calendar.HOUR_OF_DAY, 12);
 		Cal.set(Calendar.MINUTE, 0);
@@ -52,8 +52,8 @@ public class Main {
 		Cal.set(Calendar.MILLISECOND, 0);
 		Date checkIn = Cal.getTime();
 		Cal = Calendar.getInstance();
-		Cal.set(Calendar.YEAR, 2020);
-		Cal.set(Calendar.MONTH, 2 - 1);
+		Cal.set(Calendar.YEAR, 2019);
+		Cal.set(Calendar.MONTH, 12 - 1);
 		Cal.set(Calendar.DAY_OF_MONTH, 26);
 		Cal.set(Calendar.HOUR_OF_DAY, 11);
 		Cal.set(Calendar.MINUTE, 0);
@@ -61,8 +61,8 @@ public class Main {
 		Cal.set(Calendar.MILLISECOND, 0);
 		Date checkOut = Cal.getTime();
 		Booking a = new Booking(checkIn, checkOut, 2, true);
-		//a.setCheckedIn(true);
-		
+		a.setCheckedIn(true);
+
 		Cal.set(Calendar.YEAR, 2020);
 		Cal.set(Calendar.MONTH, 2 - 1);
 		Cal.set(Calendar.DAY_OF_MONTH, 20);
@@ -80,8 +80,8 @@ public class Main {
 		Cal.set(Calendar.MILLISECOND, 0);
 		checkOut = Cal.getTime();
 		a = new Booking(checkIn, checkOut, 3, true);
-		//a.setCheckedIn(true);
-		
+		// a.setCheckedIn(true);
+
 		Cal.set(Calendar.YEAR, 2020);
 		Cal.set(Calendar.MONTH, 2 - 1);
 		Cal.set(Calendar.DAY_OF_MONTH, 19);
@@ -99,8 +99,8 @@ public class Main {
 		Cal.set(Calendar.MILLISECOND, 0);
 		checkOut = Cal.getTime();
 		a = new Booking(checkIn, checkOut, 5, true);
-		//a.setCheckedIn(true);
-		
+		// a.setCheckedIn(true);
+
 		Cal.set(Calendar.YEAR, 2020);
 		Cal.set(Calendar.MONTH, 1 - 1);
 		Cal.set(Calendar.DAY_OF_MONTH, 20);
@@ -118,8 +118,8 @@ public class Main {
 		Cal.set(Calendar.MILLISECOND, 0);
 		checkOut = Cal.getTime();
 		a = new Booking(checkIn, checkOut, 2, true);
-		//a.setCheckedIn(true);
-		
+		// a.setCheckedIn(true);
+
 		Cal.set(Calendar.YEAR, 2020);
 		Cal.set(Calendar.MONTH, 1 - 1);
 		Cal.set(Calendar.DAY_OF_MONTH, 22);
@@ -137,8 +137,8 @@ public class Main {
 		Cal.set(Calendar.MILLISECOND, 0);
 		checkOut = Cal.getTime();
 		a = new Booking(checkIn, checkOut, 7, true);
-		//a.setCheckedIn(true);
-		
+		// a.setCheckedIn(true);
+
 		Cal.set(Calendar.YEAR, 2020);
 		Cal.set(Calendar.MONTH, 1 - 1);
 		Cal.set(Calendar.DAY_OF_MONTH, 6);
@@ -157,7 +157,7 @@ public class Main {
 		checkOut = Cal.getTime();
 		a = new Booking(checkIn, checkOut, 1, true);
 		a.setCheckedIn(true);
-		
+
 		Cal.set(Calendar.YEAR, 2020);
 		Cal.set(Calendar.MONTH, 1 - 1);
 		Cal.set(Calendar.DAY_OF_MONTH, 6);
@@ -176,7 +176,7 @@ public class Main {
 		checkOut = Cal.getTime();
 		a = new Booking(checkIn, checkOut, 3, true);
 		a.setCheckedIn(true);
-		
+
 		Cal.set(Calendar.YEAR, 2020);
 		Cal.set(Calendar.MONTH, 1 - 1);
 		Cal.set(Calendar.DAY_OF_MONTH, 6);
@@ -194,7 +194,7 @@ public class Main {
 		Cal.set(Calendar.MILLISECOND, 0);
 		checkOut = Cal.getTime();
 		a = new Booking(checkIn, checkOut, 12, true);
-	//	a.setCheckedIn(true);
+		// a.setCheckedIn(true);
 	}
 
 	public static void getMenu() {
