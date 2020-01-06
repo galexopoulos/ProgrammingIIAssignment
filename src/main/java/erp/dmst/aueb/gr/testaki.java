@@ -7,39 +7,11 @@ public class testaki {
 
 	public static void main(String[] args)  {
 		loadobjects();
-		//ShareHolders.getShareHoldersMenu();
 		Reporting.Menu();
-		Scanner sc = new Scanner(System.in);
+		//System.out.println("out of Reporting.java");
+		//Scanner sc = new Scanner(System.in);
 		//ShareHolders.getMenuflag();
-		//try {
-		//	ReportingFinance.getMenu();
-		//} catch (Exception e) {
-		//	// TODO Auto-generated catch block
-		//	e.printStackTrace();
-		//	}
-		//Distribution_Stars.getDistributionOfDays();
-		//System.out.println();
-		//Distribution_Stars.getDistributionOfReasons();
-		//System.out.println();
-		//Distribution_Stars.getDistributionOfSatisfaction();
-		//System.out.println();
-		//Distribution_Stars.getDistributionOfWages();
-		/*for (;;) {
-			System.out.println("1. Reporting");
-			System.out.println("2. Booking");
-			int x = sc.nextInt();
-			switch (x) {
-			case 1 :
-				Reporting.Menu();
-				break;
-			case 2 :
-				Booking.getMenu();
-				break;
-			}
-			continue;
-		}
-	}
-	*/
+		Goals.menu();
 	}
 	static void loadobjects() {
 		ReportingHR r1 = new ReportingHR(1200,"alexis","perakis");
@@ -53,16 +25,13 @@ public class testaki {
 		ReportingHR r9 = new ReportingHR(2100,"stefania","terzopoulou");
 		ReportingHR r10 = new ReportingHR(780,"katerina","patera");
 		
-		ReportingFinance f = new ReportingFinance(4500,5000,500); // orizoume tous logarismous tou mina
-		ReportingFinance f1 = new ReportingFinance(4509,5232,443);
-		ReportingFinance f2 = new ReportingFinance(5509,5222,433);
-		ReportingFinance f3 = new ReportingFinance(7509,5232,443);
-		ReportingFinance f4 = new ReportingFinance(4655,4553,434);
+		ReportingFinance f = new ReportingFinance(41,51,51); // orizoume tous logarismous tou mina
+		
 		
 		ReportingClients c1 = new ReportingClients("alexis","perakis",5,340,0,17,19,2);
 		ReportingClients c2 = new ReportingClients("nikos","antonopoulos",3,50,2,11,12,0);
 		ReportingClients c3 = new ReportingClients("dimitris","dimitropoulos",5,540,2,7,11,2);
-		ReportingClients c4 = new ReportingClients("notis","lapatas",5,240,2,23,27,1);
+		ReportingClients c4 = new ReportingClients("notis","aggelos",5,240,2,23,27,1);
 		ReportingClients c5 = new ReportingClients("christina","kardami",5,3300,2,20,29,1);
 		ReportingClients c6 = new ReportingClients("kostantina","epithetopoulou",4,300,1,15,17,1);
 		ReportingClients c7 = new ReportingClients("onomas","spetsiopoulos",4,290,0,17,19,2);
@@ -106,7 +75,13 @@ public class testaki {
 		
 		Date d1 = new Date();
 		Date d2 = new Date();
+		Date d3 = new Date();
+		Date d4 = new Date();
+		Date d5 = new Date();
+		Date d6 = new Date();
 		new Booking(d1,d2,2,true);
+		new Booking(d3,d4,2,true);
+		new Booking(d5,d6,2,true);
 		
 		Supplier s1 = new Supplier("s1", 1, "@1");
 		Supplier s2 = new Supplier("s2", 2, "@2");
@@ -123,7 +98,7 @@ public class testaki {
 		Inventory iu3 = new Inventory("u3", 200, 50, 20, s3, "Urgent", 0);
 		Inventory iu4 = new Inventory("u4", 120, 10, 10, s4, "Urgent", 0);
 		Inventory iu5 = new Inventory("u5", 125, 20, 30, s5, "Urgent", 0);
-		
+
 		
 	}
 
