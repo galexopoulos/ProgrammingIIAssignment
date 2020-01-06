@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 public class Arxeia_markou {
 	public static void grapsimo_Inventory() {
+		// fixed.Inventory
 		try {
 
 			ObjectOutputStream out = new ObjectOutputStream(
@@ -18,6 +19,8 @@ public class Arxeia_markou {
 		} catch (Exception i) {
 			i.printStackTrace();
 		}
+		// urgent.Inventory
+
 		try {
 
 			ObjectOutputStream out = new ObjectOutputStream(
@@ -28,7 +31,6 @@ public class Arxeia_markou {
 		} catch (Exception i) {
 			i.printStackTrace();
 		}
-
 	}
 
 	public static void parsimo_Inventory() {

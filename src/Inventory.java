@@ -399,15 +399,9 @@ public class Inventory implements Serializable {
 
 	public static void main(String args[]) {
 		// loadobjects();
-		// invMenu();
-
+		 invMenu();
 		// Arxeia_markou.grapsimo_Inventory();;
-		Arxeia_markou.parsimo_Inventory();
-		;
-
-		for (int i = 0; i < Inventory.fixedInventory.size(); i++) {
-			System.out.println(Inventory.fixedInventory.get(i));
-		}
+		//Arxeia_markou.parsimo_Inventory();
 	}
 
 	public static void loadobjects() {
