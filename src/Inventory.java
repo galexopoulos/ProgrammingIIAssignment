@@ -8,7 +8,7 @@ import java.util.Scanner;
  * @author giorgos_markou
  *
  */
-public class Inventory implements Serializable{
+public class Inventory implements Serializable {
 	private static final long serialVersionUID = 6529685098267757690L;
 	static Scanner sc = new Scanner(System.in);
 	private String type;
@@ -44,7 +44,6 @@ public class Inventory implements Serializable{
 			urgentInventory.add(this);
 		}
 	}
-	
 
 	// Start of the Inventory Menu Section//
 	/**
@@ -262,6 +261,7 @@ public class Inventory implements Serializable{
 		}
 		return x;
 	}
+
 	/**
 	 * Resets the balances for the prodcts(Has to be used after getInvFixFin()
 	 */
@@ -398,15 +398,18 @@ public class Inventory implements Serializable{
 	}
 
 	public static void main(String args[]) {
-		loadobjects();
+		// loadobjects();
+		// invMenu();
+
+		// Arxeia_markou.grapsimo_Inventory();;
 		Arxeia_markou.parsimo_Inventory();
-		
-			  for (int i=0;i<Inventory.fixedInventory.size();i++) {
-		          System.out.println(Inventory.fixedInventory.get(i));
-		      
+		;
+
+		for (int i = 0; i < Inventory.fixedInventory.size(); i++) {
+			System.out.println(Inventory.fixedInventory.get(i));
 		}
-		//invMenu();
-}
+	}
+
 	public static void loadobjects() {
 		Supplier s1 = new Supplier("s1", 1, "@1");
 		Supplier s2 = new Supplier("s2", 2, "@2");
@@ -425,31 +428,25 @@ public class Inventory implements Serializable{
 		Inventory iu5 = new Inventory("u5", 125, 20, 30, s5, "Urgent", 0);
 	}
 
-
 	public static ArrayList<Inventory> getFixedInventory() {
 		return fixedInventory;
 	}
-
 
 	public static void setFixedInventory(ArrayList<Inventory> fixedInventory) {
 		Inventory.fixedInventory = fixedInventory;
 	}
 
-
 	public static ArrayList<Inventory> getUrgentInventory() {
 		return urgentInventory;
 	}
-
 
 	public static void setUrgentInventory(ArrayList<Inventory> urgentInventory) {
 		Inventory.urgentInventory = urgentInventory;
 	}
 
-
 	public static void setInvFixFin(ArrayList readObject) {
-		
-	}
 
+	}
 
 	@Override
 	public String toString() {
@@ -457,8 +454,4 @@ public class Inventory implements Serializable{
 				+ ", minstock=" + minstock + ", suplier=" + suplier + ", balance=" + balance + "]";
 	}
 
-
-
-
-	
 }

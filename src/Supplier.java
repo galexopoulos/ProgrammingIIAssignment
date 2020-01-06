@@ -31,4 +31,10 @@ public class Supplier implements Serializable{
 	public String getMail() {
 		return mail;
 	}
+
+	@Override
+	public String toString() {
+		return "Supplier [Fullname=" + Fullname + ", phonenumber=" + phonenumber + ", mail=" + mail + "]";
+	}
+	
 }
