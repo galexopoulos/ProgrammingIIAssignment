@@ -66,7 +66,7 @@ public class Employee implements Serializable {
 		this.employee_Id = add;
 		lastChecked.set(Calendar.YEAR, 1990);
 		Employees.add(this);
-		ReportingHR reporting = new ReportingHR(salary, name, surname);
+		ReportingHR reporting = new ReportingHR(salary, firstname, surname);
 		add++;
 	}
 	
@@ -116,7 +116,7 @@ public class Employee implements Serializable {
 		this.employee_Id = add;
 		lastChecked.set(Calendar.YEAR, 1990);
 		Employees.add(this);
-		ReportingHR reporting = new ReportingHR(salary, name, surname);
+		ReportingHR reporting = new ReportingHR(salary, firstname, surname);
 		add++;
 	}
 	
