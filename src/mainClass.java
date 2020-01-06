@@ -6,7 +6,7 @@ import java.util.Scanner;
  *
  */
 public class mainClass {
-	
+	static boolean flag1=true;
 	///** variable that shows if the hr menu has been called once WON'T be used at the presentation */
 	//private static boolean hrCalledOnce = false;
 	/**
@@ -17,11 +17,12 @@ public class mainClass {
 	
 	
 	public static void main(String[] args) {
+
 		/*
 		 * Thread tWeek = new Thread(new weekThread()); Thread tMonth = new Thread(new
 		 * monthThread()); tWeek.start(); tMonth.start();
 		 */
-		while (true) {
+		while (flag1) {
 					InputMenu();
 		}
 	}
@@ -91,6 +92,11 @@ public class mainClass {
 			System.out.println("Execute the monthly actions");// Happens every month
 			toBeDoneEveryMonth();
 			break;
+		case 8:
+			System.out.println("Goodbye");
+			//perasma arxeia
+			SIDER_ARXEIA.grapsimo_Employees();
+			flag1 = false;
 		default:
 			System.err.println("Unrecognized option");
 			break;
@@ -101,8 +107,9 @@ public class mainClass {
 	/** shows the starting menu */
 	public static void display_menu() {
 		System.out.println(
-				"1) HR DEPARTMENT \n2) SALES DEPARTMENT \n3) FINANCE AND REPORTING DEPARTMENT \n4) INVENTORY MANAGMENT DEPARTMENT \n5) CRM DEPARTMENT\n");
-		System.out.print("-----------CHOOSE A NUMBER BETWEEN 1 AND 7------------ \n");
+				"1) HR DEPARTMENT \n2) SALES DEPARTMENT \n3) FINANCE AND REPORTING DEPARTMENT \n4) INVENTORY MANAGMENT DEPARTMENT \n5) CRM DEPARTMENT\n"
+				+ "6)EXECUTE THE WEEKLY ACTIONS \n7) EXECUTE THE MONTHLY ACTIONS /n8) QUIT THE PROGRAM");
+		System.out.print("-----------CHOOSE A NUMBER BETWEEN 1 AND 8------------ \n");
 	}
 
 
