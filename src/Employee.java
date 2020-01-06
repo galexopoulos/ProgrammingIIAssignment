@@ -600,7 +600,8 @@ public class Employee implements Serializable {
 	}
 
 	/**
-	 * NIKO JAVADOC
+	 * Sends a mail to the Manager of the Employee with the day off request. 
+	 * @param dayOff The 
 	 */
 	public void adeia(Calendar dayOff) {
 		if (this.getManager() != null) {
