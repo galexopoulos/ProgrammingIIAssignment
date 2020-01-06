@@ -16,4 +16,5 @@ class login_junit {
 		 int output=Employee.login(0, "Petsreasismydaddy");
 		 assertEquals(-1,output);
 	}
+	
 }
