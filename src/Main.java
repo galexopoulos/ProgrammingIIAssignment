@@ -1,4 +1,3 @@
-
 import java.util.Calendar;
 import java.util.Date;
 import java.util.InputMismatchException;
@@ -62,9 +61,142 @@ public class Main {
 		Date checkOut = Cal.getTime();
 		Booking a = new Booking(checkIn, checkOut, 2, true);
 		a.setCheckedIn(true);
+
+		Cal.set(Calendar.YEAR, 2020);
+		Cal.set(Calendar.MONTH, 2 - 1);
+		Cal.set(Calendar.DAY_OF_MONTH, 20);
+		Cal.set(Calendar.HOUR_OF_DAY, 12);
+		Cal.set(Calendar.MINUTE, 0);
+		Cal.set(Calendar.SECOND, 0);
+		Cal.set(Calendar.MILLISECOND, 0);
+		checkIn = Cal.getTime();
+		Cal.set(Calendar.YEAR, 2020);
+		Cal.set(Calendar.MONTH, 2 - 1);
+		Cal.set(Calendar.DAY_OF_MONTH, 25);
+		Cal.set(Calendar.HOUR_OF_DAY, 11);
+		Cal.set(Calendar.MINUTE, 0);
+		Cal.set(Calendar.SECOND, 0);
+		Cal.set(Calendar.MILLISECOND, 0);
+		checkOut = Cal.getTime();
+		a = new Booking(checkIn, checkOut, 3, true);
+		// a.setCheckedIn(true);
+
+		Cal.set(Calendar.YEAR, 2020);
+		Cal.set(Calendar.MONTH, 2 - 1);
+		Cal.set(Calendar.DAY_OF_MONTH, 19);
+		Cal.set(Calendar.HOUR_OF_DAY, 12);
+		Cal.set(Calendar.MINUTE, 0);
+		Cal.set(Calendar.SECOND, 0);
+		Cal.set(Calendar.MILLISECOND, 0);
+		checkIn = Cal.getTime();
+		Cal.set(Calendar.YEAR, 2020);
+		Cal.set(Calendar.MONTH, 2 - 1);
+		Cal.set(Calendar.DAY_OF_MONTH, 23);
+		Cal.set(Calendar.HOUR_OF_DAY, 11);
+		Cal.set(Calendar.MINUTE, 0);
+		Cal.set(Calendar.SECOND, 0);
+		Cal.set(Calendar.MILLISECOND, 0);
+		checkOut = Cal.getTime();
+		a = new Booking(checkIn, checkOut, 5, true);
+		// a.setCheckedIn(true);
+
+		Cal.set(Calendar.YEAR, 2020);
+		Cal.set(Calendar.MONTH, 1 - 1);
+		Cal.set(Calendar.DAY_OF_MONTH, 20);
+		Cal.set(Calendar.HOUR_OF_DAY, 12);
+		Cal.set(Calendar.MINUTE, 0);
+		Cal.set(Calendar.SECOND, 0);
+		Cal.set(Calendar.MILLISECOND, 0);
+		checkIn = Cal.getTime();
+		Cal.set(Calendar.YEAR, 2020);
+		Cal.set(Calendar.MONTH, 1 - 1);
+		Cal.set(Calendar.DAY_OF_MONTH, 25);
+		Cal.set(Calendar.HOUR_OF_DAY, 11);
+		Cal.set(Calendar.MINUTE, 0);
+		Cal.set(Calendar.SECOND, 0);
+		Cal.set(Calendar.MILLISECOND, 0);
+		checkOut = Cal.getTime();
+		a = new Booking(checkIn, checkOut, 2, true);
+		// a.setCheckedIn(true);
+
+		Cal.set(Calendar.YEAR, 2020);
+		Cal.set(Calendar.MONTH, 1 - 1);
+		Cal.set(Calendar.DAY_OF_MONTH, 22);
+		Cal.set(Calendar.HOUR_OF_DAY, 12);
+		Cal.set(Calendar.MINUTE, 0);
+		Cal.set(Calendar.SECOND, 0);
+		Cal.set(Calendar.MILLISECOND, 0);
+		checkIn = Cal.getTime();
+		Cal.set(Calendar.YEAR, 2020);
+		Cal.set(Calendar.MONTH, 1 - 1);
+		Cal.set(Calendar.DAY_OF_MONTH, 24);
+		Cal.set(Calendar.HOUR_OF_DAY, 11);
+		Cal.set(Calendar.MINUTE, 0);
+		Cal.set(Calendar.SECOND, 0);
+		Cal.set(Calendar.MILLISECOND, 0);
+		checkOut = Cal.getTime();
+		a = new Booking(checkIn, checkOut, 7, true);
+		// a.setCheckedIn(true);
+
+		Cal.set(Calendar.YEAR, 2020);
+		Cal.set(Calendar.MONTH, 1 - 1);
+		Cal.set(Calendar.DAY_OF_MONTH, 6);
+		Cal.set(Calendar.HOUR_OF_DAY, 12);
+		Cal.set(Calendar.MINUTE, 0);
+		Cal.set(Calendar.SECOND, 0);
+		Cal.set(Calendar.MILLISECOND, 0);
+		checkIn = Cal.getTime();
+		Cal.set(Calendar.YEAR, 2020);
+		Cal.set(Calendar.MONTH, 1 - 1);
+		Cal.set(Calendar.DAY_OF_MONTH, 11);
+		Cal.set(Calendar.HOUR_OF_DAY, 11);
+		Cal.set(Calendar.MINUTE, 0);
+		Cal.set(Calendar.SECOND, 0);
+		Cal.set(Calendar.MILLISECOND, 0);
+		checkOut = Cal.getTime();
+		a = new Booking(checkIn, checkOut, 1, true);
+		a.setCheckedIn(true);
+
+		Cal.set(Calendar.YEAR, 2020);
+		Cal.set(Calendar.MONTH, 1 - 1);
+		Cal.set(Calendar.DAY_OF_MONTH, 6);
+		Cal.set(Calendar.HOUR_OF_DAY, 12);
+		Cal.set(Calendar.MINUTE, 0);
+		Cal.set(Calendar.SECOND, 0);
+		Cal.set(Calendar.MILLISECOND, 0);
+		checkIn = Cal.getTime();
+		Cal.set(Calendar.YEAR, 2020);
+		Cal.set(Calendar.MONTH, 1 - 1);
+		Cal.set(Calendar.DAY_OF_MONTH, 9);
+		Cal.set(Calendar.HOUR_OF_DAY, 11);
+		Cal.set(Calendar.MINUTE, 0);
+		Cal.set(Calendar.SECOND, 0);
+		Cal.set(Calendar.MILLISECOND, 0);
+		checkOut = Cal.getTime();
+		a = new Booking(checkIn, checkOut, 3, true);
+		a.setCheckedIn(true);
+
+		Cal.set(Calendar.YEAR, 2020);
+		Cal.set(Calendar.MONTH, 1 - 1);
+		Cal.set(Calendar.DAY_OF_MONTH, 6);
+		Cal.set(Calendar.HOUR_OF_DAY, 12);
+		Cal.set(Calendar.MINUTE, 0);
+		Cal.set(Calendar.SECOND, 0);
+		Cal.set(Calendar.MILLISECOND, 0);
+		checkIn = Cal.getTime();
+		Cal.set(Calendar.YEAR, 2020);
+		Cal.set(Calendar.MONTH, 1 - 1);
+		Cal.set(Calendar.DAY_OF_MONTH, 9);
+		Cal.set(Calendar.HOUR_OF_DAY, 11);
+		Cal.set(Calendar.MINUTE, 0);
+		Cal.set(Calendar.SECOND, 0);
+		Cal.set(Calendar.MILLISECOND, 0);
+		checkOut = Cal.getTime();
+		a = new Booking(checkIn, checkOut, 12, true);
+		// a.setCheckedIn(true);
 	}
 
-	public static void main(String[] args) {
+	public static void getMenu() {
 		Sales_LoadObjects();
 		boolean goBack = false;
 		for (;;) {
