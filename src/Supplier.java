@@ -1,5 +1,6 @@
+import java.io.Serializable;
 
-public class Supplier {
+public class Supplier implements Serializable{
 	private String Fullname;
 	private int phonenumber;
 	private String mail;
