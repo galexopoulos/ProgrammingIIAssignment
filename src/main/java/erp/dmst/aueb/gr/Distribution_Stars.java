@@ -1,8 +1,19 @@
 package main.java.erp.dmst.aueb.gr;
 
+/**
+ * 
+ * @author Ioannis Alexios Perakis, Aggeliki Nina Kafouni
+ * 
+ * This class behaves as graph maker for clients and employees data and the user have a better brief of the details.
+ *
+ */
+
 public class Distribution_Stars {
-	// Ages Distribution cut, lack of methods to change the age of each employee
-	//------------------------------------------------------------------------
+	
+	/**
+	 * 
+	 * Displays a graph for days of stay.
+	 */
 	
 	public static int [] getfreqDaysOfStay() {
 		int [] daysFreq = {0,0,0,0,0,0};
@@ -72,6 +83,11 @@ public class Distribution_Stars {
 	}
 	
 	//------------------------------------------------------------------------
+	
+	/**
+	 * 
+	 * Displays a graph for wages.
+	 */
 	
 	public static int [] getfreqOfWages() {
 		int [] wagesFreq = {0,0,0,0,0,0,0};
@@ -149,6 +165,11 @@ public class Distribution_Stars {
 	
 	//------------------------------------------------------------------------
 	
+	/**
+	 * 
+	 * Displays a graph for satisfaction.
+	 */
+	
 	public static int [] getfreqOfSat() {
 		int [] satFreq = {0,0,0,0,0,0};
 		try {	
@@ -217,6 +238,11 @@ public class Distribution_Stars {
 	}
 	
 	//-----------------------------------------------------------------------
+	
+	/**
+	 * 
+	 * Displays a graph the reason of travel.
+	 */
 	
 	public static int [] getfreqOfReasonForTravel() {
 		int [] reasonFreq = {0,0,0,0,0};

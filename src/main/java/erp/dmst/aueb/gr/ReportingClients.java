@@ -1,10 +1,14 @@
 package main.java.erp.dmst.aueb.gr;
 
+/**
+ * @author Ioannis Alexios Perakis,
+ * This class offers an amount of analytics taken from customers data such as average payments, average days of stay,
+ * in which conditions did the customer visit the hotel ect. Necessity  for Reporting.java 
+ */
+
 import java.util.ArrayList;
 
-public class ReportingClients { // (main) throws exception stis apadisis gia
-								// sutisfaction kai reason for travel prepei
-								// nane mesa stis epitreptes times
+public class ReportingClients { 
 
 	private String name;
 	private String surname;

@@ -1,6 +1,14 @@
 package main.java.erp.dmst.aueb.gr;
 import java.util.ArrayList;
 
+/**
+ * 
+ * @author Ioannis Alexios Perakis
+ * 
+ * This class is an employee object maker only for analytics purposes as shown in Reporting.java menu.
+ *
+ */
+
 public class ReportingHR {
 
 	private double wage;

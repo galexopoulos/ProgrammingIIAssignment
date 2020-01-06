@@ -4,6 +4,17 @@ import java.util.Date;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+/**
+ * 
+ * @author Ioannis Alexios Perakis
+ * 
+ * This class works as a play maker of the whole Reporting and finance department. Its only purpose is to call methods 
+ * from other classes to display intel. After calling Menu(): By pressing 1 the class displays HR analytics by pressing
+ * 2 connects to finance menu (ReportingFinance.java) by pressing 3 displays customers analytics and by pressing 0 
+ * returns to the home page.
+ *
+ */
+
 public class Reporting {
 
 	public static void Menu()  {
