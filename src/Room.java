@@ -26,6 +26,7 @@ public class Room {
 	/** Static array list for every room. */
 	private static ArrayList<Room> rooms = new ArrayList<Room>();
 
+	
 	/**
 	 * This constructs rooms with specified capacity, floor, price per night, room
 	 * number and adds them to an array list.

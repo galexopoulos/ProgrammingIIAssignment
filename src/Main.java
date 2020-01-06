@@ -176,6 +176,25 @@ public class Main {
 		checkOut = Cal.getTime();
 		a = new Booking(checkIn, checkOut, 3, true);
 		a.setCheckedIn(true);
+		
+		Cal.set(Calendar.YEAR, 2020);
+		Cal.set(Calendar.MONTH, 1 - 1);
+		Cal.set(Calendar.DAY_OF_MONTH, 6);
+		Cal.set(Calendar.HOUR_OF_DAY, 12);
+		Cal.set(Calendar.MINUTE, 0);
+		Cal.set(Calendar.SECOND, 0);
+		Cal.set(Calendar.MILLISECOND, 0);
+		checkIn = Cal.getTime();
+		Cal.set(Calendar.YEAR, 2020);
+		Cal.set(Calendar.MONTH, 1 - 1);
+		Cal.set(Calendar.DAY_OF_MONTH, 9);
+		Cal.set(Calendar.HOUR_OF_DAY, 11);
+		Cal.set(Calendar.MINUTE, 0);
+		Cal.set(Calendar.SECOND, 0);
+		Cal.set(Calendar.MILLISECOND, 0);
+		checkOut = Cal.getTime();
+		a = new Booking(checkIn, checkOut, 12, true);
+	//	a.setCheckedIn(true);
 	}
 
 	public static void main(String[] args) {
