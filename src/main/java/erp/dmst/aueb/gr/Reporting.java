@@ -117,14 +117,14 @@ public class Reporting {
 		ReportingClients c2 = new ReportingClients("nikos","antonopoulos",3,50,2,11,12,0);
 		ReportingClients c3 = new ReportingClients("dimitris","dimitropoulos",5,540,2,7,11,2);
 		ReportingClients c4 = new ReportingClients("notis","aggelos",5,240,2,23,27,1);
-		ReportingClients c5 = new ReportingClients("christina","kardami",5,3300,2,20,29,1);
+		ReportingClients c5 = new ReportingClients("christina","kardami",5,3300,3,20,29,1);
 		ReportingClients c6 = new ReportingClients("kostantina","epithetopoulou",4,300,1,15,17,1);
 		ReportingClients c7 = new ReportingClients("onomas","spetsiopoulos",4,290,0,17,19,2);
-		ReportingClients c8 = new ReportingClients("dimitris","gianakopoulos",5,470,0,17,19,0);
+		ReportingClients c8 = new ReportingClients("dimitris","gianakopoulos",5,470,4,17,19,0);
 		ReportingClients c9 = new ReportingClients("christina","katsaba",5,335,2,8,14,0);
 		ReportingClients c10 = new ReportingClients("takis","tsoukalas",5,535,2,8,14,0);
 		ReportingClients c11 = new ReportingClients("Vaggelis","Marinakis",5,475,2,8,14,0);
-		ReportingClients c12 = new ReportingClients("Dimitris","Giannakopoulos",5,455,2,8,14,0);
+		ReportingClients c12 = new ReportingClients("Dimitris","Giannakopoulos",5,455,5,8,14,0);
 		
 		ShareHolders sh1 = new ShareHolders("alexis","alexis12345");
 		ShareHolders sh2 = new ShareHolders("olympiakos","eisaistomialokatimagiko7");
