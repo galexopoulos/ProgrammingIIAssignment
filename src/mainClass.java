@@ -71,7 +71,7 @@ public class mainClass {
 
 		case 2:
 			System.out.println("WELCOME TO SALES DEPARTMENT");
-			Booking.getMenu();
+			Main.getMenu();	
 			break;
 
 		case 3:
