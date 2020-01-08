@@ -1,5 +1,6 @@
 
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -9,7 +10,7 @@ import java.util.Scanner;
  * 
  * @author Nikolas Moatsos
  */
-public class Room {
+public class Room implements Serializable{
 	/** Scanner used for input. */
 	static Scanner sc = new Scanner(System.in);
 	/** Floor number of the room. */
@@ -39,7 +40,7 @@ public class Room {
 		this.capacity = capacity;
 		this.pricePerNight = pricePerNight;
 		this.roomNumber = ++counter; // room numbers start from 1 and add up when a new room is added
-		rooms.add(this); // add a new room to the list
+		getRooms().add(this); // add a new room to the list
 		Booking.getBookings().add(new ArrayList<Booking>()); // add a new row in the bookings list for every new room
 	}
 
@@ -70,7 +71,7 @@ public class Room {
 			System.out.println();
 			switch (choose) {
 			case 1:
-				for (Room room : rooms) { // print for every room
+				for (Room room : getRooms()) { // print for every room
 					System.out.println("Room no." + room.roomNumber + "\n" + "floor : " + room.floor + "\tcapacity : "
 							+ room.capacity + "\tprice per night : " + room.pricePerNight + "€\n");
 				}
@@ -131,5 +132,18 @@ public class Room {
 	public int getCapacity() {
 		return capacity;
 	}
+
+	@Override
+	public String toString() {
+		return "Room [floor=" + floor + ", capacity=" + capacity + ", pricePerNight=" + pricePerNight + ", roomNumber="
+				+ roomNumber + "]";
+	}
+
+	public static void setRooms(ArrayList<Room> rooms) {
+		Room.rooms = rooms;
+	}
+
+	
+
 
 }
