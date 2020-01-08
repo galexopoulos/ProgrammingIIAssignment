@@ -397,12 +397,12 @@ public class Inventory implements Serializable {
 		this.balance = balance;
 	}
 
-	public static void main(String args[]) {
+//	public static void main(String args[]) {
 		// loadobjects();
-		 invMenu();
+	//	 invMenu();
 		// Arxeia_markou.grapsimo_Inventory();;
 		//Arxeia_markou.parsimo_Inventory();
-	}
+//	}
 
 	public static void loadobjects() {
 		Supplier s1 = new Supplier("s1", 1, "@1");
