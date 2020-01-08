@@ -12,9 +12,10 @@ public class Main implements Serializable{
 	 * This initializes Room and Booking objects.
 	 */
 	public static void main (String[]args) {
-		//Sales_LoadObjects();
-		//MO_arxeia.grapsimo_Booking();
-		//MO_arxeia.grapsimo_Room();
+// MHNYMA PROS MO: THA TREKSEIS 2 FORES TO PROGRAMMA, MIA VAZONTAS SXOLIA TIS 4 TELEYTAIES GRAMMES KAI MIA VAZONTAS SXOLIA TIS 3 PRWTES GIA NA DOUME AN DOULEUOUN TA KWLOARXEIA
+			Sales_LoadObjects();
+		MO_arxeia.grapsimo_Booking();
+		MO_arxeia.grapsimo_Room();
 		MO_arxeia.parsimo_Booking();
 		MO_arxeia.parsimo_Room();
 		MO_arxeia.Emfanish_Booking();
