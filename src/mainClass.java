@@ -53,7 +53,7 @@ public class mainClass {
 
 			} else {
 				epilogh = in.nextInt();
-				if (epilogh > 7 || epilogh < 1) {
+				if (epilogh > 8 || epilogh < 1) {
 					flag2 = true;
 					System.out.println("input an integer [1,8]");
 				} else {
@@ -99,8 +99,8 @@ public class mainClass {
 			//perasma arxeia
 			SIDER_ARXEIA.grapsimo_Employees();
 			Arxeia_markou.grapsimo_Inventory();
-		
 			flag1 = false;
+			break;
 		default:
 			System.err.println("Unrecognized option");
 			break;
