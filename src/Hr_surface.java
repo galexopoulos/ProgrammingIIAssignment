@@ -378,6 +378,10 @@ public class Hr_surface {
 												flag6 = true;
 												System.out.println("That is not a valid Manager id.");
 												continue;
+											}else if (mngrPosition == 0) {//hr director is manager only for managers
+														flag6 = true;
+														System.out.println("You are not allowed to do that.");
+														continue;
 											}else {
 												managerName = Employee.Employees.get(mngrPosition).getFirstname();
 												managerName += " " + Employee.Employees.get(mngrPosition).getSurname();

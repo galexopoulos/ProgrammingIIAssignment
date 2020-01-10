@@ -63,10 +63,11 @@ public class Employee implements Serializable {
 		this.password = password;
 		this.salary = salary;
 		this.manager = manager;
+		this.setMonthPayment(salary);
 		this.employee_Id = add;
 		lastChecked.set(Calendar.YEAR, 1990);
 		Employees.add(this);
-		//ReportingHR reporting = new ReportingHR(salary, firstname, surname);
+		ReportingHR reporting = new ReportingHR(salary, firstname, surname);
 		add++;
 	}
 	
@@ -114,9 +115,10 @@ public class Employee implements Serializable {
 		this.password = password;
 		this.salary = salary;
 		this.employee_Id = add;
+		this.setMonthPayment(salary);
 		lastChecked.set(Calendar.YEAR, 1990);
 		Employees.add(this);
-	//	ReportingHR reporting = new ReportingHR(salary, firstname, surname);
+		ReportingHR reporting = new ReportingHR(salary, firstname, surname);
 		add++;
 	}
 	

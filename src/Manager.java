@@ -63,7 +63,7 @@ public class Manager extends Employee {
 		do {
 			System.out.println(
 					" MANAGER MENU \n------------- \n Select: \n1)Check in.\n2)Check out. \n3)Day off request. \n4)Inbox. \n5)Show shift of the week. "
-							+ "\n6)View Employees. \n7)Show check in status of Employees. \n8)Change an Employee's shift. \n9)Set  extra hours for an Employee."
+							+ "\n6)View Employees. \n7)Show check in status of Employees. \n8)Edit an Employee's shift. \n9)Set  extra hours for an Employee."
 							+ " \n10)Edit an Employee's payment. \n11)Edit an Employee's fields. \n12)Log out.");
 			boolean flag = false;
 			int selection = 0;
@@ -403,7 +403,7 @@ public class Manager extends Employee {
 								System.out.println("yes/no");
 								String verify = sc.nextLine();
 								if (verify.toLowerCase().equals("yes")) {
-									Employee.Employees.get(posInEmployees).setSalary(selectedPayment);
+									Employee.Employees.get(posInEmployees).setMonthPayment(selectedPayment);
 									System.out.println("The change has been made.");
 									flag5 = false;
 								} else if (verify.toLowerCase().equals("no")) {
@@ -515,7 +515,14 @@ public class Manager extends Employee {
 												// Manager and
 												// not a basic
 												// Employee
-												flag3 = false;
+												if (selectedId == 0 &&  !(Employee.Employees.get(posInEmployees) instanceof Manager)) {
+													//only managers can have hr director as manager
+													posInEmpOfManager = -1;
+													System.out.println("You are not allowed to do that.");
+													flag3 = true;
+												}else {
+													flag3 = false;
+												}
 											} else {
 												posInEmpOfManager = -1;
 												flag3 = true;
