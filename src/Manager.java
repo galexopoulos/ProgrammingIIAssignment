@@ -727,7 +727,7 @@ public class Manager extends Employee {
 
 	public int shiftIndexToChange(int extraHours, Calendar[] dayShift) {//returns -1 if 1)extra hours overpass midnight
 																					//  2)employee has a shift that continues the next day
-																			 		//  3)extra hours added after the emmployee finished his shift
+																			 		//  3)extra hours added after the employee finished his shift
 																					//  4)employee doesn't work the requested day
 		boolean midnightError = false;
 		for (int i = 7; i> 0; i = i -2) {
@@ -743,8 +743,10 @@ public class Manager extends Employee {
 					dayShift[i].add(Calendar.HOUR_OF_DAY, extraHours);
 					int dayAtEnd = dayShift[i].get(Calendar.DAY_OF_WEEK); 
 					if (dayAtFirst == dayAtEnd) { 
+						dayShift[i].add(Calendar.HOUR_OF_DAY, -extraHours);
 						return i; 
 					}else {
+						dayShift[i].add(Calendar.HOUR_OF_DAY, -extraHours);
 						System.out.println("Mistake with the inserted value (overpassed midnight)");
 						midnightError = true;
 						break;
