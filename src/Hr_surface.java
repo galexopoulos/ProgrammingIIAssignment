@@ -176,26 +176,26 @@ public class Hr_surface {
 									boolean flag6;
 									do {
 										flag6 = false;
-										System.out.print("Insert Manager's id of the Manager, insert -1 if the Manager doesn't have a Manager \n"
-												+ "or press Enter to go back:");
+										System.out.print(
+												"Insert Manager's id of the Manager or press Enter to go back:");
 										selected = sc.nextLine();
 										if (selected.equals("")) {
 											flag5 = true;
 											break;
-					
+
 										} else {
 											try {
 												mngrId = Integer.parseInt(selected);
 												mngrPosition = Manager.whereIsManager(mngrId);
-												if (mngrId != -1 && mngrPosition == -1) {
+												if (mngrPosition == -1) {
 													flag6 = true;
 													System.out.println("That is not a valid Manager id.");
 													continue;
-												}else if (mngrId == -1) {
-													managerName = "no Manager";
-												}else {
-													managerName = Employee.Employees.get(mngrPosition).getFirstname();
-													managerName += " " + Employee.Employees.get(mngrPosition).getSurname();
+												} else {
+													managerName = Employee.Employees.get(mngrPosition)
+															.getFirstname();
+													managerName += " "
+															+ Employee.Employees.get(mngrPosition).getSurname();
 												}
 											}catch(NumberFormatException b) {
 												flag6 = true;
@@ -256,9 +256,7 @@ public class Hr_surface {
 						manager.setPosition(position);
 						manager.setPassword(password);
 						manager.setSalary(salary);
-						if(mngrPosition != -1) {
-							manager.setManager((Manager) Employee.Employees.get(mngrPosition));
-						}
+						manager.setManager((Manager) Employee.Employees.get(mngrPosition));
 						System.out.println("Succesfully saved. \n" + manager.toString());
 						flag1 = false;
 					}else if (verify.toLowerCase().equals("no")){
@@ -378,6 +376,10 @@ public class Hr_surface {
 												flag6 = true;
 												System.out.println("That is not a valid Manager id.");
 												continue;
+											}else if (mngrPosition == 0) {//hr director is manager only for managers
+														flag6 = true;
+														System.out.println("You are not allowed to do that.");
+														continue;
 											}else {
 												managerName = Employee.Employees.get(mngrPosition).getFirstname();
 												managerName += " " + Employee.Employees.get(mngrPosition).getSurname();
@@ -475,8 +477,8 @@ public class Hr_surface {
 			System.out.println(Employee.Employees.get(i).toString());
 		}
 		//}
-*/
-		
+
+	*/	
 		boolean stayAtHR;
 		do {
 			stayAtHR = true;	

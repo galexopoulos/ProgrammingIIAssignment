@@ -39,7 +39,10 @@ public class Employee implements Serializable {
 	private Calendar lastChecked = Calendar.getInstance();
 	/** An array that contains the mails sent to the Employee. */
 	String[] newmail = new String[200];
-	int maxmail = 0; //NIKO JAVADOC
+	/**
+	 * A variable that shows how many mails the employee has, gets back to zero when it reaches 200
+	 */
+	int maxmail = 0; 
 	/** A variable that shows how many extra hours has worked the Employee the current week
 	 * max extra hours worked  per week = 5 
 	 */
@@ -63,10 +66,10 @@ public class Employee implements Serializable {
 		this.password = password;
 		this.salary = salary;
 		this.manager = manager;
+		this.setMonthPayment(salary);
 		this.employee_Id = add;
 		lastChecked.set(Calendar.YEAR, 1990);
 		Employees.add(this);
-		ReportingHR reporting = new ReportingHR(salary, firstname, surname);
 		add++;
 	}
 	
@@ -114,9 +117,9 @@ public class Employee implements Serializable {
 		this.password = password;
 		this.salary = salary;
 		this.employee_Id = add;
+		this.setMonthPayment(salary);
 		lastChecked.set(Calendar.YEAR, 1990);
 		Employees.add(this);
-		ReportingHR reporting = new ReportingHR(salary, firstname, surname);
 		add++;
 	}
 	
@@ -567,7 +570,7 @@ public class Employee implements Serializable {
 	}
 
 	/**
-	 * Gives the ability to the User to send a string to another user which is automatically saved to his mail-array
+	 * NIKO JAVADOC
 	 */
 	public void mhnyma() {
 		int thesh = 0;
@@ -583,7 +586,7 @@ public class Employee implements Serializable {
 			System.out.printf("Πληκτρολογήστε το μήνυμα που επιθυμείτε να στείλετε στον %s %s\n",
 					Employee.Employees.get(thesh).getFirstname(), Employee.Employees.get(thesh).getSurname());
 			int mtbl = Employee.Employees.get(thesh).maxmail + 1;
-			String a = "       -------\n" + mtbl + ")Mail from " + this.getFirstname() + this.getSurname() + ":\n";
+			String a = "       -------\n" + mtbl + ")Mail from " + this.getFirstname() + " " + this.getSurname() + ":\n";
 			a = a + in.nextLine();
 			Employee.Employees.get(thesh).newmail[Employee.Employees.get(thesh).maxmail] = a;
 			Employee.Employees.get(thesh).maxmail++;
@@ -610,7 +613,7 @@ public class Employee implements Serializable {
 			String time = String.format("%d/%d", dayOff.get(Calendar.DAY_OF_MONTH),
 					dayOff.get(Calendar.MONTH) + 1);
 			int mtbl = this.getManager().getMaxmail() + 1;
-			String mail_ston_Supervisor = "       -------\n" + mtbl + ")" + this.getFirstname() + this.getSurname()
+			String mail_ston_Supervisor = "       -------\n" + mtbl + ")" + this.getFirstname() + " " + this.getSurname()
 					+ " whose id is:" + this.getEmployee_Id() + " would like to take a day off on " +  time + ".\n";
 			this.getManager().newmail[this.getManager().getMaxmail()] = mail_ston_Supervisor;
 			mail_ston_Supervisor = mail_ston_Supervisor + "Inform the Employee whether you approve the day off \n ";
@@ -633,8 +636,8 @@ public class Employee implements Serializable {
 	 * @return the position in  list Employees if the id is valid, 
 	 * else returns -1.
 	 */
-	public int empBinarySearch(int x) {// x the id you want to find in the Employees and returns the position in
-		// Employees
+	public static int empBinarySearch(int x) {// x the id you want to find in the Employees and returns the position in
+		// Employees (static only for the junit)
 		int l = 0, r = Employee.Employees.size() - 1;
 		while (l <= r) {
 			int m = l + (r - l) / 2;
