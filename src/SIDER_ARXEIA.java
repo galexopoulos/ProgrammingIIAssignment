@@ -11,7 +11,7 @@ public class SIDER_ARXEIA implements Serializable {
 		try {
 
 			ObjectOutputStream out = new ObjectOutputStream(
-					new FileOutputStream("C:\\Users\\Νίκος\\Desktop\\Git Hub-Eclipse\\sider\\sider.ser"));
+					new FileOutputStream("C:\\SIDER\\sider.ser"));
 			out.writeObject(Employee.Employees);
 			out.close();
 			out.close();
@@ -23,7 +23,7 @@ public class SIDER_ARXEIA implements Serializable {
 
 	public static void parsimo_Employees() {
 		try {
-			FileInputStream fis = new FileInputStream("C:\\Users\\Νίκος\\Desktop\\Git Hub-Eclipse\\sider\\sider.ser");
+			FileInputStream fis = new FileInputStream("C:\\SIDER\\sider.ser");
 			ObjectInputStream ois = new ObjectInputStream(fis);
 
 			Employee.Employees = (ArrayList) ois.readObject();
