@@ -1,15 +1,26 @@
 
+import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public class Main {
+public class Main implements Serializable{
 	static Scanner sc = new Scanner(System.in);
 
 	/**
 	 * This initializes Room and Booking objects.
 	 */
+	public static void main (String[]args) {
+// MHNYMA PROS MO: THA TREKSEIS 2 FORES TO PROGRAMMA, MIA VAZONTAS SXOLIA TIS 4 TELEYTAIES GRAMMES KAI MIA VAZONTAS SXOLIA TIS 3 PRWTES GIA NA DOUME AN DOULEUOUN TA KWLOARXEIA
+			Sales_LoadObjects();
+		MO_arxeia.grapsimo_Booking();
+		MO_arxeia.grapsimo_Room();
+		MO_arxeia.parsimo_Booking();
+		MO_arxeia.parsimo_Room();
+		MO_arxeia.Emfanish_Booking();
+		MO_arxeia.Emfanish_Room();
+	}
 	public static void Sales_LoadObjects() {
 
 		new Room(1, 2, 50);

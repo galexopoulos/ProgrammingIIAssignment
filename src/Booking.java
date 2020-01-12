@@ -1,4 +1,5 @@
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -10,7 +11,7 @@ import java.util.Scanner;
  * 
  * @author Nikolas Moatsos
  */
-public class Booking {
+public class Booking implements Serializable{
 	/** Scanner used for input. */
 	static Scanner sc = new Scanner(System.in);
 	/** Check in date. */
@@ -107,7 +108,9 @@ public class Booking {
 	public void setBookings() { // add the booking to the list in the right row depending on room's number
 		bookings.get(roomNumber - 1).add(this);
 	}
-
+	public static void setBookings(ArrayList<ArrayList<Booking>> bookings) {
+		Booking.bookings = bookings;
+	}
 	/**
 	 * This calculates the number of visitors in the hotel this moment and
 	 * categorizes them to with buffet and without buffet.
@@ -129,6 +132,13 @@ public class Booking {
 			}
 		}
 		return sum;
+	}
+
+	@Override
+	public String toString() {
+		return "Booking [checkIn=" + checkIn + ", checkOut=" + checkOut + ", nights=" + nights + ", bookingCode="
+				+ bookingCode + ", buffet=" + buffet + ", roomNumber=" + roomNumber + ", extraExpenses=" + extraExpenses
+				+ ", check=" + check + ", checkedIn=" + checkedIn + ", checkedOut=" + checkedOut + "]";
 	}
 
 	/**
@@ -891,5 +901,9 @@ public class Booking {
 	public Date getCheckIn() {
 		return checkIn;
 	}
+
+
+
+
 
 }
