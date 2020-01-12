@@ -22,8 +22,14 @@ public class mainClass {
 		 * Thread tWeek = new Thread(new weekThread()); Thread tMonth = new Thread(new
 		 * monthThread()); tWeek.start(); tMonth.start();
 		 */
-		SIDER_ARXEIA.grapsimo_Employees();
-		Arxeia_markou.grapsimo_Inventory();
+		SIDER_ARXEIA.parsimo_Employees();;
+		Arxeia_markou.parsimo_Inventory();
+		MO_arxeia.parsimo_Booking();
+		MO_arxeia.parsimo_Room();
+		SIDER_ARXEIA.Emfanish();
+		Arxeia_markou.Emfanish();
+		MO_arxeia.Emfanish_Booking();
+		MO_arxeia.Emfanish_Room();
 		while (flag1) {
 					InputMenu();
 		}
@@ -99,6 +105,8 @@ public class mainClass {
 			//perasma arxeia
 			SIDER_ARXEIA.grapsimo_Employees();
 			Arxeia_markou.grapsimo_Inventory();
+			MO_arxeia.grapsimo_Booking();
+			MO_arxeia.grapsimo_Room();
 			flag1 = false;
 			break;
 		default:
