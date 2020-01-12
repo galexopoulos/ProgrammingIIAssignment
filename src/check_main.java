@@ -1,7 +1,6 @@
 
 import java.util.*;
 
-
 public class check_main {
 
 	public static void main(String args[]) {
@@ -26,14 +25,13 @@ public class check_main {
 		 * Hr_Director boss = new Hr_Director("boss", "no1","a","b",10,null); c = new
 		 * Manager(c); System.out.println(c instanceof Manager); boss.getMenu();
 		 */
-/*0*/		Hr_Director Kobe = new Hr_Director("Kobe", "Bryant", "123456", 213141);
-/*1*/	Manager Petreas = new Manager("Petreas", "Giorgos", "Athlete", "DaddyofIvan", 19000, Kobe);
-/*2*/	Manager Barney = new Manager("Barney", "Stinson", "P.L.E.A.S.E.", "robin", 1434133, Kobe);
-/*3*/	Employee Ivan = new Employee("Ivan", "Zaytsev", "Athlete", "Petreasismydaddy", 12000, Petreas);
-/*4*/	Employee Rick = new Employee("Rick", "Sanchez", "scientist", "Wubalubadubdub", 2, Barney);
-/*5*/	Employee Rachel = new Employee("Rachel", "Green", "waitress", "LaPooh", 980, Barney);
-/*6*/	Employee NF = new Employee("Nate", "Feuerstein", "GOAT", "paidmydues", 3034308, Barney);  	
-	
+		/* 0 */ Hr_Director Kobe = new Hr_Director("Kobe", "Bryant", "123456", 213141);
+		/* 1 */ Manager Petreas = new Manager("Petreas", "Giorgos", "Athlete", "DaddyofIvan", 19000, Kobe);
+		/* 2 */ Manager Barney = new Manager("Barney", "Stinson", "P.L.E.A.S.E.", "robin", 1434133, Kobe);
+		/* 3 */ Employee Ivan = new Employee("Ivan", "Zaytsev", "Athlete", "Petreasismydaddy", 12000, Petreas);
+		/* 4 */ Employee Rick = new Employee("Rick", "Sanchez", "scientist", "Wubalubadubdub", 2, Barney);
+		/* 5 */ Employee Rachel = new Employee("Rachel", "Green", "waitress", "LaPooh", 980, Barney);
+		/* 6 */ Employee NF = new Employee("Nate", "Feuerstein", "GOAT", "paidmydues", 3034308, Barney);
 
 		String[] shift = { "9:00-17:00", "1:00-9:00", "-", "7:00-14:00", "19:00-", "-1:00,12:00-13:00", "-",
 				"11:00-17:00" };
@@ -47,8 +45,8 @@ public class check_main {
 		Barney.setThisWeekShift(shiftcal);
 		Petreas.setShiftStr(shift);
 		Petreas.setThisWeekShift(shiftcal);
-		String[] shift2 = { "12:00-13:00", "16:00-", "-8:00", "12:00-20:00", "7:00-14:00", "9:01-17:00", "23:00-23:30,23:31-23:45,23:46-23:47,23:48-23:49",
-				"12:00-18:00" };
+		String[] shift2 = { "12:00-13:00", "16:00-", "-8:00", "12:00-20:00", "7:00-14:00", "9:01-17:00",
+				"23:00-23:30,23:31-23:45,23:46-23:47,23:48-23:49", "12:00-18:00" };
 		try {
 			shiftcal = Shift.createShift(shift2);
 		} catch (ShiftException a) {
@@ -66,33 +64,36 @@ public class check_main {
 			int days = (Calendar.SATURDAY - weekday + 2) % 7 - 7;
 			cal.add(Calendar.DAY_OF_YEAR, days);
 		}
-		//System.out.println(cal.get(Calendar.DAY_OF_MONTH));
-		//System.out.println(Rachel.getThisWeekShift()[5][1].get(Calendar.DAY_OF_MONTH));
+		// System.out.println(cal.get(Calendar.DAY_OF_MONTH));
+		// System.out.println(Rachel.getThisWeekShift()[5][1].get(Calendar.DAY_OF_MONTH));
 		try {
 			shiftcal = Shift.createShift(shift3);
 		} catch (ShiftException a) {
 			System.err.println("wrong3 " + a);
 		}
 		NF.setShiftStr(shift3);
-		NF.setThisWeekShift(shiftcal); 
+		NF.setThisWeekShift(shiftcal);
 		Rick.setShiftStr(shift3);
-		Rick.setThisWeekShift(shiftcal); 
+		Rick.setThisWeekShift(shiftcal);
 		Hr_surface.toRun();
 	}
+
 	public static void loadobjects() {
-		/*0*/		Hr_Director Kobe = new Hr_Director("Kobe", "Bryant", "123456", 213141);
-		/*1*/	Manager Petreas = new Manager("Petreas", "Giorgos", "Athlete", "DaddyofIvan", 19000, Kobe);
-		/*2*/	Manager Barney = new Manager("Barney", "Stinson", "P.L.E.A.S.E.", "robin", 1434133, Kobe);
-		/*3*/   Manager Dumbledore =new Manager ("Albus","Percival Wulfric Brian Dumbledore","Principal","oldman",2200,Kobe);
-		/**/    Manager Leo=new Manager("Leonardo","Da vinci","Architect","monalisa",2100,Kobe);
-		/**/	Employee Ivan = new Employee("Ivan", "Zaytsev", "Athlete", "Petreasismydaddy", 12000, Petreas);
-		/**/	Employee Rick = new Employee("Rick", "Sanchez", "scientist", "Wubalubadubdub", 2, Barney);
-		/**/	Employee Rachel = new Employee("Rachel", "Green", "waitress", "LaPooh", 980, Barney);
-		/**/	Employee NF = new Employee("Nate", "Feuerstein", "GOAT", "paidmydues", 3034308, Barney);  	
-		/**/    Employee Ron=new Employee ("Ron","Wesley","Wizard","orangehair",1600,Barney);
-		/**/    Employee Lionel=new Employee ("Lionel","Messi","Athlete","goat",750,Dumbledore);
-		/**/    Employee Cristiano=new Employee ("Cristiano","Ronaldo","Athlete","beyondmessi",749,Dumbledore);
-		/**/    Employee Margaret=new Employee ("Margaret","Thatcher","Queen","obey",1250,Dumbledore);
-		/**/    Employee Angela=new Employee ("Angela","Merkel","chancellor","ichheißemerkel",1000,Dumbledore);
+		/* 0 */ Hr_Director Kobe = new Hr_Director("Kobe", "Bryant", "123456", 213141);
+		/* 1 */ Manager Petreas = new Manager("Petreas", "Giorgos", "Athlete", "DaddyofIvan", 19000, Kobe);
+		/* 2 */ Manager Barney = new Manager("Barney", "Stinson", "P.L.E.A.S.E.", "robin", 1434133, Kobe);
+		/* 3 */ Manager Dumbledore = new Manager("Albus", "Percival Wulfric Brian Dumbledore", "Principal", "oldman",
+				2200, Kobe);
+		/* 4 */ Manager Leo = new Manager("Leonardo", "Da vinci", "Architect", "monalisa", 2100, Kobe);
+		/* 5 */ Employee Ivan = new Employee("Ivan", "Zaytsev", "Athlete", "Petreasismydaddy", 12000, Petreas);
+		/* 6 */ Employee Rick = new Employee("Rick", "Sanchez", "scientist", "Wubalubadubdub", 2, Barney);
+		/* 7 */ Employee Rachel = new Employee("Rachel", "Green", "waitress", "LaPooh", 980, Barney);
+		/* 8 */ Employee NF = new Employee("Nate", "Feuerstein", "GOAT", "paidmydues", 3034308, Barney);
+		/* 9 */ Employee Ron = new Employee("Ron", "Wesley", "Wizard", "orangehair", 1600, Barney);
+		/* 10 */ Employee Lionel = new Employee("Lionel", "Messi", "Athlete", "goat", 750, Dumbledore);
+		/* 11 */ Employee Cristiano = new Employee("Cristiano", "Ronaldo", "Athlete", "beyondmessi", 749, Dumbledore);
+		/* 12 */ Employee Margaret = new Employee("Margaret", "Thatcher", "Queen", "obey", 1250, Dumbledore);
+		/* 13 */ Employee Angela = new Employee("Angela", "Merkel", "chancellor", "ichheißemerkel", 1000, Dumbledore);
+		/* 14 */ Employee Agatha = new Employee("Agatha", "Christie", "Author", "missmarple", 700, Petreas);
 	}
 }
