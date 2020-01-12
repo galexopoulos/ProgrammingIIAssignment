@@ -1,4 +1,3 @@
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -10,6 +9,7 @@ import java.util.Scanner;
  */
 public class Inventory implements Serializable {
 	private static final long serialVersionUID = 6529685098267757690L;
+	final static int maxsize = 80;
 	static Scanner sc = new Scanner(System.in);
 	private String type;
 	/** the type of product. it can only be fixed, urgent */
@@ -24,8 +24,8 @@ public class Inventory implements Serializable {
 	static ArrayList<Inventory> fixedInventory = new ArrayList<Inventory>();// generates the list of for all the
 	// inventory subjects//
 	static ArrayList<Inventory> urgentInventory = new ArrayList<Inventory>();
-	static private int buffet = 300;// the number of people the buffet can go throughout without needing a new order
-									// to be placed. the fixed price for the buffet per visitor is 50$//
+	static private int buffet = 80;// the number of people the buffet can go throughout without needing a new order
+	static private int buffetbalance; // to be placed. the fixed price for the buffet per visitor is 50$//
 
 	public Inventory(String name, int stock, int pricepreunit, int minstock, Supplier suplier, String type,
 			double balance) {
@@ -52,8 +52,8 @@ public class Inventory implements Serializable {
 	public static void displayInvMenu() {
 		System.out.println("-------Welcome to the Inventory manager Menu-------\n");
 		System.out.println(
-				"1)To Update and check the Fixed Invetory please input 1\n2)To Update check the Urgent Invetory please input 2\n"
-						+ "3)To Update and check the Buffet please input 3\n4)To check the balances please input 4	");
+				"1)To return to main menu intput 1\n2)To Update and check the Fixed Inventory please input 2\n3)To Update check the Urgent Inventory please input 3\n"
+						+ "4)To Update and check the Buffet please input 4\n5)To check the balances please input 5	");
 		System.out.print("Selection: ");
 	}
 
@@ -89,7 +89,7 @@ public class Inventory implements Serializable {
 			try {
 				do {
 					x = sc.nextInt();
-				} while (!(x == 1 || x == 2 || x == 3 || x == 4));
+				} while (!(x == 1 || x == 2 || x == 3 || x == 4|| x == 5));
 				break;
 			} catch (Exception e) {
 				System.out.println("Please select 1, 2, 3 or 4.");
@@ -99,22 +99,27 @@ public class Inventory implements Serializable {
 
 		switch (x) {
 		case 1:
-			updateFixed(100);
+			mainClass.InputMenu();
+			question();
+		case 2:
+			int people[]=Booking.getVisitors();
+			updateFixed(people[0]);
 			checkFixed();
 			question();
 			break;
 
-		case 2:
+		case 3:
 			updateUrgent();
 			checkUrgent();
 			question();
 			break;
 
-		case 3:
-			updateBuffet(250);
+		case 4:
+			int peoplebuffet[]=Booking.getVisitors();
+			updateBuffet(peoplebuffet[1]);
 			question();
 			break;
-		case 4:
+		case 5:
 			printBalance();
 			question();
 			break;
@@ -133,8 +138,10 @@ public class Inventory implements Serializable {
 	public static void updateBuffet(int visitorswithbuffet) {// Updates the buffet based on how many visitors included
 																// buffet to their package//
 		buffet -= visitorswithbuffet;
-		if (buffet <= 50) {// its <= 50 because we use the the supplies for 50 visitors as protection //
+		if (buffet <= 30) {// its <= 30 because we use the the supplies for 50 visitors as protection //
 			orderBuffet();
+		}else{
+			System.out.println("There is no need for an order");
 		}
 	}
 
@@ -145,7 +152,8 @@ public class Inventory implements Serializable {
 	public static void orderBuffet() {
 		String x;
 		System.out.println("The supplies for the buffet are running low and there should be an order\n."
-				+ " Do you want to order the fixed supply (For 300 visitors), or order by input?\n( Select 0 for fixed amount or 1 for order by input)");
+				+ " Do you want to order the fixed supply (For " + maxsize
+				+ " visitors), or order by input?\n( Select 0 for fixed amount or 1 for order by input)");
 		do {
 			x = sc.nextLine();
 		} while (!(x.equals("0") || x.equals("1")));
@@ -156,12 +164,13 @@ public class Inventory implements Serializable {
 			do {
 				try {
 					do {
-						System.out.println("( the order cannot be 1000 or more at once or less than 50)");
+						System.out.println("( the order cannot be 300 or more at once or less than 80)");
 						y = sc.nextInt();
-					} while (y < 50 || y > 1000);
+						buffetbalance = 50 * y;// 50 is the fee for having buffet
+					} while (y < maxsize || y > 300);
 					break;
 				} catch (Exception e) {
-					System.out.println("Please order an amount between 50 and 1000 that is not a double");
+					System.out.println("Please order an amount between 80 and 300 that is not a double");
 					sc.nextLine();
 					continue;
 				}
@@ -169,18 +178,21 @@ public class Inventory implements Serializable {
 			buffet += y;
 			System.out.println("The number of visitors that the buffet can acompany is " + buffet + "");
 		} else if (x.equals("0")) {
-			buffet += 300;
+			buffet += maxsize;
+			buffetbalance = maxsize * 50;
 			System.out.println("The number of visitors that the buffet can acompany is " + buffet + "");
 		}
 
 	}
 
 	/** Send the finance team the expenses from the buffet inventory */
-	public static int getBuffetFin(int visitorswithbuffet) {
-		int x = visitorswithbuffet * 50;// 50 is the fee for having buffet
-		return x;
+	public static int getBuffetFin() {
+		return buffetbalance;
 	}
 
+	public static void setBuffetFin() {
+		buffetbalance = 0;
+	}
 //end of buffet section//
 
 // Start of fixedInventory section//
@@ -205,6 +217,7 @@ public class Inventory implements Serializable {
 	 * (minstock>stock)
 	 */
 	public static void checkFixed() {
+		sc.nextLine();//clears the scanner
 		for (int i = 0; i < fixedInventory.size(); i++) {
 			if (fixedInventory.get(i).stock < fixedInventory.get(i).minstock) {
 				orderFixed(i);
@@ -218,25 +231,26 @@ public class Inventory implements Serializable {
 	 */
 
 	public static void orderFixed(int i) {
-		System.out.println(
-				"\nOrder needed for " + fixedInventory.get(i).name + " \nDo you want to order the fixed amount ("
-						+ fixedInventory.get(i).minstock * 2 + ") or order by input");
+		System.out.println("\nOrder needed for " + fixedInventory.get(i).name
+				+ " \nDo you want to order the fixed amount (80) or order by input");
 		String ans;
-		sc.nextLine();
 		do {
 			System.out.println("Select 0 for fixed amount or 1 to order by input");
 			ans = sc.nextLine();
 		} while (!(ans.equals("0") || ans.equals("1")));
 		if (ans.equals("0")) {
-			fixedInventory.get(i).stock += fixedInventory.get(i).minstock * 3;
-			fixedInventory.get(i).balance += fixedInventory.get(i).minstock * 3 * fixedInventory.get(i).pricepreunit;
+			fixedInventory.get(i).stock += maxsize;
+			fixedInventory.get(i).balance += maxsize * fixedInventory.get(i).pricepreunit;
 
 		} else if (ans.equals("1")) {
 			System.out.println("Give me the order");
 			int order = 1;
 			do {
 				try {
-					order = sc.nextInt();
+					do {
+						System.out.println("The order should be more than the max accomondation number (80)");
+						order = sc.nextInt();
+					} while (order < maxsize);
 					break;
 				} catch (Exception e) {
 					System.out.println("Only integers are allowed");
@@ -303,6 +317,7 @@ public class Inventory implements Serializable {
 	 * (minstock>stock)
 	 */
 	public static void checkUrgent() {
+		sc.nextLine();
 		for (int i = 0; i < urgentInventory.size(); i++) {
 			if (urgentInventory.get(i).stock < urgentInventory.get(i).minstock) {
 				orderUrgent(i);
@@ -322,7 +337,6 @@ public class Inventory implements Serializable {
 				+ " is running low and there should be an order\n Do you want to order the fixed amount ("
 				+ urgentInventory.get(i).minstock * 2 + ")\nor order by input");
 		String ans;
-		sc.nextLine();
 		do {
 			System.out.println(" Select 0 for fixed amount or 1 for order by input");
 			ans = sc.nextLine();
@@ -386,7 +400,7 @@ public class Inventory implements Serializable {
 		for (Inventory i : urgentInventory) {
 			System.out.println("The balance for " + i.name + " is: " + i.balance + "\n--------------------------");
 		}
-
+		System.out.println("Buffet\nThe balance for the buffet is " + buffetbalance + "\n--------------------------");
 	}
 
 	public double getBalance() {
@@ -398,28 +412,28 @@ public class Inventory implements Serializable {
 	}
 
 //	public static void main(String args[]) {
-		// loadobjects();
-	//	 invMenu();
-		// Arxeia_markou.grapsimo_Inventory();;
-		//Arxeia_markou.parsimo_Inventory();
+	// loadobjects();
+	// invMenu();
+	// Arxeia_markou.grapsimo_Inventory();;
+	// Arxeia_markou.parsimo_Inventory();
 //	}
 
 	public static void loadobjects() {
-		Supplier s1 = new Supplier("s1", 1, "@1");
-		Supplier s2 = new Supplier("s2", 2, "@2");
-		Supplier s3 = new Supplier("s3", 3, "@3");
-		Supplier s4 = new Supplier("s4", 4, "@4");
-		Supplier s5 = new Supplier("s5", 5, "@5");
-		Inventory i1 = new Inventory("z1", 100, 5, 70, s1, "Fixed", 0);
-		Inventory i2 = new Inventory("z2", 150, 25, 20, s2, "Fixed", 0);
-		Inventory i3 = new Inventory("z3", 200, 50, 20, s3, "Fixed", 0);
-		Inventory i4 = new Inventory("z4", 120, 10, 10, s4, "Fixed", 0);
-		Inventory i5 = new Inventory("z5", 125, 20, 30, s5, "Fixed", 0);
-		Inventory iu1 = new Inventory("u1", 100, 5, 70, s1, "Urgent", 0);
-		Inventory iu2 = new Inventory("u2", 150, 25, 20, s2, "Urgent", 0);
-		Inventory iu3 = new Inventory("u3", 200, 50, 20, s3, "Urgent", 0);
-		Inventory iu4 = new Inventory("u4", 120, 10, 10, s4, "Urgent", 0);
-		Inventory iu5 = new Inventory("u5", 125, 20, 30, s5, "Urgent", 0);
+		Supplier s1 = new Supplier("John", 1, "@1");
+		Supplier s2 = new Supplier("Bob", 2, "@2");
+		Supplier s3 = new Supplier("Mak", 3, "@3");
+		Supplier s4 = new Supplier("Jim", 4, "@4");
+		Supplier s5 = new Supplier("Chandler", 5, "@5");
+		Inventory i1 = new Inventory("Toilet paper", 100, 5, 70, s1, "Fixed", 0);
+		Inventory i2 = new Inventory("Towels", 150, 25, 20, s2, "Fixed", 0);
+		Inventory i3 = new Inventory("Shampoo", 200, 50, 20, s3, "Fixed", 0);
+		Inventory i4 = new Inventory("Conditioner", 120, 10, 10, s4, "Fixed", 0);
+		Inventory i5 = new Inventory("Slippers", 125, 20, 30, s5, "Fixed", 0);
+		Inventory iu1 = new Inventory("Vodka", 100, 5, 70, s1, "Urgent", 0);
+		Inventory iu2 = new Inventory("Whisky", 150, 25, 20, s2, "Urgent", 0);
+		Inventory iu3 = new Inventory("Coca-Cola", 200, 50, 20, s3, "Urgent", 0);
+		Inventory iu4 = new Inventory("Sprite", 120, 10, 10, s4, "Urgent", 0);
+		Inventory iu5 = new Inventory("Fanda", 125, 20, 30, s5, "Urgent", 0);
 	}
 
 	public static ArrayList<Inventory> getFixedInventory() {
@@ -446,6 +460,25 @@ public class Inventory implements Serializable {
 	public String toString() {
 		return "Inventory [type=" + type + ", name=" + name + ", stock=" + stock + ", pricepreunit=" + pricepreunit
 				+ ", minstock=" + minstock + ", suplier=" + suplier + ", balance=" + balance + "]";
+	}
+
+	public static void main(String args[]) {
+		Supplier s1 = new Supplier("John", 1, "@1");
+		Supplier s2 = new Supplier("Bob", 2, "@2");
+		Supplier s3 = new Supplier("Mak", 3, "@3");
+		Supplier s4 = new Supplier("Jim", 4, "@4");
+		Supplier s5 = new Supplier("Chandler", 5, "@5");
+		Inventory i1 = new Inventory("Toilet paper", 100, 5, 70, s1, "Fixed", 0);
+		Inventory i2 = new Inventory("Towels", 150, 25, 20, s2, "Fixed", 0);
+		Inventory i3 = new Inventory("Shampoo", 200, 50, 20, s3, "Fixed", 0);
+		Inventory i4 = new Inventory("Conditioner", 120, 10, 10, s4, "Fixed", 0);
+		Inventory i5 = new Inventory("Slippers", 125, 20, 30, s5, "Fixed", 0);
+		Inventory iu1 = new Inventory("Vodka", 100, 5, 70, s1, "Urgent", 0);
+		Inventory iu2 = new Inventory("Whisky", 150, 25, 20, s2, "Urgent", 0);
+		Inventory iu3 = new Inventory("Coca-Cola", 200, 50, 20, s3, "Urgent", 0);
+		Inventory iu4 = new Inventory("Sprite", 120, 10, 10, s4, "Urgent", 0);
+		Inventory iu5 = new Inventory("Fanda", 125, 20, 30, s5, "Urgent", 0);
+		invMenu();
 	}
 
 }
