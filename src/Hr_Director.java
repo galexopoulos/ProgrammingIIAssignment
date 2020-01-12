@@ -121,7 +121,6 @@ public class Hr_Director extends Manager{
 							String dayChecked = String.format("%d/%d", a.getLastChecked().get(Calendar.DAY_OF_MONTH), a.getLastChecked().get(Calendar.MONTH) + 1);
 							System.out.println("Id: " + a.getEmployee_Id() + " " + a.getFirstname() + " " +  a.getSurname() + " status: " + status + " at " + timeChecked + " of "  + dayChecked);
 						}else { //if a.getLastChecked().get(Calendar.YEAR) == 1990 the Employee has never checked in
-							System.out.println(a.getLastChecked().getTime());
 							System.out.println("Id: " + a.getEmployee_Id() + " " + a.getFirstname() + " " +  a.getSurname() + " status: Checked out");
 						}
 					}
@@ -254,7 +253,7 @@ public class Hr_Director extends Manager{
 								System.out.println("yes/no");
 								String verify = sc.nextLine();
 								if (verify.toLowerCase().equals("yes")) {
-									Employee.Employees.get(posInEmployees).setSalary(selectedPayment);
+									Employee.Employees.get(posInEmployees).setMonthPayment(selectedPayment);
 									System.out.println("The change has been made.");
 									flag5 = false;
 								}else if (verify.toLowerCase().equals("no")){
@@ -505,6 +504,7 @@ public class Hr_Director extends Manager{
 									break;
 								case "exit":
 									menuflag = true;
+									break;
 								default:
 									System.out.println("That is not a valid input.");
 									flag3 = true;

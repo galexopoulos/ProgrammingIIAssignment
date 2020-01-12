@@ -230,6 +230,7 @@ public class Manager extends Employee {
 									break;
 								case "exit":
 									menuflag = true;
+									break;
 								default:
 									System.out.println("That is not a valid input.");
 									flag3 = true;

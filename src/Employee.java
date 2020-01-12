@@ -67,7 +67,7 @@ public class Employee implements Serializable {
 		this.employee_Id = add;
 		lastChecked.set(Calendar.YEAR, 1990);
 		Employees.add(this);
-		ReportingHR reporting = new ReportingHR(salary, firstname, surname);
+	//	ReportingHR reporting = new ReportingHR(salary, firstname, surname);
 		add++;
 	}
 	
@@ -118,7 +118,7 @@ public class Employee implements Serializable {
 		this.setMonthPayment(salary);
 		lastChecked.set(Calendar.YEAR, 1990);
 		Employees.add(this);
-		ReportingHR reporting = new ReportingHR(salary, firstname, surname);
+	//	ReportingHR reporting = new ReportingHR(salary, firstname, surname);
 		add++;
 	}
 	
@@ -585,7 +585,7 @@ public class Employee implements Serializable {
 			System.out.printf("Πληκτρολογήστε το μήνυμα που επιθυμείτε να στείλετε στον %s %s\n",
 					Employee.Employees.get(thesh).getFirstname(), Employee.Employees.get(thesh).getSurname());
 			int mtbl = Employee.Employees.get(thesh).maxmail + 1;
-			String a = "       -------\n" + mtbl + ")Mail from " + this.getFirstname() + this.getSurname() + ":\n";
+			String a = "       -------\n" + mtbl + ")Mail from " + this.getFirstname() + " " + this.getSurname() + ":\n";
 			a = a + in.nextLine();
 			Employee.Employees.get(thesh).newmail[Employee.Employees.get(thesh).maxmail] = a;
 			Employee.Employees.get(thesh).maxmail++;
@@ -612,7 +612,7 @@ public class Employee implements Serializable {
 			String time = String.format("%d/%d", dayOff.get(Calendar.DAY_OF_MONTH),
 					dayOff.get(Calendar.MONTH) + 1);
 			int mtbl = this.getManager().getMaxmail() + 1;
-			String mail_ston_Supervisor = "       -------\n" + mtbl + ")" + this.getFirstname() + this.getSurname()
+			String mail_ston_Supervisor = "       -------\n" + mtbl + ")" + this.getFirstname() + " " + this.getSurname()
 					+ " whose id is:" + this.getEmployee_Id() + " would like to take a day off on " +  time + ".\n";
 			this.getManager().newmail[this.getManager().getMaxmail()] = mail_ston_Supervisor;
 			mail_ston_Supervisor = mail_ston_Supervisor + "Inform the Employee whether you approve the day off \n ";
