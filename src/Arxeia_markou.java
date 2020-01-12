@@ -12,7 +12,7 @@ public class Arxeia_markou {
 		try {
 
 			ObjectOutputStream out = new ObjectOutputStream(
-					new FileOutputStream("C:\\Users\\Νίκος\\Desktop\\Git Hub-Eclipse\\markou\\markou.ser"));
+					new FileOutputStream("C:\\MARKOU\\markou.ser"));
 			out.writeObject(Inventory.fixedInventory);
 			out.close();
 			out.close();
@@ -24,7 +24,7 @@ public class Arxeia_markou {
 		try {
 
 			ObjectOutputStream out = new ObjectOutputStream(
-					new FileOutputStream("C:\\\\Users\\\\Νίκος\\\\Desktop\\\\Git Hub-Eclipse\\\\markou\\\\markou2.ser"));
+					new FileOutputStream("C:\\MARKOU\\markou.ser2"));
 			out.writeObject(Inventory.urgentInventory);
 			out.close();
 			out.close();
@@ -35,7 +35,7 @@ public class Arxeia_markou {
 
 	public static void parsimo_Inventory() {
 		try {
-			FileInputStream fis = new FileInputStream("C:\\\\Users\\\\Νίκος\\\\Desktop\\\\Git Hub-Eclipse\\\\markou\\\\markou.ser");
+			FileInputStream fis = new FileInputStream("C:\\MARKOU\\markou.ser");
 			ObjectInputStream ois = new ObjectInputStream(fis);
 			Inventory.setFixedInventory((ArrayList) ois.readObject());
 			// Inventory.setFixedInventory((ArrayList) ois.readObject());
@@ -50,7 +50,7 @@ public class Arxeia_markou {
 			return;
 		}
 		try {
-			FileInputStream fis = new FileInputStream("C:\\\\Users\\\\Νίκος\\\\Desktop\\\\Git Hub-Eclipse\\\\markou\\\\markou2.ser");
+			FileInputStream fis = new FileInputStream("C:\\MARKOU\\markou2.ser");
 			ObjectInputStream ois = new ObjectInputStream(fis);
 			Inventory.setUrgentInventory((ArrayList) ois.readObject());
 			// Inventory.setFixedInventory((ArrayList) ois.readObject());
