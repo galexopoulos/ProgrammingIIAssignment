@@ -27,8 +27,8 @@ public class check_main {
 		 * Manager(c); System.out.println(c instanceof Manager); boss.getMenu();
 		 */
 /*0*/		Hr_Director Kobe = new Hr_Director("Kobe", "Bryant", "123456", 213141);
-/*1*/	Manager Petreas = new Manager("Petreas", "Giorgos", "Athlete", "DaddyofIvan", 19000, null);
-/*2*/	Manager Barney = new Manager("Barney", "Stinson", "P.L.E.A.S.E.", "robin", 1434133, null);
+/*1*/	Manager Petreas = new Manager("Petreas", "Giorgos", "Athlete", "DaddyofIvan", 19000, Kobe);
+/*2*/	Manager Barney = new Manager("Barney", "Stinson", "P.L.E.A.S.E.", "robin", 1434133, Kobe);
 /*3*/	Employee Ivan = new Employee("Ivan", "Zaytsev", "Athlete", "Petreasismydaddy", 12000, Petreas);
 /*4*/	Employee Rick = new Employee("Rick", "Sanchez", "scientist", "Wubalubadubdub", 2, Barney);
 /*5*/	Employee Rachel = new Employee("Rachel", "Green", "waitress", "LaPooh", 980, Barney);

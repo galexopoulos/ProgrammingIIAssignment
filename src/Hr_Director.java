@@ -386,6 +386,7 @@ public class Hr_Director extends Manager{
 												posInEmpOfManager = -1;
 												flag3 = true;
 												System.out.println("You are not allowed to do that.");
+												continue;
 											}
 										}else {
 											posInEmpOfManager = -1;
@@ -804,8 +805,7 @@ public class Hr_Director extends Manager{
 										do {
 											flag6 = false;
 											System.out.print(
-													"Insert Manager's id of the Manager, insert -1 if the Manager doesn't have a Manager \n"
-															+ "or press Enter to go back:");
+													"Insert Manager's id of the Manager or press Enter to go back:");
 											selected = sc.nextLine();
 											if (selected.equals("")) {
 												flag5 = true;
@@ -815,18 +815,17 @@ public class Hr_Director extends Manager{
 												try {
 													mngrId = Integer.parseInt(selected);
 													mngrPosition = Manager.whereIsManager(mngrId);
-													if (mngrId != -1 && mngrPosition == -1) {
+													if (mngrPosition == -1) {
 														flag6 = true;
 														System.out.println("That is not a valid Manager id.");
-													} else if (mngrId == -1) {
-														managerName = "no Manager";
+														continue;
 													} else {
 														managerName = Employee.Employees.get(mngrPosition)
 																.getFirstname();
 														managerName += " "
 																+ Employee.Employees.get(mngrPosition).getSurname();
 													}
-												} catch (Exception b) {
+												} catch (NumberFormatException b) {
 													flag6 = true;
 													System.out.println("Please insert an Integer.");
 												}
@@ -886,9 +885,7 @@ public class Hr_Director extends Manager{
 								manager.setPosition(position);
 								manager.setPassword(password);
 								manager.setSalary(salary);
-								if (mngrPosition != -1) {
-									manager.setManager((Manager) Employee.Employees.get(mngrPosition));
-								}
+								manager.setManager((Manager) Employee.Employees.get(mngrPosition));
 								System.out.println("Succesfully saved. /n" + manager.toString());
 								flag1 = false;
 							} else if (verify.toLowerCase().equals("no")) {
