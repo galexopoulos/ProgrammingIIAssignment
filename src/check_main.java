@@ -79,22 +79,22 @@ public class check_main {
 	}
 
 	public static void loadobjects() {
-		/* 0 */ Hr_Director Kobe = new Hr_Director("Kobe", "Bryant", "123456", 2131);
-		/* 1 */ Manager Petreas = new Manager("Petreas", "Giorgos", "Athlete", "DaddyofIvan", 1900, Kobe);
-		/* 2 */ Manager Barney = new Manager("Barney", "Stinson", "P.L.E.A.S.E.", "robin", 1434, Kobe);
-		/* 3 */ Manager Dumbledore = new Manager("Albus", "Percival Wulfric Brian Dumbledore", "Principal", "oldman",
+		Hr_Director Kobe = new Hr_Director("Kobe", "Bryant", "123456", 2131);
+		Manager Petreas = new Manager("Petreas", "Giorgos", "Athlete", "DaddyofIvan", 19000, Kobe);
+		Manager Barney = new Manager("Barney", "Stinson", "P.L.E.A.S.E.", "robin", 13413, Kobe);
+		Manager Dumbledore = new Manager("Albus", "Percival Wulfric Brian Dumbledore", "Principal", "oldman",
 				2200, Kobe);
-		/* 4 */ Manager Leo = new Manager("Leonardo", "Da vinci", "Architect", "monalisa", 2100, Kobe);
-		/* 5 */ Employee Ivan = new Employee("Ivan", "Zaytsev", "Athlete", "Petreasismydaddy", 1200, Petreas);
-		/* 6 */ Employee Rick = new Employee("Rick", "Sanchez", "scientist", "Wubalubadubdub", 2, Barney);
-		/* 7 */ Employee Rachel = new Employee("Rachel", "Green", "waitress", "LaPooh", 980, Barney);
-		/* 8 */ Employee NF = new Employee("Nate", "Feuerstein", "GOAT", "paidmydues", 2200, Barney);
-		/* 9 */ Employee Ron = new Employee("Ron", "Wesley", "Wizard", "orangehair", 1600, Barney);
-		/* 10 */ Employee Lionel = new Employee("Lionel", "Messi", "Athlete", "goat", 750, Dumbledore);
-		/* 11 */ Employee Cristiano = new Employee("Cristiano", "Ronaldo", "Athlete", "beyondmessi", 749, Dumbledore);
-		/* 12 */ Employee Margaret = new Employee("Margaret", "Thatcher", "Queen", "obey", 1250, Dumbledore);
-		/* 13 */ Employee Angela = new Employee("Angela", "Merkel", "chancellor", "ichheißemerkel", 1000, Dumbledore);
-		/* 14 */ Employee Agatha = new Employee("Agatha", "Christie", "Author", "missmarple", 700, Petreas);
+		Manager Leo = new Manager("Leonardo", "Da vinci", "Architect", "monalisa", 1200, Kobe);
+		Employee Ivan = new Employee("Ivan", "Zaytsev", "Athlete", "Petreasismydaddy", 1200, Petreas);
+		Employee Rick = new Employee("Rick", "Sanchez", "scientist", "Wubalubadubdub", 1700, Barney);
+		Employee Rachel = new Employee("Rachel", "Green", "waitress", "LaPooh", 1980, Barney);
+		Employee NF = new Employee("Nate", "Feuerstein", "GOAT", "paidmydues", 1710, Barney);
+		Employee Ron = new Employee("Ron", "Wesley", "Wizard", "orangehair", 1600, Barney);
+		Employee Lionel = new Employee("Lionel", "Messi", "Athlete", "goat", 1750, Dumbledore);
+		Employee Cristiano = new Employee("Cristiano", "Ronaldo", "Athlete", "beyondmessi", 1749, Dumbledore);
+		Employee Margaret = new Employee("Margaret", "Thatcher", "Queen", "obey", 1250, Dumbledore);
+		Employee Angela = new Employee("Angela", "Merkel", "chancellor", "ichheißemerkel", 1200, Dumbledore);
+		Employee Agatha = new Employee("Agatha", "Christie", "Author", "missmarple", 1200, Petreas);
 	
 	}
 }
