@@ -244,14 +244,14 @@ public class Booking {
 		for (;;) {
 			int choose1 = 0;
 			do {
-				System.out.println("Booking's Menu :");
+				System.out.println("------------------- Bookings Menu --------------------");
 				System.out.println("1. Search for availability and create a booking");
 				System.out.println("2. Check In procedure");
 				System.out.println("3. Check Out procedure");
 				System.out.println("4. Cancel a booking");
 				System.out.println("5. Search for bookings ");
 				System.out.println("6. Go Back ");
-				System.out.print("Selection : ");
+				System.out.println("---------- CHOOSE A NUMBER BETWEEN 1 AND 6 -----------");
 				try {
 					choose1 = sc.nextInt();
 				} catch (InputMismatchException e) {
@@ -265,7 +265,6 @@ public class Booking {
 			} while (choose1 != 1 && choose1 != 2 && choose1 != 3 && choose1 != 4 && choose1 != 5 && choose1 != 6); // check
 																													// menu
 																													// input
-			System.out.println();
 			switch (choose1) {
 			case 1:
 				boolean f = false;
@@ -682,13 +681,13 @@ public class Booking {
 				for (;;) {
 					int choose2 = 0;
 					do {
-						System.out.println("Search for bookings :");
+						System.out.println("---------------- Search for Bookings -----------------");
 						System.out.println("1. See all ongoing bookings");
 						System.out.println("2. Search by room number");
 						System.out.println("3. Search by booking code");
 						System.out.println("4. See all the bookings");
 						System.out.println("5. Go back");
-						System.out.print("Selection : ");
+						System.out.println("---------- CHOOSE A NUMBER BETWEEN 1 AND 5 -----------");
 						try {
 							choose2 = sc.nextInt();
 						} catch (InputMismatchException e) {
@@ -702,7 +701,6 @@ public class Booking {
 					} while (choose2 != 1 && choose2 != 2 && choose2 != 3 && choose2 != 4 && choose2 != 5); // check
 																											// selection
 																											// input
-					System.out.println();
 					switch (choose2) {
 					case 1:
 						int counter6 = 0;

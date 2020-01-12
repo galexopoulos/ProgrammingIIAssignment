@@ -52,10 +52,10 @@ public class Room {
 		for (;;) {
 			int choose = 0;
 			do {
-				System.out.println("Room's Menu :");
+				System.out.println("--------------------- Rooms Menu ---------------------");
 				System.out.println("1. See the rooms");
 				System.out.println("2. Go Back");
-				System.out.print("Selection : ");
+				System.out.println("---------- CHOOSE A NUMBER BETWEEN 1 AND 2 -----------");
 				try {
 					choose = sc.nextInt();
 				} catch (InputMismatchException e) {
@@ -67,7 +67,6 @@ public class Room {
 					System.out.println("Insert 1 or 2!");
 				}
 			} while (choose != 1 && choose != 2); // check selection input
-			System.out.println();
 			switch (choose) {
 			case 1:
 				for (Room room : rooms) { // print for every room

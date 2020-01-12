@@ -195,17 +195,17 @@ public class Main {
 		// a.setCheckedIn(true);
 	}
 
-	public static void getMenu() {
+	public static void main(String[] args) {
 		Sales_LoadObjects();
 		boolean goBack = false;
 		for (;;) {
 			int choose = 0;
 			do {
-				System.out.println("Sales Menu :");
+				System.out.println("--------------------- Sales Menu ---------------------");
 				System.out.println("1. Bookings");
 				System.out.println("2. Rooms");
 				System.out.println("3. Go Back");
-				System.out.print("Selection : ");
+				System.out.println("---------- CHOOSE A NUMBER BETWEEN 1 AND 3 -----------");
 				try {
 					choose = sc.nextInt();
 				} catch (InputMismatchException e) {
@@ -217,7 +217,6 @@ public class Main {
 					System.out.println("Insert 1 or 2 or 3! ");
 				}
 			} while (choose != 1 && choose != 2 && choose != 3); // check menu input
-			System.out.println();
 			switch (choose) {
 			case 1:
 				Booking.getMenu();
