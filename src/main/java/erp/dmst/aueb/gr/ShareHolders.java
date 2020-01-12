@@ -62,11 +62,11 @@ public class ShareHolders {
 							System.out.println("Username & password are correct.");				
 							System.out.println(i.toString());
 							flag = false;
+							j = 1;
 						}
-						if (j == shareholders.size()){
-							System.out.println("Please insert valid Username or Password.");
-						}
-						j++;
+					}
+					if (j == 0) {
+						System.out.println("Please insert valid password and/or username");
 					}
 				}else {
 					flag = false;
@@ -128,27 +128,32 @@ public class ShareHolders {
 		System.out.println("-----------Share Holders menu-----------"
 				+ "\nTo proceed press: 1."
 				+ "\nExit and return to Finance menu press: 0.");
-		boolean flag = true;
 		int ans = 0;
-		
+		int epilogh = 0;
+		boolean flag2 = false;
 		do {
-			try {
-				ans = sc.nextInt();
-				if(ans == 1 || ans == 0) {
-					flag = false;
-				}else {
-					System.out.println("Please press one of the suggested numbers.");
+			if (!sc.hasNextInt()) {
+				System.out.println("Input an integer [0,1]");
+				flag2 = true; 
+				sc.next();
+
+			} else {
+				epilogh = sc.nextInt();
+				if (epilogh > 1 || epilogh < 0) {
+					flag2 = true;
+					System.out.println("Input an integer [0,1]");
+				} else {
+					if (epilogh == 1) {
+						ans = 1;
+						flag2 = false;
+					}else {
+						ans = 0;
+						flag2 = false;
+					}
+				sc.nextLine();
 				}
-			}catch(InputMismatchException e) {
-				System.err.println("Wrong answer please try again");
-				System.out.println();
-				getMenuflag();
-			}catch(Exception e) {
-				System.err.println("Something went wrong");
-				System.out.println();
-				getMenuflag();
 			}
-		}while(flag);
+		} while (flag2);
 		
 		if(ans == 1) {
 			return true;
@@ -157,4 +162,6 @@ public class ShareHolders {
 		}
 		
 	}
+	
 }
+

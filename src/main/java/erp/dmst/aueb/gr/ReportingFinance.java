@@ -162,32 +162,35 @@ public class ReportingFinance { //This class must be called once a month.
 						Goals.menu();
 					}else if(ans == 6 ) {
 						int ja, feb, mar, ap, may, june, july, au, se, oc, no, dec;
-						System.out.println("Set January Goal:");
-						ja = sc.nextInt();
-						System.out.println("Set February Goal:");
-						feb = sc.nextInt();
-						System.out.println("Set March Goal:");
-						mar = sc.nextInt();
-						System.out.println("Set April Goal:");
-						ap = sc.nextInt();
-						System.out.println("Set May Goal:");
-						may = sc.nextInt();
-						System.out.println("Set June Goal:");
-						june = sc.nextInt();
-						System.out.println("Set July Goal:");
-						july = sc.nextInt();
-						System.out.println("Set August Goal:");
-						au = sc.nextInt();
-						System.out.println("Set September Goal:");
-						se = sc.nextInt();
-						System.out.println("Set October Goal:");
-						oc = sc.nextInt();
-						System.out.println("Set November Goal:");
-						no = sc.nextInt();
-						System.out.println("Set December Goal:");
-						dec = sc.nextInt();
-						
-						Goals.loadgoals(ja, feb, mar, ap, may, june, july, au, se, oc, no, dec);
+						try {
+							System.out.println("Set January Goal:");
+							ja = sc.nextInt();
+							System.out.println("Set February Goal:");
+							feb = sc.nextInt();
+							System.out.println("Set March Goal:");
+							mar = sc.nextInt();
+							System.out.println("Set April Goal:");
+							ap = sc.nextInt();
+							System.out.println("Set May Goal:");
+							may = sc.nextInt();
+							System.out.println("Set June Goal:");
+							june = sc.nextInt();
+							System.out.println("Set July Goal:");
+							july = sc.nextInt();
+							System.out.println("Set August Goal:");
+							au = sc.nextInt();
+							System.out.println("Set September Goal:");
+							se = sc.nextInt();
+							System.out.println("Set October Goal:");
+							oc = sc.nextInt();
+							System.out.println("Set November Goal:");
+							no = sc.nextInt();
+							System.out.println("Set December Goal:");
+							dec = sc.nextInt();
+							Goals.loadgoals(ja, feb, mar, ap, may, june, july, au, se, oc, no, dec);
+						} catch (InputMismatchException e) {
+							System.out.println();
+						}
 					}
 					if(ans > 6 || ans < 0) {
 						System.err.println("Wrong input, please try again.");
@@ -293,8 +296,8 @@ public class ReportingFinance { //This class must be called once a month.
 		public static void profit_Losses() {
 			double sumOfExpenses = waterSupply + phone_internetSupply + electricity + totalexpenses;
 			double sumOfIncome = getProceeds(); 
-			for(ReportingHR i : ReportingHR.hr) {
-				wages += i.getWage();
+			for(Employee i : Employee.Employees) {
+				wages += i.getSalary();
 			}
 			cashAvailableBeforeTaxes =  sumOfIncome - sumOfExpenses  - wages;
 			cashAvailableAfterTaxes = cashAvailableBeforeTaxes - cashAvailableBeforeTaxes * TAXRATE;

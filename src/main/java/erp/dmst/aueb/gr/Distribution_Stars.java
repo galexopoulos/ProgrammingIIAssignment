@@ -19,15 +19,15 @@ public class Distribution_Stars {
 		int [] daysFreq = {0,0,0,0,0,0};
 		try {	
 			for( ReportingClients i : ReportingClients.coustomerBase) {
-				if(i.getCheckout() - i.getCheckin() <= 3) {
+				if(i.getDaysofstay() <= 3) {
 					daysFreq [0]++;
-				}else if(i.getCheckout() - i.getCheckin() <= 6) {
+				}else if(i.getDaysofstay() <= 6) {
 					daysFreq [1]++;
-				}else if(i.getCheckout() - i.getCheckin() <= 9) {
+				}else if(i.getDaysofstay() <= 9) {
 					daysFreq [2]++;
-				}else if(i.getCheckout() - i.getCheckin() <= 12) {
+				}else if(i.getDaysofstay() <= 12) {
 					daysFreq [3]++;
-				}else if(i.getCheckout() - i.getCheckin() <= 15){
+				}else if(i.getDaysofstay() <= 15){
 					daysFreq [4]++;
 				}else {
 					daysFreq [5]++;
@@ -92,18 +92,18 @@ public class Distribution_Stars {
 	public static int [] getfreqOfWages() {
 		int [] wagesFreq = {0,0,0,0,0,0,0};
 		try {	
-			for( ReportingHR i : ReportingHR.hr) {
-				if(i.getWage() <= 1000) {
+			for( Employee i : Employee.Employees) {
+				if(i.getSalary() <= 1000) {
 					wagesFreq[0]++;
-				}else if(i.getWage() <= 1400) {
+				}else if(i.getSalary() <= 1400) {
 					wagesFreq[1]++;
-				}else if(i.getWage() <= 1800) {
+				}else if(i.getSalary() <= 1800) {
 					wagesFreq[2]++;
-				}else if(i.getWage() <= 2200) {
+				}else if(i.getSalary() <= 2200) {
 					wagesFreq[3]++;
-				}else if(i.getWage() <= 2600){
+				}else if(i.getSalary() <= 2600){
 					wagesFreq[4]++;
-				}else if(i.getWage() <= 3000){
+				}else if(i.getSalary() <= 3000){
 					wagesFreq[5]++;
 				}else {
 					wagesFreq[6]++;
@@ -120,46 +120,48 @@ public class Distribution_Stars {
 		int[] freqs =  getfreqOfWages();
 		for(int i = 0; i < 7; i++) {
 			if (i == 0) {
-				System.out.print("600 - 1000 : " );
-				for(int stars =0 ; stars < freqs[0] / 2 ; stars++ ) {
+				System.out.print("600  - 1000: " );
+				for(int stars = 0 ; stars < freqs[0] / 2 ; stars++ ) {
 					System.out.print("*");
 				}
-				System.out.println();
 			}else if (i == 1) {
+				System.out.println();
 				System.out.print("1001 - 1400: " );
-				for(int stars =0 ; stars < freqs[1] / 2 ; stars++ ) {
+				for(int stars = 0 ; stars < freqs[1] / 2 ; stars++ ) {
 					System.out.print("*");
 				}
-				System.out.println();
 			}else if (i == 2) {
+				System.out.println();
 				System.out.print("1401 - 1800: " );
-				for(int stars =0 ; stars < freqs[2] / 2 ; stars++ ) {
+				for(int stars = 0 ; stars < freqs[2] / 2 ; stars++ ) {
 					System.out.print("*");
 				}
-				System.out.println();
 			}else if (i == 3) {
+				System.out.println();
 				System.out.print("1801 - 2200: " );
-				for(int stars =0 ; stars < freqs[3] / 2 ; stars++ ) {
+				for(int stars = 0 ; stars < freqs[3] / 2 ; stars++ ) {
 					System.out.print("*");
 				}
-				System.out.println();
 			}else if (i == 4) {
+				System.out.println();
 				System.out.print("2201 - 2600: " );
-				for(int stars =0 ; stars < freqs[4] / 2 ; stars++ ) {
+				for(int stars = 0 ; stars < freqs[4] / 2 ; stars++ ) {
 					System.out.print("*");
 				}
-				System.out.println();
 			}else if(i == 5){ 
+				System.out.println();
 				System.out.print("2601 - 3000: " );
-				for(int stars =0 ; stars < freqs[5] / 2 ; stars++ ) {
+				for(int stars = 0 ; stars < freqs[5] / 2 ; stars++ ) {
+					System.out.print("*");
+				}
+			}else {
+				System.out.println();
+				System.out.print("3000 -     : ");
+				for(int stars = 0 ; stars < freqs[6] / 2 ; stars++ ) {
 					System.out.print("*");
 				}
 				System.out.println();
-			}else System.out.print("3000 -     : ");
-				for(int stars =0 ; stars < freqs[6] / 2 ; stars++ ) {
-					System.out.print("*");
-				}
-				System.out.println();
+			}
 		}
 	}
 	
