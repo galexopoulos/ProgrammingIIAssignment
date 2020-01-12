@@ -39,7 +39,10 @@ public class Employee implements Serializable {
 	private Calendar lastChecked = Calendar.getInstance();
 	/** An array that contains the mails sent to the Employee. */
 	String[] newmail = new String[200];
-	int maxmail = 0; //NIKO JAVADOC
+	/**
+	 * A variable that shows how many mails the employee has, gets back to zero when it reaches 200
+	 */
+	int maxmail = 0; 
 	/** A variable that shows how many extra hours has worked the Employee the current week
 	 * max extra hours worked  per week = 5 
 	 */
