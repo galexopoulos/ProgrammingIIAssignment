@@ -733,10 +733,11 @@ public class Manager extends Employee {
 
 	}
 
-	public int shiftIndexToChange(int extraHours, Calendar[] dayShift) {//returns -1 if 1)extra hours overpass midnight
+	public static int shiftIndexToChange(int extraHours, Calendar[] dayShift) {//returns -1 if 1)extra hours overpass midnight
 																					//  2)employee has a shift that continues the next day
 																			 		//  3)extra hours added after the employee finished his shift
 																					//  4)employee doesn't work the requested day
+																					//  (static only for the junit)
 		boolean midnightError = false;
 		for (int i = 7; i> 0; i = i -2) {
 			if (dayShift[i].get(Calendar.YEAR) != 1990) {

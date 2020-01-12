@@ -23,7 +23,7 @@ public class Shift {
 	 * *when the procceding is over sets the leftover indexes = -1.
 	 * @throws ShiftException
 	 */
-	private static int[][] arr_Dep_Times_int(String day_schedule) throws ShiftException { 
+	public static int[][] arr_Dep_Times_int(String day_schedule) throws ShiftException { //public only for the junit
 
 		String[] str_Arrival_hours = new String[4];
 		String[] str_Arrival_mins = new String[4];

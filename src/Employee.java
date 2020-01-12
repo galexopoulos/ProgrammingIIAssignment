@@ -67,7 +67,6 @@ public class Employee implements Serializable {
 		this.employee_Id = add;
 		lastChecked.set(Calendar.YEAR, 1990);
 		Employees.add(this);
-	//	ReportingHR reporting = new ReportingHR(salary, firstname, surname);
 		add++;
 	}
 	
@@ -118,7 +117,6 @@ public class Employee implements Serializable {
 		this.setMonthPayment(salary);
 		lastChecked.set(Calendar.YEAR, 1990);
 		Employees.add(this);
-	//	ReportingHR reporting = new ReportingHR(salary, firstname, surname);
 		add++;
 	}
 	
@@ -635,8 +633,8 @@ public class Employee implements Serializable {
 	 * @return the position in  list Employees if the id is valid, 
 	 * else returns -1.
 	 */
-	public int empBinarySearch(int x) {// x the id you want to find in the Employees and returns the position in
-		// Employees
+	public static int empBinarySearch(int x) {// x the id you want to find in the Employees and returns the position in
+		// Employees (static only for the junit)
 		int l = 0, r = Employee.Employees.size() - 1;
 		while (l <= r) {
 			int m = l + (r - l) / 2;
