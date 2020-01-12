@@ -53,8 +53,8 @@ public class Room {
 			int choose = 0;
 			do {
 				System.out.println("--------------------- Rooms Menu ---------------------");
-				System.out.println("1. See the rooms");
-				System.out.println("2. Go Back");
+				System.out.println("1) See the rooms");
+				System.out.println("2) Go Back");
 				System.out.println("---------- CHOOSE A NUMBER BETWEEN 1 AND 2 -----------");
 				try {
 					choose = sc.nextInt();
