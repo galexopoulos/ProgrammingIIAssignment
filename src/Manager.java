@@ -63,7 +63,7 @@ public class Manager extends Employee {
 		do {
 			System.out.println(
 					" MANAGER MENU \n------------- \n Select: \n1)Check in.\n2)Check out. \n3)Day off request. \n4)Inbox. \n5)Show shift of the week. "
-							+ "\n6)View Employees. \n7)Show check in status of Employees. \n8)Change an Employee's shift. \n9)Set  extra hours for an Employee."
+							+ "\n6)View Employees. \n7)Show check in status of Employees. \n8)Edit an Employee's shift. \n9)Set  extra hours for an Employee."
 							+ " \n10)Edit an Employee's payment. \n11)Edit an Employee's fields. \n12)Log out.");
 			boolean flag = false;
 			int selection = 0;
@@ -230,6 +230,7 @@ public class Manager extends Employee {
 									break;
 								case "exit":
 									menuflag = true;
+									break;
 								default:
 									System.out.println("That is not a valid input.");
 									flag3 = true;
@@ -403,7 +404,7 @@ public class Manager extends Employee {
 								System.out.println("yes/no");
 								String verify = sc.nextLine();
 								if (verify.toLowerCase().equals("yes")) {
-									Employee.Employees.get(posInEmployees).setSalary(selectedPayment);
+									Employee.Employees.get(posInEmployees).setMonthPayment(selectedPayment);
 									System.out.println("The change has been made.");
 									flag5 = false;
 								} else if (verify.toLowerCase().equals("no")) {
@@ -515,7 +516,14 @@ public class Manager extends Employee {
 												// Manager and
 												// not a basic
 												// Employee
-												flag3 = false;
+												if (selectedId == 0 &&  !(Employee.Employees.get(posInEmployees) instanceof Manager)) {
+													//only managers can have hr director as manager
+													posInEmpOfManager = -1;
+													System.out.println("You are not allowed to do that.");
+													flag3 = true;
+												}else {
+													flag3 = false;
+												}
 											} else {
 												posInEmpOfManager = -1;
 												flag3 = true;
@@ -725,10 +733,11 @@ public class Manager extends Employee {
 
 	}
 
-	public int shiftIndexToChange(int extraHours, Calendar[] dayShift) {//returns -1 if 1)extra hours overpass midnight
+	public static int shiftIndexToChange(int extraHours, Calendar[] dayShift) {//returns -1 if 1)extra hours overpass midnight
 																					//  2)employee has a shift that continues the next day
-																			 		//  3)extra hours added after the emmployee finished his shift
+																			 		//  3)extra hours added after the employee finished his shift
 																					//  4)employee doesn't work the requested day
+																					//  (static only for the junit)
 		boolean midnightError = false;
 		for (int i = 7; i> 0; i = i -2) {
 			if (dayShift[i].get(Calendar.YEAR) != 1990) {
@@ -743,8 +752,10 @@ public class Manager extends Employee {
 					dayShift[i].add(Calendar.HOUR_OF_DAY, extraHours);
 					int dayAtEnd = dayShift[i].get(Calendar.DAY_OF_WEEK); 
 					if (dayAtFirst == dayAtEnd) { 
+						dayShift[i].add(Calendar.HOUR_OF_DAY, -extraHours);
 						return i; 
 					}else {
+						dayShift[i].add(Calendar.HOUR_OF_DAY, -extraHours);
 						System.out.println("Mistake with the inserted value (overpassed midnight)");
 						midnightError = true;
 						break;
