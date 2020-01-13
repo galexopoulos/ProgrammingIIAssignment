@@ -88,7 +88,6 @@ public class CustomerEntry {
 					reasonfortravel = sc.nextInt();
 				} catch (InputMismatchException e) {
 					System.out.println("Insert an Integer!");
-					sc.nextLine();
 					continue;
 				}
 				if (reasonfortravel != 1 && reasonfortravel != 2 && reasonfortravel != 3 && reasonfortravel != 4) {
@@ -101,7 +100,7 @@ public class CustomerEntry {
 
 			System.out.println("Does the client want to make a hotel account?");
 			String an = null;
-			String t2 = sc.nextLine();
+			sc.nextLine();
 			do {
 				an = sc.nextLine();
 				if(!(ans.equalsIgnoreCase("yes")) && !(ans.equalsIgnoreCase("no"))) {
