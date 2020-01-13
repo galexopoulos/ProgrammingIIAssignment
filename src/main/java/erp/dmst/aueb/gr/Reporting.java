@@ -181,6 +181,7 @@ public class Reporting {
 		}
 	}
 	
+	//temporary 
 	static void loadobjects() {
 		
 		ReportingFinance f = new ReportingFinance(41,51,51); // orizoume tous logarismous tou mina

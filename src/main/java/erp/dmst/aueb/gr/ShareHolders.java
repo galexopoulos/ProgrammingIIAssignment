@@ -120,7 +120,7 @@ public class ShareHolders {
 	}
 	
 	/**
-	 * This method 
+	 * This method sets the flag getShareHoldersMenu() declaring if the user wants to continue or not.
 	 */
 	
 	public static boolean getMenuflag() {
