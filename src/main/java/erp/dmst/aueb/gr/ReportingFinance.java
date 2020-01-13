@@ -118,22 +118,22 @@ public class ReportingFinance { //This class must be called once a month.
 		
 		public static void getMenu() {
 			Scanner sc = new Scanner(System.in);
-			System.out.println("------------------ MENU FINANCE ---- " + getDate() +" --------"
-					+ "\n 1. Proceeds - Εxpenses - Profits - Losses" 
-					+ "\n 2. TAX liabilities "
-					+ "\n 3. Connect to Investments menu. Username and password required."
-					+ "\n 4. Create new Investor."
-					+ "\n 5. Connect to Goals Department."
-					+ "\n 6. To set goals."
-					+ "\n PRESS 0 TO EXIT."
-					+ "\n ------------------------------------------------------------------"); 
+			System.out.println("------------------ FINANCE MENU ---- " + getDate() +" --------"
+					+ "\n1) Proceeds - Εxpenses - Profits - Losses" 
+					+ "\n2) TAX liabilities "
+					+ "\n3) Connect to Investments menu. Username and password required."
+					+ "\n4) Create new Investor"
+					+ "\n5) Connect to Goals Department"
+					+ "\n6) To set goals"
+					+ "\n7) Exit"
+					+ "\n----------------- CHOOSE A NUMBER BETWEEN 1 AND 7 ----------------"); 
 			
 			int ans = 0;
 			boolean flag = true;
 			do {
 				try {
 					ans = sc.nextInt();
-					if (ans == 0) {
+					if (ans == 7) {
 						flag = false;
 					}else if(ans == 1){
 						 profit_Losses();
@@ -189,8 +189,8 @@ public class ReportingFinance { //This class must be called once a month.
 						
 						Goals.loadgoals(ja, feb, mar, ap, may, june, july, au, se, oc, no, dec);
 					}
-					if(ans > 6 || ans < 0) {
-						System.err.println("Wrong input, please try again.");
+					if(ans > 7 || ans < 0) {
+						System.out.println("Wrong input, please try again.");
 						System.out.println("To continue press one of the suggested numbers.");
 					}
 				}catch(InputMismatchException e) {

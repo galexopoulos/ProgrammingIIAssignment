@@ -125,26 +125,27 @@ public class ShareHolders {
 	
 	public static boolean getMenuflag() {
 		Scanner sc = new Scanner(System.in);
-		System.out.println("-----------Share Holders menu-----------"
-				+ "\nTo proceed press: 1."
-				+ "\nExit and return to Finance menu press: 0.");
+		System.out.println("---------------- Share Holders menu ----------------"
+				+ "\n1) Proceed"
+				+ "\n2) Exit and return to Finance menu");
+		System.out.println("--------- CHOOSE A NUMBER BETWEEN 1 AND 2 ----------");
 		boolean flag = true;
 		int ans = 0;
 		
 		do {
 			try {
 				ans = sc.nextInt();
-				if(ans == 1 || ans == 0) {
+				if(ans == 1 || ans == 2) {
 					flag = false;
 				}else {
 					System.out.println("Please press one of the suggested numbers.");
 				}
 			}catch(InputMismatchException e) {
-				System.err.println("Wrong answer please try again");
+				System.out.println("Wrong answer please try again");
 				System.out.println();
 				getMenuflag();
 			}catch(Exception e) {
-				System.err.println("Something went wrong");
+				System.out.println("Something went wrong");
 				System.out.println();
 				getMenuflag();
 			}
