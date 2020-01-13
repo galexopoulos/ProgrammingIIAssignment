@@ -75,7 +75,7 @@ public class Inventory implements Serializable {
 			invMenu();
 			break;
 		default:
-			System.err.println("Unrecognized option");
+			System.out.println("Unrecognized option");
 			invMenu();
 			break;
 		}
