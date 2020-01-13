@@ -1,6 +1,8 @@
 
 import java.util.Calendar;
+
 import java.util.Scanner;
+
 
 
 /**
@@ -186,18 +188,24 @@ public class Manager extends Employee {
 					System.out.println("No employees found.");
 				}
 			} else if (selection == 8) {
-				boolean shiftflag;
-				do {
-					shiftflag = false;
-					int posInEmployees = enterEmpId();
-					if (posInEmployees != -1) {
-						boolean flag2;
+			boolean shiftflag;
+			do {
+				shiftflag = false;
+				int posInEmployees = enterEmpId();
+				if (posInEmployees != -1) {
+					boolean flag2;
+					do {
+						flag2 = false;
+						System.out.println(Employee.Employees.get(posInEmployees).toString());
+						printShift(Employee.Employees.get(posInEmployees).getThisWeekShift());
+						boolean anotherDay, dayChanged = false;
+						int dayInt;
+						String[] shiftStr = new String[8];
+						shiftStr = Employee.Employees.get(posInEmployees).getShiftStr();
 						do {
-							flag2 = false;
-							System.out.println(Employee.Employees.get(posInEmployees).toString());
-							printShift(Employee.Employees.get(posInEmployees).getThisWeekShift());
+							dayInt = -1;
+							anotherDay = false;
 							boolean flag3;
-							int dayInt = -1;
 							do {
 								flag3 = false;
 								System.out.println("Insert the day of the week(eg Monday), press Enter to choose a different Id \n"
@@ -210,24 +218,31 @@ public class Manager extends Employee {
 									break;
 								case "monday":
 									dayInt = 0;
+									dayChanged = true;
 									break;
 								case "tuesday":
 									dayInt = 1;
+									dayChanged = true;
 									break;
 								case "wednesday":
 									dayInt = 2;
+									dayChanged = true;
 									break;
 								case "thursday":
 									dayInt = 3;
+									dayChanged = true;
 									break;
 								case "friday":
 									dayInt = 4;
+									dayChanged = true;
 									break;
 								case "saturday":
 									dayInt = 5;
+									dayChanged = true;
 									break;
 								case "sunday":
 									dayInt = 6;
+									dayChanged = true;
 									break;
 								case "exit":
 									menuflag = true;
@@ -237,48 +252,64 @@ public class Manager extends Employee {
 									flag3 = true;
 								}
 							} while (flag3);
-							if (!shiftflag && dayInt != -1) {
-								String[] shiftStr = new String[8];
-								shiftStr = Employee.Employees.get(posInEmployees).getShiftStr();
+							if (dayInt != -1) {
 								boolean flag4;
-								do {
-									flag4 = false;
-									System.out.println("Insert the new shift for the day or type \"back\" to go back.");
-									String inputShift = sc.nextLine();
-									if (inputShift.toLowerCase().equals("back")) {
-										flag2 = true;
-										break;
+								flag4 = false;
+								System.out.println("Insert the new shift for the day or type \"back\" to go back.");
+								String inputShift = sc.nextLine();
+								if (inputShift.toLowerCase().equals("back")) {
+									flag2 = true;
+									break;
+								} else {
+									if (dayInt == 0) { // monday is both at positions 0 and 7
+										shiftStr[0] = inputShift;
+										shiftStr[7] = inputShift;
 									} else {
-										if (dayInt == 0) { // monday is both at positions 0 and 7
-											shiftStr[0] = inputShift;
-											shiftStr[7] = inputShift;
-										} else {
-											shiftStr[dayInt] = inputShift;
-										}
-										try {
-											Employee.Employees.get(posInEmployees)
-													.setThisWeekShift(Shift.createShift(shiftStr));
-											// if it moves on the input is correct as creatShift method throws Exception
-											// for wrong input
-											Employee.Employees.get(posInEmployees).setShiftStr(shiftStr);
-											System.out.println("The change has been made.");
-										} catch (ShiftException e) {
-											System.err.println("Invalid input. " + e);
-											flag4 = true;
-										}
+										shiftStr[dayInt] = inputShift;
 									}
-								} while (flag4);
+									System.out.println("Do you want to change the shift of another day?");
+									boolean flag5;
+									do {
+										flag5 = false;
+										System.out.println("yes/no");
+										String verify = sc.nextLine();
+										if (verify.toLowerCase().equals("yes")) {
+											anotherDay = true;
+										} else if (verify.toLowerCase().equals("no")) {
+											anotherDay = false;
+										} else {
+											flag5 = true;
+										}
+									} while (flag5);
+								}
+								shiftflag = false;
 							}
+						}while(anotherDay);
+						if (dayChanged && !shiftflag) {
+							try {
+								Employee.Employees.get(posInEmployees)
+									.setThisWeekShift(Shift.createShift(shiftStr));
+								// if it moves on the input is correct as creatShift method throws Exception
+								// for wrong input
+								Employee.Employees.get(posInEmployees).setShiftStr(shiftStr);
+								System.out.println("The change has been made.");
+								shiftflag = false;
+								break;
+							} catch (ShiftException e) {
+								System.err.println("Invalid input. " + e);
+								flag2 = true;
+							}
+						}
+					}while (flag2);
 
-						} while (flag2);
-					} else {
-						shiftflag = false;
-						menuflag = true;
-					}
+				}else {
+					menuflag = true;
+					shiftflag = false;
+				}
+			} while (shiftflag);
 
-				} while (shiftflag);
 
-			} else if (selection == 9) {
+} else if (selection == 9) {
 			Yperoria();	
 			} else if (selection == 10) {
 				int posInEmployees = enterEmpId();
