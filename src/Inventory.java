@@ -1,6 +1,8 @@
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Scanner;
 
 /**
@@ -50,11 +52,11 @@ public class Inventory implements Serializable {
 	 * Prints the visual side of the Inventory menu
 	 */
 	public static void displayInvMenu() {
-		System.out.println("------------- Inventory Management Menu -------------");
+		System.out.println("------------ INVENTORY MANAGEMENT MENU ---- "+ getDate() +" --------");
 		System.out.println(
 				"1) Update and check the Fixed Invetory\n2) Update and check the Urgent Invetory \n"
 						+ "3) Update and check the Buffet\n4) Check the balances");
-		System.out.println("---------- CHOOSE A NUMBER BETWEEN 1 AND 4 ----------");
+		System.out.println("-------------------- CHOOSE A NUMBER BETWEEN 1 AND 4 --------------------");
 	}
 
 	public static void question() {
@@ -446,6 +448,11 @@ public class Inventory implements Serializable {
 	public String toString() {
 		return "Inventory [type=" + type + ", name=" + name + ", stock=" + stock + ", pricepreunit=" + pricepreunit
 				+ ", minstock=" + minstock + ", suplier=" + suplier + ", balance=" + balance + "]";
+	}
+	public static String getDate() {
+		SimpleDateFormat formatter= new SimpleDateFormat("dd-MM-yyyy, HH:mm:ss");
+		Date date = new Date(System.currentTimeMillis());
+		return formatter.format(date);
 	}
 
 }
