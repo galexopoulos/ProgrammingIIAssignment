@@ -582,6 +582,11 @@ public class Employee implements Serializable {
 		return -1;
 	}
 
+	/**
+	 * checks that the number has no more than 2 decimals 
+	 * @param x a double
+	 * @return true when the number has 2 or less decimals, else false
+	 */
 	public static boolean checkDecimalsSalary(double x) {
 		String text = Double.toString(Math.abs(x));
 		int integerPlaces = text.indexOf('.');
