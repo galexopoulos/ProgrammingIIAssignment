@@ -201,7 +201,9 @@ public class Manager extends Employee {
 						boolean anotherDay, dayChanged = false;
 						int dayInt;
 						String[] shiftStr = new String[8];
-						shiftStr = Employee.Employees.get(posInEmployees).getShiftStr();
+						for (int i = 0; i < 8; i++) {
+							shiftStr[i] = Employee.Employees.get(posInEmployees).getShiftStr()[i];
+						}
 						do {
 							dayInt = -1;
 							anotherDay = false;
@@ -307,7 +309,6 @@ public class Manager extends Employee {
 					shiftflag = false;
 				}
 			} while (shiftflag);
-
 
 } else if (selection == 9) {
 			Yperoria();	

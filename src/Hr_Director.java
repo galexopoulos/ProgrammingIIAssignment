@@ -473,7 +473,9 @@ public class Hr_Director extends Manager {
 							boolean anotherDay, dayChanged = false;
 							int dayInt;
 							String[] shiftStr = new String[8];
-							shiftStr = Employee.Employees.get(posInEmployees).getShiftStr();
+							for (int i = 0; i < 8; i++) {
+								shiftStr[i] = Employee.Employees.get(posInEmployees).getShiftStr()[i];
+							}
 							do {
 								dayInt = -1;
 								anotherDay = false;
