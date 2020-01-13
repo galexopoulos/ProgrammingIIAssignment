@@ -285,7 +285,7 @@ public class Manager extends Employee {
 								shiftflag = false;
 							}
 						}while(anotherDay);
-						if (dayChanged && !shiftflag) {
+						if (dayChanged && !shiftflag && !flag2) {
 							try {
 								Employee.Employees.get(posInEmployees)
 									.setThisWeekShift(Shift.createShift(shiftStr));
