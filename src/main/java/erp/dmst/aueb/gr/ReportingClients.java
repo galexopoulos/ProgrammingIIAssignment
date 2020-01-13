@@ -3,7 +3,7 @@ package main.java.erp.dmst.aueb.gr;
 /**
  * @author Ioannis Alexios Perakis,
  * This class offers an amount of analytics taken from customers data such as average payments, average days of stay,
- * in which conditions did the customer visit the hotel ect. Necessity  for Reporting.java
+ * in which conditions did the customer visit the hotel ect. Necessity for Reporting.java
  */
 
 import java.util.ArrayList;
@@ -18,10 +18,10 @@ public class ReportingClients {
     private int daysofstay;
 	private int reasonfortravel;
 	private String email;
-	private int know;
+	private String know;
 	private static int counter_st = 0;
 
-	/*
+	/**
 	 * answers : 0 gia epagelmatiko 1 gia pleasure 2 family 3 tourismos 4 group
 	 * trips
 	 */
@@ -29,7 +29,7 @@ public class ReportingClients {
 	static ArrayList<ReportingClients> coustomerBase = new ArrayList<ReportingClients>();
 
 	public ReportingClients(String name, String surname, int satisfuction, int payment, int family, int daysofstay,
-			int reasonfortravel, String email, int know) {
+			int reasonfortravel, String email, String know) {
 		this.name = name;
 		this.surname = surname;
 		this.satisfuction = satisfuction;
@@ -46,10 +46,10 @@ public class ReportingClients {
 	public static int getCounter_st(){
 		return counter_st;
 		}
-	public int getKnow() {
+	public String getKnow() {
 		return know;
 	}
-	public void setKnow(int know) {
+	public void setKnow(String know) {
 		this.know = know;
 	}
     public String getEmail() {
@@ -113,6 +113,9 @@ public class ReportingClients {
 		this.reasonfortravel = reasonfortravel;
 	}
 
+	/**
+	 * This method is called from Reporting.java by pressing 3
+	 */
 	public static void averageSatisfaction() {
 		int s = 0;
 		try {
