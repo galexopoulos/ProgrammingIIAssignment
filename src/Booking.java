@@ -297,7 +297,7 @@ public class Booking implements Serializable {
 						continue;
 					}
 					counter1++;
-				} while (capacity < 0 || capacity > 4 || capacity == 1); // check capacity input or 0 to break
+				} while (capacity < 0 || capacity > 6 || capacity == 1); // check capacity input or 0 to break
 				if (capacity == 0) {
 					break;
 				}

@@ -210,7 +210,7 @@ public class Main implements Serializable {
 	}
 
 	public static void getMenu() {
-		Sales_LoadObjects();
+	//	Sales_LoadObjects();
 		boolean goBack = false;
 		for (;;) {
 			int choose = 0;
