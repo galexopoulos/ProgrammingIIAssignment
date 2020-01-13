@@ -1,5 +1,6 @@
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -256,14 +257,14 @@ public class Booking implements Serializable {
 		for (;;) {
 			int choose1 = 0;
 			do {
-				System.out.println("------------------- Bookings Menu --------------------");
+				System.out.println("---------------- BOOKINGS MENU ---- " + getDate() + " --------------");
 				System.out.println("1) Search for availability and create a booking");
 				System.out.println("2) Check In procedure");
 				System.out.println("3) Check Out procedure");
 				System.out.println("4) Cancel a booking");
 				System.out.println("5) Search for bookings ");
 				System.out.println("6) Go Back ");
-				System.out.println("---------- CHOOSE A NUMBER BETWEEN 1 AND 6 -----------");
+				System.out.println("------------------- CHOOSE A NUMBER BETWEEN 1 AND 6 --------------------");
 				try {
 					choose1 = sc.nextInt();
 				} catch (InputMismatchException e) {
@@ -693,13 +694,13 @@ public class Booking implements Serializable {
 				for (;;) {
 					int choose2 = 0;
 					do {
-						System.out.println("---------------- Search for Bookings -----------------");
+						System.out.println("-------------- SEARCH FOR BOOKINGS ---- " + getDate()+ " -----------");
 						System.out.println("1) See all ongoing bookings");
 						System.out.println("2) Search by room number");
 						System.out.println("3) Search by booking code");
 						System.out.println("4) See all the bookings");
 						System.out.println("5) Go back");
-						System.out.println("---------- CHOOSE A NUMBER BETWEEN 1 AND 5 -----------");
+						System.out.println("------------------- CHOOSE A NUMBER BETWEEN 1 AND 5 --------------------");
 						try {
 							choose2 = sc.nextInt();
 						} catch (InputMismatchException e) {
@@ -902,6 +903,11 @@ public class Booking implements Serializable {
 	 */
 	public Date getCheckIn() {
 		return checkIn;
+	}
+	public static String getDate() {
+		SimpleDateFormat formatter= new SimpleDateFormat("dd-MM-yyyy, HH:mm:ss");
+		Date date = new Date(System.currentTimeMillis());
+		return formatter.format(date);
 	}
 
 }

@@ -1,6 +1,8 @@
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -51,10 +53,10 @@ public class Room implements Serializable {
 		for (;;) {
 			int choose = 0;
 			do {
-				System.out.println("--------------------- Rooms Menu ---------------------");
+				System.out.println("------------------- ROOMS MENU ---- " + getDate() + " --------------");
 				System.out.println("1) See the rooms");
 				System.out.println("2) Go Back");
-				System.out.println("---------- CHOOSE A NUMBER BETWEEN 1 AND 2 -----------");
+				System.out.println("------------------- CHOOSE A NUMBER BETWEEN 1 AND 2 -------------------");
 				try {
 					choose = sc.nextInt();
 				} catch (InputMismatchException e) {
@@ -138,6 +140,11 @@ public class Room implements Serializable {
 
 	public static void setRooms(ArrayList<Room> rooms) {
 		Room.rooms = rooms;
+	}
+	public static String getDate() {
+		SimpleDateFormat formatter= new SimpleDateFormat("dd-MM-yyyy, HH:mm:ss");
+		Date date = new Date(System.currentTimeMillis());
+		return formatter.format(date);
 	}
 
 }
