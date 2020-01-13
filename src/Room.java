@@ -1,5 +1,4 @@
 
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
@@ -10,7 +9,7 @@ import java.util.Scanner;
  * 
  * @author Nikolas Moatsos
  */
-public class Room implements Serializable{
+public class Room implements Serializable {
 	/** Scanner used for input. */
 	static Scanner sc = new Scanner(System.in);
 	/** Floor number of the room. */
@@ -25,7 +24,6 @@ public class Room implements Serializable{
 	private int roomNumber;
 	/** Static array list for every room. */
 	private static ArrayList<Room> rooms = new ArrayList<Room>();
-
 
 	/**
 	 * This constructs rooms with specified capacity, floor, price per night, room
@@ -141,8 +139,5 @@ public class Room implements Serializable{
 	public static void setRooms(ArrayList<Room> rooms) {
 		Room.rooms = rooms;
 	}
-
-	
-
 
 }
