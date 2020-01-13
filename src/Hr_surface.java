@@ -17,7 +17,6 @@ public class Hr_surface {
 	 
 	public static void toRun(){
 		Scanner sc = new Scanner(System.in);
-		System.out.println("Welcome to Hr part!");
 		//if (main.firstTime){ 	firstTime a boolean variable from main that shows if it
 								// is the first time that the client enters Hr part
 		

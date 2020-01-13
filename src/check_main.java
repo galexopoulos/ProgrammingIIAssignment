@@ -39,7 +39,7 @@ public class check_main {
 		try {
 			shiftcal = Shift.createShift(shift);
 		} catch (ShiftException a) {
-			System.err.println("wrong1 " + a);
+			System.out.println("wrong1 " + a);
 		}
 		Barney.setShiftStr(shift);
 		Barney.setThisWeekShift(shiftcal);
@@ -50,7 +50,7 @@ public class check_main {
 		try {
 			shiftcal = Shift.createShift(shift2);
 		} catch (ShiftException a) {
-			System.err.println("wrong2 " + a);
+			System.out.println("wrong2 " + a);
 		}
 		Rachel.setShiftStr(shift2);
 		Rachel.setThisWeekShift(shiftcal);
@@ -69,7 +69,7 @@ public class check_main {
 		try {
 			shiftcal = Shift.createShift(shift3);
 		} catch (ShiftException a) {
-			System.err.println("wrong3 " + a);
+			System.out.println("wrong3 " + a);
 		}
 		NF.setShiftStr(shift3);
 		NF.setThisWeekShift(shiftcal);

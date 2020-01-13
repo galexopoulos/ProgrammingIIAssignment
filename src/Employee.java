@@ -1,8 +1,10 @@
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.DateTimeException;
 import java.util.Scanner;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.ArrayList;
 
 /**
@@ -306,8 +308,14 @@ public class Employee implements Serializable {
 		System.out.println("Welcome!");
 		do {
 			menuflag = true;
-			System.out.println("    MENU \n------------- \n Select: \n1)Check in.\n2)Check out. \n"
-					+ "3)Day off request. \n4)Inbox. \n5)Show shift of the week. \n6)Log out.");
+			System.out.println("---------------- EMPLOYEE MENU ---- " + getDate() + " ---------------"
+					+ "\n1) Check in"
+					+ "\n2) Check out"
+					+ "\n3) Day off request"
+					+ "\n4) Inbox"
+					+ "\n5) Show shift of the week"
+					+ "\n6) Log out"
+					+ "\n------------------- CHOOSE A NUMBER BETWEEN 1 AND 6 --------------------");
 			boolean flag = false;
 			int selection = 0;
 			do {
@@ -358,7 +366,10 @@ public class Employee implements Serializable {
 				boolean flag3 = false;
 				do {
 					System.out.println(
-							"Select: \n ------------- \n\n1)Send Mail. \n2)View Mails. \n3)Return to the central menu");
+							"---------------- INBOX ---- " + getDate() + " ---------------"
+							+ "\n1) Send Mai."
+							+ "\n2) View Mails "
+							+ "\n3) Exit");
 					if (!sc.hasNextInt()) {
 						System.out.println("Δώστε 1 ή 2 ή 3");
 						flag3 = true;
@@ -583,7 +594,8 @@ public class Employee implements Serializable {
 	}
 
 	/**
-	 * checks that the number has no more than 2 decimals 
+	 * checks that the number has no more than 2 decimals
+	 * 
 	 * @param x a double
 	 * @return true when the number has 2 or less decimals, else false
 	 */
@@ -663,7 +675,7 @@ public class Employee implements Serializable {
 	 * Binary search moderated to be used in the list Employees.
 	 * 
 	 * @param Employees
-	 * @param x,        the requested id
+	 * @param           x, the requested id
 	 * @return the position in list Employees if the id is valid, else returns -1.
 	 */
 	public static int empBinarySearch(int x) {// x the id you want to find in the Employees and returns the position in
@@ -724,6 +736,12 @@ public class Employee implements Serializable {
 			}
 		} while (flag1);
 		return requested;
+	}
+
+	public static String getDate() {
+		SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy, HH:mm:ss");
+		Date date = new Date(System.currentTimeMillis());
+		return formatter.format(date);
 	}
 
 }
