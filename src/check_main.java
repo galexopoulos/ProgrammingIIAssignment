@@ -45,7 +45,7 @@ public class check_main {
 		Barney.setThisWeekShift(shiftcal);
 		Petreas.setShiftStr(shift);
 		Petreas.setThisWeekShift(shiftcal);
-		String[] shift2 = { "12:00-13:00", "16:00-", "-8:00", "12:00-20:00", "7:00-14:00", "9:01-17:00",
+		String[] shift2 = { "12:00-17:00", "16:00-", "-8:00", "12:00-20:00", "7:00-14:00", "9:01-17:00",
 				"23:00-23:30,23:31-23:45,23:46-23:47,23:48-23:49", "12:00-13:00" };
 		try {
 			shiftcal = Shift.createShift(shift2);
@@ -82,8 +82,8 @@ public class check_main {
 		Hr_Director Kobe = new Hr_Director("Kobe", "Bryant", "123456", 2131);
 		Manager Petreas = new Manager("Petreas", "Giorgos", "Athlete", "DaddyofIvan", 19000, Kobe);
 		Manager Barney = new Manager("Barney", "Stinson", "P.L.E.A.S.E.", "robin", 13413, Kobe);
-		Manager Dumbledore = new Manager("Albus", "Percival Wulfric Brian Dumbledore", "Principal", "oldman",
-				2200, Kobe);
+		Manager Dumbledore = new Manager("Albus", "Percival Wulfric Brian Dumbledore", "Principal", "oldman", 2200,
+				Kobe);
 		Manager Leo = new Manager("Leonardo", "Da vinci", "Architect", "monalisa", 1200, Kobe);
 		Employee Ivan = new Employee("Ivan", "Zaytsev", "Athlete", "Petreasismydaddy", 1200, Petreas);
 		Employee Rick = new Employee("Rick", "Sanchez", "scientist", "Wubalubadubdub", 1700, Barney);
@@ -95,6 +95,6 @@ public class check_main {
 		Employee Margaret = new Employee("Margaret", "Thatcher", "Queen", "obey", 1250, Dumbledore);
 		Employee Angela = new Employee("Angela", "Merkel", "chancellor", "ichheissemerkel", 1200, Dumbledore);
 		Employee Agatha = new Employee("Agatha", "Christie", "Author", "missmarple", 1200, Petreas);
-	
+
 	}
 }

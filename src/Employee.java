@@ -4,6 +4,7 @@ import java.time.DateTimeException;
 import java.util.Scanner;
 import java.util.Calendar;
 import java.util.ArrayList;
+
 /**
  * The class that refers to all the Employees.
  * 
@@ -11,47 +12,60 @@ import java.util.ArrayList;
  *
  */
 public class Employee implements Serializable {
-	/** firstname, surname, position, password  of the employee (basic characteristics)*/
+	/**
+	 * firstname, surname, position, password of the employee (basic
+	 * characteristics)
+	 */
 	private String firstname, surname, position, password;
-	/** The id of the employee (basic characteristic)*/
+	/** The id of the employee (basic characteristic) */
 	private int employee_Id;
-	/**salary of the employee (basic characteristic)*/
+	/** salary of the employee (basic characteristic) */
 	private double salary;
 	/** Payment paid at the end of the month (includes payment for extra hours). */
 	private double monthPayment;
 	/** The shift of the particular week (Calendar type). */
 	private Calendar[][] thisWeekShift = new Calendar[7][8];
-	/** The Manager of the Employee (basic characteristic)*/
+	/** The Manager of the Employee (basic characteristic) */
 	private Manager manager;
-	/**A counter that counts how many Employees have been created, used for the employee_Id setting. */
+	/**
+	 * A counter that counts how many Employees have been created, used for the
+	 * employee_Id setting.
+	 */
 	private static int add = 0;
 	/** The list of all the Employees created and not removed. */
 	static ArrayList<Employee> Employees = new ArrayList<Employee>();
-	/** A variable that is true when the employee has checked in but hasn't checked out. */
+	/**
+	 * A variable that is true when the employee has checked in but hasn't checked
+	 * out.
+	 */
 	private boolean checkedIn = false;
-	/**  The standard shift of the Employee (String type), 
-	 * when the new week starts, it will define the thisWeekShift variable. 
+	/**
+	 * The standard shift of the Employee (String type), when the new week starts,
+	 * it will define the thisWeekShift variable.
 	 */
 	private String[] shiftStr = new String[8];
-	/**Shows the time that the Employee checked in or checked out
-	 * for the last time.
+	/**
+	 * Shows the time that the Employee checked in or checked out for the last time.
 	 */
 	private Calendar lastChecked = Calendar.getInstance();
 	/** An array that contains the mails sent to the Employee. */
 	String[] newmail = new String[200];
 	/**
-	 * A variable that shows how many mails the employee has, gets back to zero when it reaches 200
+	 * A variable that shows how many mails the employee has, gets back to zero when
+	 * it reaches 200
 	 */
-	int maxmail = 0; 
-	/** A variable that shows how many extra hours has worked the Employee the current week
-	 * max extra hours worked  per week = 5 
+	int maxmail = 0;
+	/**
+	 * A variable that shows how many extra hours has worked the Employee the
+	 * current week max extra hours worked per week = 5
 	 */
 	int wresyperergasias_evdomadiaiws = 0;
 
 	/**
 	 * Constructor of the Employee with arguments that initialize the basic fields,
 	 * (except id initialized using add variable).
-	 * @param firstname 
+	 * 
+	 * @param firstname
 	 * @param surname
 	 * @param position
 	 * @param password
@@ -72,10 +86,11 @@ public class Employee implements Serializable {
 		Employees.add(this);
 		add++;
 	}
-	
+
 	/**
-	 * Constructor using an Employee as argument,
-	 * this constructor is used to promote an Employee to Manager.
+	 * Constructor using an Employee as argument, this constructor is used to
+	 * promote an Employee to Manager.
+	 * 
 	 * @param employee
 	 */
 
@@ -103,15 +118,16 @@ public class Employee implements Serializable {
 		}
 
 	}
-	
+
 	/**
 	 * Constructor used for the Hr Director.
+	 * 
 	 * @param firstname
 	 * @param surname
 	 * @param password
 	 * @param salary
 	 */
-	Employee (String firstname, String surname, String password, int salary){
+	Employee(String firstname, String surname, String password, int salary) {
 		this.firstname = firstname;
 		this.surname = surname;
 		this.password = password;
@@ -122,7 +138,7 @@ public class Employee implements Serializable {
 		Employees.add(this);
 		add++;
 	}
-	
+
 	/** Getter of the mails. */
 	public String[] getNewmail() {
 		return newmail;
@@ -143,12 +159,12 @@ public class Employee implements Serializable {
 		this.maxmail = maxmail;
 	}
 
-	/** Getter of wresyperergasias_evdomadiaiws.*/
+	/** Getter of wresyperergasias_evdomadiaiws. */
 	public int getWresyperergasias_evdomadiaiws() {
 		return wresyperergasias_evdomadiaiws;
 	}
 
-	/** Setter of wresyperergasias_evdomadiaiws.*/
+	/** Setter of wresyperergasias_evdomadiaiws. */
 	public void setWresyperergasias_evdomadiaiws(int wresyperergasias_evdomadiaiws) {
 		this.wresyperergasias_evdomadiaiws = wresyperergasias_evdomadiaiws;
 	}
@@ -273,8 +289,10 @@ public class Employee implements Serializable {
 		this.lastChecked = lastChecked;
 	}
 
-	
-	/** The method that prints the basic characteristics of an Employee, except of manager. */
+	/**
+	 * The method that prints the basic characteristics of an Employee, except of
+	 * manager.
+	 */
 	@Override
 	public String toString() {
 		return "Employee [firstname=" + firstname + ", surname=" + surname + ", position=" + position + ", employee_Id="
@@ -339,7 +357,8 @@ public class Employee implements Serializable {
 				int epilogh = 0;
 				boolean flag3 = false;
 				do {
-					System.out.println("Select: \n ------------- \n\n1)Send Mail. \n2)View Mails. \n3)Return to the central menu");
+					System.out.println(
+							"Select: \n ------------- \n\n1)Send Mail. \n2)View Mails. \n3)Return to the central menu");
 					if (!sc.hasNextInt()) {
 						System.out.println("Δώστε 1 ή 2 ή 3");
 						flag3 = true;
@@ -358,15 +377,15 @@ public class Employee implements Serializable {
 				} while (flag3);
 				if (epilogh == 1) {
 					mhnyma();
-				} else if ( epilogh==2) {
+				} else if (epilogh == 2) {
 					for (int i = 0; i < Employee.Employees.get(this.getEmployee_Id()).getMaxmail(); i++) {
 						System.out.println(Employee.Employees.get(this.getEmployee_Id()).newmail[i]);
 					}
-					if (Employee.Employees.get(this.getEmployee_Id()).getMaxmail()==0){
+					if (Employee.Employees.get(this.getEmployee_Id()).getMaxmail() == 0) {
 						System.out.println("You've got no mails :(");
 					}
 				} else {
-					
+
 				}
 			} else if (selection == 5) {
 				printShift(this.getThisWeekShift());
@@ -376,14 +395,15 @@ public class Employee implements Serializable {
 		} while (menuflag);
 	}
 
-/**
- * In the method an Employee enters a date,
- * which gets checked if it is valid and in the next 7 days,
- * we need this check for the day that an employee requests for free day.
- * @return day, a Calendar with YEAR = 1990 if the user wants to return to 
- * central menu or a valid Calendar.
- */
-	public Calendar enterWeekDay() { 
+	/**
+	 * In the method an Employee enters a date, which gets checked if it is valid
+	 * and in the next 7 days, we need this check for the day that an employee
+	 * requests for free day.
+	 * 
+	 * @return day, a Calendar with YEAR = 1990 if the user wants to return to
+	 *         central menu or a valid Calendar.
+	 */
+	public Calendar enterWeekDay() {
 		Scanner sc = new Scanner(System.in);
 		Calendar current = Calendar.getInstance();
 		current.add(Calendar.SECOND, -1); // in order to be able to get the current day
@@ -449,7 +469,8 @@ public class Employee implements Serializable {
 			}
 			try {
 				LocalDate.of(current.get(Calendar.YEAR), month, day);
-			} catch (DateTimeException e) { // checks that the given month and day are valid, for example day == 31, month == 2 is invalid
+			} catch (DateTimeException e) { // checks that the given month and day are valid, for example day == 31,
+											// month == 2 is invalid
 				System.out.println("Invalid date, please try again. \n");
 				flag2 = true;
 				continue;
@@ -471,6 +492,7 @@ public class Employee implements Serializable {
 
 	/**
 	 * Prints the Employee's shift of the week.
+	 * 
 	 * @param shift
 	 */
 	public static void printShift(Calendar[][] shift) {
@@ -535,13 +557,14 @@ public class Employee implements Serializable {
 	}
 
 	/**
-	 * Returns -1 if the id and password are wrong or the 
-	 * position in  list Employees they are correct.
+	 * Returns -1 if the id and password are wrong or the position in list Employees
+	 * they are correct.
+	 * 
 	 * @param idGiven
 	 * @param passwordGiven
 	 * @return
 	 */
-	public static int login(int idGiven, String passwordGiven) { 
+	public static int login(int idGiven, String passwordGiven) {
 		int j = -1;
 		for (int i = 0; i < Employees.size(); i++) {
 			int id = Employees.get(i).getEmployee_Id();
@@ -586,7 +609,8 @@ public class Employee implements Serializable {
 			System.out.printf("Πληκτρολογήστε το μήνυμα που επιθυμείτε να στείλετε στον %s %s\n",
 					Employee.Employees.get(thesh).getFirstname(), Employee.Employees.get(thesh).getSurname());
 			int mtbl = Employee.Employees.get(thesh).maxmail + 1;
-			String a = "       -------\n" + mtbl + ")Mail from " + this.getFirstname() + " " + this.getSurname() + ":\n";
+			String a = "       -------\n" + mtbl + ")Mail from " + this.getFirstname() + " " + this.getSurname()
+					+ ":\n";
 			a = a + in.nextLine();
 			Employee.Employees.get(thesh).newmail[Employee.Employees.get(thesh).maxmail] = a;
 			Employee.Employees.get(thesh).maxmail++;
@@ -605,16 +629,17 @@ public class Employee implements Serializable {
 	}
 
 	/**
-	 * Sends a mail to the Manager of the Employee with the day off request. 
-	 * @param dayOff The 
+	 * Sends a mail to the Manager of the Employee with the day off request.
+	 * 
+	 * @param dayOff The
 	 */
 	public void adeia(Calendar dayOff) {
 		if (this.getManager() != null) {
-			String time = String.format("%d/%d", dayOff.get(Calendar.DAY_OF_MONTH),
-					dayOff.get(Calendar.MONTH) + 1);
+			String time = String.format("%d/%d", dayOff.get(Calendar.DAY_OF_MONTH), dayOff.get(Calendar.MONTH) + 1);
 			int mtbl = this.getManager().getMaxmail() + 1;
-			String mail_ston_Supervisor = "       -------\n" + mtbl + ")" + this.getFirstname() + " " + this.getSurname()
-					+ " whose id is:" + this.getEmployee_Id() + " would like to take a day off on " +  time + ".\n";
+			String mail_ston_Supervisor = "       -------\n" + mtbl + ")" + this.getFirstname() + " "
+					+ this.getSurname() + " whose id is:" + this.getEmployee_Id() + " would like to take a day off on "
+					+ time + ".\n";
 			this.getManager().newmail[this.getManager().getMaxmail()] = mail_ston_Supervisor;
 			mail_ston_Supervisor = mail_ston_Supervisor + "Inform the Employee whether you approve the day off \n ";
 			this.getManager().setMaxmail(this.getManager().getMaxmail() + 1);
@@ -631,10 +656,10 @@ public class Employee implements Serializable {
 
 	/**
 	 * Binary search moderated to be used in the list Employees.
+	 * 
 	 * @param Employees
-	 * @param x, the requested id
-	 * @return the position in  list Employees if the id is valid, 
-	 * else returns -1.
+	 * @param x,        the requested id
+	 * @return the position in list Employees if the id is valid, else returns -1.
 	 */
 	public static int empBinarySearch(int x) {// x the id you want to find in the Employees and returns the position in
 		// Employees (static only for the junit)
@@ -652,10 +677,10 @@ public class Employee implements Serializable {
 		return -1;
 	}
 
-	
 	/**
-	 * Inmethod enter an id and returns -1 if the id is invalid or the employee's who requested it,
-	 * else returns the position in list Employees.
+	 * Inmethod enter an id and returns -1 if the id is invalid or the employee's
+	 * who requested it, else returns the position in list Employees.
+	 * 
 	 * @return posInEmployees
 	 */
 	public int enterAnyId() {
