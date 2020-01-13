@@ -50,11 +50,11 @@ public class Inventory implements Serializable {
 	 * Prints the visual side of the Inventory menu
 	 */
 	public static void displayInvMenu() {
-		System.out.println("-------Welcome to the Inventory manager Menu-------\n");
+		System.out.println("------------- Inventory Management Menu -------------");
 		System.out.println(
-				"1)To Update and check the Fixed Invetory please input 1\n2)To Update check the Urgent Invetory please input 2\n"
-						+ "3)To Update and check the Buffet please input 3\n4)To check the balances please input 4	");
-		System.out.print("Selection: ");
+				"1) Update and check the Fixed Invetory\n2) Update and check the Urgent Invetory \n"
+						+ "3) Update and check the Buffet\n4) Check the balances");
+		System.out.println("---------- CHOOSE A NUMBER BETWEEN 1 AND 4 ----------");
 	}
 
 	public static void question() {
@@ -65,7 +65,7 @@ public class Inventory implements Serializable {
 
 		switch (q.nextInt()) {
 		case 0:
-			System.out.println("Thank you and goodbye.");
+			System.out.println("Thank you and goodbye!");
 			break;
 
 		case 9:
