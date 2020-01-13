@@ -23,9 +23,12 @@ public class Reporting {
 	public static void Menu() {
 		loadobjects();
 		Scanner sc = new Scanner(System.in);
-		System.out.println("---------------REPORTING MENU---- " + getDate() + " -----------" + "\n1) HR"
-				+ "\n2) Financial and Investments services" + "\n3) Clients Data " + "\n4) Exit"
-				+ "\n------------ CHOOSE A NUMBER BETWEEN 1 AND 4 -------------");
+		System.out.println("--------------- REPORTING MENU ---- "+ getDate()+ " -----------"
+				+ "\n1) HR"
+				+ "\n2) Financial and Investments services"
+				+ "\n3) Clients Data "
+				+ "\n4) Exit"
+				+ "\n-------------------- CHOOSE A NUMBER BETWEEN 1 AND 4 ---------------------");
 		boolean confirm = true;
 		do {
 			try {
@@ -34,15 +37,48 @@ public class Reporting {
 					System.out.println();
 					System.out.println("-------------------- Welcome to HR reporting!-------------------");
 					System.out.println();
-					if (ReportingHR.hr.isEmpty()) {
+					if (Employee.Employees.isEmpty()) {
 						System.out.println("NO employees available");
 					} else {
 						System.out.println("The Average wage is:" + ReportingHR.averageWage());
 						System.out.println();
 						Distribution_Stars.getDistributionOfWages();
 						System.out.println();
+						System.out.println("If you want to have a brief of every employee's salary, Press 1"
+										+ "\nTo return to main menu press 0 ");
+						int epilogh = 0;
+						boolean flag2 = false;
+						do {
+							if (!sc.hasNextInt()) {
+								System.out.println("Input an integer [0,1]");
+								flag2 = true; 
+								sc.next();
+
+							} else {
+								epilogh = sc.nextInt();
+								if (epilogh > 1 || epilogh < 0) {
+									flag2 = true;
+									System.out.println("Input an integer [0,1]");
+								} else {
+									if (epilogh == 1) {
+										for(Employee i : Employee.Employees) {
+											System.out.println("Employee's name: " + i.getFirstname() 
+											+ ", Employee's id: " + i.getEmployee_Id() + ", Employee's salary: " + i.getSalary());
+										}
+										System.out.println();
+										System.out.println("Reconnecting you to the main menu");
+										Reporting.Menu();
+									}else {
+										System.out.println("Reconnecting you to the main menu");
+										Reporting.Menu();
+									}
+									
+								}
+								sc.nextLine();
+							}
+						} while (flag2);
 					}
-					System.out.println("To continue press one of the suggested numbers.");
+					System.out.println("To continue press one of the suggested numbers of the homepage.");
 					System.out.println("-----------------------");
 				} else if (dep == 2) {
 					try {
@@ -69,7 +105,55 @@ public class Reporting {
 					System.out.println("---------------------------------");
 					System.out.println("To continue press one of the suggested numbers of the homepage.");
 				} else if (dep == 4) {
+					System.out.println("Please insert electricity bill: ");
+					double el = 0;
+					double wa = 0;
+					double ph = 0;
+					boolean flag2 = false;
+					do {
+						if (!sc.hasNextInt()) {
+							System.out.println("Input an integer ");
+							flag2 = true; 
+							sc.next();
+
+						} else {
+							el = sc.nextInt();
+							flag2 = false;
+						}	
+						sc.nextLine();
+					} while (flag2);
+					System.out.println("Please insert water supply bill: ");
+					do {
+						if (!sc.hasNextInt()) {
+							System.out.println("Input an integer ");
+							flag2 = true; 
+							sc.next();
+
+						} else {
+							wa = sc.nextInt();
+							flag2 = false;
+						}	
+						sc.nextLine();
+					} while (flag2);
+					System.out.println("Please insert phone and internetSupply bill: ");
+					do {
+						if (!sc.hasNextInt()) {
+							System.out.println("Input an integer ");
+							flag2 = true; 
+							sc.next();
+
+						} else {
+							ph = sc.nextInt();
+							flag2 = false;
+						}	
+						sc.nextLine();
+					} while (flag2);
+					new ReportingFinance(el,wa,ph);
+					System.out.println("---------------------------------");
+					System.out.println("To continue press one of the suggested numbers of the homepage.");
+				}else if(dep == 0) {
 					mainClass.InputMenu();
+
 				} else if (dep > 4 || dep < 0) {
 					System.out.println("Do you mean: \n 1 or 2 or 3 or 4");
 				}
@@ -86,7 +170,19 @@ public class Reporting {
 		Date date = new Date(System.currentTimeMillis());
 		return formatter.format(date);
 	}
-
+	
+	public static double averageWage() {
+		double S = 0;
+		for (Employee i : Employee.Employees) {
+			S += i.getSalary();
+		}
+		if (!( Employee.Employees.isEmpty())){
+			return S / Employee.Employees.size();
+		}else { 
+			return 800000;
+		}
+	}
+	
 	static void loadobjects() {
 		ReportingHR r1 = new ReportingHR(1200, "alexis", "perakis");
 		ReportingHR r2 = new ReportingHR(1200, "nikos", "papadopoulos");
@@ -146,6 +242,7 @@ public class Reporting {
 		new Room(3, 5, 150);
 		new Room(3, 6, 200);
 
+
 		Date d1 = new Date();
 		Date d2 = new Date();
 		Date d3 = new Date();
@@ -173,4 +270,5 @@ public class Reporting {
 		Inventory iu5 = new Inventory("u5", 125, 20, 30, s5, "Urgent", 0);
 
 	}
+	
 }

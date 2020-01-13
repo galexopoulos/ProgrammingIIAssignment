@@ -20,11 +20,12 @@ public class Goals {
 
 	public static void menu() {
 		Scanner sc = new Scanner(System.in);
-		System.out.println("------------------- GOALS MENU ----- " + getDate() + " ------------"
+		System.out.println("------------------- GOALS MENU ----- " + getDate() + " --------------"
 				+ "\n1) Compare the current year with the results from 3 years ago"
 				+ "\n2) Compare the current year with the results from 2 years ago"
 				+ "\n3) Compare the current year with the previous year"
-				+ "\n4) Compare the current year with the current year's goals" + "\n5) Exit");
+				+ "\n4) Compare the current year with the current year's goals"
+				+ "\n5) Exit");
 		System.out.println("------------------- CHOOSE A NUMBER BETWEEN 1 AND 5 --------------------");
 
 		int ans;
