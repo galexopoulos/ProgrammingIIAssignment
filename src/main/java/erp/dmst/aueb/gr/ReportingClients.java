@@ -18,7 +18,7 @@ public class ReportingClients {
     private int daysofstay;
 	private int reasonfortravel;
 	private String email;
-	private String know;
+	private int know;
 	private static int counter_st = 0;
 
 	/**
@@ -29,7 +29,7 @@ public class ReportingClients {
 	static ArrayList<ReportingClients> coustomerBase = new ArrayList<ReportingClients>();
 
 	public ReportingClients(String name, String surname, int satisfuction, int payment, int family, int daysofstay,
-			int reasonfortravel, String email, String know) {
+			int reasonfortravel, String email, int know) {
 		this.name = name;
 		this.surname = surname;
 		this.satisfuction = satisfuction;
@@ -46,10 +46,10 @@ public class ReportingClients {
 	public static int getCounter_st(){
 		return counter_st;
 		}
-	public String getKnow() {
+	public int getKnow() {
 		return know;
 	}
-	public void setKnow(String know) {
+	public void setKnow(int know) {
 		this.know = know;
 	}
     public String getEmail() {
