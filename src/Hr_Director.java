@@ -1154,12 +1154,5 @@ public class Hr_Director extends Manager {
 
 	}
 	
-	/**
-	 * the method rounds a number to 2 decimals
-	 * @param x
-	 * @return x rounded at 2 decimals if needed
-	 */
-	public static double roundTo2 (double x) {//public static only for the junit
-		return (double) Math.round(x * 100) / 100;
-	}
+
 }

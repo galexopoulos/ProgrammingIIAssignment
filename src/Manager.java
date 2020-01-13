@@ -714,8 +714,8 @@ public class Manager extends Employee {
 							newValue.add(Calendar.HOUR_OF_DAY, epilogh);
 							newShift[valueOfI][posInShift] = newValue;
 							Employee.Employees.get(x).setThisWeekShift(newShift);
-							double paymentIncrease = epilogh*Math.round((Employee.Employees.get(x).getSalary()*0.015)*100)/100;//we increase the payment by 0.015 of employee's salary for every extra hour
-																															   //Math.round(a*100)/100 rounds up a to 2 decimals
+							// we increase the payment by 0.015 ofemployee's salary for every extra hour
+							double paymentIncrease = epilogh * roundTo2(Employee.Employees.get(x).getSalary() * 0.015);
 							
 							Employee.Employees.get(x).setMonthPayment(Employee.Employees.get(x).getMonthPayment() + paymentIncrease);
 							flag4 = false;
@@ -733,6 +733,15 @@ public class Manager extends Employee {
 			} while (somethingWrong);
 		}
 
+	}
+	
+	/**
+	 * the method rounds a number to 2 decimals
+	 * @param x
+	 * @return x rounded at 2 decimals if needed
+	 */
+	public static double roundTo2 (double x) {//static only for the junit
+		return (double) Math.round(x * 100) / 100;
 	}
 
 	public static int shiftIndexToChange(int extraHours, Calendar[] dayShift) {//returns -1 if 1)extra hours overpass midnight
