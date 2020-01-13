@@ -638,7 +638,7 @@ public class Employee implements Serializable {
 			// System.out.println(thesh);
 			System.out.println();
 			if (Employee.Employees.get(thesh).getMaxmail() == 201) {
-				String b = "Your inbox exceeds the limit of 200 mails. The new mails will replace the old ones.";
+				String b = "Your inbox exceeds the limit of 200 mails. The new mails will replace the old ones!";
 				Employee.Employees.get(thesh).setMaxmail(0);
 				Employee.Employees.get(thesh).newmail[Employee.Employees.get(thesh).maxmail] = b;
 				Employee.Employees.get(thesh).maxmail++;

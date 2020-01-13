@@ -505,7 +505,7 @@ public class Hr_surface {
 				if (posInEmployees != -1) {
 					Employee.Employees.get(posInEmployees).getMenu();
 				}else {
-					System.out.println("Wrong id or password.");
+					System.out.println("Wrong Id or Password.");
 				}	
 			}else if(selection.equals(" ")) {
 				stayAtHR = false;
