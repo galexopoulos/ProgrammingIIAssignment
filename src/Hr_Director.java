@@ -1,6 +1,7 @@
 import java.util.Scanner;
-
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 /**
  * The class that refers to the Hr Director Extends the Manager class and has
@@ -45,9 +46,19 @@ public class Hr_Director extends Manager {
 		System.out.println("Welcome!");
 		do {
 			System.out.println(
-					" HR DIRECT0R MENU \n------------- \n Select: \n1)Inbox. \n2)View Managers. \n3)Show check in status of Managers. \n"
-							+ "4)Set extra hours for a Manager. \n5)Edit a Manager's payment. \n6)Edit a Manager's fields. \n7)Edit an Employee's shift. "
-							+ "\n8)Hire a new member. \n9)Remove a member. \n10)Promote to Manager. \n11)Log out.");
+					"---------------- HR DIRECTOR MENU ---- " + getDate() + " ---------------"
+					+ "\n1) Inbox."
+					+ "\n2) View Managers"
+					+ "\n3) Show check in status of Managers"
+					+ "\n4) Set extra hours for a Manager "
+					+ "\n5) Edit a Manager's payment"
+					+ "\n6) Edit a Manager's fields"
+					+ "\n7) Edit an Employee's shift"
+					+ "\n8) Hire a new member"
+					+ "\n9) Remove a member"
+					+ "\n10) Promote to Manager"
+					+ "\n11) Log out"
+					+ "\n------------------- CHOOSE A NUMBER BETWEEN 1 AND 11 ---------------------");
 			boolean flag = false;
 			int selection = 0;
 			do {
@@ -72,9 +83,13 @@ public class Hr_Director extends Manager {
 				boolean flag3 = false;
 				do {
 					System.out.println(
-							"Select: \n ------------- \n\n1)Send Mail. \n2)View Mails. \n3 Return to the central menu");
+							"---------------- INBOX ---- " + getDate() + " --------------"
+							+ "\n1) Send Mail."
+							+ "\n2) View Mails."
+							+ "\n3) Exit"
+							+ "\n--------------- CHOOSE A NUMBER BETWEEN 1 AND 3 ---------------");
 					if (!sc.hasNextInt()) {
-						System.out.println("Δώστε 1 ή 2 ή 3");
+						System.out.println("Insert 1 or 2 or 3");
 						flag3 = true;
 						sc.next();
 
@@ -82,7 +97,7 @@ public class Hr_Director extends Manager {
 						epilogh = sc.nextInt();
 						if (epilogh > 3 || epilogh < 1) {
 							flag3 = true;
-							System.out.println("input an integer [1,3]");
+							System.out.println("Input an integer [1,3]");
 						} else {
 							flag3 = false;
 						}
@@ -152,7 +167,11 @@ public class Hr_Director extends Manager {
 					boolean flag1 = false;
 					int sel = 0;
 					System.out.println(
-							"Select \n1)Edit salary. \n2)Edit payment for the current month. \n3)Return to central menu.");
+							"------------- EDIT MANAGER'S PAYMENT ---- " + getDate() + " -------------"
+							+ "\n1) Edit salary"
+							+ "\n2) Edit payment for the current month"
+							+ "\n3) Exit"
+							+ "\n--------------------- CHOOSE A NUMBER BETWEEN 1 AND 3 ---------------------");
 					do {
 						if (!sc.hasNextInt()) {
 							System.out.println("Please insert a number, 1 or 2 or 3.");
@@ -299,7 +318,11 @@ public class Hr_Director extends Manager {
 					boolean flag1 = false;
 					int sel = 0;
 
-					System.out.println("Select \n1)Change position. \n2)Change manager. \n3)Return to central Menu.");
+					System.out.println("------------- EDIT MANAGER'S FIELDS ---- " + getDate() + " --------------"
+							+ "\n1) Change position"
+							+ "\n2) Change manager"
+							+ "\n3) Exit"
+							+ "\n---------------------- CHOOSE A NUMBER BETWEEN 1 AND 3 ---------------------");
 
 					do {
 						if (!sc.hasNextInt()) {
@@ -585,8 +608,11 @@ public class Hr_Director extends Manager {
 				boolean flag1 = false;
 				int sel = 0;
 
-				System.out.println("Select: \n1)Hire a new Employee. \n2)Hire a new Manager. "
-						+ "\n3)Return to the central menu.");
+				System.out.println("------------- HIRE A NEW MEMBER ---- " + getDate() + " ---------------"
+						+ "\n1) Hire a new Employee"
+						+ "\n2) Hire a new Manager"
+						+ "\n3) Exit"
+						+ "\n-------------------- CHOOSE A NUMBER BETWEEN 1 AND 3 --------------------");
 
 				do {
 					if (!sc.hasNextInt()) {
@@ -876,7 +902,7 @@ public class Hr_Director extends Manager {
 												try {
 													manager.setThisWeekShift(Shift.createShift(shiftStr));
 												} catch (ShiftException e) {
-													System.err.println("Mistake with the inserted shift. " + e);
+													System.out.println("Mistake with the inserted shift. " + e);
 													flag7 = true;
 													continue;
 												}
@@ -1124,9 +1150,9 @@ public class Hr_Director extends Manager {
 					}
 				} while (flag3);
 				if (epilogh + Employee.Employees.get(x).getWresyperergasias_evdomadiaiws() > 5) {
-					System.err.println(
-							"Συμφωνα με τον Ν.3863/2010 ο υπάλληλος απαγορεύεται να δουλέψει περισσότερες από 5 ώρες υπερωρίας την εδβομάδα. ");
-					System.out.printf("Ο υπάλληλος έχει δουλέψει ήδη %d ώρες αυτή τη βδομάδα\n",
+					System.out.println(
+							"According to law number 3863/2010, an employee does not have the right to work over 5 hours of overtime per week. ");
+					System.out.printf("The employee has already worked %d hours this week\n",
 							Employee.Employees.get(x).getWresyperergasias_evdomadiaiws());
 					continue;
 				} else if (epilogh < 1) {
@@ -1146,7 +1172,7 @@ public class Hr_Director extends Manager {
 					continue;
 				} else {
 					somethingWrong = false;
-					System.out.printf("Είστε σίγουρος οτι θέλετε ο %s να κάνει " + epilogh + " ώρα/ώρες υπερωρίας;\n",
+					System.out.printf("Are you sure tha you want %s to do " + epilogh + " hour(s) of overtime?\n",
 							Employee.Employees.get(x).getFirstname(), Employee.Employees.get(x).getSurname());
 					boolean flag4;
 					do {
@@ -1183,6 +1209,10 @@ public class Hr_Director extends Manager {
 		}
 
 	}
-	
+	public static String getDate() {
+		SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy, HH:mm:ss");
+		Date date = new Date(System.currentTimeMillis());
+		return formatter.format(date);
+	}
 
 }
