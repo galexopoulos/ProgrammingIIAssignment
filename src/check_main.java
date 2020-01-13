@@ -46,7 +46,7 @@ public class check_main {
 		Petreas.setShiftStr(shift);
 		Petreas.setThisWeekShift(shiftcal);
 		String[] shift2 = { "12:00-13:00", "16:00-", "-8:00", "12:00-20:00", "7:00-14:00", "9:01-17:00",
-				"23:00-23:30,23:31-23:45,23:46-23:47,23:48-23:49", "12:00-18:00" };
+				"23:00-23:30,23:31-23:45,23:46-23:47,23:48-23:49", "12:00-13:00" };
 		try {
 			shiftcal = Shift.createShift(shift2);
 		} catch (ShiftException a) {
@@ -93,7 +93,7 @@ public class check_main {
 		Employee Lionel = new Employee("Lionel", "Messi", "Athlete", "goat", 1750, Dumbledore);
 		Employee Cristiano = new Employee("Cristiano", "Ronaldo", "Athlete", "beyondmessi", 1749, Dumbledore);
 		Employee Margaret = new Employee("Margaret", "Thatcher", "Queen", "obey", 1250, Dumbledore);
-		Employee Angela = new Employee("Angela", "Merkel", "chancellor", "ichheißemerkel", 1200, Dumbledore);
+		Employee Angela = new Employee("Angela", "Merkel", "chancellor", "ichheissemerkel", 1200, Dumbledore);
 		Employee Agatha = new Employee("Agatha", "Christie", "Author", "missmarple", 1200, Petreas);
 	
 	}

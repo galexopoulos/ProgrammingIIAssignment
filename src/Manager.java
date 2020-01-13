@@ -186,8 +186,9 @@ public class Manager extends Employee {
 					System.out.println("No employees found.");
 				}
 			} else if (selection == 8) {
-				boolean shiftflag = false;
+				boolean shiftflag;
 				do {
+					shiftflag = false;
 					int posInEmployees = enterEmpId();
 					if (posInEmployees != -1) {
 						boolean flag2;
@@ -271,6 +272,7 @@ public class Manager extends Employee {
 
 						} while (flag2);
 					} else {
+						shiftflag = false;
 						menuflag = true;
 					}
 

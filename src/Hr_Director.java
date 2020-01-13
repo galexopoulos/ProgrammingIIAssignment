@@ -346,41 +346,10 @@ public class Hr_Director extends Manager{
 													.getEmployee_Id()
 													&& selectedId != Employee.Employees.get(posInEmployees)
 															.getEmployee_Id()
-													&& Employee.Employees.get(posInEmpOfManager) instanceof Manager) { // checks
-																													// that
-																													// the
-																													// new
-																													// Manager
-																													// is
-																													// not
-																													// the
-																													// same
-																													// with
-																													// the
-																													// current
-																													// or
-																													// with
-																													// the
-																													// employee
-																													// whom
-																													// field
-																													// we
-																													// want
-																													// to
-																													// edit
-																													// and
-																													// that
-																													// the
-																													// new
-																													// Manager
-																													// is
-																													// a
-																													// Manager
-																													// and
-																													// not
-																													// a
-																													// basic
-																													// Employee
+													&& Employee.Employees.get(posInEmpOfManager) instanceof Manager) { 
+												// checks that the new Manager is not the same with the current or with the
+											    //employee whom field we want to edit and that the new Manager is a Manager
+											   // and not a basic Employee
 												flag3 = false;
 											} else {
 												posInEmpOfManager = -1;
@@ -432,8 +401,9 @@ public class Hr_Director extends Manager{
 					menuflag = true;
 				}
 			}else if(selection == 7) {
-				boolean shiftflag = false;
+				boolean shiftflag;
 				do {
+					shiftflag = false;
 					String selected;
 					int selectedId, posInEmployees = -1;
 					boolean flag1 = false;
@@ -545,6 +515,7 @@ public class Hr_Director extends Manager{
 						}while(flag2);
 					}else {
 						menuflag = true;
+						shiftflag = false;
 					}
 				} while (shiftflag);
 		
@@ -552,19 +523,20 @@ public class Hr_Director extends Manager{
 				boolean flag1 = false;
 				int sel = 0;
 
-				System.out.println("Select: \n1)Hire a new Employee. \n2)Hire a new Manager.");
+				System.out.println("Select: \n1)Hire a new Employee. \n2)Hire a new Manager. "
+						+ "\n3)Return to the central menu.");
 
 				do {
 					if (!sc.hasNextInt()) {
-						System.out.println("Please insert a number, 1 or 2.");
+						System.out.println("Please insert a number, 1 or 2 or 3.");
 						flag1 = true;
 						sc.next();
 
 					} else {
 						sel = sc.nextInt();
-						if (sel > 2 || sel < 1) {
+						if (sel > 3 || sel < 1) {
 							flag1 = true;
-							System.out.println("Please insert 1 or 2.");
+							System.out.println("Please insert 1 or 2 or 3.");
 						} else {
 							flag1 = false;
 							sc.nextLine();
@@ -899,6 +871,8 @@ public class Hr_Director extends Manager{
 					} else {
 						Employee.removeLastEmployee();
 					}
+				}else if (sel == 3) {
+					continue;
 				}
 			} else if (selection == 9) {
 				String selected;

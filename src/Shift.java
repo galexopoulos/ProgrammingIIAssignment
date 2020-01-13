@@ -91,9 +91,9 @@ public class Shift {
 				}
 			}
 		} catch (ArrayIndexOutOfBoundsException aioobe) {
-			throw new ShiftException("Misused characters, possibly out of bounds input.");
+			throw new ShiftException("Input mistake.");
 		} catch (StringIndexOutOfBoundsException sioobe) {
-			throw new ShiftException("Misused characters, possibly out of bounds input.");
+			throw new ShiftException("Input mistake.");
 		}
 
 		for (int i = 0; i < 4; i++) {
