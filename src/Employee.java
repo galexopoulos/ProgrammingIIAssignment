@@ -10,7 +10,7 @@ import java.util.ArrayList;
 /**
  * The class that refers to all the Employees.
  * 
- * @author Nilolaos Antonopoulos, Georgios Sideris
+ * @author Nikolaos Antonopoulos, Georgios Sideris
  *
  */
 public class Employee implements Serializable {
