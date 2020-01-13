@@ -6,12 +6,12 @@ import java.util.Scanner;
 public class testaki {
 
 	public static void main(String[] args)  {
-		loadobjects();
-		Reporting.Menu();
+		//loadobjects();
+		ReportingFinance.getMenu();
 		//System.out.println("out of Reporting.java");
 		//Scanner sc = new Scanner(System.in);
 		//ShareHolders.getMenuflag();
-		Goals.menu();
+		//Goals.menu();
 	}
 	static void loadobjects() {
 		ReportingHR r1 = new ReportingHR(1200,"alexis","perakis");
