@@ -55,7 +55,7 @@ public class Room implements Serializable {
 			do {
 				System.out.println("------------------- ROOMS MENU ---- " + getDate() + " --------------");
 				System.out.println("1) See the rooms");
-				System.out.println("2) Go Back");
+				System.out.println("2) Exit");
 				System.out.println("------------------- CHOOSE A NUMBER BETWEEN 1 AND 2 -------------------");
 				try {
 					choose = sc.nextInt();

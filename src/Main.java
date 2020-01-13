@@ -218,7 +218,7 @@ public class Main implements Serializable {
 				System.out.println("------------------ SALES MENU ---- " + getDate() + " ---------------");
 				System.out.println("1) Bookings");
 				System.out.println("2) Rooms");
-				System.out.println("3) Go Back");
+				System.out.println("3) Exit");
 				System.out.println("------------------ CHOOSE A NUMBER BETWEEN 1 AND 3 --------------------");
 				try {
 					choose = sc.nextInt();

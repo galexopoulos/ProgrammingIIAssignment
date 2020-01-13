@@ -263,7 +263,7 @@ public class Booking implements Serializable {
 				System.out.println("3) Check Out procedure");
 				System.out.println("4) Cancel a booking");
 				System.out.println("5) Search for bookings ");
-				System.out.println("6) Go Back ");
+				System.out.println("6) Exit");
 				System.out.println("------------------- CHOOSE A NUMBER BETWEEN 1 AND 6 --------------------");
 				try {
 					choose1 = sc.nextInt();
@@ -699,7 +699,7 @@ public class Booking implements Serializable {
 						System.out.println("2) Search by room number");
 						System.out.println("3) Search by booking code");
 						System.out.println("4) See all the bookings");
-						System.out.println("5) Go back");
+						System.out.println("5) Exit");
 						System.out.println("------------------- CHOOSE A NUMBER BETWEEN 1 AND 5 --------------------");
 						try {
 							choose2 = sc.nextInt();
