@@ -369,9 +369,10 @@ public class Employee implements Serializable {
 							"---------------- INBOX ---- " + getDate() + " ---------------"
 							+ "\n1) Send Mai."
 							+ "\n2) View Mails "
-							+ "\n3) Exit");
+							+ "\n3) Exit"
+							+ "\n--------------- CHOOSE A NUMBER BETWEEN 1 AND 3 ---------------");
 					if (!sc.hasNextInt()) {
-						System.out.println("Δώστε 1 ή 2 ή 3");
+						System.out.println("Insert 1 or 2 or 3");
 						flag3 = true;
 						sc.next();
 
@@ -379,7 +380,7 @@ public class Employee implements Serializable {
 						epilogh = sc.nextInt();
 						if (epilogh > 3 || epilogh < 1) {
 							flag3 = true;
-							System.out.println("input an integer [1,3]");
+							System.out.println("Input an integer [1,3]");
 						} else {
 							flag3 = false;
 						}
@@ -438,7 +439,7 @@ public class Employee implements Serializable {
 						day = Integer.parseInt(selected);
 						if (day > 31 || day < 1) {
 							flag3 = true;
-							System.err.println("Insert an integer [1,31]:");
+							System.out.println("Insert an integer [1,31]:");
 						} else {
 							flag3 = false;
 						}
@@ -465,7 +466,7 @@ public class Employee implements Serializable {
 						month = Integer.parseInt(selected);
 						if (month > 12 || month < 1) {
 							flag3 = true;
-							System.err.println("Insert an integer [1,12]:");
+							System.out.println("Insert an integer [1,12]:");
 						} else {
 							flag3 = false;
 						}
@@ -623,7 +624,7 @@ public class Employee implements Serializable {
 		thesh = empBinarySearch(epilogh);
 
 		if (thesh != -1) {
-			System.out.printf("Πληκτρολογήστε το μήνυμα που επιθυμείτε να στείλετε στον %s %s\n",
+			System.out.printf("Type the text you wish tou send to %s %s\n",
 					Employee.Employees.get(thesh).getFirstname(), Employee.Employees.get(thesh).getSurname());
 			int mtbl = Employee.Employees.get(thesh).maxmail + 1;
 			String a = "       -------\n" + mtbl + ")Mail from " + this.getFirstname() + " " + this.getSurname()
@@ -637,7 +638,7 @@ public class Employee implements Serializable {
 			// System.out.println(thesh);
 			System.out.println();
 			if (Employee.Employees.get(thesh).getMaxmail() == 201) {
-				String b = "Τα εισερχόμενα σας είναι πάνω απο 200. Τα νέα εισερχόμενα θα λάβουν τη θέση των παλαιότερων";
+				String b = "Your inbox exceeds the limit of 200 mails. The new mails will replace the old ones.";
 				Employee.Employees.get(thesh).setMaxmail(0);
 				Employee.Employees.get(thesh).newmail[Employee.Employees.get(thesh).maxmail] = b;
 				Employee.Employees.get(thesh).maxmail++;
@@ -661,7 +662,7 @@ public class Employee implements Serializable {
 			mail_ston_Supervisor = mail_ston_Supervisor + "Inform the Employee whether you approve the day off \n ";
 			this.getManager().setMaxmail(this.getManager().getMaxmail() + 1);
 			if (this.getManager().getMaxmail() == 201) {
-				String b = "       -------\nΤα εισερχόμενα σας είναι πάνω απο 200. Τα νέα εισερχόμενα θα λάβουν τη θέση των παλαιότερων";
+				String b = "       -------\nYour inbox exceeds the limit of 200 mails. The new mails will replace the old ones.";
 
 				this.getManager().setMaxmail(0);
 				this.getManager().newmail[getMaxmail()] = b;
