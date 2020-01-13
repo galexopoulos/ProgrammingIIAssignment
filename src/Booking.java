@@ -551,9 +551,9 @@ public class Booking implements Serializable {
 				boolean already = false;
 				for (Booking book : bookings.get(roomIn - 1)) { // for the chosen room
 					checkInd.setTime(book.checkIn);
-					if ((today1.get(Calendar.DAY_OF_MONTH) == checkInd.get(Calendar.DAY_OF_MONTH))
-							&& (today1.get(Calendar.MONTH) == checkInd.get(Calendar.MONTH))
-							&& (today1.get(Calendar.YEAR) == checkInd.get(Calendar.YEAR))
+					if ((today1.get(Calendar.DAY_OF_MONTH) >= checkInd.get(Calendar.DAY_OF_MONTH))
+							&& (today1.get(Calendar.MONTH) >= checkInd.get(Calendar.MONTH))
+							&& (today1.get(Calendar.YEAR) >= checkInd.get(Calendar.YEAR))
 							&& (today1.get(Calendar.HOUR) >= checkInd.get(Calendar.HOUR))) { // check if its is the time
 																								// for check in
 						if (book.checkedIn == false) { // check if this booking has already checked in
@@ -606,9 +606,9 @@ public class Booking implements Serializable {
 				boolean already2 = false;
 				for (Booking book : bookings.get(roomOut - 1)) { // for the chosen room
 					checkOutd.setTime(book.checkOut);
-					if ((today2.get(Calendar.DAY_OF_MONTH) == checkOutd.get(Calendar.DAY_OF_MONTH))
-							&& (today2.get(Calendar.MONTH) == checkOutd.get(Calendar.MONTH))
-							&& (today2.get(Calendar.YEAR) == checkOutd.get(Calendar.YEAR))) { // check if the date is
+					if ((today2.get(Calendar.DAY_OF_MONTH) >= checkOutd.get(Calendar.DAY_OF_MONTH))
+							&& (today2.get(Calendar.MONTH) >= checkOutd.get(Calendar.MONTH))
+							&& (today2.get(Calendar.YEAR) >= checkOutd.get(Calendar.YEAR))) { // check if the date is
 																								// the right to check
 																								// out
 						if (book.checkedOut == false) { // check if this booking has already checked out
