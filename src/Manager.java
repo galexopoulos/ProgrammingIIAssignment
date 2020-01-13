@@ -107,8 +107,7 @@ public class Manager extends Employee {
 				freeRequest = enterWeekDay();
 				if (freeRequest.get(Calendar.YEAR) != 1990) {
 					System.out.println("Day off request succesfully sent to Manager.");
-					// inboxrelated
-					// can be added an option to send a message with the request
+					adeia(freeRequest);
 				} // if year = 1990 the employee has requested to return to the central Menu
 
 			} else if (selection == 4) {
@@ -291,7 +290,7 @@ public class Manager extends Employee {
 							try {
 								Employee.Employees.get(posInEmployees)
 									.setThisWeekShift(Shift.createShift(shiftStr));
-								// if it moves on the input is correct as creatShift method throws Exception
+								// if it moves on the input is correct as createShift method throws Exception
 								// for wrong input
 								Employee.Employees.get(posInEmployees).setShiftStr(shiftStr);
 								System.out.println("The change has been made.");
@@ -534,24 +533,14 @@ public class Manager extends Employee {
 											if (selectedId != this.getEmployee_Id()
 													&& selectedId != Employee.Employees.get(posInEmployees)
 															.getEmployee_Id()
-													&& Employee.Employees.get(posInEmpOfManager) instanceof Manager) { // checks
-																														// that
-												// the new
-												// Manager is
-												// not the same
-												// with the
-												// current or
-												// with the
-												// employee whom
-												// field we want
-												// to edit and
-												// that the new
-												// Manager is a
-												// Manager and
-												// not a basic
-												// Employee
-												if (selectedId == 0 &&  !(Employee.Employees.get(posInEmployees) instanceof Manager)) {
-													//only managers can have hr director as manager
+													&& Employee.Employees.get(posInEmpOfManager) instanceof Manager) { 
+												// checks that the new Manager is not the same with the current or with
+												// the
+												// employee whom field we want to edit and that the new Manager is a
+												// Manager and not a basic Employee
+												if (selectedId == 0 && !(Employee.Employees
+														.get(posInEmployees) instanceof Manager)) {
+													// only managers can have hr director as manager
 													posInEmpOfManager = -1;
 													System.out.println("You are not allowed to do that.");
 													flag3 = true;

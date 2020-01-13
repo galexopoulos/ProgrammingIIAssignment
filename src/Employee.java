@@ -357,8 +357,6 @@ public class Employee implements Serializable {
 				if (freeRequest.get(Calendar.YEAR) != 1990) {
 					System.out.println("Day off request succesfully sent to Manager.");
 					adeia(freeRequest);
-					// inboxrelated
-					// can be added an option to send a message with the request
 				} // if year = 1990 the employee has requested to return to the central Menu
 
 			} else if (selection == 4) {
@@ -615,9 +613,6 @@ public class Employee implements Serializable {
 	 */
 	public void mhnyma() {
 		int thesh = 0;
-		// System.out.println(this.getEmployee_Id());
-		// String ans1 = JOptionPane.showInputDialog("Πληκτρολογήστε το μήνυμα που
-		// επιθυμείτε να στείλετε");
 		Scanner in = new Scanner(System.in);
 
 		int epilogh = enterAnyId();
@@ -632,10 +627,6 @@ public class Employee implements Serializable {
 			a = a + in.nextLine();
 			Employee.Employees.get(thesh).newmail[Employee.Employees.get(thesh).maxmail] = a;
 			Employee.Employees.get(thesh).maxmail++;
-
-			// System.out.printf("%s", Employee.mail[Employee.max_mail[thesh]][thesh]);
-
-			// System.out.println(thesh);
 			System.out.println();
 			if (Employee.Employees.get(thesh).getMaxmail() == 201) {
 				String b = "Your inbox exceeds the limit of 200 mails. The new mails will replace the old ones!";

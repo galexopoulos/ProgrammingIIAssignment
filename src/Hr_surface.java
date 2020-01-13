@@ -539,6 +539,5 @@ public class Hr_surface {
 			totalSalaryOutcome += a.getMonthPayment();
 			a.setMonthPayment(a.getSalary());
 		}
-		//SEND totalSalaryOutcome to Finance and Reporting
 	}
 }
