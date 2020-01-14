@@ -1,4 +1,3 @@
-package gr.aueb.dmst.erp;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -22,7 +21,7 @@ public class Manager extends Employee {
 	 * @param firstname
 	 * @param surname
 	 * @param position
-	 * @param password
+	 * @param password 
 	 * @param salary
 	 * @param manager
 	 */
@@ -635,7 +634,7 @@ public class Manager extends Employee {
 	}
 
 	/**
-	 * NIKO JAVADOC
+	 * Gives the ability to a manager to set extra hours to an Employee. The salary of the employee is increased according to the extra hours
 	 */
 	public void Yperoria() {
 

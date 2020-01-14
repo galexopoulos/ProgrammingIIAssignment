@@ -54,10 +54,9 @@ public class Inventory implements Serializable {
 	 */
 	public static void displayInvMenu() {
 		System.out.println("------------ INVENTORY MANAGEMENT MENU ---- "+ getDate() +" --------");
-		System.out.println(
-				"1) Update and check the Fixed Invetory\n2) Update and check the Urgent Invetory \n"
-						+ "3) Update and check the Buffet\n4) Check the balances");
-		System.out.println("-------------------- CHOOSE A NUMBER BETWEEN 1 AND 4 --------------------");
+		System.out.println("1)To return to main menu intput 1\n2)To Update and check the Fixed Inventory please input 2\n3)To Update check the Urgent Inventory please input 3\n"
+				+ "4)To Update and check the Buffet please input 4\n5)To check the balances please input 5");
+		System.out.println("-------------------- CHOOSE A NUMBER BETWEEN 1 AND 5 --------------------");
 	}
 
 	public static void question() {
@@ -95,7 +94,7 @@ public class Inventory implements Serializable {
 				} while (!(x == 1 || x == 2 || x == 3 || x == 4|| x == 5));
 				break;
 			} catch (Exception e) {
-				System.out.println("Please select 1, 2, 3 or 4.");
+				System.out.println("Please select 1, 2, 3, 4 or 5.");
 				sc.nextLine();
 			}
 		} while (true);

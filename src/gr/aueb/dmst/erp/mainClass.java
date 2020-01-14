@@ -29,7 +29,7 @@ public class mainClass {
 		MO_arxeia.parsimo_Room();
 		SIDER_ARXEIA.Emfanish();
 		Arxeia_markou.Emfanish();
-		MO_arxeia.Emfanish_Booking();
+		
 		MO_arxeia.Emfanish_Room();
 		while (flag1) {
 					InputMenu();

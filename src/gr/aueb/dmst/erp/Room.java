@@ -1,8 +1,9 @@
 package gr.aueb.dmst.erp;
 
-
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -11,7 +12,7 @@ import java.util.Scanner;
  * 
  * @author Nikolas Moatsos
  */
-public class Room implements Serializable{
+public class Room implements Serializable {
 	/** Scanner used for input. */
 	static Scanner sc = new Scanner(System.in);
 	/** Floor number of the room. */
@@ -26,7 +27,6 @@ public class Room implements Serializable{
 	private int roomNumber;
 	/** Static array list for every room. */
 	private static ArrayList<Room> rooms = new ArrayList<Room>();
-
 
 	/**
 	 * This constructs rooms with specified capacity, floor, price per night, room
@@ -54,10 +54,10 @@ public class Room implements Serializable{
 		for (;;) {
 			int choose = 0;
 			do {
-				System.out.println("Room's Menu :");
-				System.out.println("1. See the rooms");
-				System.out.println("2. Go Back");
-				System.out.print("Selection : ");
+				System.out.println("------------------- ROOMS MENU ---- " + getDate() + " --------------");
+				System.out.println("1) See the rooms");
+				System.out.println("2) Exit");
+				System.out.println("------------------- CHOOSE A NUMBER BETWEEN 1 AND 2 -------------------");
 				try {
 					choose = sc.nextInt();
 				} catch (InputMismatchException e) {
@@ -69,12 +69,11 @@ public class Room implements Serializable{
 					System.out.println("Insert 1 or 2!");
 				}
 			} while (choose != 1 && choose != 2); // check selection input
-			System.out.println();
 			switch (choose) {
 			case 1:
 				for (Room room : getRooms()) { // print for every room
 					System.out.println("Room no." + room.roomNumber + "\n" + "floor : " + room.floor + "\tcapacity : "
-							+ room.capacity + "\tprice per night : " + room.pricePerNight + "â‚¬\n");
+							+ room.capacity + "\tprice per night : " + room.pricePerNight + "€\n");
 				}
 				break;
 			case 2:
@@ -144,7 +143,10 @@ public class Room implements Serializable{
 		Room.rooms = rooms;
 	}
 
-	
-
+	public static String getDate() {
+		SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy, HH:mm:ss");
+		Date date = new Date(System.currentTimeMillis());
+		return formatter.format(date);
+	}
 
 }
