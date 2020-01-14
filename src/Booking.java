@@ -660,7 +660,7 @@ public class Booking implements Serializable {
 				} else if (found2 == false) {
 					System.out.println("No booking with this code!\n");
 				} else if (b2 == null) {
-					System.out.println("This room is not Checking Out today!\n");
+					System.out.println("It is not the time or day for this booking to Check Out!\n");
 				} else {
 					b2.checkOut = today2.getTime();
 					bookings.get(roomNumFound - 1).remove(b2);
