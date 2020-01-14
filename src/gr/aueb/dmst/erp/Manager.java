@@ -21,7 +21,7 @@ public class Manager extends Employee {
 	 * @param firstname
 	 * @param surname
 	 * @param position
-	 * @param password
+	 * @param password 
 	 * @param salary
 	 * @param manager
 	 */
