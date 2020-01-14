@@ -35,6 +35,7 @@ class ComputeCheckTest {
 		Cal.set(Calendar.MILLISECOND, 0);
 		Date checkOut = Cal.getTime();
 		Booking b1 = new Booking(checkIn, checkOut, 1, true);
+		b1.setCheckedIn(true);
 		double output1 = b1.computeCheck(true);
 		assertEquals(62, output1);
 	}
@@ -61,6 +62,7 @@ class ComputeCheckTest {
 		Cal.set(Calendar.MILLISECOND, 0);
 		Date checkOut = Cal.getTime();
 		Booking b2 = new Booking(checkIn, checkOut, 2, false);
+		b2.setCheckedIn(true);
 		double output2 = b2.computeCheck(false);
 		assertEquals(100, output2);
 	}
