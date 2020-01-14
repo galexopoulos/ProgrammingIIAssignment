@@ -1,5 +1,7 @@
 package src.main.java.gr.aueb.dmst.erp;
 
+import java.io.Serializable;
+
 /**
  * 
  * @author Ioannis Alexios Perakis
@@ -18,7 +20,7 @@ import java.util.InputMismatchException;
 import java.util.TimeZone;
 import java.util.stream.Collectors;
 
-public class ShareHolders {
+public class ShareHolders implements Serializable {
 	
 	private static int counter = 1;
 	private final int id;

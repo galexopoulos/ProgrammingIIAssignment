@@ -1,4 +1,7 @@
 package src.main.java.gr.aueb.dmst.erp;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 /**
  * The main class of our program,
@@ -18,26 +21,31 @@ public class mainClass {
 	
 	
 	public static void main(String[] args) {
-
+		
+	
 		/*
 		 * Thread tWeek = new Thread(new weekThread()); Thread tMonth = new Thread(new
 		 * monthThread()); tWeek.start(); tMonth.start();
 		 */
-	/*	Inventory.loadobjects();
+	/*	Reporting.loadobjects();
+		Inventory.loadobjects();
 		SalesMenu.Sales_LoadObjects();
 		Hr_surface.loadobjects();
+		
+		
+		
 		SIDER_ARXEIA.grapsimo_Employees();
+		Arxeia_perakis.grapsimo_reporting();
 		MO_arxeia.grapsimo_Booking();
 		MO_arxeia.grapsimo_Room();
 		Arxeia_markou.grapsimo_Inventory();*/
-		SIDER_ARXEIA.parsimo_Employees();;
+		
+		SIDER_ARXEIA.parsimo_Employees();
 		Arxeia_markou.parsimo_Inventory();
 		MO_arxeia.parsimo_Booking();
 		MO_arxeia.parsimo_Room();
+		Arxeia_perakis.parsimo_reporting();
 		SIDER_ARXEIA.Emfanish();
-		Arxeia_markou.Emfanish();
-		
-		MO_arxeia.Emfanish_Room();
 		while (flag1) {
 					InputMenu();
 		}
@@ -111,6 +119,7 @@ public class mainClass {
 		case 8:
 			System.out.println("Goodbye");
 			//perasma arxeia
+			Arxeia_perakis.grapsimo_reporting();
 			SIDER_ARXEIA.grapsimo_Employees();
 			Arxeia_markou.grapsimo_Inventory();
 			MO_arxeia.grapsimo_Booking();
