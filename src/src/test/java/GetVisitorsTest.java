@@ -1,8 +1,7 @@
 package src.test.java;
 import java.util.Date;
-import org.junit.Assert;
 import org.junit.jupiter.api.Test;
-
+import static org.junit.jupiter.api.Assertions.*;
 class GetVisitorsTest {
 
 	@Test
@@ -19,7 +18,7 @@ class GetVisitorsTest {
 		b2.setCheckedIn(true);
 		int[] output = src.main.java.gr.aueb.dmst.erp.Booking.getVisitors();
 		int[] test = { 4, 2 };
-		Assert.assertArrayEquals(test, output);
+		assertArrayEquals(test, output);
 	}
 
 }
