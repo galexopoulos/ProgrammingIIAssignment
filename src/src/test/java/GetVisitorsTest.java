@@ -1,11 +1,6 @@
 package src.test.java;
-
-
-import static org.junit.Assert.*;
-import static org.hamcrest.CoreMatchers.*;
-
 import java.util.Date;
-
+import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 
 class GetVisitorsTest {
@@ -24,7 +19,7 @@ class GetVisitorsTest {
 		b2.setCheckedIn(true);
 		int[] output = src.main.java.gr.aueb.dmst.erp.Booking.getVisitors();
 		int[] test = { 4, 2 };
-		assertThat(output, is(new int[] { 4, 2 }));
+		Assert.assertArrayEquals(test, output);
 	}
 
 }
