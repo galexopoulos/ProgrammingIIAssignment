@@ -71,7 +71,7 @@ public class SalesMenu implements Serializable {
 		Cal.set(Calendar.MILLISECOND, 0);
 		Date checkOut = Cal.getTime();
 		Booking a = new Booking(checkIn, checkOut, 2, true);
-	//	a.setCheckedIn(true);
+		// a.setCheckedIn(true);
 
 		Cal.set(Calendar.YEAR, 2020);
 		Cal.set(Calendar.MONTH, 2 - 1);
@@ -178,8 +178,8 @@ public class SalesMenu implements Serializable {
 		checkIn = Cal.getTime();
 		Cal = Calendar.getInstance();
 		Cal.set(Calendar.YEAR, 2020);
-		Cal.set(Calendar.MONTH,Cal.get(Calendar.MONTH));
-		Cal.set(Calendar.DAY_OF_MONTH,Cal.get(Calendar.DAY_OF_MONTH) + 1);
+		Cal.set(Calendar.MONTH, Cal.get(Calendar.MONTH));
+		Cal.set(Calendar.DAY_OF_MONTH, Cal.get(Calendar.DAY_OF_MONTH) + 1);
 		Cal.set(Calendar.HOUR_OF_DAY, 11);
 		Cal.set(Calendar.MINUTE, 0);
 		Cal.set(Calendar.SECOND, 0);
@@ -200,7 +200,7 @@ public class SalesMenu implements Serializable {
 		Cal = Calendar.getInstance();
 		Cal.set(Calendar.YEAR, 2020);
 		Cal.set(Calendar.MONTH, Cal.get(Calendar.MONTH));
-		Cal.set(Calendar.DAY_OF_MONTH,  Cal.get(Calendar.DAY_OF_MONTH));
+		Cal.set(Calendar.DAY_OF_MONTH, Cal.get(Calendar.DAY_OF_MONTH));
 		Cal.set(Calendar.HOUR_OF_DAY, 11);
 		Cal.set(Calendar.MINUTE, 0);
 		Cal.set(Calendar.SECOND, 0);
@@ -212,7 +212,7 @@ public class SalesMenu implements Serializable {
 		Cal = Calendar.getInstance();
 		Cal.set(Calendar.YEAR, 2020);
 		Cal.set(Calendar.MONTH, Cal.get(Calendar.MONTH));
-		Cal.set(Calendar.DAY_OF_MONTH,Cal.get(Calendar.DAY_OF_MONTH) - 1);
+		Cal.set(Calendar.DAY_OF_MONTH, Cal.get(Calendar.DAY_OF_MONTH) - 1);
 		Cal.set(Calendar.HOUR_OF_DAY, 12);
 		Cal.set(Calendar.MINUTE, 0);
 		Cal.set(Calendar.SECOND, 0);
