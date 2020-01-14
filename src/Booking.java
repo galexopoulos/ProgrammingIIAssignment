@@ -525,7 +525,7 @@ public class Booking implements Serializable {
 					if (counter4 > 0) { // check if there was a fail attempt for booking code
 						System.out.println("Insert a code > 0 !");
 					}
-					System.out.println("Insert the code of Checking In booking (press 0 to cancel the procedure) : ");
+					System.out.println("Insert the code of the Checking In booking (press 0 to cancel the procedure) : ");
 					try {
 						codeIn = sc.nextInt();
 					} catch (InputMismatchException e) {
@@ -575,7 +575,7 @@ public class Booking implements Serializable {
 				} else if (found == false) {
 					System.out.println("No booking with this code!\n");
 				} else if (b1 == null) {
-					System.out.println("It is not the time or day for this booking to Check In!\n");
+					System.out.println("It is not yet time or day for this booking to Check In!\n");
 				} else {
 					b1.checkIn = today1.getTime();
 					System.out.println("Check In for Room no : " + b1.roomNumber + ", with Booking Code : "
@@ -590,7 +590,7 @@ public class Booking implements Serializable {
 					if (counter5 > 0) {
 						System.out.println("Insert a code > 0 !");
 					}
-					System.out.println("Insert the code of Checking Out booking (press 0 to cancel the procedure) :  ");
+					System.out.println("Insert the code of the Checking Out booking (press 0 to cancel the procedure) :  ");
 					try {
 						codeOut = sc.nextInt();
 					} catch (InputMismatchException e) {
@@ -656,11 +656,11 @@ public class Booking implements Serializable {
 					}
 				}
 				if (already2 == true) {
-					System.out.println("This room has already Checked Out!\n");
+					System.out.println("This booking has already Checked Out!\n");
 				} else if (found2 == false) {
 					System.out.println("No booking with this code!\n");
 				} else if (b2 == null) {
-					System.out.println("It is not the time or day for this booking to Check Out!\n");
+					System.out.println("It is not yet time or day for this booking to Check Out!\n");
 				} else {
 					b2.checkOut = today2.getTime();
 					bookings.get(roomNumFound - 1).remove(b2);
@@ -710,8 +710,8 @@ public class Booking implements Serializable {
 								getChecks -= oldCheck - booking.check;
 								System.out.println("Booking with code : " + booking.bookingCode + " in the room no."
 										+ booking.roomNumber + " and check : " + booking.check + "€"
-										+ " has been canceled!\n");
-								bookings.get(room.getRoomNumber() - 1).remove(booking); // remove the booking
+										+ " has been canceled and ready to Check Out!\n");
+								booking.checkOut = canceledCheckOut; // change checkOut;
 							}
 							break;
 						}
