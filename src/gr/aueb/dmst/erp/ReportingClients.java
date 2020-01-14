@@ -1,4 +1,6 @@
-package gr.aueb.dmst.erp;
+	package src.main.java.gr.aueb.dmst.erp;
+
+import java.io.Serializable;
 
 /**
  * @author Ioannis Alexios Perakis,
@@ -8,7 +10,7 @@ package gr.aueb.dmst.erp;
 
 import java.util.ArrayList;
 
-public class ReportingClients {
+public class ReportingClients implements Serializable {
 
 	private String name;
 	private String surname;
@@ -165,9 +167,9 @@ public class ReportingClients {
 		double s3 = 0;// sum of clients that came with friends
 		try {
 			for (ReportingClients i : ReportingClients.coustomerBase) {
-				if (i.getFamily() == 1) {
+				if (i.family_alone_friends == 1) {
 					s1++;
-				} else if (i.getFamily() == 2) {
+				} else if (i.family_alone_friends == 2) {
 					s2++;
 				} else {
 					s3++;
@@ -183,4 +185,12 @@ public class ReportingClients {
 			System.out.println("No clients available.");
 		}
 	}
+
+	@Override
+	public String toString() {
+		return "ReportingClients [name=" + name + ", surname=" + surname + ", satisfuction=" + satisfuction
+				+ ", payment=" + payment + ", family_alone_friends=" + family_alone_friends + ", daysofstay="
+				+ daysofstay + ", reasonfortravel=" + reasonfortravel + ", email=" + email + ", know=" + know + "]";
+	}
+	
 }
