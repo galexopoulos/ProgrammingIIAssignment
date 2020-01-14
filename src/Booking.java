@@ -525,7 +525,8 @@ public class Booking implements Serializable {
 					if (counter4 > 0) { // check if there was a fail attempt for booking code
 						System.out.println("Insert a code > 0 !");
 					}
-					System.out.println("Insert the code of the Checking In booking (press 0 to cancel the procedure) : ");
+					System.out
+							.println("Insert the code of the Checking In booking (press 0 to cancel the procedure) : ");
 					try {
 						codeIn = sc.nextInt();
 					} catch (InputMismatchException e) {
@@ -590,7 +591,8 @@ public class Booking implements Serializable {
 					if (counter5 > 0) {
 						System.out.println("Insert a code > 0 !");
 					}
-					System.out.println("Insert the code of the Checking Out booking (press 0 to cancel the procedure) :  ");
+					System.out.println(
+							"Insert the code of the Checking Out booking (press 0 to cancel the procedure) :  ");
 					try {
 						codeOut = sc.nextInt();
 					} catch (InputMismatchException e) {
@@ -691,6 +693,7 @@ public class Booking implements Serializable {
 					break;
 				}
 				boolean f4 = false;
+				boolean after = false;
 				for (Room room : Room.getRooms()) { // check for every room
 					for (Booking booking : bookings.get(room.getRoomNumber() - 1)) {
 						if (booking.bookingCode == bookCode1) { // if its the right booking code
@@ -704,14 +707,18 @@ public class Booking implements Serializable {
 								// calculate the reduced check
 								double oldCheck = booking.check;
 								Date canceledCheckOut = new Date();
-								long diff = canceledCheckOut.getTime() - booking.checkIn.getTime();
-								booking.nights = (int) TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS) + 1;
-								booking.check = booking.computeCheck(booking.buffet);
-								getChecks -= oldCheck - booking.check;
-								System.out.println("Booking with code : " + booking.bookingCode + " in the room no."
-										+ booking.roomNumber + " and check : " + booking.check + "€"
-										+ " has been canceled and ready to Check Out!\n");
-								booking.checkOut = canceledCheckOut; // change checkOut;
+								if (canceledCheckOut.before(booking.checkOut)) { // check if it can be canceled
+									long diff = canceledCheckOut.getTime() - booking.checkIn.getTime();
+									booking.nights = (int) TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS) + 1;
+									booking.check = booking.computeCheck(booking.buffet);
+									getChecks -= oldCheck - booking.check;
+									System.out.println("Booking with code : " + booking.bookingCode + " in the room no."
+											+ booking.roomNumber + " and check : " + booking.check + "€"
+											+ " has been canceled and ready to Check Out!\n");
+									booking.checkOut = canceledCheckOut; // change checkOut;
+								} else {
+									after = true;
+								}
 							}
 							break;
 						}
@@ -720,7 +727,10 @@ public class Booking implements Serializable {
 						break;
 					}
 				}
-				if (f4 == false) {
+				if (after) {
+					System.out.println(
+							"This booking cannot be canceled because Check Out Date has passed.\nProceed to Check Out!");
+				} else if (f4 == false) {
 					System.out.println("No booking with this code!\n"); // no booking found with this code
 				}
 				break;
