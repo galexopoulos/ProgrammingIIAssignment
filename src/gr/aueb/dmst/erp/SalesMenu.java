@@ -1,17 +1,26 @@
 package gr.aueb.dmst.erp;
+
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.InputMismatchException;
 import java.util.Scanner;
-import java.util.concurrent.TimeUnit;
+
+/**
+ * This class implements the main surface of the sales department.
+ * 
+ * @author Nikolas Moatsos
+ */
 
 public class SalesMenu implements Serializable {
+	/**
+	 * Scanner to get input.
+	 */
 	static Scanner sc = new Scanner(System.in);
 
 	/**
-	 * This initializes Room and Booking objects.
+	 * This initializes Rooms and Bookings.
 	 */
 	public static void Sales_LoadObjects() {
 
@@ -198,6 +207,9 @@ public class SalesMenu implements Serializable {
 		// a.setCheckedIn(true);
 	}
 
+	/**
+	 * This method displays the main menu of Sales department.
+	 */
 	public static void getMenu() {
 		Sales_LoadObjects();
 		boolean goBack = false;
