@@ -737,6 +737,3 @@ public class Employee implements Serializable {
 	}
 
 }
-
-Στάλθηκε από την Αλληλογραφία για Windows 10
-

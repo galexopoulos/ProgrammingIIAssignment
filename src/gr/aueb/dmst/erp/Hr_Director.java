@@ -1,4 +1,3 @@
-package gr.aueb.dmst.erp;
 import java.util.Scanner;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -46,19 +45,11 @@ public class Hr_Director extends Manager {
 		boolean menuflag = true;
 		System.out.println("Welcome!");
 		do {
-			System.out.println(
-					"---------------- HR DIRECTOR MENU ---- " + getDate() + " ---------------"
-					+ "\n1) Inbox."
-					+ "\n2) View Managers"
-					+ "\n3) Show check in status of Managers"
-					+ "\n4) Set extra hours for a Manager "
-					+ "\n5) Edit a Manager's payment"
-					+ "\n6) Edit a Manager's fields"
-					+ "\n7) Edit an Employee's shift"
-					+ "\n8) Hire a new member"
-					+ "\n9) Remove a member"
-					+ "\n10) Promote to Manager"
-					+ "\n11) Log out"
+			System.out.println("---------------- HR DIRECTOR MENU ---- " + getDate() + " ---------------"
+					+ "\n1) Inbox" + "\n2) View Managers" + "\n3) Show check in status of Managers"
+					+ "\n4) Set extra hours for a Manager " + "\n5) Edit a Manager's payment"
+					+ "\n6) Edit a Manager's fields" + "\n7) Edit an Employee's shift" + "\n8) Hire a new member"
+					+ "\n9) Remove a member" + "\n10) Promote to Manager" + "\n11) Log out"
 					+ "\n------------------- CHOOSE A NUMBER BETWEEN 1 AND 11 ---------------------");
 			boolean flag = false;
 			int selection = 0;
@@ -83,11 +74,8 @@ public class Hr_Director extends Manager {
 				int epilogh = 0;
 				boolean flag3 = false;
 				do {
-					System.out.println(
-							"---------------- INBOX ---- " + getDate() + " --------------"
-							+ "\n1) Send Mail."
-							+ "\n2) View Mails."
-							+ "\n3) Exit"
+					System.out.println("---------------- INBOX ---- " + getDate() + " --------------"
+							+ "\n1) Send Mail" + "\n2) View Mails" + "\n3) Exit"
 							+ "\n--------------- CHOOSE A NUMBER BETWEEN 1 AND 3 ---------------");
 					if (!sc.hasNextInt()) {
 						System.out.println("Insert 1 or 2 or 3");
@@ -130,11 +118,8 @@ public class Hr_Director extends Manager {
 					System.out.println(Employee.Employees.get(posInEmployees).toString());
 					boolean flag1 = false;
 					int sel = 0;
-					System.out.println(
-							"------------- EDIT MANAGER'S PAYMENT ---- " + getDate() + " -------------"
-							+ "\n1) Edit salary"
-							+ "\n2) Edit payment for the current month"
-							+ "\n3) Exit"
+					System.out.println("------------- EDIT MANAGER'S PAYMENT ---- " + getDate() + " -------------"
+							+ "\n1) Edit salary" + "\n2) Edit payment for the current month" + "\n3) Exit"
 							+ "\n--------------------- CHOOSE A NUMBER BETWEEN 1 AND 3 ---------------------");
 					do {
 						if (!sc.hasNextInt()) {
@@ -283,9 +268,7 @@ public class Hr_Director extends Manager {
 					int sel = 0;
 
 					System.out.println("------------- EDIT MANAGER'S FIELDS ---- " + getDate() + " --------------"
-							+ "\n1) Change position"
-							+ "\n2) Change manager"
-							+ "\n3) Exit"
+							+ "\n1) Change position" + "\n2) Change manager" + "\n3) Exit"
 							+ "\n---------------------- CHOOSE A NUMBER BETWEEN 1 AND 3 ---------------------");
 
 					do {
@@ -469,8 +452,9 @@ public class Hr_Director extends Manager {
 								boolean flag3;
 								do {
 									flag3 = false;
-									System.out.println("Insert the day of the week(eg Monday), press Enter to choose a different Id \n"
-											+ "or type \"exit\" to return to the basic menu:");
+									System.out.println(
+											"Insert the day of the week(eg Monday), press Enter to choose a different Id \n"
+													+ "or type \"exit\" to return to the basic menu:");
 									String dayOfWeek = sc.nextLine();
 									dayOfWeek = dayOfWeek.toLowerCase();
 									switch (dayOfWeek) {
@@ -545,11 +529,11 @@ public class Hr_Director extends Manager {
 									}
 									shiftflag = false;
 								}
-							}while(anotherDay);
+							} while (anotherDay);
 							if (dayChanged && !shiftflag && !flag2) {
 								try {
 									Employee.Employees.get(posInEmployees)
-										.setThisWeekShift(Shift.createShift(shiftStr));
+											.setThisWeekShift(Shift.createShift(shiftStr));
 									// if it moves on the input is correct as creatShift method throws Exception
 									// for wrong input
 									Employee.Employees.get(posInEmployees).setShiftStr(shiftStr);
@@ -561,9 +545,9 @@ public class Hr_Director extends Manager {
 									flag2 = true;
 								}
 							}
-						}while (flag2);
+						} while (flag2);
 
-					}else {
+					} else {
 						menuflag = true;
 						shiftflag = false;
 					}
@@ -573,9 +557,7 @@ public class Hr_Director extends Manager {
 				int sel = 0;
 
 				System.out.println("------------- HIRE A NEW MEMBER ---- " + getDate() + " ---------------"
-						+ "\n1) Hire a new Employee"
-						+ "\n2) Hire a new Manager"
-						+ "\n3) Exit"
+						+ "\n1) Hire a new Employee" + "\n2) Hire a new Manager" + "\n3) Exit"
 						+ "\n-------------------- CHOOSE A NUMBER BETWEEN 1 AND 3 --------------------");
 
 				do {
@@ -1085,7 +1067,7 @@ public class Hr_Director extends Manager {
 	}
 
 	/**
-	 * NIKO JAVADOC
+	 * Gives the ability to the Director to set extra hours for the Manager. According to the extra hours, the salary is increased
 	 */
 	public void Yperoria() {
 
@@ -1173,12 +1155,13 @@ public class Hr_Director extends Manager {
 		}
 
 	}
+
 	public static String getDate() {
 		SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy, HH:mm:ss");
 		Date date = new Date(System.currentTimeMillis());
 		return formatter.format(date);
 	}
-	
+
 	private void showManagers() {
 		boolean onefound = false;
 		for (Employee a : Employee.Employees) {
@@ -1191,7 +1174,7 @@ public class Hr_Director extends Manager {
 			System.out.println("No Managers found.");
 		}
 	}
-	
+
 	private void showCheckInStatusManagers() {
 
 		boolean onefound = false;
@@ -1205,25 +1188,23 @@ public class Hr_Director extends Manager {
 					} else {
 						status = "Checked out";
 					}
-					String timeChecked = String.format("%02d:%02d",
-							a.getLastChecked().get(Calendar.HOUR_OF_DAY),
+					String timeChecked = String.format("%02d:%02d", a.getLastChecked().get(Calendar.HOUR_OF_DAY),
 							a.getLastChecked().get(Calendar.MINUTE));
 					String dayChecked = String.format("%d/%d", a.getLastChecked().get(Calendar.DAY_OF_MONTH),
 							a.getLastChecked().get(Calendar.MONTH) + 1);
-					System.out
-							.println("Id: " + a.getEmployee_Id() + " " + a.getFirstname() + " " + a.getSurname()
-									+ " status: " + status + " at " + timeChecked + " of " + dayChecked);
+					System.out.println("Id: " + a.getEmployee_Id() + " " + a.getFirstname() + " " + a.getSurname()
+							+ " status: " + status + " at " + timeChecked + " of " + dayChecked);
 				} else { // if a.getLastChecked().get(Calendar.YEAR) == 1990 the Employee has never
 							// checked in
-					System.out.println("Id: " + a.getEmployee_Id() + " " + a.getFirstname() + " "
-							+ a.getSurname() + " status: Checked out");
+					System.out.println("Id: " + a.getEmployee_Id() + " " + a.getFirstname() + " " + a.getSurname()
+							+ " status: Checked out");
 				}
 			}
 		}
 		if (!onefound) {
 			System.out.println("No Managers found.");
 		}
-	
+
 	}
 
 }
