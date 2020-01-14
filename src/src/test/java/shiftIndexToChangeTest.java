@@ -20,7 +20,7 @@ class shiftIndexToChangeTest {
 			System.err.println("wrong1 " + a);
 		}
 		
-		int output = src.main.java.gr.aueb.dmst.erp.Manager.shiftIndexToChange(1, shiftcal[2]); //depends on the day it is today
+		int output = src.main.java.gr.aueb.dmst.erp.Manager.shiftIndexToChange(1, shiftcal[2]); 
 		assertEquals(1, output);
 	}
 
