@@ -117,46 +117,9 @@ public class Hr_Director extends Manager {
 
 				}
 			} else if (selection == 2) {
-				boolean onefound = false;
-				for (Employee a : Employee.Employees) {
-					if (a instanceof Manager && !a.equals(this)) {
-						onefound = true;
-						System.out.println(a.toString());
-					}
-				}
-				if (!onefound) {
-					System.out.println("No Managers found.");
-				}
+				showManagers();
 			} else if (selection == 3) {
-				boolean onefound = false;
-				String status;
-				for (Employee a : Employee.Employees) {
-					if (a instanceof Manager && !a.equals(this)) {
-						onefound = true;
-						if (a.getLastChecked().get(Calendar.YEAR) != 1990) {
-							if (a.isCheckedIn()) {
-								status = "Checked in";
-							} else {
-								status = "Checked out";
-							}
-							String timeChecked = String.format("%02d:%02d",
-									a.getLastChecked().get(Calendar.HOUR_OF_DAY),
-									a.getLastChecked().get(Calendar.MINUTE));
-							String dayChecked = String.format("%d/%d", a.getLastChecked().get(Calendar.DAY_OF_MONTH),
-									a.getLastChecked().get(Calendar.MONTH) + 1);
-							System.out
-									.println("Id: " + a.getEmployee_Id() + " " + a.getFirstname() + " " + a.getSurname()
-											+ " status: " + status + " at " + timeChecked + " of " + dayChecked);
-						} else { // if a.getLastChecked().get(Calendar.YEAR) == 1990 the Employee has never
-									// checked in
-							System.out.println("Id: " + a.getEmployee_Id() + " " + a.getFirstname() + " "
-									+ a.getSurname() + " status: Checked out");
-						}
-					}
-				}
-				if (!onefound) {
-					System.out.println("No Managers found.");
-				}
+				showCheckInStatusManagers();
 			} else if (selection == 4) {
 				Yperoria();
 			} else if (selection == 5) {
@@ -1213,6 +1176,53 @@ public class Hr_Director extends Manager {
 		SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy, HH:mm:ss");
 		Date date = new Date(System.currentTimeMillis());
 		return formatter.format(date);
+	}
+	
+	private void showManagers() {
+		boolean onefound = false;
+		for (Employee a : Employee.Employees) {
+			if (a instanceof Manager && !a.equals(this)) {
+				onefound = true;
+				System.out.println(a.toString());
+			}
+		}
+		if (!onefound) {
+			System.out.println("No Managers found.");
+		}
+	}
+	
+	private void showCheckInStatusManagers() {
+
+		boolean onefound = false;
+		String status;
+		for (Employee a : Employee.Employees) {
+			if (a instanceof Manager && !a.equals(this)) {
+				onefound = true;
+				if (a.getLastChecked().get(Calendar.YEAR) != 1990) {
+					if (a.isCheckedIn()) {
+						status = "Checked in";
+					} else {
+						status = "Checked out";
+					}
+					String timeChecked = String.format("%02d:%02d",
+							a.getLastChecked().get(Calendar.HOUR_OF_DAY),
+							a.getLastChecked().get(Calendar.MINUTE));
+					String dayChecked = String.format("%d/%d", a.getLastChecked().get(Calendar.DAY_OF_MONTH),
+							a.getLastChecked().get(Calendar.MONTH) + 1);
+					System.out
+							.println("Id: " + a.getEmployee_Id() + " " + a.getFirstname() + " " + a.getSurname()
+									+ " status: " + status + " at " + timeChecked + " of " + dayChecked);
+				} else { // if a.getLastChecked().get(Calendar.YEAR) == 1990 the Employee has never
+							// checked in
+					System.out.println("Id: " + a.getEmployee_Id() + " " + a.getFirstname() + " "
+							+ a.getSurname() + " status: Checked out");
+				}
+			}
+		}
+		if (!onefound) {
+			System.out.println("No Managers found.");
+		}
+	
 	}
 
 }

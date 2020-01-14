@@ -87,21 +87,9 @@ public class Manager extends Employee {
 				}
 			} while (flag);
 			if (selection == 1) {
-				if (!this.isCheckedIn()) {
-					this.setLastChecked(Calendar.getInstance());
-					this.setCheckedIn(true);
-					System.out.println("Check in successful!");
-				} else {
-					System.out.println("Already checked in.");
-				}
+				checkIn();
 			} else if (selection == 2) {
-				if (this.isCheckedIn()) {
-					this.setLastChecked(Calendar.getInstance());
-					this.setCheckedIn(false);
-					System.out.println("Check out successful!");
-				} else {
-					System.out.println("Already checked out.");
-				}
+				checkOut();
 			} else if (selection == 3) {// you can request for free day only in the current week
 				Calendar freeRequest = Calendar.getInstance();
 				freeRequest = enterWeekDay();
@@ -146,46 +134,9 @@ public class Manager extends Employee {
 			} else if (selection == 5) {
 				printShift(this.getThisWeekShift());
 			} else if (selection == 6) {
-				boolean onefound = false;
-				for (Employee a : Employee.Employees) {
-					if (this.equals(a.getManager())) {
-						System.out.println(a.toString());
-						onefound = true;
-					}
-				}
-				if (!onefound) {
-					System.out.println("No employees found.");
-				}
+				showMngrEmployees();
 			} else if (selection == 7) {
-				boolean onefound = false;
-				String status;
-				for (Employee a : Employee.Employees) {
-					if (this.equals(a.getManager())) {
-						onefound = true;
-						if (a.getLastChecked().get(Calendar.YEAR) != 1990) {
-							if (a.isCheckedIn()) {
-								status = "Checked in";
-							} else {
-								status = "Checked out";
-							}
-							String timeChecked = String.format("%02d:%02d",
-									a.getLastChecked().get(Calendar.HOUR_OF_DAY),
-									a.getLastChecked().get(Calendar.MINUTE));
-							String dayChecked = String.format("%d/%d", a.getLastChecked().get(Calendar.DAY_OF_MONTH),
-									a.getLastChecked().get(Calendar.MONTH) + 1);
-							System.out
-									.println("Id: " + a.getEmployee_Id() + " " + a.getFirstname() + " " + a.getSurname()
-											+ " status: " + status + " at " + timeChecked + " of " + dayChecked);
-						} else { // if a.getLastChecked().get(Calendar.YEAR) == 1990 the Employee has never
-									// checked in
-							System.out.println("Id: " + a.getEmployee_Id() + " " + a.getFirstname() + " "
-									+ a.getSurname() + " status: Checked out");
-						}
-					}
-				}
-				if (!onefound) {
-					System.out.println("No employees found.");
-				}
+				showCheckInStatusMngrEmp();
 			} else if (selection == 8) {
 			boolean shiftflag;
 			do {
@@ -309,8 +260,8 @@ public class Manager extends Employee {
 				}
 			} while (shiftflag);
 
-} else if (selection == 9) {
-			Yperoria();	
+			} else if (selection == 9) {
+				Yperoria();	
 			} else if (selection == 10) {
 				int posInEmployees = enterEmpId();
 				if (posInEmployees != -1) {
@@ -799,6 +750,54 @@ public class Manager extends Employee {
 			System.out.println("The Employee doesn't work today.");
 		}
 		return -1;
+	}
+	
+	
+	private void showMngrEmployees() {
+		boolean onefound = false;
+		for (Employee a : Employee.Employees) {
+			if (this.equals(a.getManager())) {
+				System.out.println(a.toString());
+				onefound = true;
+			}
+		}
+		if (!onefound) {
+			System.out.println("No employees found.");
+		}
+	}
+	
+	private void showCheckInStatusMngrEmp() {
+
+		boolean onefound = false;
+		String status;
+		for (Employee a : Employee.Employees) {
+			if (this.equals(a.getManager())) {
+				onefound = true;
+				if (a.getLastChecked().get(Calendar.YEAR) != 1990) {
+					if (a.isCheckedIn()) {
+						status = "Checked in";
+					} else {
+						status = "Checked out";
+					}
+					String timeChecked = String.format("%02d:%02d",
+							a.getLastChecked().get(Calendar.HOUR_OF_DAY),
+							a.getLastChecked().get(Calendar.MINUTE));
+					String dayChecked = String.format("%d/%d", a.getLastChecked().get(Calendar.DAY_OF_MONTH),
+							a.getLastChecked().get(Calendar.MONTH) + 1);
+					System.out
+							.println("Id: " + a.getEmployee_Id() + " " + a.getFirstname() + " " + a.getSurname()
+									+ " status: " + status + " at " + timeChecked + " of " + dayChecked);
+				} else { // if a.getLastChecked().get(Calendar.YEAR) == 1990 the Employee has never
+							// checked in
+					System.out.println("Id: " + a.getEmployee_Id() + " " + a.getFirstname() + " "
+							+ a.getSurname() + " status: Checked out");
+				}
+			}
+		}
+		if (!onefound) {
+			System.out.println("No employees found.");
+		}
+	
 	}
 }
 

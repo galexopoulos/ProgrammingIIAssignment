@@ -336,21 +336,9 @@ public class Employee implements Serializable {
 				}
 			} while (flag);
 			if (selection == 1) {
-				if (!this.isCheckedIn()) {
-					this.setLastChecked(Calendar.getInstance());
-					this.setCheckedIn(true);
-					System.out.println("Check in successful!");
-				} else {
-					System.out.println("Already checked in.");
-				}
+				checkIn();
 			} else if (selection == 2) {
-				if (this.isCheckedIn()) {
-					this.setLastChecked(Calendar.getInstance());
-					this.setCheckedIn(false);
-					System.out.println("Check out successful!");
-				} else {
-					System.out.println("Already checked out.");
-				}
+				checkOut();
 			} else if (selection == 3) {// you can request for free day only in the current week
 				Calendar freeRequest = Calendar.getInstance();
 				freeRequest = enterWeekDay();
@@ -734,6 +722,26 @@ public class Employee implements Serializable {
 		SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy, HH:mm:ss");
 		Date date = new Date(System.currentTimeMillis());
 		return formatter.format(date);
+	}
+	
+	void checkIn() {
+		if (!this.isCheckedIn()) {
+			this.setLastChecked(Calendar.getInstance());
+			this.setCheckedIn(true);
+			System.out.println("Check in successful!");
+		} else {
+			System.out.println("Already checked in.");
+		}
+	}
+	
+	void checkOut(){
+		if (this.isCheckedIn()) {
+			this.setLastChecked(Calendar.getInstance());
+			this.setCheckedIn(false);
+			System.out.println("Check out successful!");
+		} else {
+			System.out.println("Already checked out.");
+		}
 	}
 
 }
