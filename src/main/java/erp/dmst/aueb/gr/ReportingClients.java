@@ -43,6 +43,10 @@ public class ReportingClients {
         counter_st++;
 	}
 
+	public void setDaysofstay(int daysofstay) {
+		this.daysofstay = daysofstay;
+	}
+
 	public static int getCounter_st(){
 		return counter_st;
 		}
