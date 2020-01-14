@@ -141,8 +141,9 @@ public class Room implements Serializable {
 	public static void setRooms(ArrayList<Room> rooms) {
 		Room.rooms = rooms;
 	}
+
 	public static String getDate() {
-		SimpleDateFormat formatter= new SimpleDateFormat("dd-MM-yyyy, HH:mm:ss");
+		SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy, HH:mm:ss");
 		Date date = new Date(System.currentTimeMillis());
 		return formatter.format(date);
 	}

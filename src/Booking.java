@@ -6,6 +6,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 
 /**
  * This class implements a booking.
@@ -59,11 +60,12 @@ public class Booking implements Serializable {
 		this.roomNumber = roomNumber;
 		this.checkIn = checkIn;
 		this.checkOut = checkOut;
-		this.nights = ((Math.abs((int) (checkIn.getTime() - checkOut.getTime()))) / (1000 * 60 * 60 * 24)) + 1; // count
-																												// nights
-																												// for a
-																												// new
-																												// booking
+		long diff = checkOut.getTime() - checkIn.getTime();
+		this.nights = (int) TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS); // count
+																				// nights
+																				// for a
+																				// new
+																				// booking
 		bookingCode = ++counter; // booking codes start from 1 and add up when a new room is added
 		this.extraExpenses = 0;
 		this.check = computeCheck(buffet);
@@ -517,15 +519,15 @@ public class Booking implements Serializable {
 					break;
 				}
 			case 2:
-				int roomIn = -1;
+				int codeIn = -1;
 				int counter4 = 0;
 				do {
-					if (counter4 > 0) { // check if there was a fail attempt for room number
-						System.out.println("No room with this number, try again!");
+					if (counter4 > 0) { // check if there was a fail attempt for booking code
+						System.out.println("Insert a code > 0 !");
 					}
-					System.out.println("Insert the number of Checking In room (press 0 to cancel the procedure) : ");
+					System.out.println("Insert the code of Checking In booking (press 0 to cancel the procedure) : ");
 					try {
-						roomIn = sc.nextInt();
+						codeIn = sc.nextInt();
 					} catch (InputMismatchException e) {
 						System.out.println("Insert an Integer!");
 						sc.nextLine();
@@ -533,9 +535,8 @@ public class Booking implements Serializable {
 						continue;
 					}
 					counter4++;
-				} while (roomIn < 0 || roomIn > Room.getRooms().size()); // check room's number not to be out of bounds
-																			// or 0 to break
-				if (roomIn == 0) {
+				} while (codeIn < 0); // check if the code is not < 0
+				if (codeIn == 0) {
 					break;
 				}
 				// set dates to calendar
@@ -543,27 +544,38 @@ public class Booking implements Serializable {
 				Calendar checkInd = Calendar.getInstance();
 				Booking b1 = null;
 				boolean already = false;
-				for (Booking book : bookings.get(roomIn - 1)) { // for the chosen room
-					checkInd.setTime(book.checkIn);
-					if ((today1.get(Calendar.DAY_OF_MONTH) == checkInd.get(Calendar.DAY_OF_MONTH))
-							&& (today1.get(Calendar.MONTH) == checkInd.get(Calendar.MONTH))
-							&& (today1.get(Calendar.YEAR) == checkInd.get(Calendar.YEAR))
-							&& (today1.get(Calendar.HOUR) == checkInd.get(Calendar.HOUR))) { // check if its is the time
-																								// for check in
-						if (book.checkedIn == false) { // check if this booking has already checked in
-							book.checkedIn = true;
-							b1 = book;
-							break;
-						} else {
-							already = true;
+				boolean found = false;
+				for (Room room : Room.getRooms()) {
+					for (Booking book : bookings.get(room.getRoomNumber() - 1)) { // for every booking
+						if (book.bookingCode == codeIn) { // check if it the same code
+							checkInd.setTime(book.checkIn);
+							if (((today1.get(Calendar.DAY_OF_MONTH) == checkInd.get(Calendar.DAY_OF_MONTH))
+									&& (today1.get(Calendar.MONTH) == checkInd.get(Calendar.MONTH))
+									&& (today1.get(Calendar.YEAR) == checkInd.get(Calendar.YEAR))
+									&& (today1.get(Calendar.HOUR) == checkInd.get(Calendar.HOUR)))
+									|| today1.getTime().after(book.checkIn)) { // check if its is the time
+								// for check in
+								if (book.checkedIn == false) { // check if this booking has already checked in
+									book.checkedIn = true;
+									b1 = book;
+								} else {
+									already = true;
+								}
+							}
+							found = true;
 							break;
 						}
-					} 
+						if (found) {
+							break;
+						}
+					}
 				}
 				if (already == true) {
-					System.out.println("This room has already Checked In!\n");
+					System.out.println("This booking has already Checked In!\n");
+				} else if (found == false) {
+					System.out.println("No booking with this code!\n");
 				} else if (b1 == null) {
-					System.out.println("It is not the time or day for this room to Check In!\n");
+					System.out.println("It is not the time or day for this booking to Check In!\n");
 				} else {
 					b1.checkIn = today1.getTime();
 					System.out.println("Check In for Room no : " + b1.roomNumber + ", with Booking Code : "
@@ -572,15 +584,15 @@ public class Booking implements Serializable {
 				}
 				break;
 			case 3:
-				int roomOut = -1;
+				int codeOut = -1;
 				int counter5 = 0;
 				do {
 					if (counter5 > 0) {
-						System.out.println("No room with this number, try again!");
+						System.out.println("Insert a code > 0 !");
 					}
-					System.out.println("Insert the number of Checking Out room (press 0 to cancel the procedure) :  ");
+					System.out.println("Insert the code of Checking Out booking (press 0 to cancel the procedure) :  ");
 					try {
-						roomOut = sc.nextInt();
+						codeOut = sc.nextInt();
 					} catch (InputMismatchException e) {
 						System.out.println("Insert an Integer!");
 						sc.nextLine();
@@ -588,9 +600,9 @@ public class Booking implements Serializable {
 						continue;
 					}
 					counter5++;
-				} while (roomOut < 0 || roomOut > Room.getRooms().size()); // check room's number not to be out of
-																			// bounds or 0 to break
-				if (roomOut == 0) {
+				} while (codeOut < 0); // check room's number not to be out of
+										// bounds or 0 to break
+				if (codeOut == 0) {
 					break;
 				}
 				// set dates to calendar
@@ -598,48 +610,61 @@ public class Booking implements Serializable {
 				Calendar checkOutd = Calendar.getInstance();
 				Booking b2 = null;
 				boolean already2 = false;
-				for (Booking book : bookings.get(roomOut - 1)) { // for the chosen room
-					checkOutd.setTime(book.checkOut);
-					if ((today2.get(Calendar.DAY_OF_MONTH) == checkOutd.get(Calendar.DAY_OF_MONTH))
-							&& (today2.get(Calendar.MONTH) == checkOutd.get(Calendar.MONTH))
-							&& (today2.get(Calendar.YEAR) == checkOutd.get(Calendar.YEAR))) { // check if the date is
-																								// the right to check
-																								// out
-						if (book.checkedOut == false) { // check if this booking has already checked out
-							book.checkedOut = true;
-							b2 = book;
-							break;
-						} else {
-							already2 = true;
+				boolean found2 = false;
+				int roomNumFound = 0;
+				for (Room room : Room.getRooms()) {
+					for (Booking book : bookings.get(room.getRoomNumber() - 1)) { // for the chosen room
+						if (book.bookingCode == codeOut) {
+							checkOutd.setTime(book.checkOut);
+							if ((today2.get(Calendar.DAY_OF_MONTH) == checkOutd.get(Calendar.DAY_OF_MONTH))
+									&& (today2.get(Calendar.MONTH) == checkOutd.get(Calendar.MONTH))
+									&& (today2.get(Calendar.YEAR) == checkOutd.get(Calendar.YEAR))) { // check if the
+																										// date
+																										// is
+																										// the right to
+																										// check
+																										// out
+								if (book.checkedOut == false) { // check if this booking has already checked out
+									book.checkedOut = true;
+									b2 = book;
+								} else {
+									already2 = true;
+								}
+							} else if (today2.getTime().after(book.checkOut)) { // check if the date is
+																				// after the scheduled
+																				// and increase check
+								double oldCheck = book.check;
+								Date laterCheckOut = new Date();
+								long diff = laterCheckOut.getTime() - book.checkIn.getTime();
+								book.nights = (int) TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
+								book.check = book.computeCheck(book.buffet);
+								getChecks -= oldCheck - book.check;
+								if (book.checkedOut == false) { // check if this booking has already checked out
+									book.checkedOut = true;
+									b2 = book;
+								} else {
+									already2 = true;
+								}
+							}
+							found2 = true;
+							roomNumFound = room.getRoomNumber();
 							break;
 						}
-					} else if (today2.getTime().after(book.checkOut)) { // check if the date is
-																								// after the scheduled
-																								// and increase check
-						double oldCheck = book.check;
-						Date laterCheckOut = new Date();
-						book.nights = ((Math.abs((int) (book.checkIn.getTime() - laterCheckOut.getTime())))
-								/ (1000 * 60 * 60 * 24));
-						book.check = book.computeCheck(book.buffet);
-						getChecks -= oldCheck - book.check;
-						if (book.checkedOut == false) { // check if this booking has already checked out
-							book.checkedOut = true;
-							b2 = book;
-							break;
-						} else {
-							already2 = true;
+						if (found2) {
 							break;
 						}
 					}
 				}
 				if (already2 == true) {
 					System.out.println("This room has already Checked Out!\n");
+				} else if (found2 == false) {
+					System.out.println("No booking with this code!\n");
 				} else if (b2 == null) {
 					System.out.println("This room is not Checking Out today!\n");
 				} else {
 					b2.checkOut = today2.getTime();
-					bookings.get(roomOut - 1).remove(b2);
-					System.out.println("Room : " + roomOut + ", with Booking Code : " + b2.bookingCode
+					bookings.get(roomNumFound - 1).remove(b2);
+					System.out.println("Room : " + b2.roomNumber + ", with Booking Code : " + b2.bookingCode
 							+ ", Checked Out with final check : " + b2.check + "€" + ", at :" + b2.checkOut + "\n");
 				}
 				break;
@@ -651,7 +676,7 @@ public class Booking implements Serializable {
 						System.out.println("Wrong booking code!");
 					}
 					System.out.println(
-							"Insert the code of the booking you want to cancel : (press 0 to cancel the procedure) ");
+							"Insert the code of the booking you want to cancel (press 0 to cancel the procedure) : ");
 					try {
 						bookCode1 = sc.nextInt();
 					} catch (InputMismatchException e) {
@@ -679,9 +704,8 @@ public class Booking implements Serializable {
 								// calculate the reduced check
 								double oldCheck = booking.check;
 								Date canceledCheckOut = new Date();
-								booking.nights = ((Math
-										.abs((int) (booking.checkIn.getTime() - canceledCheckOut.getTime())))
-										/ (1000 * 60 * 60 * 24));
+								long diff = canceledCheckOut.getTime() - booking.checkIn.getTime();
+								booking.nights = (int) TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS) + 1;
 								booking.check = booking.computeCheck(booking.buffet);
 								getChecks -= oldCheck - booking.check;
 								System.out.println("Booking with code : " + booking.bookingCode + " in the room no."

@@ -5,6 +5,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 
 public class Main implements Serializable {
 	static Scanner sc = new Scanner(System.in);
@@ -15,13 +16,16 @@ public class Main implements Serializable {
 	public static void main(String[] args) {
 // MHNYMA PROS MO: THA TREKSEIS 2 FORES TO PROGRAMMA, MIA VAZONTAS SXOLIA TIS 4 TELEYTAIES GRAMMES KAI MIA VAZONTAS SXOLIA TIS 3 PRWTES GIA NA DOUME AN DOULEUOUN TA KWLOARXEIA
 		Sales_LoadObjects();
-	/*	MO_arxeia.grapsimo_Booking();
-		MO_arxeia.grapsimo_Room();
-		MO_arxeia.parsimo_Booking();
-		MO_arxeia.parsimo_Room();
-		MO_arxeia.Emfanish_Booking();
-		MO_arxeia.Emfanish_Room(); */
+		/*
+		 * MO_arxeia.grapsimo_Booking(); MO_arxeia.grapsimo_Room();
+		 * MO_arxeia.parsimo_Booking(); MO_arxeia.parsimo_Room();
+		 * MO_arxeia.Emfanish_Booking(); MO_arxeia.Emfanish_Room();
+		 */
 		Main.getMenu();
+		Date d1 = new Date();
+		Date d2 = new Date();
+		long diff = d2.getTime() - d1.getTime();
+		System.out.print(TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS));
 	}
 
 	public static void Sales_LoadObjects() {
@@ -210,7 +214,7 @@ public class Main implements Serializable {
 	}
 
 	public static void getMenu() {
-	//	Sales_LoadObjects();
+		// Sales_LoadObjects();
 		boolean goBack = false;
 		for (;;) {
 			int choose = 0;
@@ -248,8 +252,9 @@ public class Main implements Serializable {
 			continue;
 		}
 	}
+
 	public static String getDate() {
-		SimpleDateFormat formatter= new SimpleDateFormat("dd-MM-yyyy, HH:mm:ss");
+		SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy, HH:mm:ss");
 		Date date = new Date(System.currentTimeMillis());
 		return formatter.format(date);
 	}
