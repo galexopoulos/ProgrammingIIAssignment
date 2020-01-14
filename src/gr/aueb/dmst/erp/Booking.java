@@ -2,12 +2,14 @@ package gr.aueb.dmst.erp;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.InputMismatchException;
 import java.util.Scanner;
-import java.util.concurrent.TimeUnit;
+import java.time.temporal.ChronoUnit;
 
 /**
  * This class implements a booking.
@@ -61,8 +63,10 @@ public class Booking implements Serializable {
 		this.roomNumber = roomNumber;
 		this.checkIn = checkIn;
 		this.checkOut = checkOut;
-		long diff = checkOut.getTime() - checkIn.getTime();
-		this.nights = (int) TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS); // count
+		LocalDate in = checkIn.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+		LocalDate out = checkOut.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+		this.nights= (int) ChronoUnit.DAYS.between(in, out);
+		// count
 																				// nights
 																				// for a
 																				// new
@@ -510,7 +514,7 @@ public class Booking implements Serializable {
 					if (sure) {
 						Booking a = new Booking(checkIn, checkOut, roomForBook.getRoomNumber(), buffet); // create the
 																											// booking
-						// a.check = CustomerEntry.(a.nights,a.check);
+						a.check = CustomerEntry.Entry(a.nights,a.check);
 						System.out
 								.println("The booking with code : " + a.bookingCode + " in the room no." + a.roomNumber
 										+ " and check : " + a.check + "€" + "\n has been completed successfully!\n ");
@@ -616,8 +620,8 @@ public class Booking implements Serializable {
 				boolean found2 = false;
 				int roomNumFound = 0;
 				for (Room room : Room.getRooms()) {
-					for (Booking book : bookings.get(room.getRoomNumber() - 1)) { // for every room
-						if (book.bookingCode == codeOut) { // check if the code is right
+					for (Booking book : bookings.get(room.getRoomNumber() - 1)) { // for the chosen room
+						if (book.bookingCode == codeOut) {
 							checkOutd.setTime(book.checkOut);
 							if ((today2.get(Calendar.DAY_OF_MONTH) == checkOutd.get(Calendar.DAY_OF_MONTH))
 									&& (today2.get(Calendar.MONTH) == checkOutd.get(Calendar.MONTH))
@@ -638,8 +642,9 @@ public class Booking implements Serializable {
 																				// and increase check
 								double oldCheck = book.check;
 								Date laterCheckOut = new Date();
-								long diff = laterCheckOut.getTime() - book.checkIn.getTime();
-								book.nights = (int) TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
+								LocalDate in = book.checkIn.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+								LocalDate out = laterCheckOut.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+								book.nights= (int) ChronoUnit.DAYS.between(in, out);
 								book.check = book.computeCheck(book.buffet);
 								getChecks -= oldCheck - book.check;
 								if (book.checkedOut == false) { // check if this booking has already checked out
@@ -709,8 +714,9 @@ public class Booking implements Serializable {
 								double oldCheck = booking.check;
 								Date canceledCheckOut = new Date();
 								if (canceledCheckOut.before(booking.checkOut)) { // check if it can be canceled
-									long diff = canceledCheckOut.getTime() - booking.checkIn.getTime();
-									booking.nights = (int) TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS) + 1;
+									LocalDate in = booking.checkIn.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+									LocalDate out = canceledCheckOut.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+									booking.nights= (int) ChronoUnit.DAYS.between(in, out) + 1;
 									booking.check = booking.computeCheck(booking.buffet);
 									getChecks -= oldCheck - booking.check;
 									System.out.println("Booking with code : " + booking.bookingCode + " in the room no."
