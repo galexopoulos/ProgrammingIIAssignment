@@ -70,26 +70,26 @@ public class mainClass {
 		} while (flag2);
 		switch (epilogh) {
 		case 1:
-			System.out.println("WELCOME TO HR DEPARTMENT");
+			System.out.println("WELCOME TO HR DEPARTMENT!");
 			Hr_surface.toRun();
 			//setHrCalledOnce(true);
 			break;
 
 		case 2:
-			System.out.println("WELCOME TO SALES DEPARTMENT");
-			Main.getMenu();	
+			System.out.println("WELCOME TO SALES DEPARTMENT!");
+			SalesMenu.getMenu();	
 			break;
 
 		case 3:
-			System.out.println("WELCOME TO FINANCE AND REPORTING DEPARTMENT");
+			System.out.println("WELCOME TO FINANCE AND REPORTING DEPARTMENT!");
 	//		Reporting.Menu();
 			break;
 		case 4:
-			System.out.println("WELCOME TO INVENTORY MANAGMENT DEPARTMENT");
+			System.out.println("WELCOME TO INVENTORY MANAGMENT DEPARTMENT!");
 			Inventory.invMenu();
 			break;
 		case 5:
-			System.out.println("WELCOME TO CRM DEPARTMENT");
+			System.out.println("WELCOME TO CRM DEPARTMENT!");
 		//	question();
 			break;
 		case 6:
@@ -119,8 +119,9 @@ public class mainClass {
 	/** shows the starting menu */
 	public static void display_menu() {
 		System.out.println(
-				"1) HR DEPARTMENT \n2) SALES DEPARTMENT \n3) FINANCE AND REPORTING DEPARTMENT \n4) INVENTORY MANAGMENT DEPARTMENT \n5) CRM DEPARTMENT\n"
-				+ "6)EXECUTE THE WEEKLY ACTIONS \n7) EXECUTE THE MONTHLY ACTIONS \n8) QUIT THE PROGRAM");
+				"--------------------- HOTEL ERP ----------------------"
+				+ "\n1) HR DEPARTMENT \n2) SALES DEPARTMENT \n3) FINANCE AND REPORTING DEPARTMENT \n4) INVENTORY MANAGMENT DEPARTMENT \n5) CRM DEPARTMENT\n"
+				+ "6) EXECUTE THE WEEKLY ACTIONS \n7) EXECUTE THE MONTHLY ACTIONS \n8) QUIT THE PROGRAM");
 		System.out.print("-----------CHOOSE A NUMBER BETWEEN 1 AND 8------------ \n");
 	}
 

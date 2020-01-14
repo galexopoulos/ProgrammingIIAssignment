@@ -1,5 +1,7 @@
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Scanner;
 
 /**
@@ -50,11 +52,11 @@ public class Inventory implements Serializable {
 	 * Prints the visual side of the Inventory menu
 	 */
 	public static void displayInvMenu() {
-		System.out.println("-------Welcome to the Inventory manager Menu-------\n");
+		System.out.println("------------ INVENTORY MANAGEMENT MENU ---- "+ getDate() +" --------");
 		System.out.println(
-				"1)To return to main menu intput 1\n2)To Update and check the Fixed Inventory please input 2\n3)To Update check the Urgent Inventory please input 3\n"
-						+ "4)To Update and check the Buffet please input 4\n5)To check the balances please input 5	");
-		System.out.print("Selection: ");
+				"1) Update and check the Fixed Invetory\n2) Update and check the Urgent Invetory \n"
+						+ "3) Update and check the Buffet\n4) Check the balances");
+		System.out.println("-------------------- CHOOSE A NUMBER BETWEEN 1 AND 4 --------------------");
 	}
 
 	public static void question() {
@@ -73,7 +75,7 @@ public class Inventory implements Serializable {
 			invMenu();
 			break;
 		default:
-			System.err.println("Unrecognized option");
+			System.out.println("Unrecognized option");
 			invMenu();
 			break;
 		}
@@ -125,7 +127,7 @@ public class Inventory implements Serializable {
 			break;
 
 		default:
-			System.err.println("Unrecognized option");
+			System.out.println("Unrecognized option");
 			break;
 		}
 	}
@@ -479,6 +481,11 @@ public class Inventory implements Serializable {
 		Inventory iu4 = new Inventory("Sprite", 120, 10, 10, s4, "Urgent", 0);
 		Inventory iu5 = new Inventory("Fanda", 125, 20, 30, s5, "Urgent", 0);
 		invMenu();
+	}
+	public static String getDate() {
+		SimpleDateFormat formatter= new SimpleDateFormat("dd-MM-yyyy, HH:mm:ss");
+		Date date = new Date(System.currentTimeMillis());
+		return formatter.format(date);
 	}
 
 }

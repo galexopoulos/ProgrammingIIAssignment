@@ -4,7 +4,8 @@ package main.java.erp.dmst.aueb.gr;
  * 
  * @author Ioannis Alexios Perakis, Aggeliki Nina Kafouni
  * 
- * This class behaves as graph maker for clients and employees data and the user have a better brief of the details.
+ * This class behaves as graph maker for clients (ReportingClients.java) and employees data (Employee.java, Hr_Director.java)
+ * and the user have a better brief of the details.
  *
  */
 
