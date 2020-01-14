@@ -254,6 +254,7 @@ public class Manager extends Employee {
 									// if it moves on the input is correct as createShift method throws Exception
 									// for wrong input
 									Employee.Employees.get(posInEmployees).setShiftStr(shiftStr);
+									Employee.Employees.get(posInEmployees).setShiftStrWeek(shiftStr);
 									System.out.println("The change has been made.");
 									shiftflag = false;
 									break;
@@ -691,12 +692,11 @@ public class Manager extends Employee {
 					boolean flag4;
 					do {
 						System.out.println("yes/no");
-						String verify = in.nextLine();
+						String verify = in.nextLine();	
 						if (verify.toLowerCase().equals("yes")) {
 							String b = "The Manager has setted " + epilogh + " extra hours for today";
 							Employee.Employees.get(x).newmail[Employee.Employees.get(x).maxmail] = b;
 							Employee.Employees.get(x).maxmail++;
-							// Ypografh1.ypografh();
 							Employee.Employees.get(x).setWresyperergasias_evdomadiaiws(
 									Employee.Employees.get(x).getWresyperergasias_evdomadiaiws() + epilogh);
 							Calendar[][] newShift = Employee.Employees.get(x).getThisWeekShift();
@@ -704,6 +704,16 @@ public class Manager extends Employee {
 							newValue.add(Calendar.HOUR_OF_DAY, epilogh);
 							newShift[valueOfI][posInShift] = newValue;
 							Employee.Employees.get(x).setThisWeekShift(newShift);
+							String indexToChange = Employee.Employees.get(x).getShiftStrWeek()[valueOfI];
+							String[] shiftToChange = Employee.Employees.get(x).getShiftStrWeek();
+							indexToChange = changeStrShift(indexToChange, epilogh);
+							if (valueOfI != 0) {
+								shiftToChange[valueOfI] = indexToChange;
+							}else {
+								shiftToChange[0] = indexToChange;
+								shiftToChange[8] = indexToChange;
+							}
+							setShiftStrWeek(shiftToChange);
 							// we increase the payment by 0.015 ofemployee's salary for every extra hour
 							double paymentIncrease = epilogh * roundTo2(Employee.Employees.get(x).getSalary() * 0.015);
 
@@ -788,7 +798,8 @@ public class Manager extends Employee {
 			System.out.println("No employees found.");
 		}
 	}
-
+	
+	/**Shows the check in status of the Employees of the Manager. */
 	private void showCheckInStatusMngrEmp() {
 
 		boolean onefound = false;
@@ -820,10 +831,23 @@ public class Manager extends Employee {
 		}
 
 	}
+	
 
-	public static String getDate() {
-		SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy, HH:mm:ss");
-		Date date = new Date(System.currentTimeMillis());
-		return formatter.format(date);
+	
+	public static String changeStrShift(String shift, int extraHours) { //public static for the junit only
+		char x = shift.charAt(shift.length() - 4);
+		char y = shift.charAt(shift.length() - 5);
+		int intX = Character.getNumericValue(x), intY = Character.getNumericValue(y); 
+		if (intX + extraHours < 10) {
+			intX += extraHours;
+		}else {
+			intX = (intX + extraHours) % 10;
+			intY ++ ;	
+		}
+		x = (char)(intX + '0');
+		y = (char)(intY + '0');
+		return shift.substring(0, shift.length() - 5) + y + x + shift.substring(shift.length() - 3);
+		
+		
 	}
 }

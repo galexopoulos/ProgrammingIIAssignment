@@ -47,6 +47,8 @@ public class Employee implements Serializable {
 	 * it will define the thisWeekShift variable.
 	 */
 	private String[] shiftStr = new String[8];
+	/** The shift of the week of the Employee  as String. */
+	private String[] shiftStrWeek = new String[8];
 	/**
 	 * Shows the time that the Employee checked in or checked out for the last time.
 	 */
@@ -112,6 +114,7 @@ public class Employee implements Serializable {
 		this.lastChecked = employee.getLastChecked();
 		this.wresyperergasias_evdomadiaiws = employee.getWresyperergasias_evdomadiaiws();
 		this.maxmail = employee.getMaxmail();
+		this.shiftStrWeek = employee.getShiftStrWeek();
 		this.newmail = employee.getNewmail();
 		for (int i = 0; i < Employees.size(); i++) {
 			if (Employees.get(i).equals(employee)) {
@@ -290,6 +293,17 @@ public class Employee implements Serializable {
 	/** Setter of lastChecked. */
 	public void setLastChecked(Calendar lastChecked) {
 		this.lastChecked = lastChecked;
+	}
+	
+	
+	/** Getter of shiftWeekStr. */
+	public String[] getShiftStrWeek() {
+		return shiftStrWeek;
+	}
+	
+	/** Setter of shiftWeekStr. */
+	public void setShiftStrWeek(String[] shiftStrWeek) {
+		this.shiftStrWeek = shiftStrWeek;
 	}
 
 	/**
@@ -711,12 +725,14 @@ public class Employee implements Serializable {
 		return requested;
 	}
 
+	/**Getter of the current date.*/
 	public static String getDate() {
 		SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy, HH:mm:ss");
 		Date date = new Date(System.currentTimeMillis());
 		return formatter.format(date);
 	}
 
+	/**Does the check in.*/
 	void checkIn() {
 		if (!this.isCheckedIn()) {
 			this.setLastChecked(Calendar.getInstance());
@@ -726,7 +742,8 @@ public class Employee implements Serializable {
 			System.out.println("Already checked in.");
 		}
 	}
-
+	
+	/**Does the check out.*/
 	void checkOut() {
 		if (this.isCheckedIn()) {
 			this.setLastChecked(Calendar.getInstance());

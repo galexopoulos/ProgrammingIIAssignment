@@ -538,6 +538,7 @@ public class Hr_Director extends Manager {
 									// if it moves on the input is correct as creatShift method throws Exception
 									// for wrong input
 									Employee.Employees.get(posInEmployees).setShiftStr(shiftStr);
+									Employee.Employees.get(posInEmployees).setShiftStrWeek(shiftStr);
 									System.out.println("The change has been made.");
 									shiftflag = false;
 									break;
@@ -1129,7 +1130,6 @@ public class Hr_Director extends Manager {
 							String b = "The Manager has setted " + epilogh + " extra hours for today";
 							Employee.Employees.get(x).newmail[Employee.Employees.get(x).maxmail] = b;
 							Employee.Employees.get(x).maxmail++;
-							// Ypografh1.ypografh();
 							Employee.Employees.get(x).setWresyperergasias_evdomadiaiws(
 									Employee.Employees.get(x).getWresyperergasias_evdomadiaiws() + epilogh);
 							Calendar[][] newShift = Employee.Employees.get(x).getThisWeekShift();
@@ -1137,6 +1137,16 @@ public class Hr_Director extends Manager {
 							newValue.add(Calendar.HOUR_OF_DAY, epilogh);
 							newShift[valueOfI][posInShift] = newValue;
 							Employee.Employees.get(x).setThisWeekShift(newShift);
+							String indexToChange = Employee.Employees.get(x).getShiftStrWeek()[valueOfI];
+							String[] shiftToChange = Employee.Employees.get(x).getShiftStrWeek();
+							indexToChange = changeStrShift(indexToChange, epilogh);
+							if (valueOfI != 0) {
+								shiftToChange[valueOfI] = indexToChange;
+							}else {
+								shiftToChange[0] = indexToChange;
+								shiftToChange[8] = indexToChange;
+							}
+							setShiftStrWeek(shiftToChange);
 							// we increase the payment by 0.015 ofemployee's salary for every extra hour
 							double paymentIncrease = epilogh * roundTo2(Employee.Employees.get(x).getSalary() * 0.015);
 							Employee.Employees.get(x)
@@ -1157,11 +1167,7 @@ public class Hr_Director extends Manager {
 
 	}
 
-	public static String getDate() {
-		SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy, HH:mm:ss");
-		Date date = new Date(System.currentTimeMillis());
-		return formatter.format(date);
-	}
+	/**Shows the Managers.*/
 
 	private void showManagers() {
 		boolean onefound = false;
@@ -1176,6 +1182,7 @@ public class Hr_Director extends Manager {
 		}
 	}
 
+	/**Shows the check in status of the Managers.*/
 	private void showCheckInStatusManagers() {
 
 		boolean onefound = false;

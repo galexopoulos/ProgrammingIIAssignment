@@ -63,7 +63,15 @@ public class mainClass {
 
 	/** user chooses one of the options from the starting menu */
 	public static void InputMenu() {
+		for (Employee a : Employee.Employees) {
+			try {
+				a.setThisWeekShift(Shift.createShift(a.getShiftStrWeek()));
+			} catch (ShiftException e) {
+				System.out.println("Something went wrong");
+			}
+		}
 		Scanner in = new Scanner(System.in);
+		System.out.println(Employee.Employees.get(1).getThisWeekShift()[0]);
 		display_menu();
 		int epilogh = 0;
 		boolean flag2 = false;
