@@ -23,6 +23,13 @@ public class mainClass {
 		 * Thread tWeek = new Thread(new weekThread()); Thread tMonth = new Thread(new
 		 * monthThread()); tWeek.start(); tMonth.start();
 		 */
+	/*	Inventory.loadobjects();
+		SalesMenu.Sales_LoadObjects();
+		Hr_surface.loadobjects();
+		SIDER_ARXEIA.grapsimo_Employees();
+		MO_arxeia.grapsimo_Booking();
+		MO_arxeia.grapsimo_Room();
+		Arxeia_markou.grapsimo_Inventory();*/
 		SIDER_ARXEIA.parsimo_Employees();;
 		Arxeia_markou.parsimo_Inventory();
 		MO_arxeia.parsimo_Booking();

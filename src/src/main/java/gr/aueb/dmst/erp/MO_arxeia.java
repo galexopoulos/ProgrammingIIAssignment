@@ -13,7 +13,7 @@ public class MO_arxeia implements Serializable {
 		try {
 
 			ObjectOutputStream out = new ObjectOutputStream(
-					new FileOutputStream("C:\\Mo\\room.ser"));
+					new FileOutputStream("room.ser"));
 			out.writeObject(Room.getRooms());
 			out.close();
 			out.close();
@@ -23,7 +23,7 @@ public class MO_arxeia implements Serializable {
 	}
 	public static void parsimo_Room() {
 		try {
-			FileInputStream fis = new FileInputStream("C:\\Mo\\room.ser");
+			FileInputStream fis = new FileInputStream("room.ser");
 			ObjectInputStream ois = new ObjectInputStream(fis);
 			Room.setRooms((ArrayList) ois.readObject());
 
@@ -42,7 +42,7 @@ public class MO_arxeia implements Serializable {
 		try {
 
 			ObjectOutputStream out = new ObjectOutputStream(
-					new FileOutputStream("C:\\Mo\\bookings.ser"));
+					new FileOutputStream("bookings.ser"));
 			out.writeObject(Booking.getBookings());
 			out.close();
 			out.close();
@@ -52,7 +52,7 @@ public class MO_arxeia implements Serializable {
 	}
 	public static void parsimo_Booking() {
 		try {
-			FileInputStream fis = new FileInputStream("C:\\Mo\\bookings.ser");
+			FileInputStream fis = new FileInputStream("bookings.ser");
 			ObjectInputStream ois = new ObjectInputStream(fis);
 
 			Booking.setBookings((ArrayList<ArrayList<Booking>>) ois.readObject());

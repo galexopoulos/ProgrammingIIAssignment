@@ -1,4 +1,5 @@
 package src.main.java.gr.aueb.dmst.erp;
+
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -11,7 +12,6 @@ import java.util.Scanner;
  *
  */
 public class Inventory implements Serializable {
-	private static final long serialVersionUID = 6529685098267757690L;
 	final static int maxsize = 80;
 	static Scanner sc = new Scanner(System.in);
 	private String type;
@@ -53,9 +53,10 @@ public class Inventory implements Serializable {
 	 * Prints the visual side of the Inventory menu
 	 */
 	public static void displayInvMenu() {
-		System.out.println("------------ INVENTORY MANAGEMENT MENU ---- "+ getDate() +" --------");
-		System.out.println("1)To return to main menu intput 1\n2)To Update and check the Fixed Inventory please input 2\n3)To Update check the Urgent Inventory please input 3\n"
-				+ "4)To Update and check the Buffet please input 4\n5)To check the balances please input 5");
+		System.out.println("------------ INVENTORY MANAGEMENT MENU ---- " + getDate() + " --------");
+		System.out.println(
+				"1)To return to main menu intput 1\n2)To Update and check the Fixed Inventory please input 2\n3)To Update check the Urgent Inventory please input 3\n"
+						+ "4)To Update and check the Buffet please input 4\n5)To check the balances please input 5");
 		System.out.println("-------------------- CHOOSE A NUMBER BETWEEN 1 AND 5 --------------------");
 	}
 
@@ -91,7 +92,7 @@ public class Inventory implements Serializable {
 			try {
 				do {
 					x = sc.nextInt();
-				} while (!(x == 1 || x == 2 || x == 3 || x == 4|| x == 5));
+				} while (!(x == 1 || x == 2 || x == 3 || x == 4 || x == 5));
 				break;
 			} catch (Exception e) {
 				System.out.println("Please select 1, 2, 3, 4 or 5.");
@@ -104,7 +105,7 @@ public class Inventory implements Serializable {
 			mainClass.InputMenu();
 			question();
 		case 2:
-			int people[]=Booking.getVisitors();
+			int people[] = Booking.getVisitors();
 			updateFixed(people[0]);
 			checkFixed();
 			question();
@@ -117,7 +118,7 @@ public class Inventory implements Serializable {
 			break;
 
 		case 4:
-			int peoplebuffet[]=Booking.getVisitors();
+			int peoplebuffet[] = Booking.getVisitors();
 			updateBuffet(peoplebuffet[1]);
 			question();
 			break;
@@ -142,7 +143,7 @@ public class Inventory implements Serializable {
 		buffet -= visitorswithbuffet;
 		if (buffet <= 30) {// its <= 30 because we use the the supplies for 50 visitors as protection //
 			orderBuffet();
-		}else{
+		} else {
 			System.out.println("There is no need for an order");
 		}
 	}
@@ -219,7 +220,7 @@ public class Inventory implements Serializable {
 	 * (minstock>stock)
 	 */
 	public static void checkFixed() {
-		sc.nextLine();//clears the scanner
+		sc.nextLine();// clears the scanner
 		for (int i = 0; i < fixedInventory.size(); i++) {
 			if (fixedInventory.get(i).stock < fixedInventory.get(i).minstock) {
 				orderFixed(i);
@@ -482,8 +483,9 @@ public class Inventory implements Serializable {
 		Inventory iu5 = new Inventory("Fanda", 125, 20, 30, s5, "Urgent", 0);
 		invMenu();
 	}
+
 	public static String getDate() {
-		SimpleDateFormat formatter= new SimpleDateFormat("dd-MM-yyyy, HH:mm:ss");
+		SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy, HH:mm:ss");
 		Date date = new Date(System.currentTimeMillis());
 		return formatter.format(date);
 	}
