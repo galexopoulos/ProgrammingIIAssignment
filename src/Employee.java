@@ -589,7 +589,7 @@ public class Employee implements Serializable {
 	}
 
 	/**
-	 * NIKO JAVADOC
+	 * Gives the ability to an Employee to send a string to another employee according to his id. The string is saved to the Employee's array called mail. 
 	 */
 	public void mhnyma() {
 		int thesh = 0;

@@ -634,7 +634,7 @@ public class Manager extends Employee {
 	}
 
 	/**
-	 * NIKO JAVADOC
+	 * Gives the ability to a manager to set extra hours to an Employee. The salary of the employee is increased according to the extra hours
 	 */
 	public void Yperoria() {
 
