@@ -34,7 +34,7 @@ public class ReportingFinance { //This class must be called once a month.
 		private static final double TAXRATE = 0.23;
 		private static final double RATE = 0.25; //shareholders rate of payment 
 		/**
-		 * fixInv and urgInv are expenses from Inventory.java
+		 * fixInv and urgInv are expenses from Inventory.java and Supplier.java by Giorgos Markou
 		 */
 		private static double [] fixInv;
 		private static double [] urgInv;
