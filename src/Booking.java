@@ -61,7 +61,7 @@ public class Booking implements Serializable {
 		this.checkIn = checkIn;
 		this.checkOut = checkOut;
 		long diff = checkOut.getTime() - checkIn.getTime();
-		this.nights = (int) TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS); // count
+		this.nights = (int) TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS) + 1; // count
 																				// nights
 																				// for a
 																				// new
