@@ -35,7 +35,7 @@
 			          <manifest>
 			            <addClasspath>true</addClasspath>
 			            <classpathPrefix>lib/</classpathPrefix>
-			            <mainClass>gr.aueb.dmst.erp.mainClass</mainClass>
+			            <mainClass>src.main.java.gr.aueb.dmst.erp.mainClass</mainClass>
 			          </manifest>
 			        </archive>
 			 	 </configuration>
