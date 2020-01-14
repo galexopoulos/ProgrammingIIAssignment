@@ -16,7 +16,7 @@ public class weekThread  implements Runnable{
 	public void run() {
 		while (true) {
 			try{
-				Hr_surface.toBeDoneEveryWeek();
+				mainClass.toBeDoneEveryWeek();
 				long wait = millisToNextMonday();
 				Thread.sleep(wait);
 			}catch (InterruptedException e) {

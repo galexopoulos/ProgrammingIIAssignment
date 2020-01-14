@@ -17,7 +17,7 @@ public class monthThread implements Runnable{
 	public void run() {
 		while (true) {
 			try{
-				Hr_surface.toBeDoneEveryMonth();
+				mainClass.toBeDoneEveryMonth();
 				long wait = millisToNextMonth();
 				Thread.sleep(wait);
 			}catch (InterruptedException e) {
