@@ -1067,7 +1067,7 @@ public class Hr_Director extends Manager {
 	}
 
 	/**
-	 * NIKO JAVADOC
+	 * Gives the ability to the Director to set extra hours for the Manager. According to the extra hours, the salary is increased
 	 */
 	public void Yperoria() {
 
