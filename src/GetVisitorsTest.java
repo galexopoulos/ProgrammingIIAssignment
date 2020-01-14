@@ -21,7 +21,6 @@ class GetVisitorsTest {
 		Booking b2 = new Booking(checkIn2, checkOut2, 2, false);
 		b2.setCheckedIn(true);
 		int[] output = Booking.getVisitors();
-		int[] test = { 4, 2 };
 		assertThat(output, is(new int[] { 4, 2 }));
 	}
 
