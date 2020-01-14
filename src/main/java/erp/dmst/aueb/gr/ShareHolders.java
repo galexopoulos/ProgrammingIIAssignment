@@ -1,7 +1,5 @@
 package main.java.erp.dmst.aueb.gr;
 
-import java.text.SimpleDateFormat;
-
 /**
  * 
  * @author Ioannis Alexios Perakis
@@ -122,29 +120,28 @@ public class ShareHolders {
 	}
 	
 	/**
-	 * This method 
+	 * This method sets the flag getShareHoldersMenu() declaring if the user wants to continue or not.
 	 */
 	
 	public static boolean getMenuflag() {
 		Scanner sc = new Scanner(System.in);
-		System.out.println("--------------- SHARE HOLDERS MENU ----" + getDate() + "-----------"
-				+ "\n1) Proceed" 
-				+ "\n2) Exit and return to Finance menu");
-		System.out.println("------------------ CHOOSE A NUMBER BETWEEN 1 AND 5 -------------------");
+		System.out.println("-----------Share Holders menu-----------"
+				+ "\nTo proceed press: 1."
+				+ "\nExit and return to Finance menu press: 0.");
 		int ans = 0;
 		int epilogh = 0;
 		boolean flag2 = false;
 		do {
 			if (!sc.hasNextInt()) {
-				System.out.println("Input an integer [1,2]");
+				System.out.println("Input an integer [0,1]");
 				flag2 = true; 
 				sc.next();
 
 			} else {
 				epilogh = sc.nextInt();
-				if (epilogh > 2 || epilogh < 1) {
+				if (epilogh > 1 || epilogh < 0) {
 					flag2 = true;
-					System.out.println("Input an integer [1,2]");
+					System.out.println("Input an integer [0,1]");
 				} else {
 					if (epilogh == 1) {
 						ans = 1;
@@ -165,10 +162,6 @@ public class ShareHolders {
 		}
 		
 	}
-	public static String getDate() {
-		SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy, HH:mm:ss");
-		Date date = new Date(System.currentTimeMillis());
-		return formatter.format(date);
-	}
 	
 }
+
