@@ -1,6 +1,8 @@
 
 import java.util.Calendar;
+
 import java.util.Scanner;
+
 
 
 /**
@@ -85,28 +87,15 @@ public class Manager extends Employee {
 				}
 			} while (flag);
 			if (selection == 1) {
-				if (!this.isCheckedIn()) {
-					this.setLastChecked(Calendar.getInstance());
-					this.setCheckedIn(true);
-					System.out.println("Check in successful!");
-				} else {
-					System.out.println("Already checked in.");
-				}
+				checkIn();
 			} else if (selection == 2) {
-				if (this.isCheckedIn()) {
-					this.setLastChecked(Calendar.getInstance());
-					this.setCheckedIn(false);
-					System.out.println("Check out successful!");
-				} else {
-					System.out.println("Already checked out.");
-				}
+				checkOut();
 			} else if (selection == 3) {// you can request for free day only in the current week
 				Calendar freeRequest = Calendar.getInstance();
 				freeRequest = enterWeekDay();
 				if (freeRequest.get(Calendar.YEAR) != 1990) {
 					System.out.println("Day off request succesfully sent to Manager.");
-					// inboxrelated
-					// can be added an option to send a message with the request
+					adeia(freeRequest);
 				} // if year = 1990 the employee has requested to return to the central Menu
 
 			} else if (selection == 4) {
@@ -145,58 +134,30 @@ public class Manager extends Employee {
 			} else if (selection == 5) {
 				printShift(this.getThisWeekShift());
 			} else if (selection == 6) {
-				boolean onefound = false;
-				for (Employee a : Employee.Employees) {
-					if (this.equals(a.getManager())) {
-						System.out.println(a.toString());
-						onefound = true;
-					}
-				}
-				if (!onefound) {
-					System.out.println("No employees found.");
-				}
+				showMngrEmployees();
 			} else if (selection == 7) {
-				boolean onefound = false;
-				String status;
-				for (Employee a : Employee.Employees) {
-					if (this.equals(a.getManager())) {
-						onefound = true;
-						if (a.getLastChecked().get(Calendar.YEAR) != 1990) {
-							if (a.isCheckedIn()) {
-								status = "Checked in";
-							} else {
-								status = "Checked out";
-							}
-							String timeChecked = String.format("%02d:%02d",
-									a.getLastChecked().get(Calendar.HOUR_OF_DAY),
-									a.getLastChecked().get(Calendar.MINUTE));
-							String dayChecked = String.format("%d/%d", a.getLastChecked().get(Calendar.DAY_OF_MONTH),
-									a.getLastChecked().get(Calendar.MONTH) + 1);
-							System.out
-									.println("Id: " + a.getEmployee_Id() + " " + a.getFirstname() + " " + a.getSurname()
-											+ " status: " + status + " at " + timeChecked + " of " + dayChecked);
-						} else { // if a.getLastChecked().get(Calendar.YEAR) == 1990 the Employee has never
-									// checked in
-							System.out.println("Id: " + a.getEmployee_Id() + " " + a.getFirstname() + " "
-									+ a.getSurname() + " status: Checked out");
-						}
-					}
-				}
-				if (!onefound) {
-					System.out.println("No employees found.");
-				}
+				showCheckInStatusMngrEmp();
 			} else if (selection == 8) {
-				boolean shiftflag = false;
-				do {
-					int posInEmployees = enterEmpId();
-					if (posInEmployees != -1) {
-						boolean flag2;
+			boolean shiftflag;
+			do {
+				shiftflag = false;
+				int posInEmployees = enterEmpId();
+				if (posInEmployees != -1) {
+					boolean flag2;
+					do {
+						flag2 = false;
+						System.out.println(Employee.Employees.get(posInEmployees).toString());
+						printShift(Employee.Employees.get(posInEmployees).getThisWeekShift());
+						boolean anotherDay, dayChanged = false;
+						int dayInt;
+						String[] shiftStr = new String[8];
+						for (int i = 0; i < 8; i++) {
+							shiftStr[i] = Employee.Employees.get(posInEmployees).getShiftStr()[i];
+						}
 						do {
-							flag2 = false;
-							System.out.println(Employee.Employees.get(posInEmployees).toString());
-							printShift(Employee.Employees.get(posInEmployees).getThisWeekShift());
+							dayInt = -1;
+							anotherDay = false;
 							boolean flag3;
-							int dayInt = -1;
 							do {
 								flag3 = false;
 								System.out.println("Insert the day of the week(eg Monday), press Enter to choose a different Id \n"
@@ -209,24 +170,31 @@ public class Manager extends Employee {
 									break;
 								case "monday":
 									dayInt = 0;
+									dayChanged = true;
 									break;
 								case "tuesday":
 									dayInt = 1;
+									dayChanged = true;
 									break;
 								case "wednesday":
 									dayInt = 2;
+									dayChanged = true;
 									break;
 								case "thursday":
 									dayInt = 3;
+									dayChanged = true;
 									break;
 								case "friday":
 									dayInt = 4;
+									dayChanged = true;
 									break;
 								case "saturday":
 									dayInt = 5;
+									dayChanged = true;
 									break;
 								case "sunday":
 									dayInt = 6;
+									dayChanged = true;
 									break;
 								case "exit":
 									menuflag = true;
@@ -236,48 +204,64 @@ public class Manager extends Employee {
 									flag3 = true;
 								}
 							} while (flag3);
-							if (!shiftflag && dayInt != -1) {
-								String[] shiftStr = new String[8];
-								shiftStr = Employee.Employees.get(posInEmployees).getShiftStr();
+							if (dayInt != -1) {
 								boolean flag4;
-								do {
-									flag4 = false;
-									System.out.println("Insert the new shift for the day or type \"back\" to go back.");
-									String inputShift = sc.nextLine();
-									if (inputShift.toLowerCase().equals("back")) {
-										flag2 = true;
-										break;
+								flag4 = false;
+								System.out.println("Insert the new shift for the day or type \"back\" to go back.");
+								String inputShift = sc.nextLine();
+								if (inputShift.toLowerCase().equals("back")) {
+									flag2 = true;
+									break;
+								} else {
+									if (dayInt == 0) { // monday is both at positions 0 and 7
+										shiftStr[0] = inputShift;
+										shiftStr[7] = inputShift;
 									} else {
-										if (dayInt == 0) { // monday is both at positions 0 and 7
-											shiftStr[0] = inputShift;
-											shiftStr[7] = inputShift;
-										} else {
-											shiftStr[dayInt] = inputShift;
-										}
-										try {
-											Employee.Employees.get(posInEmployees)
-													.setThisWeekShift(Shift.createShift(shiftStr));
-											// if it moves on the input is correct as creatShift method throws Exception
-											// for wrong input
-											Employee.Employees.get(posInEmployees).setShiftStr(shiftStr);
-											System.out.println("The change has been made.");
-										} catch (ShiftException e) {
-											System.err.println("Invalid input. " + e);
-											flag4 = true;
-										}
+										shiftStr[dayInt] = inputShift;
 									}
-								} while (flag4);
+									System.out.println("Do you want to change the shift of another day?");
+									boolean flag5;
+									do {
+										flag5 = false;
+										System.out.println("yes/no");
+										String verify = sc.nextLine();
+										if (verify.toLowerCase().equals("yes")) {
+											anotherDay = true;
+										} else if (verify.toLowerCase().equals("no")) {
+											anotherDay = false;
+										} else {
+											flag5 = true;
+										}
+									} while (flag5);
+								}
+								shiftflag = false;
 							}
+						}while(anotherDay);
+						if (dayChanged && !shiftflag && !flag2) {
+							try {
+								Employee.Employees.get(posInEmployees)
+									.setThisWeekShift(Shift.createShift(shiftStr));
+								// if it moves on the input is correct as createShift method throws Exception
+								// for wrong input
+								Employee.Employees.get(posInEmployees).setShiftStr(shiftStr);
+								System.out.println("The change has been made.");
+								shiftflag = false;
+								break;
+							} catch (ShiftException e) {
+								System.err.println("Invalid input. " + e);
+								flag2 = true;
+							}
+						}
+					}while (flag2);
 
-						} while (flag2);
-					} else {
-						menuflag = true;
-					}
-
-				} while (shiftflag);
+				}else {
+					menuflag = true;
+					shiftflag = false;
+				}
+			} while (shiftflag);
 
 			} else if (selection == 9) {
-			Yperoria();	
+				Yperoria();	
 			} else if (selection == 10) {
 				int posInEmployees = enterEmpId();
 				if (posInEmployees != -1) {
@@ -500,24 +484,14 @@ public class Manager extends Employee {
 											if (selectedId != this.getEmployee_Id()
 													&& selectedId != Employee.Employees.get(posInEmployees)
 															.getEmployee_Id()
-													&& Employee.Employees.get(posInEmpOfManager) instanceof Manager) { // checks
-																														// that
-												// the new
-												// Manager is
-												// not the same
-												// with the
-												// current or
-												// with the
-												// employee whom
-												// field we want
-												// to edit and
-												// that the new
-												// Manager is a
-												// Manager and
-												// not a basic
-												// Employee
-												if (selectedId == 0 &&  !(Employee.Employees.get(posInEmployees) instanceof Manager)) {
-													//only managers can have hr director as manager
+													&& Employee.Employees.get(posInEmpOfManager) instanceof Manager) { 
+												// checks that the new Manager is not the same with the current or with
+												// the
+												// employee whom field we want to edit and that the new Manager is a
+												// Manager and not a basic Employee
+												if (selectedId == 0 && !(Employee.Employees
+														.get(posInEmployees) instanceof Manager)) {
+													// only managers can have hr director as manager
 													posInEmpOfManager = -1;
 													System.out.println("You are not allowed to do that.");
 													flag3 = true;
@@ -712,8 +686,8 @@ public class Manager extends Employee {
 							newValue.add(Calendar.HOUR_OF_DAY, epilogh);
 							newShift[valueOfI][posInShift] = newValue;
 							Employee.Employees.get(x).setThisWeekShift(newShift);
-							double paymentIncrease = epilogh*Math.round((Employee.Employees.get(x).getSalary()*0.015)*100)/100;//we increase the payment by 0.015 of employee's salary for every extra hour
-																															   //Math.round(a*100)/100 rounds up a to 2 decimals
+							// we increase the payment by 0.015 ofemployee's salary for every extra hour
+							double paymentIncrease = epilogh * roundTo2(Employee.Employees.get(x).getSalary() * 0.015);
 							
 							Employee.Employees.get(x).setMonthPayment(Employee.Employees.get(x).getMonthPayment() + paymentIncrease);
 							flag4 = false;
@@ -731,6 +705,15 @@ public class Manager extends Employee {
 			} while (somethingWrong);
 		}
 
+	}
+	
+	/**
+	 * the method rounds a number to 2 decimals
+	 * @param x
+	 * @return x rounded at 2 decimals if needed
+	 */
+	public static double roundTo2 (double x) {//static only for the junit
+		return (double) Math.round(x * 100) / 100;
 	}
 
 	public static int shiftIndexToChange(int extraHours, Calendar[] dayShift) {//returns -1 if 1)extra hours overpass midnight
@@ -767,6 +750,54 @@ public class Manager extends Employee {
 			System.out.println("The Employee doesn't work today.");
 		}
 		return -1;
+	}
+	
+	
+	private void showMngrEmployees() {
+		boolean onefound = false;
+		for (Employee a : Employee.Employees) {
+			if (this.equals(a.getManager())) {
+				System.out.println(a.toString());
+				onefound = true;
+			}
+		}
+		if (!onefound) {
+			System.out.println("No employees found.");
+		}
+	}
+	
+	private void showCheckInStatusMngrEmp() {
+
+		boolean onefound = false;
+		String status;
+		for (Employee a : Employee.Employees) {
+			if (this.equals(a.getManager())) {
+				onefound = true;
+				if (a.getLastChecked().get(Calendar.YEAR) != 1990) {
+					if (a.isCheckedIn()) {
+						status = "Checked in";
+					} else {
+						status = "Checked out";
+					}
+					String timeChecked = String.format("%02d:%02d",
+							a.getLastChecked().get(Calendar.HOUR_OF_DAY),
+							a.getLastChecked().get(Calendar.MINUTE));
+					String dayChecked = String.format("%d/%d", a.getLastChecked().get(Calendar.DAY_OF_MONTH),
+							a.getLastChecked().get(Calendar.MONTH) + 1);
+					System.out
+							.println("Id: " + a.getEmployee_Id() + " " + a.getFirstname() + " " + a.getSurname()
+									+ " status: " + status + " at " + timeChecked + " of " + dayChecked);
+				} else { // if a.getLastChecked().get(Calendar.YEAR) == 1990 the Employee has never
+							// checked in
+					System.out.println("Id: " + a.getEmployee_Id() + " " + a.getFirstname() + " "
+							+ a.getSurname() + " status: Checked out");
+				}
+			}
+		}
+		if (!onefound) {
+			System.out.println("No employees found.");
+		}
+	
 	}
 }
 

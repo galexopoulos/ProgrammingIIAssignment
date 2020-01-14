@@ -17,7 +17,6 @@ public class Hr_surface {
 	 
 	public static void toRun(){
 		Scanner sc = new Scanner(System.in);
-		System.out.println("Welcome to Hr part!");
 		//if (main.firstTime){ 	firstTime a boolean variable from main that shows if it
 								// is the first time that the client enters Hr part
 		
@@ -506,7 +505,7 @@ public class Hr_surface {
 				if (posInEmployees != -1) {
 					Employee.Employees.get(posInEmployees).getMenu();
 				}else {
-					System.out.println("Wrong id or password.");
+					System.out.println("Wrong Id or Password.");
 				}	
 			}else if(selection.equals(" ")) {
 				stayAtHR = false;
@@ -540,6 +539,5 @@ public class Hr_surface {
 			totalSalaryOutcome += a.getMonthPayment();
 			a.setMonthPayment(a.getSalary());
 		}
-		//SEND totalSalaryOutcome to Finance and Reporting
 	}
 }
