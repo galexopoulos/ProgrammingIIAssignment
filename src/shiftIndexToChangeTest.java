@@ -1,4 +1,5 @@
 
+
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Calendar;
@@ -13,12 +14,12 @@ class shiftIndexToChangeTest {
 		"11:00-17:00" };
 		Calendar[][] shiftcal = { null, null, null, null, null, null, null };
 		try {
-			shiftcal = Shift.createShift(shift);
-		} catch (ShiftException a) {
+			shiftcal = gr.aueb.dmst.erp.Shift.createShift(shift);
+		} catch (gr.aueb.dmst.erp.ShiftException a) {
 			System.err.println("wrong1 " + a);
 		}
 		
-		int output = Manager.shiftIndexToChange(1, shiftcal[2]); //depends on the day it is today
+		int output = gr.aueb.dmst.erp.Manager.shiftIndexToChange(1, shiftcal[2]); //depends on the day it is today
 		assertEquals(1, output);
 	}
 
