@@ -28,7 +28,7 @@ public class ReportingClients {
 
 	static ArrayList<ReportingClients> coustomerBase = new ArrayList<ReportingClients>();
 
-	public ReportingClients(String name, String surname, int satisfuction, int payment, int family, int daysofstay,
+	public ReportingClients(String name, String surname, int satisfuction, double payment, int family, int daysofstay,
 			int reasonfortravel, String email, int know) {
 		this.name = name;
 		this.surname = surname;
@@ -41,6 +41,10 @@ public class ReportingClients {
 		this.know = know;
 		coustomerBase.add(this);
         counter_st++;
+	}
+
+	public void setDaysofstay(int daysofstay) {
+		this.daysofstay = daysofstay;
 	}
 
 	public static int getCounter_st(){
