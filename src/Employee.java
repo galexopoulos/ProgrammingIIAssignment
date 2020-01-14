@@ -308,14 +308,9 @@ public class Employee implements Serializable {
 		System.out.println("Welcome!");
 		do {
 			menuflag = true;
-			System.out.println("---------------- EMPLOYEE MENU ---- " + getDate() + " ---------------"
-					+ "\n1) Check in"
-					+ "\n2) Check out"
-					+ "\n3) Day off request"
-					+ "\n4) Inbox"
-					+ "\n5) Show shift of the week"
-					+ "\n6) Log out"
-					+ "\n------------------- CHOOSE A NUMBER BETWEEN 1 AND 6 --------------------");
+			System.out.println("---------------- EMPLOYEE MENU ---- " + getDate() + " ---------------" + "\n1) Check in"
+					+ "\n2) Check out" + "\n3) Day off request" + "\n4) Inbox" + "\n5) Show shift of the week"
+					+ "\n6) Log out" + "\n------------------- CHOOSE A NUMBER BETWEEN 1 AND 6 --------------------");
 			boolean flag = false;
 			int selection = 0;
 			do {
@@ -351,11 +346,8 @@ public class Employee implements Serializable {
 				int epilogh = 0;
 				boolean flag3 = false;
 				do {
-					System.out.println(
-							"---------------- INBOX ---- " + getDate() + " ---------------"
-							+ "\n1) Send Mai."
-							+ "\n2) View Mails "
-							+ "\n3) Exit"
+					System.out.println("---------------- INBOX ---- " + getDate() + " ---------------"
+							+ "\n1) Send Mai" + "\n2) View Mails " + "\n3) Exit"
 							+ "\n--------------- CHOOSE A NUMBER BETWEEN 1 AND 3 ---------------");
 					if (!sc.hasNextInt()) {
 						System.out.println("Insert 1 or 2 or 3");
@@ -723,7 +715,7 @@ public class Employee implements Serializable {
 		Date date = new Date(System.currentTimeMillis());
 		return formatter.format(date);
 	}
-	
+
 	void checkIn() {
 		if (!this.isCheckedIn()) {
 			this.setLastChecked(Calendar.getInstance());
@@ -733,8 +725,8 @@ public class Employee implements Serializable {
 			System.out.println("Already checked in.");
 		}
 	}
-	
-	void checkOut(){
+
+	void checkOut() {
 		if (this.isCheckedIn()) {
 			this.setLastChecked(Calendar.getInstance());
 			this.setCheckedIn(false);
