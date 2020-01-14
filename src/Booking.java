@@ -1,12 +1,15 @@
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
+import java.time.temporal.ChronoUnit;
 
 /**
  * This class implements a booking.
@@ -60,8 +63,10 @@ public class Booking implements Serializable {
 		this.roomNumber = roomNumber;
 		this.checkIn = checkIn;
 		this.checkOut = checkOut;
-		long diff = checkOut.getTime() - checkIn.getTime();
-		this.nights = (int) TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS) + 1; // count
+		LocalDate in = checkIn.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+		LocalDate out = checkOut.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+		this.nights= (int) ChronoUnit.DAYS.between(in, out);
+		// count
 																				// nights
 																				// for a
 																				// new
@@ -637,8 +642,9 @@ public class Booking implements Serializable {
 																				// and increase check
 								double oldCheck = book.check;
 								Date laterCheckOut = new Date();
-								long diff = laterCheckOut.getTime() - book.checkIn.getTime();
-								book.nights = (int) TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
+								LocalDate in = book.checkIn.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+								LocalDate out = laterCheckOut.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+								book.nights= (int) ChronoUnit.DAYS.between(in, out);
 								book.check = book.computeCheck(book.buffet);
 								getChecks -= oldCheck - book.check;
 								if (book.checkedOut == false) { // check if this booking has already checked out
@@ -708,8 +714,9 @@ public class Booking implements Serializable {
 								double oldCheck = booking.check;
 								Date canceledCheckOut = new Date();
 								if (canceledCheckOut.before(booking.checkOut)) { // check if it can be canceled
-									long diff = canceledCheckOut.getTime() - booking.checkIn.getTime();
-									booking.nights = (int) TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS) + 1;
+									LocalDate in = booking.checkIn.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+									LocalDate out = canceledCheckOut.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+									booking.nights= (int) ChronoUnit.DAYS.between(in, out) + 1;
 									booking.check = booking.computeCheck(booking.buffet);
 									getChecks -= oldCheck - booking.check;
 									System.out.println("Booking with code : " + booking.bookingCode + " in the room no."
