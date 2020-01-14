@@ -165,9 +165,9 @@ public class ReportingClients {
 		double s3 = 0;// sum of clients that came with friends
 		try {
 			for (ReportingClients i : ReportingClients.coustomerBase) {
-				if (i.family_alone_friends == 1) {
+				if (i.getFamily() == 1) {
 					s1++;
-				} else if (i.family_alone_friends == 2) {
+				} else if (i.getFamily() == 2) {
 					s2++;
 				} else {
 					s3++;
