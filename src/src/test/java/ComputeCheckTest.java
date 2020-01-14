@@ -64,7 +64,6 @@ class ComputeCheckTest {
 		Booking b2 = new Booking(checkIn, checkOut, 2, false);
 		b2.setCheckedIn(true);
 		double output2 = b2.computeCheck(false);
-		src.main.java.gr.aueb.dmst.erp.Booking.getBookings().clear();
 		assertEquals(100, output2);
 	}
 }
