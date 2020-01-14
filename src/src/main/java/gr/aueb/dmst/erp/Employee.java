@@ -36,7 +36,7 @@ public class Employee implements Serializable {
 	 */
 	private static int add = 0;
 	/** The list of all the Employees created and not removed. */
-	static ArrayList<Employee> Employees = new ArrayList<Employee>();
+	public static ArrayList<Employee> Employees = new ArrayList<Employee>();
 	/**
 	 * A variable that is true when the employee has checked in but hasn't checked
 	 * out.
