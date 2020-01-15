@@ -748,7 +748,7 @@ public class Booking implements Serializable {
 				}
 				if (after) {
 					System.out.println(
-							"This booking cannot be canceled because Check Out Date has passed.\nProceed to Check Out!");
+							"This booking cannot be canceled because Check Out Date has passed.\nProceed to Check Out\n!");
 				} else if (f4 == false) {
 					System.out.println("No booking with this code!\n"); // no booking found with this code
 				}
