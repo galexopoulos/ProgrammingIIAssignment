@@ -144,12 +144,25 @@ public class CustomerEntry {
 					return payment;
 					/** Customer account creation process. */
 				} else if (an.equalsIgnoreCase("yes")) {
-					/** Customers account user name. */
-					System.out.println("Enter your username:");
-					String username = sc.nextLine();
+					String username = null;
+					boolean exists = false;
+					do {
+						exists = false;
+						/** Customers account user name. */
+						System.out.println("Enter your username:");
+						username = sc.nextLine();
+						for (AccountCustomers t : AccountCustomers.accCustomerBase) {
+							if (t.getUsername().equals(username)) {
+								exists = true;
+								System.out.println("This username already exists!");
+								break;
+							}
+						}
+					} while (exists);
 					/** Customers account password. */
 					System.out.println("Enter your password:");
 					String password = sc.nextLine();
+
 					/**
 					 * Variable in order to store the total payment that the customer will make over
 					 * the years.
