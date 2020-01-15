@@ -254,7 +254,6 @@ public class Manager extends Employee {
 									// if it moves on the input is correct as createShift method throws Exception
 									// for wrong input
 									Employee.Employees.get(posInEmployees).setShiftStr(shiftStr);
-									Employee.Employees.get(posInEmployees).setShiftStrWeek(shiftStr);
 									System.out.println("The change has been made.");
 									shiftflag = false;
 									break;
@@ -704,16 +703,6 @@ public class Manager extends Employee {
 							newValue.add(Calendar.HOUR_OF_DAY, epilogh);
 							newShift[valueOfI][posInShift] = newValue;
 							Employee.Employees.get(x).setThisWeekShift(newShift);
-							String indexToChange = Employee.Employees.get(x).getShiftStrWeek()[valueOfI];
-							String[] shiftToChange = Employee.Employees.get(x).getShiftStrWeek();
-							indexToChange = changeStrShift(indexToChange, epilogh);
-							if (valueOfI != 0) {
-								shiftToChange[valueOfI] = indexToChange;
-							}else {
-								shiftToChange[0] = indexToChange;
-								shiftToChange[8] = indexToChange;
-							}
-							setShiftStrWeek(shiftToChange);
 							// we increase the payment by 0.015 ofemployee's salary for every extra hour
 							double paymentIncrease = epilogh * roundTo2(Employee.Employees.get(x).getSalary() * 0.015);
 
@@ -834,20 +823,4 @@ public class Manager extends Employee {
 	
 
 	
-	public static String changeStrShift(String shift, int extraHours) { //public static for the junit only
-		char x = shift.charAt(shift.length() - 4);
-		char y = shift.charAt(shift.length() - 5);
-		int intX = Character.getNumericValue(x), intY = Character.getNumericValue(y); 
-		if (intX + extraHours < 10) {
-			intX += extraHours;
-		}else {
-			intX = (intX + extraHours) % 10;
-			intY ++ ;	
-		}
-		x = (char)(intX + '0');
-		y = (char)(intY + '0');
-		return shift.substring(0, shift.length() - 5) + y + x + shift.substring(shift.length() - 3);
-		
-		
-	}
 }

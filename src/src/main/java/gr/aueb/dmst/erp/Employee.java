@@ -47,8 +47,6 @@ public class Employee implements Serializable {
 	 * it will define the thisWeekShift variable.
 	 */
 	private String[] shiftStr = new String[8];
-	/** The shift of the week of the Employee  as String. */
-	private String[] shiftStrWeek = new String[8];
 	/**
 	 * Shows the time that the Employee checked in or checked out for the last time.
 	 */
@@ -114,7 +112,6 @@ public class Employee implements Serializable {
 		this.lastChecked = employee.getLastChecked();
 		this.wresyperergasias_evdomadiaiws = employee.getWresyperergasias_evdomadiaiws();
 		this.maxmail = employee.getMaxmail();
-		this.shiftStrWeek = employee.getShiftStrWeek();
 		this.newmail = employee.getNewmail();
 		for (int i = 0; i < Employees.size(); i++) {
 			if (Employees.get(i).equals(employee)) {
@@ -294,17 +291,7 @@ public class Employee implements Serializable {
 	public void setLastChecked(Calendar lastChecked) {
 		this.lastChecked = lastChecked;
 	}
-	
-	
-	/** Getter of shiftWeekStr. */
-	public String[] getShiftStrWeek() {
-		return shiftStrWeek;
-	}
-	
-	/** Setter of shiftWeekStr. */
-	public void setShiftStrWeek(String[] shiftStrWeek) {
-		this.shiftStrWeek = shiftStrWeek;
-	}
+
 
 	/**
 	 * The method that prints the basic characteristics of an Employee, except of

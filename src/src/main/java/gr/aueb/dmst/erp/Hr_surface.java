@@ -522,7 +522,6 @@ public class Hr_surface {
 			try {
 				a.setThisWeekShift(Shift.createShift(a.getShiftStr()));
 				a.setWresyperergasias_evdomadiaiws(0);
-				a.setShiftStrWeek(a.getShiftStr());
 			} catch (ShiftException e) {
 				// check has been done it will never reach here, if there was an error with the
 				// input Exception would have been caught and handled before
