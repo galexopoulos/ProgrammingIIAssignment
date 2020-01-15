@@ -174,49 +174,38 @@ public class Manager extends Employee {
 													+ "or type \"exit\" to return to the basic menu:");
 									String dayOfWeek = sc.nextLine();
 									dayOfWeek = dayOfWeek.toLowerCase();
-									switch (dayOfWeek) {
-									case "":
+									if (dayOfWeek.equals("")) {
 										shiftflag = true;
-										break;
-									case "monday":
+									}else if (dayOfWeek.equals("monday")) {
 										dayInt = 0;
 										dayChanged = true;
-										break;
-									case "tuesday":
+									}else if (dayOfWeek.equals("tuesday")) {
 										dayInt = 1;
 										dayChanged = true;
-										break;
-									case "wednesday":
+									}else if (dayOfWeek.equals("wednesday")) {
 										dayInt = 2;
 										dayChanged = true;
-										break;
-									case "thursday":
+									}else if (dayOfWeek.equals("thursday")) {
 										dayInt = 3;
 										dayChanged = true;
-										break;
-									case "friday":
+									}else if (dayOfWeek.equals("friday")) {
 										dayInt = 4;
 										dayChanged = true;
-										break;
-									case "saturday":
+									}else if (dayOfWeek.equals("saturday")) {
 										dayInt = 5;
 										dayChanged = true;
-										break;
-									case "sunday":
+									}else if (dayOfWeek.equals("sunday")) {
 										dayInt = 6;
 										dayChanged = true;
-										break;
-									case "exit":
+									}else if (dayOfWeek.equals("exit")) {
 										menuflag = true;
 										break;
-									default:
+									}else {
 										System.out.println("That is not a valid input.");
 										flag3 = true;
 									}
 								} while (flag3);
 								if (dayInt != -1) {
-									boolean flag4;
-									flag4 = false;
 									System.out.println("Insert the new shift for the day or type \"back\" to go back.");
 									String inputShift = sc.nextLine();
 									if (inputShift.toLowerCase().equals("back")) {
