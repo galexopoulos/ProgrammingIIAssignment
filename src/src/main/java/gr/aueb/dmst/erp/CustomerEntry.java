@@ -17,7 +17,7 @@ public class CustomerEntry {
 		/** Scanner used for input. */
 		Scanner sc = new Scanner(System.in);
 		for (;;) {
-			System.out.println("Does this customer already have an account?");
+			System.out.println("Does this customer already have an account? (Enter 'yes' or 'no')");
 			String ans = null;
 			do {
 				/** Checks if the customer has already an account. */
@@ -43,18 +43,18 @@ public class CustomerEntry {
 				/** Customers reason for traveling. */
 				int reasonfortravel = 0;
 				/** Data entry. */
-				System.out.println("Enter client's first name");
+				System.out.println("Enter client's first name :");
 
 				name = sc.nextLine();
 
-				System.out.println("Enter client's surname");
+				System.out.println("Enter client's surname :");
 				surname = sc.nextLine();
-				System.out.println("Enter client's email");
+				System.out.println("Enter client's email :");
 				email = sc.nextLine();
 				do {
-					System.out.println("Enter client's satisfuction:" + "\n 1: Not satisfied at all!"
-							+ "\n 2: Not satisfied" + "\n 3: Not happy but not satisfied either" + "\n 4: Satisfied"
-							+ "\n 5: Very Satisfied!");
+					System.out.println("Enter client's satisfuction :" + "\n 1) Not satisfied at all!"
+							+ "\n 2) Not satisfied" + "\n 3) Not happy but not satisfied either" + "\n 4) Satisfied"
+							+ "\n 5) Very Satisfied!");
 					try {
 						satisfuction = sc.nextInt();
 					} catch (InputMismatchException e) {
@@ -71,12 +71,12 @@ public class CustomerEntry {
 					/** False data entry check. */
 				} while (satisfuction != 1 && satisfuction != 2 && satisfuction != 3 && satisfuction != 4
 						&& satisfuction != 5);
-
-				System.out.println("Enter how the customer got informed about our hotel:" + "\n 0: from advertisements "
-						+ "\n 1: from a friend that is a previous customer " + "\n 2: from another scource");
-				/** Data entry. */
 				sc.nextLine();
 				do {
+					System.out.println("Enter how the customer got informed about our hotel :"
+							+ "\n 1) from advertisements " + "\n 2) from a friend that is a previous customer "
+							+ "\n 3) from another scource");
+					/** Data entry. */
 					try {
 						/** Data entry. */
 						know = sc.nextInt();
@@ -87,13 +87,12 @@ public class CustomerEntry {
 						continue;
 					}
 					/** False data entry check. */
-					if (know != 1 && family_alone_friends != 2 && know != 0) {
-						System.out.println("Insert 0 or 1 or 2! ");
+					if (know != 1 && know != 2 && know != 3) {
+						System.out.println("Insert 1 or 2 or 3! ");
 					}
-				} while (know != 0 && know != 1 && know != 2);
+				} while (know != 3 && know != 1 && know != 2);
 				do {
-					System.out.println("Enter:" + "\n 1) For traveling with family" + "\n 2) For traveling alone"
-							+ "\n 3) For traveling with friends");
+					System.out.println("Enter traveling with :" + "\n 1) Family" + "\n 2) Alone" + "\n 3) Friends");
 					try {
 						/** Data entry. */
 						family_alone_friends = sc.nextInt();
@@ -110,15 +109,15 @@ public class CustomerEntry {
 				} while (family_alone_friends != 1 && family_alone_friends != 2 && family_alone_friends != 3);
 				System.out.println();
 				do {
-					System.out.println("Why did the customer chose to travel? " + "\nType <1> for business purposes.  "
-							+ "\n Type <2> for relaxation." + "\n Type <3> for the hotels location."
-							+ "\n Type <4> for none of the above.");
+					System.out.println("Enter travel reason : " + "\n1) For business purposes.  "
+							+ "\n2) For relaxation." + "\n3) For the hotels location." + "\n4) For none of the above.");
 					try {
 						/** Data entry. */
 						reasonfortravel = sc.nextInt();
 						/** False data entry check. */
 					} catch (InputMismatchException e) {
 						System.out.println("Insert an Integer!");
+						sc.nextLine();
 						continue;
 					}
 					/** False data entry check. */
@@ -126,12 +125,12 @@ public class CustomerEntry {
 						System.out.println("Insert 1 or 2 or 3 or 4!");
 					}
 				} while (reasonfortravel != 1 && reasonfortravel != 2 && reasonfortravel != 3 && reasonfortravel != 4);
-				ReportingClients e = new ReportingClients(name, surname, satisfuction, payment, family_alone_friends,
-						daysofstay, reasonfortravel, email, know);
+				new ReportingClients(name, surname, satisfuction, payment, family_alone_friends, daysofstay,
+						reasonfortravel, email, know);
 				/** Checks if the customer would wish to create a hotel account */
-				System.out.println("Does the client want to make a customer account?");
+				sc.nextLine();
+				System.out.println("Does the client want to make a customer account? (Enter 'yes' or 'no')");
 				String an = null;
-				sc.hasNextLine();
 				do {
 					/** Data entry. */
 					an = sc.nextLine();
@@ -145,7 +144,6 @@ public class CustomerEntry {
 					return payment;
 					/** Customer account creation process. */
 				} else if (an.equalsIgnoreCase("yes")) {
-					sc.nextLine();
 					/** Customers account user name. */
 					System.out.println("Enter your username:");
 					String username = sc.nextLine();
@@ -174,10 +172,10 @@ public class CustomerEntry {
 				}
 			} else {
 				/** Existing Customer process. */
-				System.out.println("Existing Customer:");
-				System.out.println("Please type the client Username.");
+				System.out.println("Existing Customer,");
+				System.out.println("Please type the client Username :");
 				String usr = sc.nextLine();
-				System.out.println("Please type the client password.");
+				System.out.println("Please type the client password :");
 				String pswrd = sc.nextLine();
 				try {
 					for (AccountCustomers t : AccountCustomers.accCustomerBase) {
@@ -187,7 +185,7 @@ public class CustomerEntry {
 								System.out.println("Correct credentials!");
 								ReportingClients t2 = ReportingClients.coustomerBase.get(Integer.parseInt(t.getId()));
 								t2.setDaysofstay(t2.getDaysofstay() + daysofstay);
-								t.setMembershipCode(MembershipSelection(t.getTotalPayment() +payment));
+								t.setMembershipCode(MembershipSelection(t.getTotalPayment() + payment));
 								t.setPayment(
 										t.getTotalPayment() + payment - t.getMembershipCode().beneffitsPay() * payment);
 								System.out.println(
