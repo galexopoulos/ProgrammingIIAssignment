@@ -227,66 +227,10 @@ public class Reporting {
 		ReportingClients c13 = new ReportingClients("Katerina", "Tzima",5, 630, 2, 6, 4, "kat@gmail.com", 2);
 		ReportingClients c14 = new ReportingClients("Panagiotis", "Aggelopoulos",5, 540, 1, 3, 4, "Olympiacos7@gmail.com", 2);
 		ReportingClients c15 = new ReportingClients("Giorgos", "Aggelopoulos", 5, 130, 3, 5, 1,"hrilikosMagas7@gmail.com", 2);
-		
-		
+			
 		ShareHolders sh1 = new ShareHolders("alexis","alexis12345");
 		ShareHolders sh2 = new ShareHolders("olympiakos","eisaistomialokatimagiko7");
 		ShareHolders sh3 = new ShareHolders("username","passss12345");
-		
-		new Room(1,2,50);
-		new Room(1,2,50);
-		new Room(1,2,50);
-		new Room(1,2,50);
-		new Room(1,2,50);
-		new Room(1,2,50);
-		new Room(1,2,50);
-		new Room(1,2,50);
-		new Room(1,2,50);
-		new Room(1,2,50);
-		new Room(2,3,70);
-		new Room(2,3,70);
-		new Room(2,3,70);
-		new Room(2,3,70);
-		new Room(2,3,70);
-		new Room(2,3,70);
-		new Room(2,3,70);
-		new Room(2,3,70);
-		new Room(2,3,70);
-		new Room(2,3,70);
-		new Room(3,4,100);
-		new Room(3,4,100);
-		new Room(3,4,100);
-		new Room(3,4,100);
-		new Room(3,5,150);
-		new Room(3,5,150);
-		new Room(3,6,200);
-		
-		Date d1 = new Date();
-		Date d2 = new Date();
-		Date d3 = new Date();
-		Date d4 = new Date();
-		Date d5 = new Date();
-		Date d6 = new Date();
-		new Booking(d1,d2,2,true);
-		new Booking(d3,d4,2,true);
-		new Booking(d5,d6,2,true);
-		
-		Supplier s1 = new Supplier("s1", 1, "@1");
-		Supplier s2 = new Supplier("s2", 2, "@2");
-		Supplier s3 = new Supplier("s3", 3, "@3");
-		Supplier s4 = new Supplier("s4", 4, "@4");
-		Supplier s5 = new Supplier("s5", 5, "@5");
-		Inventory i1 = new Inventory("z1", 100, 5, 70, s1, "Fixed", 0);
-		Inventory i2 = new Inventory("z2", 150, 25, 20, s2, "Fixed", 0);
-		Inventory i3 = new Inventory("z3", 200, 50, 20, s3, "Fixed", 0);
-		Inventory i4 = new Inventory("z4", 120, 10, 10, s4, "Fixed", 0);
-		Inventory i5 = new Inventory("z5", 125, 20, 30, s5, "Fixed", 0);
-		Inventory iu1 = new Inventory("u1", 100, 5, 70, s1, "Urgent", 0);
-		Inventory iu2 = new Inventory("u2", 150, 25, 20, s2, "Urgent", 0);
-		Inventory iu3 = new Inventory("u3", 200, 50, 20, s3, "Urgent", 0);
-		Inventory iu4 = new Inventory("u4", 120, 10, 10, s4, "Urgent", 0);
-		Inventory iu5 = new Inventory("u5", 125, 20, 30, s5, "Urgent", 0);
-		
 	}
 	
 }
