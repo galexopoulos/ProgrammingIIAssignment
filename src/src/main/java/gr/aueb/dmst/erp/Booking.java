@@ -65,7 +65,7 @@ public class Booking implements Serializable {
 		this.checkOut = checkOut;
 		LocalDate in = checkIn.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 		LocalDate out = checkOut.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-		this.nights = (int) ChronoUnit.DAYS.between(in, out) + 1;
+		this.nights = (int) ChronoUnit.DAYS.between(in, out);
 		// count
 		// nights
 		// for a
