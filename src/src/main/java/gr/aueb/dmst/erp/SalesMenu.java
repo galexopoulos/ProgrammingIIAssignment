@@ -236,7 +236,6 @@ public class SalesMenu implements Serializable {
 	 * This method displays the main menu of Sales department.
 	 */
 	public static void getMenu() {
-		Sales_LoadObjects();
 		boolean goBack = false;
 		for (;;) {
 			int choose = 0;

@@ -86,51 +86,54 @@ public class Inventory implements Serializable {
 	 * Initiates the Inventory manager Menu
 	 */
 	public static void invMenu() {
-		displayInvMenu();
-		int x = 0;
-		do {
-			try {
-				do {
-					x = sc.nextInt();
-				} while (!(x == 1 || x == 2 || x == 3 || x == 4 || x == 5));
+		boolean flag = true;
+		do {	
+			displayInvMenu();
+			int x = 0;
+			do {
+				try {
+					do {
+						x = sc.nextInt();
+					} while (!(x == 1 || x == 2 || x == 3 || x == 4 || x == 5));
+					break;
+				} catch (Exception e) {
+					System.out.println("Please select 1, 2, 3, 4 or 5.");
+					sc.nextLine();
+				}
+			} while (true);
+	
+			switch (x) {
+			case 1:
+				flag = false;
 				break;
-			} catch (Exception e) {
-				System.out.println("Please select 1, 2, 3, 4 or 5.");
-				sc.nextLine();
+			case 2:
+				int people[] = Booking.getVisitors();
+				updateFixed(people[0]);
+				checkFixed();
+				question();
+				break;
+	
+			case 3:
+				updateUrgent();
+				checkUrgent();
+				question();
+				break;
+	
+			case 4:
+				int peoplebuffet[] = Booking.getVisitors();
+				updateBuffet(peoplebuffet[1]);
+				question();
+				break;
+			case 5:
+				printBalance();
+				question();
+				break;
+	
+			default:
+				System.out.println("Unrecognized option");
+				break;
 			}
-		} while (true);
-
-		switch (x) {
-		case 1:
-			mainClass.InputMenu();
-			question();
-		case 2:
-			int people[] = Booking.getVisitors();
-			updateFixed(people[0]);
-			checkFixed();
-			question();
-			break;
-
-		case 3:
-			updateUrgent();
-			checkUrgent();
-			question();
-			break;
-
-		case 4:
-			int peoplebuffet[] = Booking.getVisitors();
-			updateBuffet(peoplebuffet[1]);
-			question();
-			break;
-		case 5:
-			printBalance();
-			question();
-			break;
-
-		default:
-			System.out.println("Unrecognized option");
-			break;
-		}
+		}while (flag);
 	}
 
 //buffet section//
@@ -465,24 +468,6 @@ public class Inventory implements Serializable {
 				+ ", minstock=" + minstock + ", suplier=" + suplier + ", balance=" + balance + "]";
 	}
 
-	public static void main(String args[]) {
-		Supplier s1 = new Supplier("John", 1, "@1");
-		Supplier s2 = new Supplier("Bob", 2, "@2");
-		Supplier s3 = new Supplier("Mak", 3, "@3");
-		Supplier s4 = new Supplier("Jim", 4, "@4");
-		Supplier s5 = new Supplier("Chandler", 5, "@5");
-		Inventory i1 = new Inventory("Toilet paper", 100, 5, 70, s1, "Fixed", 0);
-		Inventory i2 = new Inventory("Towels", 150, 25, 20, s2, "Fixed", 0);
-		Inventory i3 = new Inventory("Shampoo", 200, 50, 20, s3, "Fixed", 0);
-		Inventory i4 = new Inventory("Conditioner", 120, 10, 10, s4, "Fixed", 0);
-		Inventory i5 = new Inventory("Slippers", 125, 20, 30, s5, "Fixed", 0);
-		Inventory iu1 = new Inventory("Vodka", 100, 5, 70, s1, "Urgent", 0);
-		Inventory iu2 = new Inventory("Whisky", 150, 25, 20, s2, "Urgent", 0);
-		Inventory iu3 = new Inventory("Coca-Cola", 200, 50, 20, s3, "Urgent", 0);
-		Inventory iu4 = new Inventory("Sprite", 120, 10, 10, s4, "Urgent", 0);
-		Inventory iu5 = new Inventory("Fanda", 125, 20, 30, s5, "Urgent", 0);
-		invMenu();
-	}
 
 	public static String getDate() {
 		SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy, HH:mm:ss");
