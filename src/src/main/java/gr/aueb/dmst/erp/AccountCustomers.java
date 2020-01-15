@@ -1,3 +1,5 @@
+package src.main.java.gr.aueb.dmst.erp;
+
 import java.util.ArrayList;
 public class AccountCustomers {
 	/** 

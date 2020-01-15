@@ -1,3 +1,4 @@
+package src.main.java.gr.aueb.dmst.erp;
 
 public enum Membership {
 	/** This 'enum' class is used for the account customers in CustomerEntry class 
