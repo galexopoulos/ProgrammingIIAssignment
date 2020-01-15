@@ -917,7 +917,15 @@ public class Hr_Director extends Manager {
 							if (posInEmployees == -1) {
 								flag1 = true;
 								System.out.println("That is not a valid Id.");
-							} else {
+							}else if (posInEmployees == 0) {
+								System.out.println("You are not allowed to do that.");
+								flag1 = true;
+								posInEmployees = -1;
+							}else if(Employee.Employees.get(posInEmployees) instanceof Manager) {
+								System.out.println("Managers cannot be deleted.");
+								flag1 = true;
+								posInEmployees = -1;
+							}else {
 								flag1 = false;
 							}
 						} catch (NumberFormatException b) {
