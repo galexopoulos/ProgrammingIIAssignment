@@ -18,149 +18,107 @@ import java.util.Scanner;
 public class Reporting {
 
 	public static void Menu()  {
-		loadobjects();
 		Scanner sc = new Scanner(System.in);
+		boolean confirm;
+		do {
 		System.out.println("---------------REPORTING MENU---- " + getDate() + " -----------"
 							+"\n  1. HR"
 							+"\n  2. FINANCIAL AND INVESTMENTS SERVICES"
 							+"\n  3. CLIENTS DATA "
 							+"\n  0. EXIT"
-							+"\n------------------------------------------------------------------");
-		boolean confirm = true ;
-		do {
-			try {
-				int dep = sc.nextInt();
-				if(dep == 1) {
+				+ "\n------------------------------------------------------------------");
+			confirm = true;
+			int dep = readInteger();
+			if (dep == 1) {
+				System.out.println();
+				System.out.println("-------------------- Welcome to HR reporting!-------------------");
+				System.out.println();
+				if (Employee.Employees.isEmpty()) {
+					System.out.println("NO employees available");
+				} else {
+					System.out.println("The Average wage is:" + averageWage());
 					System.out.println();
-					System.out.println("-------------------- Welcome to HR reporting!-------------------");
+					Distribution_Stars.getDistributionOfWages();
 					System.out.println();
-					if (Employee.Employees.isEmpty()) {
-						System.out.println("NO employees available");
-					}else {
-						System.out.println("The Average wage is:" + averageWage());
-						System.out.println();
-						Distribution_Stars.getDistributionOfWages();
-						System.out.println();
-						System.out.println("If you want to have a brief of every employee's salary, Press 1"
-										+ "\nTo return to main menu press 0 ");
-						int epilogh = 0;
-						boolean flag2 = false;
-						do {
-							if (!sc.hasNextInt()) {
-								System.out.println("Input an integer [0,1]");
-								flag2 = true; 
-								sc.next();
-
-							} else {
-								epilogh = sc.nextInt();
-								if (epilogh > 1 || epilogh < 0) {
-									flag2 = true;
-									System.out.println("Input an integer [0,1]");
-								} else {
-									if (epilogh == 1) {
-										for(Employee i : Employee.Employees) {
-											System.out.println("Employee's name: " + i.getFirstname() 
-											+ ", Employee's id: " + i.getEmployee_Id() + ", Employee's salary: " + i.getSalary());
-										}
-										System.out.println();
-										System.out.println("Reconnecting you to the main menu");
-										Reporting.Menu();
-									}else {
-										System.out.println("Reconnecting you to the main menu");
-										Reporting.Menu();
-									}
-									
-								}
-								sc.nextLine();
-							}
-						} while (flag2);
-					}
-					System.out.println("To continue press one of the suggested numbers of the homepage.");
-					System.out.println("-----------------------");
-				}else if(dep == 2) {
-					try {
-						ReportingFinance.getMenu();
-					}catch(Exception e) {
-						
-					}
-					System.out.println("To continue press one of the suggested numbers of the homepage.");
-				}else if(dep == 3) {
-					System.out.println();
-					System.out.println("-------------- Welcome to CLIENTS DATA reporting! ----------------");
-					System.out.println();
-					ReportingClients.averageSatisfaction();
-					Distribution_Stars.getDistributionOfSatisfaction();
-					System.out.println();
-					ReportingClients.averageDaysOfStay();
-					Distribution_Stars.getDistributionOfDays();
-					System.out.println();
-					ReportingClients.averagePayment();
-					System.out.println();
-					ReportingClients.percentageAlone_Family_Friends();
-					System.out.println();
-					Distribution_Stars.getDistributionOfReasons();
-					System.out.println("---------------------------------");
-					System.out.println("To continue press one of the suggested numbers of the homepage.");
-				/* }else if (dep == 4) {
-					System.out.println("Please insert electricity bill: ");
-					double el = 0;
-					double wa = 0;
-					double ph = 0;
+					System.out.println("If you want to have a brief of every employee's salary, Press 1"
+							+ "\nTo return to main menu press 0 ");
+					int chosen = 0;
 					boolean flag2 = false;
 					do {
-						if (!sc.hasNextInt()) {
-							System.out.println("Input an integer ");
-							flag2 = true; 
-							sc.next();
-
+						chosen = readInteger();
+						if (chosen > 1 || chosen < 0) {
+							flag2 = true;
+							System.out.println("Input an integer [0,1]");
 						} else {
-							el = sc.nextInt();
-							flag2 = false;
-						}	
-						sc.nextLine();
-					} while (flag2);
-					System.out.println("Please insert water supply bill: ");
-					do {
-						if (!sc.hasNextInt()) {
-							System.out.println("Input an integer ");
-							flag2 = true; 
-							sc.next();
+							if (chosen == 1) {
+								for (Employee i : Employee.Employees) {
+									System.out.println("Employee's name: " + i.getFirstname() + ", Employee's id: "
+											+ i.getEmployee_Id() + ", Employee's salary: " + i.getSalary());
+								}
+								System.out.println();
+								System.out.println("Reconnecting you to the main menu");
+								confirm = true;
+								break;
+							} else {
+								System.out.println("Reconnecting you to the main menu");
+								confirm = true;
+								break;
+							}
 
-						} else {
-							wa = sc.nextInt();
-							flag2 = false;
-						}	
-						sc.nextLine();
+						}
 					} while (flag2);
-					System.out.println("Please insert phone and internetSupply bill: ");
-					do {
-						if (!sc.hasNextInt()) {
-							System.out.println("Input an integer ");
-							flag2 = true; 
-							sc.next();
-
-						} else {
-							ph = sc.nextInt();
-							flag2 = false;
-						}	
-						sc.nextLine();
-					} while (flag2);
-					new ReportingFinance(el,wa,ph);
-					System.out.println("---------------------------------");
-					System.out.println("To continue press one of the suggested numbers of the homepage.");
-					*/
-				}else if(dep == 0) {
-					confirm = false;
-					sc.nextLine();
-				}else if(dep > 3 || dep < 0) {
-					System.err.println("Do you mean: \n 0, 1, 2, 3 ?");
 				}
-			}catch(InputMismatchException e) {
-				System.out.println("Something went wrong, please try again.");
-				System.out.println("Reconnecting to homepage...");
-				Reporting.Menu();
+			} else if (dep == 2) {
+				try {
+					ReportingFinance.getMenu();
+				} catch (Exception e) {
+
+				}
+				System.out.println("To continue press one of the suggested numbers of the homepage.");
+			} else if (dep == 3) {
+				System.out.println();
+				System.out.println("-------------- Welcome to CLIENTS DATA reporting! ----------------");
+				System.out.println();
+				ReportingClients.averageSatisfaction();
+				Distribution_Stars.getDistributionOfSatisfaction();
+				System.out.println();
+				ReportingClients.averageDaysOfStay();
+				Distribution_Stars.getDistributionOfDays();
+				System.out.println();
+				ReportingClients.averagePayment();
+				System.out.println();
+				ReportingClients.percentageAlone_Family_Friends();
+				System.out.println();
+				Distribution_Stars.getDistributionOfReasons();
+				System.out.println("---------------------------------");
+				System.out.println("To continue press one of the suggested numbers of the homepage.");
+				/*
+				 * }else if (dep == 4) { System.out.println("Please insert electricity bill: ");
+				 * double el = 0; double wa = 0; double ph = 0; boolean flag2 = false; do { if
+				 * (!sc.hasNextInt()) { System.out.println("Input an integer "); flag2 = true;
+				 * sc.next();
+				 * 
+				 * } else { el = sc.nextInt(); flag2 = false; } sc.nextLine(); } while (flag2);
+				 * System.out.println("Please insert water supply bill: "); do { if
+				 * (!sc.hasNextInt()) { System.out.println("Input an integer "); flag2 = true;
+				 * sc.next();
+				 * 
+				 * } else { wa = sc.nextInt(); flag2 = false; } sc.nextLine(); } while (flag2);
+				 * System.out.println("Please insert phone and internetSupply bill: "); do { if
+				 * (!sc.hasNextInt()) { System.out.println("Input an integer "); flag2 = true;
+				 * sc.next();
+				 * 
+				 * } else { ph = sc.nextInt(); flag2 = false; } sc.nextLine(); } while (flag2);
+				 * new ReportingFinance(el,wa,ph);
+				 * System.out.println("---------------------------------"); System.out.
+				 * println("To continue press one of the suggested numbers of the homepage.");
+				 */
+			} else if (dep == 0) {
+				confirm = false;
+			} else if (dep > 3 || dep < 0) {
+				System.err.println("Do you mean: \n 0, 1, 2, 3 ?");
 			}
-		}while(confirm);
+		} while (confirm);
 	}
 	
 	public static String getDate() {
@@ -182,6 +140,24 @@ public class Reporting {
 		}
 	}
 	
+	private static int readInteger() {
+		Scanner sc = new Scanner(System.in);
+		boolean inputFlag;
+		int x = -1;
+		do {
+			inputFlag = false;
+			String epilogh = sc.nextLine();
+
+			try {
+				x = Integer.parseInt(epilogh);
+			} catch (NumberFormatException b) {
+				inputFlag = true;
+				System.out.println("Please insert an Integer.");
+			}
+		} while (inputFlag);
+		return x;	
+	}
+	
 	public static void toBeDoneEveryMonth() {
 		Scanner sc = new Scanner(System.in);
 		
@@ -189,49 +165,46 @@ public class Reporting {
 		double el = 0;
 		double wa = 0;
 		double ph = 0;
-		boolean flag2 = false;
-		do {
-			if (!sc.hasNextInt()) {
-				System.out.println("Input an integer ");
-				flag2 = true; 
-				sc.next();
+		boolean flag2, inputFlag;
 
-			} else {
-				el = sc.nextInt();
-				flag2 = false;
-			}	
-			sc.nextLine();
-		} while (flag2);
+		do {
+			inputFlag = false;
+			String epilogh = sc.nextLine();
+
+			try {
+				el = Integer.parseInt(epilogh);
+			} catch (NumberFormatException b) {
+				inputFlag = true;
+				System.out.println("Please insert an Integer.");
+			}
+		} while (inputFlag);
 		System.out.println("Please insert water supply bill: ");
 		do {
-			if (!sc.hasNextInt()) {
-				System.out.println("Input an integer ");
-				flag2 = true; 
-				sc.next();
+			inputFlag = false;
+			String epilogh = sc.nextLine();
 
-			} else {
-				wa = sc.nextInt();
-				flag2 = false;
-			}	
-			sc.nextLine();
-		} while (flag2);
+			try {
+				wa = Integer.parseInt(epilogh);
+			} catch (NumberFormatException b) {
+				inputFlag = true;
+				System.out.println("Please insert an Integer.");
+			}
+		} while (inputFlag);
 		System.out.println("Please insert phone and internetSupply bill: ");
 		do {
-			if (!sc.hasNextInt()) {
-				System.out.println("Input an integer ");
-				flag2 = true; 
-				sc.next();
+			inputFlag = false;
+			String epilogh = sc.nextLine();
 
-			} else {
-				ph = sc.nextInt();
-				flag2 = false;
-			}	
-			sc.nextLine();
-		} while (flag2);
+			try {
+				ph = Integer.parseInt(epilogh);
+			} catch (NumberFormatException b) {
+				inputFlag = true;
+				System.out.println("Please insert an Integer.");
+			}
+		} while (inputFlag);
 		new ReportingFinance(el,wa,ph);
 		System.out.println("---------------------------------");
 	}
-	
 	//temporary 
 	static void loadobjects() {
 		
@@ -239,7 +212,7 @@ public class Reporting {
 		
 		//(onoma , epitheto , satisfaction ( 0 - 5) , payment , familyalone (0 - 3) , daysofstey , reasonoftravel ( 0 - 4) , email , know)
 		
-/*		ReportingClients c1 = new ReportingClients("alexis", "Perakis", 5, 230, 2, 5, 1, "abc@gmail.com", 2);
+		ReportingClients c1 = new ReportingClients("alexis", "Perakis", 5, 230, 2, 5, 1, "abc@gmail.com", 2);
 		ReportingClients c2 = new ReportingClients("Giorgos", "Alexopoulos", 5, 150, 1, 3, 2, "abc1@gmail.com", 2);
 		ReportingClients c3 = new ReportingClients("Dimitris", "gianakopoulos", 5, 210, 3, 5, 0, "dpg7000@gmail.com", 2);
 		ReportingClients c4 = new ReportingClients("Takis", "Tsoukalas", 4, 70, 1, 4, 4, "takaros@gmail.com", 2);
@@ -313,7 +286,6 @@ public class Reporting {
 		Inventory iu3 = new Inventory("u3", 200, 50, 20, s3, "Urgent", 0);
 		Inventory iu4 = new Inventory("u4", 120, 10, 10, s4, "Urgent", 0);
 		Inventory iu5 = new Inventory("u5", 125, 20, 30, s5, "Urgent", 0);
-*/
 		
 	}
 	

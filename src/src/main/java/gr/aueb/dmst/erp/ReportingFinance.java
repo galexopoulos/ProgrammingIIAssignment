@@ -19,6 +19,7 @@ import java.util.InputMismatchException;
  */
 
 public class ReportingFinance { //This class must be called once a month.
+		Scanner sc = new Scanner(System.in);
 		/**
 		 * electricity, watersupply, phone_internetSupply and wages are expenses that are computed below.
 		 */
@@ -30,177 +31,170 @@ public class ReportingFinance { //This class must be called once a month.
 		private static double cashAvailableBeforeTaxes;
 		private static int months = -1;
 		private static double totalexpenses ;
-		
-		private static final double TAXRATE = 0.23;
-		private static final double RATE = 0.25; //shareholders rate of payment 
-		/**
-		 * fixInv and urgInv are expenses from Inventory.java and Supplier.java by Giorgos Markou
-		 */
-		private static double [] fixInv;
-		private static double [] urgInv;
-		protected static double [] ProfLosBase = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; 
-		protected static double [] ProfLosPrev = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; //pinakas me ta kerdoi zimies tou proigoumenou xronou
-		protected static double [] ProfLosPrev2 = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};//pinakas me  ta kerdoi zimies prin apo dio xronia
-		protected static double [] ProfLosPrev3 = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};// pinakas me  ta kerdoi zimies prin apo 3 xronia
-		
-		public ReportingFinance(double electricity, double waterSupply, double phone_internetSupply) {
-			super();
-			months++;
-			ReportingFinance.electricity = electricity;
-			ReportingFinance.waterSupply = waterSupply;
-			ReportingFinance.phone_internetSupply = phone_internetSupply;
-		}
-		
-		/**
-		 * Purpose of this method:
-		 * Cash available before and after taxes must be 0 every month to start  counting the earning from the begging.
-		 * So do the arrays of the profits of the year (and the ones before of the current year)  but after 12 months. 
-		 * 
-		 */
-		
-		public static void setYearAndBase() {
-			for(;;) {
-				if(months == 0) { //ianouarios
-					cashAvailableAfterTaxes = 0;
-					cashAvailableBeforeTaxes = 0;
-				}else if (months == 1) { //fevrouarios
-					cashAvailableAfterTaxes = 0;
-					cashAvailableBeforeTaxes = 0;
-				}else if (months == 2) {//martios
-					cashAvailableAfterTaxes = 0;
-					cashAvailableBeforeTaxes = 0;
-				}else if (months == 3) {//aprilios
-					cashAvailableAfterTaxes = 0;
-					cashAvailableBeforeTaxes = 0;
-				}else if (months == 4) {//maios
-					cashAvailableAfterTaxes = 0;
-					cashAvailableBeforeTaxes = 0;
-				}else if (months == 5) {//iounios
-					cashAvailableAfterTaxes = 0;
-					cashAvailableBeforeTaxes = 0;
-				}else if (months == 6) {//iouliios
-					cashAvailableAfterTaxes = 0;
-					cashAvailableBeforeTaxes = 0;
-				}else if (months == 7) {//avgoustos
-					cashAvailableAfterTaxes = 0;
-					cashAvailableBeforeTaxes = 0;
-				}else if (months == 8) {//septemvrios
-					cashAvailableAfterTaxes = 0;
-					cashAvailableBeforeTaxes = 0;
-				}else if (months == 9) {//oktomvrios
-					cashAvailableAfterTaxes = 0;
-					cashAvailableBeforeTaxes = 0;
-				}else if (months == 10) {//noemvrios
-					cashAvailableAfterTaxes = 0;
-					cashAvailableBeforeTaxes = 0;
-				}else if (months == 11) {//dekemvrios
-					cashAvailableAfterTaxes = 0;
-					cashAvailableBeforeTaxes = 0;
-				}else if (months == 12) {
-					months = 0;
-					cashAvailableAfterTaxes = 0;
-					cashAvailableBeforeTaxes = 0;
-					ProfLosPrev3 = ProfLosPrev2;
-					ProfLosPrev2 = ProfLosPrev;
-					ProfLosPrev = ProfLosBase;
-					
-					for (int i = 0; i <= 11; i++) {
-						ProfLosBase[i] = 0;
-					}
+
+	private static final double TAXRATE = 0.23;
+	private static final double RATE = 0.25; // shareholders rate of payment
+	/**
+	 * fixInv and urgInv are expenses from Inventory.java and Supplier.java by
+	 * Giorgos Markou
+	 */
+	private static double[] fixInv;
+	private static double[] urgInv;
+	protected static double[] ProfLosBase = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+	protected static double[] ProfLosPrev = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }; // pinakas me ta kerdoi zimies tou
+																					// proigoumenou xronou
+	protected static double[] ProfLosPrev2 = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };// pinakas me ta kerdoi zimies prin
+																					// apo dio xronia
+	protected static double[] ProfLosPrev3 = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };// pinakas me ta kerdoi zimies prin
+																					// apo 3 xronia
+
+	public ReportingFinance(double electricity, double waterSupply, double phone_internetSupply) {
+		super();
+		months++;
+		ReportingFinance.electricity = electricity;
+		ReportingFinance.waterSupply = waterSupply;
+		ReportingFinance.phone_internetSupply = phone_internetSupply;
+	}
+
+	/**
+	 * Purpose of this method: Cash available before and after taxes must be 0 every
+	 * month to start counting the earning from the begging. So do the arrays of the
+	 * profits of the year (and the ones before of the current year) but after 12
+	 * months.
+	 * 
+	 */
+
+	public static void setYearAndBase() {
+		Scanner sc = new Scanner(System.in);
+		for (;;) {
+			if (months == 0) { // ianouarios
+				cashAvailableAfterTaxes = 0;
+				cashAvailableBeforeTaxes = 0;
+			} else if (months == 1) { // fevrouarios
+				cashAvailableAfterTaxes = 0;
+				cashAvailableBeforeTaxes = 0;
+			} else if (months == 2) {// martios
+				cashAvailableAfterTaxes = 0;
+				cashAvailableBeforeTaxes = 0;
+			} else if (months == 3) {// aprilios
+				cashAvailableAfterTaxes = 0;
+				cashAvailableBeforeTaxes = 0;
+			} else if (months == 4) {// maios
+				cashAvailableAfterTaxes = 0;
+				cashAvailableBeforeTaxes = 0;
+			} else if (months == 5) {// iounios
+				cashAvailableAfterTaxes = 0;
+				cashAvailableBeforeTaxes = 0;
+			} else if (months == 6) {// iouliios
+				cashAvailableAfterTaxes = 0;
+				cashAvailableBeforeTaxes = 0;
+			} else if (months == 7) {// avgoustos
+				cashAvailableAfterTaxes = 0;
+				cashAvailableBeforeTaxes = 0;
+			} else if (months == 8) {// septemvrios
+				cashAvailableAfterTaxes = 0;
+				cashAvailableBeforeTaxes = 0;
+			} else if (months == 9) {// oktomvrios
+				cashAvailableAfterTaxes = 0;
+				cashAvailableBeforeTaxes = 0;
+			} else if (months == 10) {// noemvrios
+				cashAvailableAfterTaxes = 0;
+				cashAvailableBeforeTaxes = 0;
+			} else if (months == 11) {// dekemvrios
+				cashAvailableAfterTaxes = 0;
+				cashAvailableBeforeTaxes = 0;
+			} else if (months == 12) {
+				months = 0;
+				cashAvailableAfterTaxes = 0;
+				cashAvailableBeforeTaxes = 0;
+				ProfLosPrev3 = ProfLosPrev2;
+				ProfLosPrev2 = ProfLosPrev;
+				ProfLosPrev = ProfLosBase;
+
+				for (int i = 0; i <= 11; i++) {
+					ProfLosBase[i] = 0;
 				}
 			}
-			
 		}
-		
-		/**
-		 * Displays the main menu of this class.
-		 */
-		
-		public static void getMenu() {
-			Scanner sc = new Scanner(System.in);
-			boolean flag = true;
-			do {
-			System.out.println("------------------ MENU FINANCE ---- " + getDate() +" --------"
-					+ "\n 1. Proceeds - Εxpenses - Profits - Losses" 
-					+ "\n 2. TAX liabilities "
+
+	}
+
+	/**
+	 * Displays the main menu of this class.
+	 */
+
+	public static void getMenu() {
+		Scanner sc = new Scanner(System.in);
+		boolean flag;
+		do {
+			flag = true;
+			System.out.println("------------------ MENU FINANCE ---- " + getDate() + " --------"
+					+ "\n 1. Proceeds - Εxpenses - Profits - Losses" + "\n 2. TAX liabilities "
 					+ "\n 3. Connect to Investments menu. Username and password required."
-					+ "\n 4. Create new Investor."
-					+ "\n 5. Connect to Goals Department."
-					+ "\n 6. To set goals."
-					+ "\n PRESS 0 TO EXIT."
-					+ "\n ------------------------------------------------------------------"); 
-			
+					+ "\n 4. Create new Investor." + "\n 5. Connect to Goals Department." + "\n 6. To set goals."
+					+ "\n PRESS 0 TO EXIT." + "\n ------------------------------------------------------------------");
+
 			int ans = 0;
-				try {
-					ans = sc.nextInt();
-					if (ans == 0) {
-						flag = false;
-					}else if(ans == 1){
-						 profit_Losses();
-						 System.out.println("This months income is: " + getProceeds());
-						 getExpenses();
-						 if (cashAvailableBeforeTaxes >= 0 ) {
-							 System.out.println("Profits are: " + ProfLosBase[months]); 
-						 }else {
-							 System.out.println("Losses are: " + ProfLosBase[months]); 
-						 }
-						 System.out.println("To continue press one of the suggested numbers.");
-						 getMenu();
-					}else if (ans == 2) {
-						 taxLiabilities();
-						 System.out.println("To continue press one of the suggested numbers.");
-						 getMenu();
-					}else if(ans == 3) {
-						ShareHolders.getShareHoldersMenu(); 
-						System.out.println("To continue press one of the suggested numbers.");
-						getMenu();
-					}else if(ans == 4) {
-						setNewInvestor();
-						System.out.println("To continue press one of the suggested numbers.");
-						getMenu();
-					}else if (ans == 5){
-						Goals.menu();
-					}else if(ans == 6 ) {
-						int ja, feb, mar, ap, may, june, july, au, se, oc, no, dec;
-						try {
-							System.out.println("Set January Goal:");
-							ja = sc.nextInt();
-							System.out.println("Set February Goal:");
-							feb = sc.nextInt();
-							System.out.println("Set March Goal:");
-							mar = sc.nextInt();
-							System.out.println("Set April Goal:");
-							ap = sc.nextInt();
-							System.out.println("Set May Goal:");
-							may = sc.nextInt();
-							System.out.println("Set June Goal:");
-							june = sc.nextInt();
-							System.out.println("Set July Goal:");
-							july = sc.nextInt();
-							System.out.println("Set August Goal:");
-							au = sc.nextInt();
-							System.out.println("Set September Goal:");
-							se = sc.nextInt();
-							System.out.println("Set October Goal:");
-							oc = sc.nextInt();
-							System.out.println("Set November Goal:");
-							no = sc.nextInt();
-							System.out.println("Set December Goal:");
-							dec = sc.nextInt();
-							Goals.loadgoals(ja, feb, mar, ap, may, june, july, au, se, oc, no, dec);
-						} catch (InputMismatchException e) {
-							System.out.println();
-						}
-					}
-					if(ans > 6 || ans < 0) {
-						System.err.println("Wrong input, please try again.");
-						System.out.println("To continue press one of the suggested numbers.");
-					}
-				}catch(InputMismatchException e) {
-					System.out.println("Wrong input, please try again.");
-					System.out.println("Reconnecting to homepage...");
-					ReportingFinance.getMenu();
-				}//catch(Exception e) {
+			boolean inputFlag;
+			ans = readInteger();
+			if (ans == 0) {
+				flag = false;
+			} else if (ans == 1) {
+				profit_Losses();
+				System.out.println("This months income is: " + getProceeds());
+				getExpenses();
+				if (cashAvailableBeforeTaxes >= 0) {
+					System.out.println("Profits are: " + ProfLosBase[months]);
+				} else {
+					System.out.println("Losses are: " + ProfLosBase[months]);
+				}
+				System.out.println("To continue press one of the suggested numbers.");
+			} else if (ans == 2) {
+				taxLiabilities();
+				System.out.println("To continue press one of the suggested numbers.");
+			} else if (ans == 3) {
+				ShareHolders.getShareHoldersMenu();
+				System.out.println("To continue press one of the suggested numbers.");
+			} else if (ans == 4) {
+				setNewInvestor();
+				System.out.println("To continue press one of the suggested numbers.");
+			} else if (ans == 5) {
+				Goals.menu();
+			} else if (ans == 6) {
+				int ja = -1, feb = -1, mar = -1, ap = -1, may = -1, june = -1, july = -1, au = -1, se = -1, oc = -1,
+						no = -1, dec = -1;
+				System.out.println("Set January Goal:");
+				ja = readInteger();
+				System.out.println("Set February Goal:");
+				feb = readInteger();
+				System.out.println("Set March Goal:");
+				mar = readInteger();
+				System.out.println("Set April Goal:");
+				ap = readInteger();
+				System.out.println("Set May Goal:");
+				may = readInteger();
+				System.out.println("Set June Goal:");
+				june = readInteger();
+				System.out.println("Set July Goal:");
+				july = readInteger();
+				System.out.println("Set August Goal:");
+				july = readInteger();
+				System.out.println("Set September Goal:");
+				se = readInteger();
+				System.out.println("Set October Goal:");
+				oc = readInteger();
+				System.out.println("Set November Goal:");
+				no = readInteger();
+				System.out.println("Set December Goal:");
+				dec = readInteger();
+				Goals.loadgoals(ja, feb, mar, ap, may, june, july, au, se, oc, no, dec);
+			}
+			if (ans > 6 || ans < 0) {
+				System.err.println("Wrong input, please try again.");
+				System.out.println("To continue press one of the suggested numbers.");
+			}
+
+				//catch(Exception e) {
 					//System.out.println("Something went wrong.");
 					//System.out.println("Reconnecting to homepage...");
 					//ReportingFinance.getMenu();
@@ -328,7 +322,7 @@ public class ReportingFinance { //This class must be called once a month.
 					int month = cal.get(Calendar.MONTH);
 					System.out.println("Hotel's TAX liablities of " + month + " are: " + cashAvailableBeforeTaxes * TAXRATE);
 				}else {
-					System.out.println("All Tax liabilities are sutisfied.");
+					System.out.println("All Tax liabilities are satisfied.");
 				}
 			}catch(Exception e){
 				System.err.println("Error.");
@@ -356,5 +350,25 @@ public class ReportingFinance { //This class must be called once a month.
 				}
 			}
 		}
+		
+		private static int readInteger() {
+			Scanner sc = new Scanner(System.in);
+			boolean inputFlag;
+			int x = -1;
+			do {
+				inputFlag = false;
+				String epilogh = sc.nextLine();
+	
+				try {
+					x = Integer.parseInt(epilogh);
+				} catch (NumberFormatException b) {
+					inputFlag = true;
+					System.out.println("Please insert an Integer.");
+				}
+			} while (inputFlag);
+			return x;	
+		}
+
+
 		
 }

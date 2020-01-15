@@ -12,6 +12,7 @@ import java.util.Scanner;
  *
  */
 public class Inventory implements Serializable {
+	static boolean flag;
 	final static int maxsize = 80;
 	static Scanner sc = new Scanner(System.in);
 	private String type;
@@ -61,25 +62,44 @@ public class Inventory implements Serializable {
 	}
 
 	public static void question() {
-		System.out.println("Would you like to procced or quit?");
-		System.out.println("To proceed enter 9.");
-		System.out.println("If you wish to quit enter 0.");
 		Scanner q = new Scanner(System.in);
-
-		switch (q.nextInt()) {
-		case 0:
-			System.out.println("Thank you and goodbye.");
-			break;
-
-		case 9:
-			System.out.println("Please proceed.");
-			invMenu();
-			break;
-		default:
-			System.out.println("Unrecognized option");
-			invMenu();
-			break;
-		}
+		boolean questionNotOk;
+		do{
+			questionNotOk = false;
+			boolean flag1;
+			int epilogh1 = -1;
+			do {
+				flag1 = false;
+				System.out.println("Would you like to procced or quit?");
+				System.out.println("To proceed enter 9.");
+				System.out.println("If you wish to quit enter 0.");
+	
+				String epilogh = q.nextLine();
+	
+				try {
+					epilogh1 = Integer.parseInt(epilogh);
+				} catch (NumberFormatException b) {
+					flag1 = true;
+					System.out.println("Please insert an Integer.");
+				}
+			} while (flag1);
+	
+			switch (epilogh1) {
+			case 0:
+				flag = false;
+				System.out.println("Thank you and goodbye.");
+				break;
+	
+			case 9:
+				System.out.println("Please proceed.");
+				invMenu();
+				break;
+			default:
+				System.out.println("Unrecognized option");
+				questionNotOk = true;
+				break;
+			}
+		}while(questionNotOk);
 	}
 
 	/**
@@ -87,21 +107,32 @@ public class Inventory implements Serializable {
 	 */
 	public static void invMenu() {
 		boolean flag = true;
-		do {	
+		do {
 			displayInvMenu();
 			int x = 0;
 			do {
 				try {
 					do {
-						x = sc.nextInt();
+						boolean flag1;
+						do {
+
+							flag1 = false;
+							String option = sc.nextLine();
+
+							try {
+								x = Integer.parseInt(option);
+							} catch (NumberFormatException b) {
+								flag1 = true;
+								System.out.println("Please insert an Integer.");
+							}
+						} while (flag1);
 					} while (!(x == 1 || x == 2 || x == 3 || x == 4 || x == 5));
 					break;
 				} catch (Exception e) {
 					System.out.println("Please select 1, 2, 3, 4 or 5.");
-					sc.nextLine();
 				}
 			} while (true);
-	
+
 			switch (x) {
 			case 1:
 				flag = false;
@@ -112,13 +143,13 @@ public class Inventory implements Serializable {
 				checkFixed();
 				question();
 				break;
-	
+
 			case 3:
 				updateUrgent();
 				checkUrgent();
 				question();
 				break;
-	
+
 			case 4:
 				int peoplebuffet[] = Booking.getVisitors();
 				updateBuffet(peoplebuffet[1]);
@@ -128,12 +159,12 @@ public class Inventory implements Serializable {
 				printBalance();
 				question();
 				break;
-	
+
 			default:
 				System.out.println("Unrecognized option");
 				break;
 			}
-		}while (flag);
+		} while (flag);
 	}
 
 //buffet section//
@@ -166,21 +197,28 @@ public class Inventory implements Serializable {
 		if (x.equals("1")) {
 
 			System.out.println("For how many visitors do you want to order ?");
-			int y = 0;
+			int y = -1;
 			do {
-				try {
-					do {
-						System.out.println("( the order cannot be 300 or more at once or less than 80)");
-						y = sc.nextInt();
-						buffetbalance = 50 * y;// 50 is the fee for having buffet
-					} while (y < maxsize || y > 300);
-					break;
-				} catch (Exception e) {
-					System.out.println("Please order an amount between 80 and 300 that is not a double");
-					sc.nextLine();
-					continue;
-				}
-			} while (true);
+				System.out.println("The order should be more than 300 and less than 80");
+				Scanner q1 = new Scanner(System.in);
+				boolean flag1;
+
+				do {
+					System.out.println("Give me the order");
+
+					flag1 = false;
+					String epilogh = q1.nextLine();
+
+					try {
+						y = Integer.parseInt(epilogh);
+						buffetbalance = 50 * y;
+					} catch (NumberFormatException b) {
+						flag1 = true;
+						System.out.println("Please insert an Integer.");
+					}
+				} while (flag1);
+
+			} while (y < maxsize || y > 300);
 			buffet += y;
 			System.out.println("The number of visitors that the buffet can acompany is " + buffet + "");
 		} else if (x.equals("0")) {
@@ -223,7 +261,6 @@ public class Inventory implements Serializable {
 	 * (minstock>stock)
 	 */
 	public static void checkFixed() {
-		sc.nextLine();// clears the scanner
 		for (int i = 0; i < fixedInventory.size(); i++) {
 			if (fixedInventory.get(i).stock < fixedInventory.get(i).minstock) {
 				orderFixed(i);
@@ -249,21 +286,29 @@ public class Inventory implements Serializable {
 			fixedInventory.get(i).balance += maxsize * fixedInventory.get(i).pricepreunit;
 
 		} else if (ans.equals("1")) {
-			System.out.println("Give me the order");
-			int order = 1;
+			int order = -1;
 			do {
-				try {
-					do {
-						System.out.println("The order should be more than the max accomondation number (80)");
-						order = sc.nextInt();
-					} while (order < maxsize);
-					break;
-				} catch (Exception e) {
-					System.out.println("Only integers are allowed");
-					sc.nextLine();
-					continue;
-				}
-			} while (true);
+				System.out.println("The order should be more than the max accomondation number (80)");
+
+				Scanner q1 = new Scanner(System.in);
+				boolean flag1;
+
+				do {
+					System.out.println("Give me the order");
+
+					flag1 = false;
+					String epilogh = q1.nextLine();
+
+					try {
+						order = Integer.parseInt(epilogh);
+					} catch (NumberFormatException b) {
+						flag1 = true;
+						System.out.println("Please insert an Integer.");
+					}
+				} while (flag1);
+
+			} while (order < maxsize);
+
 			fixedInventory.get(i).stock += order;
 			fixedInventory.get(i).balance += order * fixedInventory.get(i).pricepreunit;// order ends
 		}
@@ -300,19 +345,28 @@ public class Inventory implements Serializable {
 	public static void updateUrgent() {
 		for (Inventory i : urgentInventory) {
 			System.out.println("How many units of " + i.name + " were used?");
-			int amount;
+			int amount = -1;
+
 			do {
-				try {
-					do {
-						System.out.println("Please insert a number between 0 and " + i.stock + "");
-						amount = sc.nextInt();
-					} while (amount >= i.stock || amount < 0);
-					break;
-				} catch (Exception e) {
-					sc.nextLine();
-					continue;
-				}
-			} while (true);
+				System.out.println("Please insert a number between 0 and"+i.stock+"");
+
+				Scanner q1 = new Scanner(System.in);
+				boolean flag1;
+
+				do {
+					System.out.println("Give me the order");
+					flag1 = false;
+					String epilogh = q1.nextLine();
+					try {
+						amount = Integer.parseInt(epilogh);
+					} catch (NumberFormatException b) {
+						flag1 = true;
+						System.out.println("Please insert an Integer.");
+					}
+				} while (flag1);
+
+			} while (amount < 0 || amount >= i.stock);
+
 			i.stock -= amount;
 		}
 
@@ -323,7 +377,6 @@ public class Inventory implements Serializable {
 	 * (minstock>stock)
 	 */
 	public static void checkUrgent() {
-		sc.nextLine();
 		for (int i = 0; i < urgentInventory.size(); i++) {
 			if (urgentInventory.get(i).stock < urgentInventory.get(i).minstock) {
 				orderUrgent(i);
@@ -354,16 +407,23 @@ public class Inventory implements Serializable {
 		} else if (ans.equals("1")) {
 			System.out.println("Give me the order");
 			int order = 1;
+			Scanner q1 = new Scanner(System.in);
+			boolean flag1;
+
 			do {
+				System.out.println("Give me the order");
+
+				flag1 = false;
+				String epilogh = q1.nextLine();
+
 				try {
-					order = sc.nextInt();
-					break;
-				} catch (Exception e) {
-					System.out.println("Only integers are allowed");
-					sc.nextLine();
-					continue;
+					order = Integer.parseInt(epilogh);
+				} catch (NumberFormatException b) {
+					flag1 = true;
+					System.out.println("Please insert an Integer.");
 				}
-			} while (true);
+			} while (flag1);
+
 			urgentInventory.get(i).stock += order;
 			urgentInventory.get(i).balance += order * urgentInventory.get(i).pricepreunit;// order ends
 		}
@@ -467,7 +527,6 @@ public class Inventory implements Serializable {
 		return "Inventory [type=" + type + ", name=" + name + ", stock=" + stock + ", pricepreunit=" + pricepreunit
 				+ ", minstock=" + minstock + ", suplier=" + suplier + ", balance=" + balance + "]";
 	}
-
 
 	public static String getDate() {
 		SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy, HH:mm:ss");

@@ -43,7 +43,7 @@ public class mainClass {
 			Inventory.loadobjects();
 			SalesMenu.Sales_LoadObjects();
 			Hr_surface.loadobjects();
-			
+	
 			SIDER_ARXEIA.grapsimo_Employees();
 			Arxeia_perakis.grapsimo_reporting();
 			MO_arxeia.grapsimo_Booking();
