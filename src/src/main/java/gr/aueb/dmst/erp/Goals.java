@@ -1,85 +1,106 @@
 package src.main.java.gr.aueb.dmst.erp;
-import java.util.Arrays;
+import java.util.InputMismatchException;
 import java.util.Scanner;
+
+/**
+ * 
+ * @author Ioannis Alexios Perakis, Aggeliki Nina Kafouni
+ *With the use of this class the user can compare profits among the past 3 years. Moreover, user can set each 
+ *year's goals and by pressing 3 can compare current year's profits and the goal of the month that have been chosen.
+ */
 
 public class Goals {
 	
 	static double [] goals = new double [12]; 
-	static double [][] years = new double [12][4];
-	public static int ans;
+	static double [][] years = new double [4][12];
 	
-	public static void setArray() {
-	}
-	
-	public static int menu() {
+	public static void menu() {
 		Scanner sc = new Scanner(System.in);
-		System.out.println("===============================MENU======================================"
+		System.out.println("--------------------------------- GOALS MENU ---------------------------------------"
 				+ "\n If you want to compare current year with the results from 3 years ago press: 0 "
 				+ "\n If you want to compare current year with the results from 2 years ago press: 1 "
 				+ "\n If you want to compare current year with the previous year press:            2 "
 				+ "\n If you want to compare current year with current year's goals press:         3 "
 				+ "\n If you want to exit press:                                                  -1 ");
-		boolean flag = true;
-		ans = 456789;
 		
+		int ans ;
+		boolean flag = true;
 		do {
 			try {
 				ans = sc.nextInt();
-				flag = false;
 				if(ans == -1){
-					break;
+					System.out.println("Reconnecting you to Finance main menu...");
+					ReportingFinance.getMenu();
+				}else if(ans == 0 || ans == 1 || ans == 2 || ans == 3){
+					System.out.println("Please type the month (number 1-12) you want to compare: ");
+					
+					int ans2;
+					boolean flag2 = true;
+					do {
+							if (!sc.hasNextInt()) {
+								System.out.println("Please input an integer [1,12]");
+								flag2 = true;
+								sc.next();
+							}else {
+								ans2 = sc.nextInt();
+								if (ans2 >= 1 && ans2 <= 12) {
+									flag2 = false;
+									comparison(ans,ans2);
+								}else {
+									System.out.println("Please input an integer [1,12]");
+								}
+							}
+					}while(flag2);
+					flag = false;
+				}else {
+					System.err.println("Please insert a valid answer.");
 				}
 			}catch(Exception e) {
-				System.err.println("WRONG INPUT");
+				System.err.println("Wrong input, please try again.");
+				System.out.println();
+				menu();
 			}
 		}while(flag);
-		return ans;
+		menu();
 	}
 	
 	public static void comparison(int ans, int month) { // ans einai to year pou thelei na sigrinei
-	//	double [] year_3 = new double [12]; // 3 xronia prin
-	//	double [] year_2 = new double [12]; // 2 xronia prin
-	//	double [] year_1 = new double [12]; // 1 xrono prin
-	//	double [] year_cur = new double [12]; // current year
-	//	
-	//	try {
-	//		for (int i = 0; i <= 12;i++) {
-	//			year_3[i] = years[i][0];
-	//			year_2[i] = years[i][1];
-	//			year_1[i] = years[i][2];
-	//			year_cur[i] = years[i][3];
-	//		}
-	//	}catch(Exception e) {
-	//		System.err.println("Error.");
-	//	}
+		
 		try {
-			if (ans == 0) {
-				if (years[month][3] > years[month][ans]) {
-					System.out.printf("Profits of current year are %f MORE than 3 years ago \n",years[month][3] - years[month][ans]);
-				}else if (years[month][3] < years[month][ans]) {
-					System.out.printf("Profits of current year are %f LESS than 3 years ago \n",years[month][ans] - years[month][3]);
-				}else System.out.println("Profits of current year are equal to those 3 years ago" + years[month][ans]);
-				
+			if(ans == 0) {
+				if (ReportingFinance.ProfLosBase[month] > ReportingFinance.ProfLosPrev3[month] ) {
+					System.out.println("Profits of current year are More than 3 years ago by: " + 
+							(ReportingFinance.ProfLosBase[month] - ReportingFinance.ProfLosPrev3[month]));
+					System.out.println();
+				}else {
+					System.out.println("Profits of current year are Less than 3 years ago by: " + 
+							(ReportingFinance.ProfLosBase[month] - ReportingFinance.ProfLosPrev3[month]));
+					System.out.println();
+				}
 			}else if (ans == 1) {
-				if (years[month][3] > years[month][ans]) {
-					System.out.printf("Profits of current year are %f MORE than 2 years ago \n",years[month][3] - years[month][ans]);
-				}else if (years[month][3] < years[month][ans]) {
-					System.out.printf("Profits of current year are %f LESS than 2 years ago \n",years[month][ans] - years[month][3]);
-				}else System.out.println("Profits of current year are equal to those 2 years ago" + years[month][ans]);
-				
+				if (ReportingFinance.ProfLosBase[month] > ReportingFinance.ProfLosPrev2[month] ) {
+					System.out.println("Profits of current year are More than 2 years ago by: " + 
+							(ReportingFinance.ProfLosBase[month] - ReportingFinance.ProfLosPrev2[month]));
+					System.out.println();
+				}else {
+					System.out.println("Profits of current year are Less than 2 years ago by: " + 
+							(ReportingFinance.ProfLosBase[month] - ReportingFinance.ProfLosPrev2[month]));
+					System.out.println();
+				}
 			}else if (ans == 2) {
-				if (years[month][3] > years[month][ans]) {
-					System.out.printf("Profits of current year are %f MORE than 1 year ago \n",years[month][3] - years[month][ans]);
-				}else if (years[month][3] < years[month][ans]) {
-					System.out.printf("Profits of current year are %f LESS than 1 year ago \n",years[month][ans] - years[month][3]);
-				}else System.out.println("Profits of current year are equal to those 1 year ago" + years[month][ans]);
-				
-			}else {
-				if (years[month][3] > goals[month]) {
-					System.out.printf("Profits of current year are %f MORE than goal \n",years[month][3] - goals[month]);
-				}else if (years[month][3] < goals[month]) {
-					System.out.printf("Profits of current year are %f LESS goal \n",goals[month] - years[month][3]);
-				}else System.out.println("Profits of current year are equal to goal" + years[month][ans]);
+				if ( ReportingFinance.ProfLosBase[month] > ReportingFinance.ProfLosPrev[month]) {
+					System.out.println("Profits of current year are More than 1 years ago by: " + 
+							(ReportingFinance.ProfLosBase[month] - ReportingFinance.ProfLosPrev[month]));
+					System.out.println();
+				}else {
+					System.out.println("Profits of current year are Less than 1 years ago by: " + 
+							(ReportingFinance.ProfLosBase[month] - ReportingFinance.ProfLosPrev[month]));
+					System.out.println();
+				}
+			}else if (ans == 3) {
+				System.out.println("Currents profits: " + ReportingFinance.ProfLosBase[month] + "\nGoal: " + 
+									goals[month]);
+				System.out.println();
 			}
 		}catch(IndexOutOfBoundsException e) {
 			System.out.println("ERROR.");
@@ -88,6 +109,12 @@ public class Goals {
 		}
 		
 	}
+	
+	/**
+	 * 
+	 *This method loads up the goals from the user for every month of the year.
+ 	 *
+	 */
 	
 	public static void loadgoals(double ja, double feb, double mar, double ap, double may,
 			double june, double july, double au, double se, double oc,
@@ -107,3 +134,4 @@ public class Goals {
 		
 	}
 }
+
