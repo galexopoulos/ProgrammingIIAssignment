@@ -27,7 +27,7 @@ public class mainClass {
 		 * Thread tWeek = new Thread(new weekThread()); Thread tMonth = new Thread(new
 		 * monthThread()); tWeek.start(); tMonth.start();
 		 */
-	/*	Reporting.loadobjects();
+		/*Reporting.loadobjects();
 		Inventory.loadobjects();
 		SalesMenu.Sales_LoadObjects();
 		Hr_surface.loadobjects();
@@ -51,7 +51,6 @@ public class mainClass {
 		MO_arxeia.parsimo_Room();
 		Employee.setAdd(Employee.parsimo());
 		Arxeia_perakis.parsimo_reporting();
-		SIDER_ARXEIA.Emfanish();
 		while (flag1) {
 					InputMenu();
 		}
