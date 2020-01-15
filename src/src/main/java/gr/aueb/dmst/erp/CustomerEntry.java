@@ -1,3 +1,5 @@
+package src.main.java.gr.aueb.dmst.erp;
+
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
