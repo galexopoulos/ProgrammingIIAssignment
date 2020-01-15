@@ -1102,8 +1102,8 @@ public class Hr_Director extends Manager {
 					System.out.printf("The employee has already worked %d hours this week\n",
 							Employee.Employees.get(x).getWresyperergasias_evdomadiaiws());
 					continue;
-				} else if (epilogh < 1) {
-					System.out.println("Insert an Integer greater than zero.");
+				} else if (epilogh < 0) {
+					System.out.println("Insert an Integer, zero or higher.");
 					continue;
 				} else {
 					somethingWrong = false;

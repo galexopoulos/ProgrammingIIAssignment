@@ -1,5 +1,10 @@
 package src.main.java.gr.aueb.dmst.erp;
 import java.io.Serializable;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.PrintWriter;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.DateTimeException;
@@ -292,6 +297,15 @@ public class Employee implements Serializable {
 		this.lastChecked = lastChecked;
 	}
 
+	/** Getter of add.*/
+	public static int getAdd() {
+		return add;
+	}
+
+	/** Setter of add.*/
+	public static void setAdd(int add) {
+		Employee.add = add;
+	}
 
 	/**
 	 * The method that prints the basic characteristics of an Employee, except of
@@ -739,6 +753,39 @@ public class Employee implements Serializable {
 		} else {
 			System.out.println("Already checked out.");
 		}
+	}
+	
+	/** 
+	 * Method used for saving the variable add at files.
+	 * @param x the new value of add
+	 * @throws IOException
+	 */
+	public static void grapsimo(int x) throws IOException {
+		Scanner scanner = new Scanner(System.in);
+		FileWriter outFile = new FileWriter("info.txt", true);
+		PrintWriter out = new PrintWriter(outFile);
+		out.println(x);
+		out.close();
+		outFile.close();
+	}
+	
+	/** Method used for getting the variable add from files.*/
+	public static int parsimo() {
+		int [] tall = new int [100];
+		int i = 0;
+		File file = new File("info.txt");
+	
+		try {
+			Scanner s1 = new Scanner(file);
+			while (s1.hasNextInt()) {
+				tall[i++] = s1.nextInt();				
+			}
+			return tall[i-1];
+
+		} catch (FileNotFoundException e) {
+			System.out.println("Exception");
+		}
+		return 0;
 	}
 
 }

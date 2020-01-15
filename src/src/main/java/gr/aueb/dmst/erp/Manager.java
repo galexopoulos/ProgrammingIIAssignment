@@ -669,8 +669,8 @@ public class Manager extends Employee {
 					System.out.printf("The employee has already worked %d hours this week\n",
 							Employee.Employees.get(x).getWresyperergasias_evdomadiaiws());
 					continue;
-				} else if (epilogh < 1) {
-					System.out.println("Insert an Integer greater than zero.");
+				} else if (epilogh < 0) {
+					System.out.println("Insert an Integer, zero or higher.");
 					continue;
 				} else {
 					somethingWrong = false;
@@ -756,12 +756,15 @@ public class Manager extends Employee {
 					}
 					int dayAtFirst = dayShift[i].get(Calendar.DAY_OF_WEEK);
 					dayShift[i].add(Calendar.HOUR_OF_DAY, extraHours);
-					int dayAtEnd = dayShift[i].get(Calendar.DAY_OF_WEEK);
+					dayShift[i].add(Calendar.SECOND, -59); // for shifts that reach 24:00
+					int dayAtEnd = dayShift[i].get(Calendar.DAY_OF_WEEK);	
 					if (dayAtFirst == dayAtEnd) {
 						dayShift[i].add(Calendar.HOUR_OF_DAY, -extraHours);
+						dayShift[i].add(Calendar.SECOND, 59);
 						return i;
 					} else {
 						dayShift[i].add(Calendar.HOUR_OF_DAY, -extraHours);
+						dayShift[i].add(Calendar.SECOND, 59);
 						System.out.println("Mistake with the inserted value (overpassed midnight)");
 						midnightError = true;
 						break;

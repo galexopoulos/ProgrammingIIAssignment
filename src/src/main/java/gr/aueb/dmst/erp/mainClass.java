@@ -38,12 +38,18 @@ public class mainClass {
 		Arxeia_perakis.grapsimo_reporting();
 		MO_arxeia.grapsimo_Booking();
 		MO_arxeia.grapsimo_Room();
-		Arxeia_markou.grapsimo_Inventory();*/
+		Arxeia_markou.grapsimo_Inventory();
+		try{
+			Employee.grapsimo(Employee.getAdd());
+		}catch (IOException ioe) {
+			System.out.println ("Error with the files");
+		}*/
 		
 		SIDER_ARXEIA.parsimo_Employees();
 		Arxeia_markou.parsimo_Inventory();
 		MO_arxeia.parsimo_Booking();
 		MO_arxeia.parsimo_Room();
+		Employee.setAdd(Employee.parsimo());
 		Arxeia_perakis.parsimo_reporting();
 		SIDER_ARXEIA.Emfanish();
 		while (flag1) {
@@ -62,9 +68,8 @@ public class mainClass {
 	//}
 
 	/** user chooses one of the options from the starting menu */
-	public static void InputMenu() {
+		public static void InputMenu() {
 		Scanner in = new Scanner(System.in);
-		System.out.println(Employee.Employees.get(1).getThisWeekShift()[0]);
 		display_menu();
 		int epilogh = 0;
 		boolean flag2 = false;
@@ -99,7 +104,7 @@ public class mainClass {
 
 		case 3:
 			System.out.println("WELCOME TO FINANCE AND REPORTING DEPARTMENT!");
-	//		Reporting.Menu();
+			Reporting.Menu();
 			break;
 		case 4:
 			System.out.println("WELCOME TO INVENTORY MANAGMENT DEPARTMENT!");
@@ -125,6 +130,11 @@ public class mainClass {
 			Arxeia_markou.grapsimo_Inventory();
 			MO_arxeia.grapsimo_Booking();
 			MO_arxeia.grapsimo_Room();
+			try{
+				Employee.grapsimo(Employee.getAdd());
+			}catch (IOException ioe){
+				System.out.println("Error with the files.");
+			}
 			flag1 = false;
 			break;
 		default:
