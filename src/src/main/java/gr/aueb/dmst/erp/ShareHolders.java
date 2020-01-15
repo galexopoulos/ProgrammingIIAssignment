@@ -164,6 +164,14 @@ public class ShareHolders implements Serializable {
 		}
 		
 	}
+
+	public static ArrayList<ShareHolders> getShareholders() {
+		return shareholders;
+	}
+
+	public static void setShareholders(ArrayList<ShareHolders> shareholders) {
+		ShareHolders.shareholders = shareholders;
+	}
 	
 }
 

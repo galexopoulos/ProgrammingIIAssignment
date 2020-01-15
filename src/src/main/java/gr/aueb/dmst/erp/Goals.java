@@ -16,22 +16,23 @@ public class Goals {
 	
 	public static void menu() {
 		Scanner sc = new Scanner(System.in);
-		System.out.println("--------------------------------- GOALS MENU ---------------------------------------"
-				+ "\n If you want to compare current year with the results from 3 years ago press: 0 "
-				+ "\n If you want to compare current year with the results from 2 years ago press: 1 "
-				+ "\n If you want to compare current year with the previous year press:            2 "
-				+ "\n If you want to compare current year with current year's goals press:         3 "
-				+ "\n If you want to exit press:                                                  -1 ");
-		
-		int ans ;
-		boolean flag = true;
+		boolean flag;
 		do {
+				flag = false;
+			System.out.println("--------------------------------- GOALS MENU ---------------------------------------"
+					+ "\n If you want to compare current year with the results from 3 years ago press: 0 "
+					+ "\n If you want to compare current year with the results from 2 years ago press: 1 "
+					+ "\n If you want to compare current year with the previous year press:            2 "
+					+ "\n If you want to compare current year with current year's goals press:         3 "
+					+ "\n If you want to exit press:                                                  -1 ");
+			
+			int ans ;
 			try {
 				ans = sc.nextInt();
 				if(ans == -1){
 					System.out.println("Reconnecting you to Finance main menu...");
-					ReportingFinance.getMenu();
 				}else if(ans == 0 || ans == 1 || ans == 2 || ans == 3){
+					flag = true;
 					System.out.println("Please type the month (number 1-12) you want to compare: ");
 					
 					int ans2;
@@ -51,17 +52,16 @@ public class Goals {
 								}
 							}
 					}while(flag2);
-					flag = false;
 				}else {
 					System.err.println("Please insert a valid answer.");
 				}
 			}catch(Exception e) {
 				System.err.println("Wrong input, please try again.");
 				System.out.println();
-				menu();
+				flag = true;
+				sc.nextLine();
 			}
 		}while(flag);
-		menu();
 	}
 	
 	public static void comparison(int ans, int month) { // ans einai to year pou thelei na sigrinei

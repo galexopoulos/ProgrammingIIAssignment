@@ -118,6 +118,8 @@ public class ReportingFinance { //This class must be called once a month.
 		
 		public static void getMenu() {
 			Scanner sc = new Scanner(System.in);
+			boolean flag = true;
+			do {
 			System.out.println("------------------ MENU FINANCE ---- " + getDate() +" --------"
 					+ "\n 1. Proceeds - Εxpenses - Profits - Losses" 
 					+ "\n 2. TAX liabilities "
@@ -129,8 +131,6 @@ public class ReportingFinance { //This class must be called once a month.
 					+ "\n ------------------------------------------------------------------"); 
 			
 			int ans = 0;
-			boolean flag = true;
-			do {
 				try {
 					ans = sc.nextInt();
 					if (ans == 0) {
@@ -200,13 +200,12 @@ public class ReportingFinance { //This class must be called once a month.
 					System.out.println("Wrong input, please try again.");
 					System.out.println("Reconnecting to homepage...");
 					ReportingFinance.getMenu();
-				}catch(Exception e) {
-					System.out.println("Something went wrong.");
-					System.out.println("Reconnecting to homepage...");
-					ReportingFinance.getMenu();
-				}
+				}//catch(Exception e) {
+					//System.out.println("Something went wrong.");
+					//System.out.println("Reconnecting to homepage...");
+					//ReportingFinance.getMenu();
+				//}
 			}while(flag);
-			Reporting.Menu();
 		}
 		
 		/**

@@ -778,9 +778,9 @@ public class Employee implements Serializable {
 		try {
 			Scanner s1 = new Scanner(file);
 			while (s1.hasNextInt()) {
-				tall[i++] = s1.nextInt();				
+				tall[i] = s1.nextInt();				
 			}
-			return tall[i-1];
+			return tall[i];
 
 		} catch (FileNotFoundException e) {
 			System.out.println("Exception");

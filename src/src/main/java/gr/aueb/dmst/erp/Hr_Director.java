@@ -883,7 +883,7 @@ public class Hr_Director extends Manager {
 								manager.setPassword(password);
 								manager.setSalary(salary);
 								manager.setManager((Manager) Employee.Employees.get(mngrPosition));
-								System.out.println("Succesfully saved. /n" + manager.toString());
+								System.out.println("Succesfully saved. \n" + manager.toString());
 								flag1 = false;
 							} else if (verify.toLowerCase().equals("no")) {
 								System.out.println("Manager has not been saved.");

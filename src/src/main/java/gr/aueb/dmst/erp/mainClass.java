@@ -159,6 +159,7 @@ public class mainClass {
 	/** contains the actions we want to do at the start of every month */
 	public static void toBeDoneEveryMonth() {
 		Hr_surface.toBeDoneEveryMonth();
+		Reporting.toBeDoneEveryMonth();
 	}
 
 	

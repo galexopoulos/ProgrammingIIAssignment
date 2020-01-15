@@ -1,6 +1,5 @@
 package src.main.java.gr.aueb.dmst.erp;
 
-
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -37,8 +36,8 @@ public class Arxeia_perakis {
 		try {
 			FileInputStream fis = new FileInputStream("customer.ser");
 			ObjectInputStream ois = new ObjectInputStream(fis);
-			Inventory.setFixedInventory((ArrayList) ois.readObject());
-			// Inventory.setFixedInventory((ArrayList) ois.readObject());
+			ReportingClients.setCoustomerBase((ArrayList) ois.readObject()); // Inventory.setFixedInventory((ArrayList)
+																				// ois.readObject());
 			ois.close();
 			fis.close();
 		} catch (IOException ioe) {
@@ -52,7 +51,7 @@ public class Arxeia_perakis {
 		try {
 			FileInputStream fis = new FileInputStream("shareholders.ser");
 			ObjectInputStream ois = new ObjectInputStream(fis);
-			Inventory.setUrgentInventory((ArrayList) ois.readObject());
+			ShareHolders.setShareholders((ArrayList) ois.readObject());
 			// Inventory.setFixedInventory((ArrayList) ois.readObject());
 			ois.close();
 			fis.close();

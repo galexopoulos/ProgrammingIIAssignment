@@ -192,5 +192,10 @@ public class ReportingClients implements Serializable {
 				+ ", payment=" + payment + ", family_alone_friends=" + family_alone_friends + ", daysofstay="
 				+ daysofstay + ", reasonfortravel=" + reasonfortravel + ", email=" + email + ", know=" + know + "]";
 	}
+
+	public static void setCoustomerBase(ArrayList<ReportingClients> coustomerBase) {
+		ReportingClients.coustomerBase = coustomerBase;
+	}
+	
 	
 }
