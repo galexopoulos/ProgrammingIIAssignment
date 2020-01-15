@@ -273,7 +273,7 @@ public class Inventory implements Serializable {
 	 */
 	public static double[] getInvFixFin() {
 		double x[] = new double[fixedInventory.size()];
-		for (int i = 0; i <= fixedInventory.size(); i++) {
+		for (int i = 0; i < fixedInventory.size(); i++) {
 			x[i] = fixedInventory.get(i).balance;
 		}
 		return x;
@@ -283,7 +283,7 @@ public class Inventory implements Serializable {
 	 * Resets the balances for the prodcts(Has to be used after getInvFixFin()
 	 */
 	public static void setInvFixFin() {
-		for (int i = 0; i <= urgentInventory.size(); i++) {
+		for (int i = 0; i < urgentInventory.size(); i++) {
 			urgentInventory.get(i).setBalance(0);
 		}
 	}
@@ -373,7 +373,7 @@ public class Inventory implements Serializable {
 	 */
 	public static double[] getInvUrgFin() {
 		double x[] = new double[urgentInventory.size()];
-		for (int i = 0; i <= fixedInventory.size(); i++) {
+		for (int i = 0; i < fixedInventory.size(); i++) {
 			x[i] = urgentInventory.get(i).balance;
 		}
 		return x;
@@ -383,7 +383,7 @@ public class Inventory implements Serializable {
 	 * Resets the balances for the prodcts(Has to be used after getInvUrgFin()
 	 */
 	public static void setInvUrgFin() {
-		for (int i = 0; i <= urgentInventory.size(); i++) {
+		for (int i = 0; i < urgentInventory.size(); i++) {
 			urgentInventory.get(i).setBalance(0);
 		}
 	}

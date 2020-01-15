@@ -1,14 +1,17 @@
-package src.main.java.gr.aueb.dmst.erp;
 import java.util.ArrayList;
 public class AccountCustomers {
-	
+	/** 
+	 *This class Creates Accounts for every customer that needs one. Necessity for Customer Entry.
+	 * @author Georgios Alkis Alexopoulos,
+	 */
 	private Membership membershipCode;
 	private String username;
 	private String password;
 	private double totalpayment;
-	private static int counteracc;
+	private static int counteracc = -1;
 	private String id;
 
+	static ArrayList<AccountCustomers> accCustomerBase = new ArrayList<AccountCustomers>();
 	
 	public AccountCustomers(String username, String password, double totalpayment, String id, Membership membershipCode) { 
 	    this.username = username;
@@ -16,6 +19,7 @@ public class AccountCustomers {
 	    this.totalpayment = totalpayment;
 	    this.id = id;
 	    this.membershipCode = membershipCode;
+	    accCustomerBase.add(this);
 	    counteracc++;
 	    
 	}
