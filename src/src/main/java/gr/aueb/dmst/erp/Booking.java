@@ -65,7 +65,7 @@ public class Booking implements Serializable {
 		this.checkOut = checkOut;
 		LocalDate in = checkIn.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 		LocalDate out = checkOut.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-		this.nights = (int) ChronoUnit.DAYS.between(in, out);
+		this.nights = (int) ChronoUnit.DAYS.between(in, out) + 1;
 		// count
 		// nights
 		// for a
@@ -551,6 +551,7 @@ public class Booking implements Serializable {
 				Booking b1 = null;
 				boolean already = false;
 				boolean found = false;
+				int roomFound = 0;
 				for (Room room : Room.getRooms()) {
 					for (Booking book : bookings.get(room.getRoomNumber() - 1)) { // for every booking
 						if (book.bookingCode == codeIn) { // check if it the same code
@@ -562,6 +563,7 @@ public class Booking implements Serializable {
 									|| today1.getTime().after(book.checkIn)) { // check if its is the time
 								// for check in
 								if (book.checkedIn == false) { // check if this booking has already checked in
+									roomFound = room.getRoomNumber();
 									book.checkedIn = true;
 									b1 = book;
 								} else {
@@ -576,7 +578,15 @@ public class Booking implements Serializable {
 						}
 					}
 				}
-				if (already == true) {
+				boolean otherRoomIn = false;
+				for (Booking book : bookings.get(roomFound - 1)) {
+					if (book.checkedIn) {
+						otherRoomIn = true;
+					}
+				}
+				if (otherRoomIn) {
+					System.out.println("There is an other Booking in this room! Wait to check out!\n");
+				} else if (already == true) {
 					System.out.println("This booking has already Checked In!\n");
 				} else if (found == false) {
 					System.out.println("No booking with this code!\n");
