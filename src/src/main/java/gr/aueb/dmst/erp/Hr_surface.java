@@ -1,5 +1,6 @@
 package src.main.java.gr.aueb.dmst.erp;
 import java.util.Scanner;
+import java.util.Calendar;
 import java.util.InputMismatchException;
 
 /**
@@ -559,6 +560,61 @@ public class Hr_surface {
 		Employee Margaret = new Employee("Margaret", "Thatcher", "Queen", "obey", 1250, Dumbledore);
 		Employee Angela = new Employee("Angela", "Merkel", "chancellor", "ichheissemerkel", 1200, Dumbledore);
 		Employee Agatha = new Employee("Agatha", "Christie", "Author", "missmarple", 1200, Petreas);
+		
+		String[] shift = { "9:00-17:00", "1:00-9:00", "-", "7:00-14:00", "19:00-", "-1:00,12:00-13:00", "-",
+		"11:00-17:00" };
+		Calendar[][] shiftcal = { null, null, null, null, null, null, null };
+		try {
+			shiftcal = Shift.createShift(shift);
+		} catch (ShiftException a) {
+			System.out.println("wrong1 " + a);
+		}
+		Barney.setShiftStr(shift);
+		Barney.setThisWeekShift(shiftcal);
+		Kobe.setShiftStr(shift);
+		Kobe.setThisWeekShift(shiftcal);
+		Petreas.setShiftStr(shift);
+		Petreas.setThisWeekShift(shiftcal);
+		Dumbledore.setShiftStr(shift);
+		Dumbledore.setThisWeekShift(shiftcal);
+		Leo.setShiftStr(shift);
+		Leo.setThisWeekShift(shiftcal);
+		String[] shift2 = { "12:00-17:00", "16:00-", "-8:00", "12:00-20:00", "7:00-14:00", "9:01-17:00",
+				"23:00-23:30,23:31-23:45,23:46-23:47,23:48-23:49", "12:00-13:00" };
+		try {
+			shiftcal = Shift.createShift(shift2);
+		} catch (ShiftException a) {
+			System.out.println("wrong2 " + a);
+		}
+		Rachel.setShiftStr(shift2);
+		Rachel.setThisWeekShift(shiftcal);
+		Ivan.setShiftStr(shift2);
+		Ivan.setThisWeekShift(shiftcal);
+		Rick.setShiftStr(shift2);
+		Rick.setThisWeekShift(shiftcal);
+		NF.setShiftStr(shift2);
+		NF.setThisWeekShift(shiftcal);
+		Ron.setShiftStr(shift2);
+		Ron.setThisWeekShift(shiftcal);
+		Lionel.setShiftStr(shift2);
+		Lionel.setThisWeekShift(shiftcal);
+		String[] shift3 = { "7:00-14:00", "7:00-14:00", "7:00-14:00", "7:00-14:00", "7:00-14:00", "-", "-",
+		"7:00-14:00" };
+		try {
+			shiftcal = Shift.createShift(shift3);
+		} catch (ShiftException a) {
+			System.out.println("wrong3 " + a);
+		}
+		Cristiano.setShiftStr(shift3);
+		Cristiano.setThisWeekShift(shiftcal);
+		Margaret.setShiftStr(shift3);
+		Margaret.setThisWeekShift(shiftcal);
+		Angela.setShiftStr(shift3);
+		Angela.setThisWeekShift(shiftcal);
+		Agatha.setShiftStr(shift3);
+		Agatha.setThisWeekShift(shiftcal);
+		
+				
 
 	}
 }
