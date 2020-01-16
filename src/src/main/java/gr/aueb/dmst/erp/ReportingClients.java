@@ -1,5 +1,10 @@
-	package src.main.java.gr.aueb.dmst.erp;
+package src.main.java.gr.aueb.dmst.erp;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.io.Serializable;
 
 /**
@@ -9,6 +14,7 @@ import java.io.Serializable;
  */
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class ReportingClients implements Serializable {
 
@@ -17,7 +23,7 @@ public class ReportingClients implements Serializable {
 	private int satisfuction; // apo 0 eos 5
 	private double payment;
 	private int family_alone_friends;
-    private int daysofstay;
+	private int daysofstay;
 	private int reasonfortravel;
 	private String email;
 	private int know;
@@ -37,36 +43,42 @@ public class ReportingClients implements Serializable {
 		this.satisfuction = satisfuction;
 		this.payment = payment;
 		this.family_alone_friends = family;
-        this.daysofstay = daysofstay;
+		this.daysofstay = daysofstay;
 		this.reasonfortravel = reasonfortravel;
 		this.email = email;
 		this.know = know;
 		coustomerBase.add(this);
-        counter_st++;
+		counter_st++;
 	}
 
 	public void setDaysofstay(int daysofstay) {
 		this.daysofstay = daysofstay;
 	}
 
-	public static int getCounter_st(){
+	public static int getCounter_st() {
 		return counter_st;
-		}
+	}
+
 	public int getKnow() {
 		return know;
 	}
+
 	public void setKnow(int know) {
 		this.know = know;
 	}
-    public String getEmail() {
-    	return email;
-    }
-    public void setEmail(String email) {
-    	this.email = email;
-    }
-    public int getDaysofstay() {
-    	return daysofstay;
-    }
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public int getDaysofstay() {
+		return daysofstay;
+	}
+
 	public String getName() {
 		return name;
 	}
@@ -128,8 +140,7 @@ public class ReportingClients implements Serializable {
 			for (ReportingClients i : ReportingClients.coustomerBase) {
 				s += i.getSatisfuction();
 			}
-			System.out.println("Average Satisfaction:"
-					+ s / ReportingClients.coustomerBase.size());
+			System.out.println("Average Satisfaction:" + s / ReportingClients.coustomerBase.size());
 		} catch (Exception e) {
 			System.out.println("No clients available.");
 		}
@@ -141,8 +152,7 @@ public class ReportingClients implements Serializable {
 			for (ReportingClients i : ReportingClients.coustomerBase) {
 				s += i.getDaysofstay();
 			}
-			System.out.println("Average days of stay:"
-					+ s / ReportingClients.coustomerBase.size());
+			System.out.println("Average days of stay:" + s / ReportingClients.coustomerBase.size());
 		} catch (Exception e) {
 			System.out.println("No clients available.");
 		}
@@ -154,8 +164,7 @@ public class ReportingClients implements Serializable {
 			for (ReportingClients i : ReportingClients.coustomerBase) {
 				s += i.getPayment();
 			}
-			System.out.println("Average of payments is:"
-					+ s / ReportingClients.coustomerBase.size());
+			System.out.println("Average of payments is:" + s / ReportingClients.coustomerBase.size());
 		} catch (Exception e) {
 			System.out.println("No payments available.");
 		}
@@ -175,11 +184,11 @@ public class ReportingClients implements Serializable {
 					s3++;
 				}
 			}
-			System.out.printf("Average of clients that came alone is: %f \n"
-					+ "Average of clients that came with their family is: %f \n"
-					+ "Average of clients that came with their friends is: %f ",
-					s1 / (s1 + s2 + s3), s2 / (s1 + s2 + s3),
-					s3 / (s1 + s2 + s3));
+			System.out.printf(
+					"Average of clients that came alone is: %f \n"
+							+ "Average of clients that came with their family is: %f \n"
+							+ "Average of clients that came with their friends is: %f ",
+					s1 / (s1 + s2 + s3), s2 / (s1 + s2 + s3), s3 / (s1 + s2 + s3));
 			System.out.println();
 		} catch (Exception e) {
 			System.out.println("No clients available.");
@@ -196,6 +205,37 @@ public class ReportingClients implements Serializable {
 	public static void setCoustomerBase(ArrayList<ReportingClients> coustomerBase) {
 		ReportingClients.coustomerBase = coustomerBase;
 	}
-	
-	
+
+	public static void setCounter_st(int counter_st) {
+		ReportingClients.counter_st = counter_st;
+	}
+
+	public static void grapsimoReportingClientsCounter(int x) throws IOException {
+		Scanner scanner = new Scanner(System.in);
+		FileWriter outFile = new FileWriter("ReportingClientsCounter.txt", true);
+		PrintWriter out = new PrintWriter(outFile);
+		out.println(x);
+		out.close();
+		outFile.close();
+	}
+
+	/** Method used for getting the variable add from files. */
+	public static int parsimoReportingClientsCounter() {
+		int[] tall = new int[2];
+		int i = 0;
+		File file = new File("ReportingClientsCounter.txt");
+
+		try {
+			Scanner s1 = new Scanner(file);
+			while (s1.hasNextInt()) {
+				tall[i] = s1.nextInt();
+			}
+			return tall[i];
+
+		} catch (FileNotFoundException e) {
+			System.out.println("Exception");
+		}
+		return 0;
+	}
+
 }
