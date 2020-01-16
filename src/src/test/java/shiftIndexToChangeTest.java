@@ -21,8 +21,10 @@ class shiftIndexToChangeTest {
 		}
 		Calendar day = Calendar.getInstance();
 		int i = day.get(Calendar.DAY_OF_WEEK) - 1;
-		int output = src.main.java.gr.aueb.dmst.erp.Manager.shiftIndexToChange(1, shiftcal[i]); 
-		assertEquals(1, output);
+		int output = src.main.java.gr.aueb.dmst.erp.Manager.shiftIndexToChange(3, shiftcal[i]); 
+		//it is -1 because it overpasses midnight, we don't do a check with outcome different than -1 because
+		//the method is related to the time the program runs and we want to run it any time
+		assertEquals(-1, output);
 	}
 
 }

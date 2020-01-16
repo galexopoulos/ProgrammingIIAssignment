@@ -78,7 +78,7 @@ public class Room implements Serializable {
 			case 1:
 				for (Room room : getRooms()) { // print for every room
 					System.out.println("Room no." + room.roomNumber + "\n" + "floor : " + room.floor + "\tcapacity : "
-							+ room.capacity + "\tprice per night : " + room.pricePerNight + "€\n");
+							+ room.capacity + "\tprice per night : " + room.pricePerNight + "$\n");
 				}
 				break;
 			case 2:
