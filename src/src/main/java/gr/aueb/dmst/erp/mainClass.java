@@ -152,6 +152,13 @@ public class mainClass {
 			MO_arxeia.grapsimo_Room();
 			try {
 				Employee.grapsimo(Employee.getAdd());
+				/* MARKOU 2 */ Inventory.grapsimoInventory(Inventory.getBuffet(), Inventory.getBuffetbalance());
+				/* PERAKIS 1 */ ReportingClients.grapsimoReportingClientsCounter(ReportingClients.getCounter_st());
+				/* PERAKIS 1 */ ShareHolders.grapsimoShareHolders(ShareHolders.getCounter());
+				/* MO 2 */ Booking.grapsimoBooking(Booking.getCounter(), Booking.getGetChecks());
+				/* MO 1 */ Room.grapsimocounter(Room.getCounter());
+				/* ALEXO 1 */ AccountCustomers.grapsimoAccountCustomer(AccountCustomers.getCounteracc());
+
 			} catch (IOException ioe) {
 				System.out.println("Error with the files.");
 			}
