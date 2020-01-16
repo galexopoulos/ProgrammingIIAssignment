@@ -202,7 +202,7 @@ public class Booking implements Serializable {
 					if (f2) { // print available rooms
 						System.out.println("Room's number : " + Room.getRooms().get(i).getRoomNumber() + "\tFloor :"
 								+ Room.getRooms().get(i).getFloor() + "\tPrice per night :"
-								+ Room.getRooms().get(i).getPricePerNight() + "€");
+								+ Room.getRooms().get(i).getPricePerNight() + "$");
 						f1 = true; // at least one room available
 					}
 					if (f2) {
@@ -482,7 +482,7 @@ public class Booking implements Serializable {
 							System.out.println("Only valid answers are 'YES' and 'NO'!");
 						}
 						System.out.println("If buffet is included to the "
-								+ "booking type 'YES' if it's not type 'NO' (Extra 12 € charge per day) : ");
+								+ "booking type 'YES' if it's not type 'NO' (Extra 12 $ charge per day) : ");
 						String answer = sc.nextLine();
 						if (answer.toLowerCase().equals("yes")) {
 							buffet = true;
@@ -517,7 +517,7 @@ public class Booking implements Serializable {
 						a.check = CustomerEntry.Entry(a.nights, a.check);
 						System.out
 								.println("The booking with code : " + a.bookingCode + " in the room no." + a.roomNumber
-										+ " and check : " + a.check + "€" + "\n has been completed successfully!\n ");
+										+ " and check : " + a.check + "$" + "\n has been completed successfully!\n ");
 					} else {
 						System.out.println("No booking created!\n");
 					}
@@ -683,7 +683,7 @@ public class Booking implements Serializable {
 					b2.checkOut = today2.getTime();
 					bookings.get(roomNumFound - 1).remove(b2);
 					System.out.println("Room : " + b2.roomNumber + ", with Booking Code : " + b2.bookingCode
-							+ ", Checked Out with final check : " + b2.check + "€" + ", at :" + b2.checkOut + "\n");
+							+ ", Checked Out with final check : " + b2.check + "$" + ", at :" + b2.checkOut + "\n");
 				}
 				break;
 			case 4:
@@ -717,7 +717,7 @@ public class Booking implements Serializable {
 							if (booking.checkedIn == false) { // if the room has not checked in
 								getChecks -= booking.check; // reduce the general earnings
 								System.out.println("Booking with code : " + booking.bookingCode + " in the room no."
-										+ booking.roomNumber + " and check : 0€" + " has been canceled!\n");
+										+ booking.roomNumber + " and check : 0$" + " has been canceled!\n");
 								bookings.get(room.getRoomNumber() - 1).remove(booking); // remove the booking
 							} else { // if the room has checked in
 								// calculate the reduced check
@@ -732,7 +732,7 @@ public class Booking implements Serializable {
 									booking.check = booking.computeCheck(booking.buffet);
 									getChecks -= oldCheck - booking.check;
 									System.out.println("Booking with code : " + booking.bookingCode + " in the room no."
-											+ booking.roomNumber + " and check : " + booking.check + "€"
+											+ booking.roomNumber + " and check : " + booking.check + "$"
 											+ " has been canceled and ready to Check Out!\n");
 									booking.checkOut = canceledCheckOut; // change checkOut;
 								} else {
@@ -791,8 +791,8 @@ public class Booking implements Serializable {
 											+ booking.checkIn + ", (checked in : " + booking.checkedIn + ")"
 											+ "\tCheck Out date : " + booking.checkOut + ", (checked out : "
 											+ booking.checkedOut + ")" + "\tBuffet : " + booking.buffet + "\nCheck : "
-											+ booking.check + "€" + "\t Extra expenses : " + booking.extraExpenses
-											+ "€\n");
+											+ booking.check + "$" + "\t Extra expenses : " + booking.extraExpenses
+											+ "$\n");
 									break;
 								}
 							}
@@ -832,7 +832,7 @@ public class Booking implements Serializable {
 									+ booking.checkIn + ", (checked in : " + booking.checkedIn + ")"
 									+ "\tCheck Out date : " + booking.checkOut + ", (checked out : "
 									+ booking.checkedOut + ")" + "\tBuffet : " + booking.buffet + "\nCheck : "
-									+ booking.check + "€" + "\t Extra expenses : " + booking.extraExpenses + "€\n");
+									+ booking.check + "$" + "\t Extra expenses : " + booking.extraExpenses + "$\n");
 
 						}
 						if (counter9 > 0) { // print the sum of the bookings
@@ -875,8 +875,8 @@ public class Booking implements Serializable {
 											+ booking.checkIn + ", (checked in : " + booking.checkedIn + ")"
 											+ "\tCheck Out date : " + booking.checkOut + ", (checked out : "
 											+ booking.checkedOut + ")" + "\tBuffet : " + booking.buffet + "\nCheck : "
-											+ booking.check + "€" + "\t Extra expenses : " + booking.extraExpenses
-											+ "€\n");
+											+ booking.check + "$" + "\t Extra expenses : " + booking.extraExpenses
+											+ "$\n");
 									break;
 								}
 							}
@@ -900,7 +900,7 @@ public class Booking implements Serializable {
 										+ booking.checkIn + ", (checked in : " + booking.checkedIn + ")"
 										+ "\tCheck Out date : " + booking.checkOut + ", (checked out : "
 										+ booking.checkedOut + ")" + "\tBuffet : " + booking.buffet + "\nCheck : "
-										+ booking.check + "€" + "\t Extra expenses : " + booking.extraExpenses + "€\n");
+										+ booking.check + "$" + "\t Extra expenses : " + booking.extraExpenses + "$\n");
 
 							}
 							if (counter11 > 0) {
