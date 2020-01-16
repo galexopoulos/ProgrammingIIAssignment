@@ -236,22 +236,6 @@ public class Reporting {
 		ShareHolders sh2 = new ShareHolders("olympiakos", "eisaistomialokatimagiko7");
 		ShareHolders sh3 = new ShareHolders("username", "passss12345");
 
-		Supplier s1 = new Supplier("s1", 1, "@1");
-		Supplier s2 = new Supplier("s2", 2, "@2");
-		Supplier s3 = new Supplier("s3", 3, "@3");
-		Supplier s4 = new Supplier("s4", 4, "@4");
-		Supplier s5 = new Supplier("s5", 5, "@5");
-		Inventory i1 = new Inventory("z1", 100, 5, 70, s1, "Fixed", 0);
-		Inventory i2 = new Inventory("z2", 150, 25, 20, s2, "Fixed", 0);
-		Inventory i3 = new Inventory("z3", 200, 50, 20, s3, "Fixed", 0);
-		Inventory i4 = new Inventory("z4", 120, 10, 10, s4, "Fixed", 0);
-		Inventory i5 = new Inventory("z5", 125, 20, 30, s5, "Fixed", 0);
-		Inventory iu1 = new Inventory("u1", 100, 5, 70, s1, "Urgent", 0);
-		Inventory iu2 = new Inventory("u2", 150, 25, 20, s2, "Urgent", 0);
-		Inventory iu3 = new Inventory("u3", 200, 50, 20, s3, "Urgent", 0);
-		Inventory iu4 = new Inventory("u4", 120, 10, 10, s4, "Urgent", 0);
-		Inventory iu5 = new Inventory("u5", 125, 20, 30, s5, "Urgent", 0);
-
 	}
 
 }
