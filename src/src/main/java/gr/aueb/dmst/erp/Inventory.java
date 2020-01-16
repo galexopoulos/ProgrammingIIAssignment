@@ -60,6 +60,7 @@ public class Inventory implements Serializable {
 						+ "4)To Update and check the Buffet please input 4\n5)To check the balances please input 5");
 		System.out.println("-------------------- CHOOSE A NUMBER BETWEEN 1 AND 5 --------------------");
 	}
+	
 
 	public static void question() {
 		Scanner q = new Scanner(System.in);
@@ -521,7 +522,19 @@ public class Inventory implements Serializable {
 	public static void setInvFixFin(ArrayList readObject) {
 
 	}
-
+	
+	public static int getBuffet() {
+		return buffet;
+	}
+	public static void setBuffet(int buffet) {
+		Inventory.buffet = buffet;
+	}
+	public static int getBuffetbalance() {
+		return buffetbalance;
+	}
+	public static void setBuffetbalance(int buffetbalance) {
+		Inventory.buffetbalance = buffetbalance;
+	}
 	@Override
 	public String toString() {
 		return "Inventory [type=" + type + ", name=" + name + ", stock=" + stock + ", pricepreunit=" + pricepreunit
