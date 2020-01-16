@@ -67,17 +67,9 @@ public class mainClass {
 				/* MARKOU 2 */ Inventory.grapsimoInventory(Inventory.getBuffet(), Inventory.getBuffetbalance());
 				/* PERAKIS 1 */ ReportingClients.grapsimoReportingClientsCounter(ReportingClients.getCounter_st());
 				/* PERAKIS 1 */ ShareHolders.grapsimoShareHolders(ShareHolders.getCounter());
-				/* MO 2 */ Booking.grapsimoBooking(Booking.getCounter(),Booking.getGetChecks());
+				/* MO 2 */ Booking.grapsimoBooking(Booking.getCounter(), Booking.getGetChecks());
 				/* MO 1 */ Room.grapsimocounter(Room.getCounter());
 				/* ALEXO 1 */ AccountCustomers.grapsimoAccountCustomer(AccountCustomers.getCounteracc());
-				System.out.println(Inventory.getBuffet()+" buffet");
-				System.out.println(Inventory.getBuffetbalance()+" buffetbalance");
-				System.out.println(ReportingClients.getCounter_st()+" Reporting counter");
-				System.out.println(ShareHolders.getCounter()+" Sharegolders counter");
-				System.out.println(Booking.getCounter()+" Booking counter");
-				System.out.println(Booking.getGetChecks()+ " booking getchcks");
-				System.out.println(Room.getCounter()+ " room counter");
-				System.out.println(AccountCustomers.getCounteracc()+ "accountcustomers counter");
 
 			} catch (IOException ioe) {
 				System.out.println("Error with the files.");
@@ -151,7 +143,7 @@ public class mainClass {
 			toBeDoneEveryMonth();
 			break;
 		case 7:
-			System.out.println("Goodbye");
+			System.out.println("Goodbye!");
 			// perasma arxeia
 			Arxeia_perakis.grapsimo_reporting();
 			SIDER_ARXEIA.grapsimo_Employees();
