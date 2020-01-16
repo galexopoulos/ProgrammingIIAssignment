@@ -1,5 +1,7 @@
 package src.main.java.gr.aueb.dmst.erp;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -973,6 +975,60 @@ public class Booking implements Serializable {
 		SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy, HH:mm:ss");
 		Date date = new Date(System.currentTimeMillis());
 		return formatter.format(date);
+	}
+
+	public static int getCounter() {
+		return counter;
+	}
+
+	public static void setCounter(int counter) {
+		Booking.counter = counter;
+	}
+
+	public static double getGetChecks() {
+		return getChecks;
+	}
+
+	public static void setGetChecks(double getChecks) {
+		Booking.getChecks = getChecks;
+	}
+	
+	
+	
+	public static int parsimocounter() {
+		int[] tall = new int[2];
+		int i = 0;
+		File file = new File("counter.txt");
+
+		try {
+			Scanner s1 = new Scanner(file);
+			while (s1.hasNextInt()) {
+				tall[i] = s1.nextInt();
+			}
+			return tall[i];
+
+		} catch (FileNotFoundException e) {
+			System.out.println("Exception");
+		}
+		return 0;
+	}
+
+	public static int parsimogetchecks() {
+		int[] tall = new int[2];
+		int i = 0;
+		File file = new File("getchecks.txt");
+
+		try {
+			Scanner s1 = new Scanner(file);
+			while (s1.hasNextInt()) {
+				tall[i] = s1.nextInt();
+			}
+			return tall[i];
+
+		} catch (FileNotFoundException e) {
+			System.out.println("Exception");
+		}
+		return 0;
 	}
 
 }
