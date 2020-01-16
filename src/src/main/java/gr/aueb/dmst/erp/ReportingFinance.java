@@ -9,28 +9,31 @@ import java.util.InputMismatchException;
 
 /**
  * 
- * @author Ioannis Alexios Perakis & Aggeliki Nina Kafouni 
+ * @author Ioannis Alexios Perakis & Aggeliki Nina Kafouni
  * 
- * This class offers to the user the benefit to have a briefing of 1. Income, expenses, profit, losses by pressing 1
- * at the menu of this class 2.Be notified of any tax liabilities by pressing 2 at the main menu of this class 3. Log
- * into shareholders class for the dividends if occur and last but not least 4. Sing up as a new investor by pressing
- * 4 at the main menu of this class.
+ *         This class offers to the user the benefit to have a briefing of 1.
+ *         Income, expenses, profit, losses by pressing 1 at the menu of this
+ *         class 2.Be notified of any tax liabilities by pressing 2 at the main
+ *         menu of this class 3. Log into shareholders class for the dividends
+ *         if occur and last but not least 4. Sing up as a new investor by
+ *         pressing 4 at the main menu of this class.
  *
  */
 
-public class ReportingFinance { //This class must be called once a month.
-		Scanner sc = new Scanner(System.in);
-		/**
-		 * electricity, watersupply, phone_internetSupply and wages are expenses that are computed below.
-		 */
-		private static double electricity; //logariasmos DEH
-		private static double waterSupply ; //logarismos EYDAP
-		private static double phone_internetSupply; //logariasmos tilefonou kai internet
-		private static double wages = 0; //misthoi
-		private static double cashAvailableAfterTaxes; //after taxes and Dividends
-		private static double cashAvailableBeforeTaxes;
-		private static int months = -1;
-		private static double totalexpenses ;
+public class ReportingFinance { // This class must be called once a month.
+	Scanner sc = new Scanner(System.in);
+	/**
+	 * electricity, watersupply, phone_internetSupply and wages are expenses that
+	 * are computed below.
+	 */
+	private static double electricity; // logariasmos DEH
+	private static double waterSupply; // logarismos EYDAP
+	private static double phone_internetSupply; // logariasmos tilefonou kai internet
+	private static double wages = 0; // misthoi
+	private static double cashAvailableAfterTaxes; // after taxes and Dividends
+	private static double cashAvailableBeforeTaxes;
+	private static int months = -1;
+	private static double totalexpenses;
 
 	private static final double TAXRATE = 0.23;
 	private static final double RATE = 0.25; // shareholders rate of payment
@@ -136,7 +139,7 @@ public class ReportingFinance { //This class must be called once a month.
 
 			int ans = 0;
 			boolean inputFlag;
-			ans = readInteger();
+			ans = Reporting.readInteger();
 			if (ans == 0) {
 				flag = false;
 			} else if (ans == 1) {
@@ -164,29 +167,29 @@ public class ReportingFinance { //This class must be called once a month.
 				int ja = -1, feb = -1, mar = -1, ap = -1, may = -1, june = -1, july = -1, au = -1, se = -1, oc = -1,
 						no = -1, dec = -1;
 				System.out.println("Set January Goal:");
-				ja = readInteger();
+				ja = Reporting.readInteger();
 				System.out.println("Set February Goal:");
-				feb = readInteger();
+				feb = Reporting.readInteger();
 				System.out.println("Set March Goal:");
-				mar = readInteger();
+				mar = Reporting.readInteger();
 				System.out.println("Set April Goal:");
-				ap = readInteger();
+				ap = Reporting.readInteger();
 				System.out.println("Set May Goal:");
-				may = readInteger();
+				may = Reporting.readInteger();
 				System.out.println("Set June Goal:");
-				june = readInteger();
+				june = Reporting.readInteger();
 				System.out.println("Set July Goal:");
-				july = readInteger();
+				july = Reporting.readInteger();
 				System.out.println("Set August Goal:");
-				july = readInteger();
+				july = Reporting.readInteger();
 				System.out.println("Set September Goal:");
-				se = readInteger();
+				se = Reporting.readInteger();
 				System.out.println("Set October Goal:");
-				oc = readInteger();
+				oc = Reporting.readInteger();
 				System.out.println("Set November Goal:");
-				no = readInteger();
+				no = Reporting.readInteger();
 				System.out.println("Set December Goal:");
-				dec = readInteger();
+				dec = Reporting.readInteger();
 				Goals.loadgoals(ja, feb, mar, ap, may, june, july, au, se, oc, no, dec);
 			}
 			if (ans > 6 || ans < 0) {
@@ -194,181 +197,160 @@ public class ReportingFinance { //This class must be called once a month.
 				System.out.println("To continue press one of the suggested numbers.");
 			}
 
-				//catch(Exception e) {
-					//System.out.println("Something went wrong.");
-					//System.out.println("Reconnecting to homepage...");
-					//ReportingFinance.getMenu();
-				//}
-			}while(flag);
-		}
-		
-		/**
-		 * 
-		 * Connects and gets the income of the hotel from the bookings via Booking.java and Room.java
-		 */
-		
-		public static double getProceeds() { 
-			if(Booking.getChecks > 0) {
-				return Booking.getChecks;
-			}else return 0;
-		}
-		
-		/**
-		 * 
-		 * Sums up the expenses of:
-		 * 1)Connects and gets the expenses of the hotel via Inventory.java and Supplier.java
-		 * 2)As well as the expenses of the hotel written above.
-		 */
-		
-		public static void getExpenses() { //This method is to used once per month
-			
-			Date date = new Date(System.currentTimeMillis());
-			Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("Europe/Athens"));
-			cal.setTime(date);
-			int month = cal.get(Calendar.MONTH);
-			int year = cal.get(Calendar.YEAR);
-			
-			fixInv = Inventory.getInvFixFin();
-			urgInv = Inventory.getInvUrgFin();
-			double sumFixInv = 0;
-			double sumUrgInv = 0;
-			try {	
-				for (int i = 0; i < fixInv.length; i++) {
-					sumFixInv += fixInv[i];
-				}
-				for (int i = 0; i < urgInv.length; i++ ) {
-					sumUrgInv += urgInv[i]; 
-				}
-			}catch(Exception w) {
-				System.out.println("Error -getExpenses()");
+			// catch(Exception e) {
+			// System.out.println("Something went wrong.");
+			// System.out.println("Reconnecting to homepage...");
+			// ReportingFinance.getMenu();
+			// }
+		} while (flag);
+	}
+
+	/**
+	 * 
+	 * Connects and gets the income of the hotel from the bookings via Booking.java
+	 * and Room.java
+	 */
+
+	public static double getProceeds() {
+		if (Booking.getChecks > 0) {
+			return Booking.getChecks;
+		} else
+			return 0;
+	}
+
+	/**
+	 * 
+	 * Sums up the expenses of: 1)Connects and gets the expenses of the hotel via
+	 * Inventory.java and Supplier.java 2)As well as the expenses of the hotel
+	 * written above.
+	 */
+
+	public static void getExpenses() { // This method is to used once per month
+
+		Date date = new Date(System.currentTimeMillis());
+		Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("Europe/Athens"));
+		cal.setTime(date);
+		int month = cal.get(Calendar.MONTH);
+		int year = cal.get(Calendar.YEAR);
+
+		fixInv = Inventory.getInvFixFin();
+		urgInv = Inventory.getInvUrgFin();
+		double sumFixInv = 0;
+		double sumUrgInv = 0;
+		try {
+			for (int i = 0; i < fixInv.length; i++) {
+				sumFixInv += fixInv[i];
 			}
-			totalexpenses = waterSupply + electricity + phone_internetSupply + wages + sumFixInv + sumUrgInv;
-			System.out.println("Total expenses of " + getCurrentMonth(month -1 ) + " " + year
-					+ " are " + totalexpenses + " "
-							+ "\n Water Supply bill:  " + waterSupply 
-							+ "\n Electrisity bill:   " + electricity 
-							+ "\n Telecommunications: " + phone_internetSupply
-							+ "\n Employees payments: " + wages
-							+ "\n Inventory expenses: " + sumFixInv + sumUrgInv
-							+ "\n -------------------------------------------");  
-		}
-		
-		public static String getCurrentMonth(int minas) {
-			String [] months = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
-			return months[minas + 1]; 
-		}
-		
-		public double getElectricity() {
-			return electricity;
-		}
-
-		public void setElectricity(double electricity) {
-			ReportingFinance.electricity = electricity;
-		}
-
-		public double getWaterSupply() {
-			return waterSupply;
-		}
-
-		public void setWaterSupply(double waterSupply) {
-			ReportingFinance.waterSupply = waterSupply;
-		}
-
-		public double getPhone_internetSupply() {
-			return phone_internetSupply;
-		}
-
-		public void setPhone_internetSupply(double phone_internetSupply) {
-			ReportingFinance.phone_internetSupply = phone_internetSupply;
-		}
-		
-		/**
-		 * Computation of the profits/losses
-		 */
-		
-		public static void profit_Losses() {
-			double sumOfExpenses = waterSupply + phone_internetSupply + electricity + totalexpenses;
-			double sumOfIncome = getProceeds(); 
-			for(Employee i : Employee.Employees) {
-				wages += i.getSalary();
+			for (int i = 0; i < urgInv.length; i++) {
+				sumUrgInv += urgInv[i];
 			}
-			cashAvailableBeforeTaxes =  sumOfIncome - sumOfExpenses  - wages;
-			cashAvailableAfterTaxes = cashAvailableBeforeTaxes - cashAvailableBeforeTaxes * TAXRATE;
-			ProfLosBase[months] = cashAvailableAfterTaxes ;
+		} catch (Exception w) {
+			System.out.println("Error -getExpenses()");
 		}
-		
-		public static String getDate() {
-			SimpleDateFormat formatter= new SimpleDateFormat("dd-MM-yyyy, HH:mm:ss");
-			Date date = new Date(System.currentTimeMillis());
-			return formatter.format(date);
+		totalexpenses = waterSupply + electricity + phone_internetSupply + wages + sumFixInv + sumUrgInv;
+		System.out.println("Total expenses of " + getCurrentMonth(month - 1) + " " + year + " are " + totalexpenses
+				+ " " + "\n Water Supply bill:  " + waterSupply + "\n Electrisity bill:   " + electricity
+				+ "\n Telecommunications: " + phone_internetSupply + "\n Employees payments: " + wages
+				+ "\n Inventory expenses: " + sumFixInv + sumUrgInv + "\n -------------------------------------------");
+	}
+
+	public static String getCurrentMonth(int minas) {
+		String[] months = { "January", "February", "March", "April", "May", "June", "July", "August", "September",
+				"October", "November", "December" };
+		return months[minas + 1];
+	}
+
+	public double getElectricity() {
+		return electricity;
+	}
+
+	public void setElectricity(double electricity) {
+		ReportingFinance.electricity = electricity;
+	}
+
+	public double getWaterSupply() {
+		return waterSupply;
+	}
+
+	public void setWaterSupply(double waterSupply) {
+		ReportingFinance.waterSupply = waterSupply;
+	}
+
+	public double getPhone_internetSupply() {
+		return phone_internetSupply;
+	}
+
+	public void setPhone_internetSupply(double phone_internetSupply) {
+		ReportingFinance.phone_internetSupply = phone_internetSupply;
+	}
+
+	/**
+	 * Computation of the profits/losses
+	 */
+
+	public static void profit_Losses() {
+		double sumOfExpenses = waterSupply + phone_internetSupply + electricity + totalexpenses;
+		double sumOfIncome = getProceeds();
+		for (Employee i : Employee.Employees) {
+			wages += i.getSalary();
 		}
-		
-		public static double dividends() { //this divides the profits to the shareholders depending on the rate 
-			if(cashAvailableAfterTaxes > 1000 ) {						 
-				double totalDiv = cashAvailableAfterTaxes * RATE;
-				double monthlyDividends = totalDiv / ShareHolders.shareholders.size() ;
-				return monthlyDividends;
-			}else {
-				return 0;
+		cashAvailableBeforeTaxes = sumOfIncome - sumOfExpenses - wages;
+		cashAvailableAfterTaxes = cashAvailableBeforeTaxes - cashAvailableBeforeTaxes * TAXRATE;
+		ProfLosBase[months] = cashAvailableAfterTaxes;
+	}
+
+	public static String getDate() {
+		SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy, HH:mm:ss");
+		Date date = new Date(System.currentTimeMillis());
+		return formatter.format(date);
+	}
+
+	public static double dividends() { // this divides the profits to the shareholders depending on the rate
+		if (cashAvailableAfterTaxes > 1000) {
+			double totalDiv = cashAvailableAfterTaxes * RATE;
+			double monthlyDividends = totalDiv / ShareHolders.shareholders.size();
+			return monthlyDividends;
+		} else {
+			return 0;
+		}
+	}
+
+	public static void taxLiabilities() {
+		try {
+			if (cashAvailableBeforeTaxes > 0) {
+				Date date = new Date(System.currentTimeMillis());
+				Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("Europe/Athens"));
+				cal.setTime(date);
+				int month = cal.get(Calendar.MONTH);
+				System.out
+						.println("Hotel's TAX liablities of " + month + " are: " + cashAvailableBeforeTaxes * TAXRATE);
+			} else {
+				System.out.println("All Tax liabilities are satisfied.");
 			}
+		} catch (Exception e) {
+			System.err.println("Error.");
 		}
-		
-		public static void taxLiabilities() {
-			try {
-				if(cashAvailableBeforeTaxes > 0  ) {
-					Date date = new Date(System.currentTimeMillis());
-					Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("Europe/Athens"));
-					cal.setTime(date);
-					int month = cal.get(Calendar.MONTH);
-					System.out.println("Hotel's TAX liablities of " + month + " are: " + cashAvailableBeforeTaxes * TAXRATE);
-				}else {
-					System.out.println("All Tax liabilities are satisfied.");
-				}
-			}catch(Exception e){
-				System.err.println("Error.");
-			}
-		}
-		
-		/**
-		 * Sets and makes new Investor object.
-		 */
-		
-		public static void setNewInvestor() {
-			Scanner sc = new Scanner(System.in);
-			for(;;) {
-				System.out.println("Insert a username of your choice.");
-				String usr = sc.nextLine();
-				System.out.println("Insert a password of your choice.");
-				String pass = sc.nextLine();
-				System.out.println("Please reinsert your password.");
-				String passvalid = sc.nextLine();
-				if(pass.equals(passvalid)) {
-					new ShareHolders(usr,pass);
-					System.out.println("New investor stored succesful!"
-							+ "Reconnecting to Finance menu... ");
-					break;
-				}
+	}
+
+	/**
+	 * Sets and makes new Investor object.
+	 */
+
+	public static void setNewInvestor() {
+		Scanner sc = new Scanner(System.in);
+		for (;;) {
+			System.out.println("Insert a username of your choice.");
+			String usr = sc.nextLine();
+			System.out.println("Insert a password of your choice.");
+			String pass = sc.nextLine();
+			System.out.println("Please reinsert your password.");
+			String passvalid = sc.nextLine();
+			if (pass.equals(passvalid)) {
+				new ShareHolders(usr, pass);
+				System.out.println("New investor stored succesful!" + "Reconnecting to Finance menu... ");
+				break;
 			}
 		}
-		
-		private static int readInteger() {
-			Scanner sc = new Scanner(System.in);
-			boolean inputFlag;
-			int x = -1;
-			do {
-				inputFlag = false;
-				String epilogh = sc.nextLine();
-	
-				try {
-					x = Integer.parseInt(epilogh);
-				} catch (NumberFormatException b) {
-					inputFlag = true;
-					System.out.println("Please insert an Integer.");
-				}
-			} while (inputFlag);
-			return x;	
-		}
+	}
 
-
-		
 }

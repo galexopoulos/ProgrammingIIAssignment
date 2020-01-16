@@ -139,7 +139,12 @@ public class Reporting {
 		}
 	}
 
-	private static int readInteger() {
+	/**
+	 * This method reads an int it loops till a correct input
+	 * 
+	 * @return an int inserted by the user
+	 */
+	static int readInteger() {
 		Scanner sc = new Scanner(System.in);
 		boolean inputFlag;
 		int x = -1;
@@ -224,13 +229,15 @@ public class Reporting {
 		ReportingClients c8 = new ReportingClients("Elena", "kouts", 3, 400, 3, 2, 2, "kouts@gmail.com", 2);
 		ReportingClients c9 = new ReportingClients("Katerina", "Patera", 3, 350, 3, 3, 3, "katpat@gmail.com", 2);
 
-		ReportingClients c10 = new ReportingClients("Marina", "Pepelasi",3, 125, 2, 4, 3, "mar@gmail.com", 2);
-		ReportingClients c11 = new ReportingClients("Aggelina", "Kafouni",5, 100, 1, 2, 3, "aggee@gmail.com", 2);
-		ReportingClients c12 = new ReportingClients("Eleni", "Vasilopoulou",5, 550, 1, 5, 1, "elenivas@gmail.com", 2);
-		ReportingClients c13 = new ReportingClients("Katerina", "Tzima",5, 630, 2, 6, 4, "kat@gmail.com", 2);
-		ReportingClients c14 = new ReportingClients("Panagiotis", "Aggelopoulos",5, 540, 1, 3, 4, "Olympiacos7@gmail.com", 2);
-		ReportingClients c15 = new ReportingClients("Giorgos", "Aggelopoulos", 5, 130, 3, 5, 1,"hrilikosMagas7@gmail.com", 2);
-			
+		ReportingClients c10 = new ReportingClients("Marina", "Pepelasi", 3, 125, 2, 4, 3, "mar@gmail.com", 2);
+		ReportingClients c11 = new ReportingClients("Aggelina", "Kafouni", 5, 100, 1, 2, 3, "aggee@gmail.com", 2);
+		ReportingClients c12 = new ReportingClients("Eleni", "Vasilopoulou", 5, 550, 1, 5, 1, "elenivas@gmail.com", 2);
+		ReportingClients c13 = new ReportingClients("Katerina", "Tzima", 5, 630, 2, 6, 4, "kat@gmail.com", 2);
+		ReportingClients c14 = new ReportingClients("Panagiotis", "Aggelopoulos", 5, 540, 1, 3, 4,
+				"Olympiacos7@gmail.com", 2);
+		ReportingClients c15 = new ReportingClients("Giorgos", "Aggelopoulos", 5, 130, 3, 5, 1,
+				"hrilikosMagas7@gmail.com", 2);
+
 		ShareHolders sh1 = new ShareHolders("alexis", "alexis12345");
 		ShareHolders sh2 = new ShareHolders("olympiakos", "eisaistomialokatimagiko7");
 		ShareHolders sh3 = new ShareHolders("username", "passss12345");
