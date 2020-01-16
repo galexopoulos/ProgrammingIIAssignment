@@ -995,13 +995,11 @@ public class Booking implements Serializable {
 	public static void setGetChecks(double getChecks) {
 		Booking.getChecks = getChecks;
 	}
-	
-	
-	
+
 	public static int parsimocounter() {
 		int[] tall = new int[2];
 		int i = 0;
-		File file = new File("counter.txt");
+		File file = new File("Bookingcounter.txt");
 
 		try {
 			Scanner s1 = new Scanner(file);
@@ -1019,7 +1017,7 @@ public class Booking implements Serializable {
 	public static int parsimogetchecks() {
 		int[] tall = new int[2];
 		int i = 0;
-		File file = new File("getchecks.txt");
+		File file = new File("Bookingetchecks.txt");
 
 		try {
 			Scanner s1 = new Scanner(file);
@@ -1033,6 +1031,7 @@ public class Booking implements Serializable {
 		}
 		return 0;
 	}
+
 	public static void grapsimoBooking(int x, double y) throws IOException {
 		Scanner scanner = new Scanner(System.in);
 		FileWriter outFile = new FileWriter("Bookingcounter.txt", true);
