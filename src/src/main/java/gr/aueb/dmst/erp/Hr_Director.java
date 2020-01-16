@@ -1,4 +1,5 @@
 package src.main.java.gr.aueb.dmst.erp;
+
 import java.util.Scanner;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -46,8 +47,8 @@ public class Hr_Director extends Manager {
 		boolean menuflag = true;
 		System.out.println("Welcome!");
 		do {
-			System.out.println("---------------- HR DIRECTOR MENU ---- " + getDate() + " ---------------"
-					+ "\n1) Inbox" + "\n2) View Managers" + "\n3) Show check in status of Managers"
+			System.out.println("---------------- HR DIRECTOR MENU ---- " + getDate() + " ---------------" + "\n1) Inbox"
+					+ "\n2) View Managers" + "\n3) Show check in status of Managers"
 					+ "\n4) Set extra hours for a Manager " + "\n5) Edit a Manager's payment"
 					+ "\n6) Edit a Manager's fields" + "\n7) Edit an Employee's shift" + "\n8) Hire a new member"
 					+ "\n9) Remove a member" + "\n10) Promote to Manager" + "\n11) Log out"
@@ -75,8 +76,8 @@ public class Hr_Director extends Manager {
 				int epilogh = 0;
 				boolean flag3 = false;
 				do {
-					System.out.println("---------------- INBOX ---- " + getDate() + " --------------"
-							+ "\n1) Send Mail" + "\n2) View Mails" + "\n3) Exit"
+					System.out.println("---------------- INBOX ---- " + getDate() + " --------------" + "\n1) Send Mail"
+							+ "\n2) View Mails" + "\n3) Exit"
 							+ "\n--------------- CHOOSE A NUMBER BETWEEN 1 AND 3 ---------------");
 					if (!sc.hasNextInt()) {
 						System.out.println("Insert 1 or 2 or 3");
@@ -424,8 +425,7 @@ public class Hr_Director extends Manager {
 								} else if (posInEmployees == this.getEmployee_Id()) {
 									flag1 = true;
 									System.out.println("Hr Director doesn't have a shift."); // Hr Director doesn't have
-																								// a shift, must be
-																								// changes if he has
+																								// a shift
 								} else {
 									flag1 = false;
 								}
@@ -460,31 +460,31 @@ public class Hr_Director extends Manager {
 									dayOfWeek = dayOfWeek.toLowerCase();
 									if (dayOfWeek.equals("")) {
 										shiftflag = true;
-									}else if (dayOfWeek.equals("monday")) {
+									} else if (dayOfWeek.equals("monday")) {
 										dayInt = 0;
 										dayChanged = true;
-									}else if (dayOfWeek.equals("tuesday")) {
+									} else if (dayOfWeek.equals("tuesday")) {
 										dayInt = 1;
 										dayChanged = true;
-									}else if (dayOfWeek.equals("wednesday")) {
+									} else if (dayOfWeek.equals("wednesday")) {
 										dayInt = 2;
 										dayChanged = true;
-									}else if (dayOfWeek.equals("thursday")) {
+									} else if (dayOfWeek.equals("thursday")) {
 										dayInt = 3;
 										dayChanged = true;
-									}else if (dayOfWeek.equals("friday")) {
+									} else if (dayOfWeek.equals("friday")) {
 										dayInt = 4;
 										dayChanged = true;
-									}else if (dayOfWeek.equals("saturday")) {
+									} else if (dayOfWeek.equals("saturday")) {
 										dayInt = 5;
 										dayChanged = true;
-									}else if (dayOfWeek.equals("sunday")) {
+									} else if (dayOfWeek.equals("sunday")) {
 										dayInt = 6;
 										dayChanged = true;
-									}else if (dayOfWeek.equals("exit")) {
+									} else if (dayOfWeek.equals("exit")) {
 										menuflag = true;
 										break;
-									}else {
+									} else {
 										System.out.println("That is not a valid input.");
 										flag3 = true;
 									}
@@ -917,15 +917,15 @@ public class Hr_Director extends Manager {
 							if (posInEmployees == -1) {
 								flag1 = true;
 								System.out.println("That is not a valid Id.");
-							}else if (posInEmployees == 0) {
+							} else if (posInEmployees == 0) {
 								System.out.println("You are not allowed to do that.");
 								flag1 = true;
 								posInEmployees = -1;
-							}else if(Employee.Employees.get(posInEmployees) instanceof Manager) {
+							} else if (Employee.Employees.get(posInEmployees) instanceof Manager) {
 								System.out.println("Managers cannot be deleted.");
 								flag1 = true;
 								posInEmployees = -1;
-							}else {
+							} else {
 								flag1 = false;
 							}
 						} catch (NumberFormatException b) {
@@ -1000,8 +1000,7 @@ public class Hr_Director extends Manager {
 							System.out.println("yes/no");
 							String verify = sc.nextLine();
 							if (verify.toLowerCase().equals("yes")) {
-								Manager a = new Manager(Employee.Employees.get(posInEmployees));// TO BE CHECKED
-								// Employee.Employees.set(posInEmployees, a); NOT NEEDED IF NOT MISTAKEN
+								Manager a = new Manager(Employee.Employees.get(posInEmployees));
 								System.out.println("Promotion has been succesfully done.");
 							} else if (verify.toLowerCase().equals("no")) {
 								System.out.println("Promotion cancelled.");
@@ -1065,7 +1064,8 @@ public class Hr_Director extends Manager {
 	}
 
 	/**
-	 * Gives the ability to the Director to set extra hours for the Manager. According to the extra hours, the salary is increased
+	 * Gives the ability to the Director to set extra hours for the Manager.
+	 * According to the extra hours, the salary is increased
 	 */
 	public void Yperoria() {
 
@@ -1093,7 +1093,10 @@ public class Hr_Director extends Manager {
 						in.nextLine();
 					}
 				} while (flag3);
-				if (epilogh + Employee.Employees.get(x).getWresyperergasias_evdomadiaiws() > 5) {
+				if (epilogh == 0) {
+					System.out.println("No extra hours added.");
+					break;
+				} else if (epilogh + Employee.Employees.get(x).getWresyperergasias_evdomadiaiws() > 5) {
 					System.out.println(
 							"According to law number 3863/2010, an employee does not have the right to work over 5 hours of overtime per week. ");
 					System.out.printf("The employee has already worked %d hours this week\n",
@@ -1153,7 +1156,7 @@ public class Hr_Director extends Manager {
 
 	}
 
-	/**Shows the Managers.*/
+	/** Shows the Managers. */
 
 	private void showManagers() {
 		boolean onefound = false;
@@ -1168,7 +1171,7 @@ public class Hr_Director extends Manager {
 		}
 	}
 
-	/**Shows the check in status of the Managers.*/
+	/** Shows the check in status of the Managers. */
 	private void showCheckInStatusManagers() {
 
 		boolean onefound = false;

@@ -1,4 +1,5 @@
 package src.main.java.gr.aueb.dmst.erp;
+
 import java.io.Serializable;
 import java.io.File;
 import java.io.FileWriter;
@@ -297,12 +298,12 @@ public class Employee implements Serializable {
 		this.lastChecked = lastChecked;
 	}
 
-	/** Getter of add.*/
+	/** Getter of add. */
 	public static int getAdd() {
 		return add;
 	}
 
-	/** Setter of add.*/
+	/** Setter of add. */
 	public static void setAdd(int add) {
 		Employee.add = add;
 	}
@@ -362,8 +363,8 @@ public class Employee implements Serializable {
 				int epilogh = 0;
 				boolean flag3 = false;
 				do {
-					System.out.println("---------------- INBOX ---- " + getDate() + " ---------------"
-							+ "\n1) Send Mai" + "\n2) View Mails " + "\n3) Exit"
+					System.out.println("---------------- INBOX ---- " + getDate() + " ---------------" + "\n1) Send Mai"
+							+ "\n2) View Mails " + "\n3) Exit"
 							+ "\n--------------- CHOOSE A NUMBER BETWEEN 1 AND 3 ---------------");
 					if (!sc.hasNextInt()) {
 						System.out.println("Insert 1 or 2 or 3");
@@ -605,7 +606,8 @@ public class Employee implements Serializable {
 	}
 
 	/**
-	 * Gives the ability to an Employee to send a string to another employee according to his id. The string is saved to the Employee's array called mail. 
+	 * Gives the ability to an Employee to send a string to another employee
+	 * according to his id. The string is saved to the Employee's array called mail.
 	 */
 	public void mhnyma() {
 		int thesh = 0;
@@ -663,7 +665,7 @@ public class Employee implements Serializable {
 	 * Binary search moderated to be used in the list Employees.
 	 * 
 	 * @param Employees
-	 * @param           x, the requested id
+	 * @param x,        the requested id
 	 * @return the position in list Employees if the id is valid, else returns -1.
 	 */
 	public static int empBinarySearch(int x) {// x the id you want to find in the Employees and returns the position in
@@ -726,14 +728,14 @@ public class Employee implements Serializable {
 		return requested;
 	}
 
-	/**Getter of the current date.*/
+	/** Getter of the current date. */
 	public static String getDate() {
 		SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy, HH:mm:ss");
 		Date date = new Date(System.currentTimeMillis());
 		return formatter.format(date);
 	}
 
-	/**Does the check in.*/
+	/** Does the check in. */
 	void checkIn() {
 		if (!this.isCheckedIn()) {
 			this.setLastChecked(Calendar.getInstance());
@@ -743,8 +745,8 @@ public class Employee implements Serializable {
 			System.out.println("Already checked in.");
 		}
 	}
-	
-	/**Does the check out.*/
+
+	/** Does the check out. */
 	void checkOut() {
 		if (this.isCheckedIn()) {
 			this.setLastChecked(Calendar.getInstance());
@@ -754,9 +756,10 @@ public class Employee implements Serializable {
 			System.out.println("Already checked out.");
 		}
 	}
-	
-	/** 
+
+	/**
 	 * Method used for saving the variable add at files.
+	 * 
 	 * @param x the new value of add
 	 * @throws IOException
 	 */
@@ -768,17 +771,17 @@ public class Employee implements Serializable {
 		out.close();
 		outFile.close();
 	}
-	
-	/** Method used for getting the variable add from files.*/
+
+	/** Method used for getting the variable add from files. */
 	public static int parsimo() {
-		int [] tall = new int [100];
+		int[] tall = new int[100];
 		int i = 0;
 		File file = new File("info.txt");
-	
+
 		try {
 			Scanner s1 = new Scanner(file);
 			while (s1.hasNextInt()) {
-				tall[i] = s1.nextInt();				
+				tall[i] = s1.nextInt();
 			}
 			return tall[i];
 

@@ -22,7 +22,7 @@ public class Manager extends Employee {
 	 * @param firstname
 	 * @param surname
 	 * @param position
-	 * @param password 
+	 * @param password
 	 * @param salary
 	 * @param manager
 	 */
@@ -176,31 +176,31 @@ public class Manager extends Employee {
 									dayOfWeek = dayOfWeek.toLowerCase();
 									if (dayOfWeek.equals("")) {
 										shiftflag = true;
-									}else if (dayOfWeek.equals("monday")) {
+									} else if (dayOfWeek.equals("monday")) {
 										dayInt = 0;
 										dayChanged = true;
-									}else if (dayOfWeek.equals("tuesday")) {
+									} else if (dayOfWeek.equals("tuesday")) {
 										dayInt = 1;
 										dayChanged = true;
-									}else if (dayOfWeek.equals("wednesday")) {
+									} else if (dayOfWeek.equals("wednesday")) {
 										dayInt = 2;
 										dayChanged = true;
-									}else if (dayOfWeek.equals("thursday")) {
+									} else if (dayOfWeek.equals("thursday")) {
 										dayInt = 3;
 										dayChanged = true;
-									}else if (dayOfWeek.equals("friday")) {
+									} else if (dayOfWeek.equals("friday")) {
 										dayInt = 4;
 										dayChanged = true;
-									}else if (dayOfWeek.equals("saturday")) {
+									} else if (dayOfWeek.equals("saturday")) {
 										dayInt = 5;
 										dayChanged = true;
-									}else if (dayOfWeek.equals("sunday")) {
+									} else if (dayOfWeek.equals("sunday")) {
 										dayInt = 6;
 										dayChanged = true;
-									}else if (dayOfWeek.equals("exit")) {
+									} else if (dayOfWeek.equals("exit")) {
 										menuflag = true;
 										break;
-									}else {
+									} else {
 										System.out.println("That is not a valid input.");
 										flag3 = true;
 									}
@@ -624,7 +624,8 @@ public class Manager extends Employee {
 	}
 
 	/**
-	 * Gives the ability to a manager to set extra hours to an Employee. The salary of the employee is increased according to the extra hours
+	 * Gives the ability to a manager to set extra hours to an Employee. The salary
+	 * of the employee is increased according to the extra hours
 	 */
 	public void Yperoria() {
 
@@ -652,7 +653,10 @@ public class Manager extends Employee {
 						in.nextLine();
 					}
 				} while (flag3);
-				if (epilogh + Employee.Employees.get(x).getWresyperergasias_evdomadiaiws() > 5) {
+				if (epilogh == 0) {
+					System.out.println("No extra hours added.");
+					break;
+				} else if (epilogh + Employee.Employees.get(x).getWresyperergasias_evdomadiaiws() > 5) {
 					System.out.println(
 							"According to law number 3863/2010, an employee does not have the right to work over 5 hours of overtime per week.");
 					System.out.printf("The employee has already worked %d hours this week\n",
@@ -680,7 +684,7 @@ public class Manager extends Employee {
 					boolean flag4;
 					do {
 						System.out.println("yes/no");
-						String verify = in.nextLine();	
+						String verify = in.nextLine();
 						if (verify.toLowerCase().equals("yes")) {
 							String b = "The Manager has setted " + epilogh + " extra hours for today";
 							Employee.Employees.get(x).newmail[Employee.Employees.get(x).maxmail] = b;
@@ -746,7 +750,7 @@ public class Manager extends Employee {
 					int dayAtFirst = dayShift[i].get(Calendar.DAY_OF_WEEK);
 					dayShift[i].add(Calendar.HOUR_OF_DAY, extraHours);
 					dayShift[i].add(Calendar.SECOND, -59); // for shifts that reach 24:00
-					int dayAtEnd = dayShift[i].get(Calendar.DAY_OF_WEEK);	
+					int dayAtEnd = dayShift[i].get(Calendar.DAY_OF_WEEK);
 					if (dayAtFirst == dayAtEnd) {
 						dayShift[i].add(Calendar.HOUR_OF_DAY, -extraHours);
 						dayShift[i].add(Calendar.SECOND, 59);
@@ -779,8 +783,8 @@ public class Manager extends Employee {
 			System.out.println("No employees found.");
 		}
 	}
-	
-	/**Shows the check in status of the Employees of the Manager. */
+
+	/** Shows the check in status of the Employees of the Manager. */
 	private void showCheckInStatusMngrEmp() {
 
 		boolean onefound = false;
@@ -812,7 +816,5 @@ public class Manager extends Employee {
 		}
 
 	}
-	
 
-	
 }

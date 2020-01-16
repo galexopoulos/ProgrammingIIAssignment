@@ -1,33 +1,36 @@
 package src.main.java.gr.aueb.dmst.erp;
+
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
+
 /**
- * The main class of our program,
- * contains the main method.
+ * The main class of our program, contains the main method.
+ * 
  * @author Nikolaos Antonopoulos, Georgios Sideris
  *
  */
 public class mainClass {
-	static boolean flag1=true;
-	///** variable that shows if the hr menu has been called once WON'T be used at the presentation */
-	//private static boolean hrCalledOnce = false;
+	static boolean flag1 = true;
+
+	/// ** variable that shows if the hr menu has been called once WON'T be used at
+	/// the presentation */
+	// private static boolean hrCalledOnce = false;
 	/**
-	 * main method, calls the starting menu
-	 * also contains some code related to threads, that won't be used at the presentation
+	 * main method, calls the starting menu also contains some code related to
+	 * threads, that won't be used at the presentation
+	 * 
 	 * @param args
 	 */
-	
-	
+
 	public static void main(String[] args) {
-		
-		
+
 		/*
 		 * Thread tWeek = new Thread(new weekThread()); Thread tMonth = new Thread(new
 		 * monthThread()); tWeek.start(); tMonth.start();
 		 */
-		try{
+		try {
 			SIDER_ARXEIA.parsimo_Employees();
 			Employee.Employees.get(0);
 			Arxeia_markou.parsimo_Inventory();
@@ -35,7 +38,7 @@ public class mainClass {
 			MO_arxeia.parsimo_Room();
 			Employee.setAdd(Employee.parsimo());
 			Arxeia_perakis.parsimo_reporting();
-			
+
 			Inventory.setBuffet(Inventory.parsimoBuffet());
 			Inventory.setBuffetbalance(Inventory.parsimoBuffetBalance());
 			ReportingClients.setCounter_st(ReportingClients.parsimoReportingClientsCounter());
@@ -44,11 +47,11 @@ public class mainClass {
 			Booking.setGetChecks(Booking.parsimogetchecks());
 			Room.setCounter(Room.parsimocounter());
 			AccountCustomers.setCounteracc(AccountCustomers.parsimoAccountCustomer());
-			
+
 			while (flag1) {
-						InputMenu();
+				InputMenu();
 			}
-		}catch (IndexOutOfBoundsException npe) {
+		} catch (IndexOutOfBoundsException npe) {
 			Reporting.loadobjects();
 			Inventory.loadobjects();
 			SalesMenu.Sales_LoadObjects();
@@ -59,7 +62,7 @@ public class mainClass {
 			MO_arxeia.grapsimo_Booking();
 			MO_arxeia.grapsimo_Room();
 			Arxeia_markou.grapsimo_Inventory();
-			try{
+			try {
 				Employee.grapsimo(Employee.getAdd());
 				/* MARKOU 2 */ Inventory.grapsimoInventory(Inventory.getBuffet(), Inventory.getBuffetbalance());
 				/* PERAKIS 1 */ ReportingClients.grapsimoReportingClientsCounter(ReportingClients.getCounter_st());
@@ -67,29 +70,28 @@ public class mainClass {
 				/* MO 2 */ Booking.grapsimoBooking(Booking.getCounter(), Booking.getGetChecks());
 				/* MO 1 */ Room.grapsimocounter(Room.getCounter());
 				/* ALEXO 1 */ AccountCustomers.grapsimoAccountCustomer(AccountCustomers.getCounteracc());
-			}catch (IOException ioe) {
-				System.out.println ("Error with the files.");
+			} catch (IOException ioe) {
+				System.out.println("Error with the files.");
 			}
 			while (flag1) {
 				InputMenu();
 			}
 		}
 
-
 	}
-	
-	///** Getter of the variable hrCalledOnce, WON'T be used at the presentation */
-	//public static boolean isHrCalledOnce() {
-	//	return hrCalledOnce;
-	//}
 
-	///** Setter of the variable hrCalledOnce, WON'T be used at the presentation */
-	//public static void setHrCalledOnce(boolean hrCalledOnce) {
-	//	mainClass.hrCalledOnce = hrCalledOnce;
-	//}
+	/// ** Getter of the variable hrCalledOnce, WON'T be used at the presentation */
+	// public static boolean isHrCalledOnce() {
+	// return hrCalledOnce;
+	// }
+
+	/// ** Setter of the variable hrCalledOnce, WON'T be used at the presentation */
+	// public static void setHrCalledOnce(boolean hrCalledOnce) {
+	// mainClass.hrCalledOnce = hrCalledOnce;
+	// }
 
 	/** user chooses one of the options from the starting menu */
-		public static void InputMenu() {
+	public static void InputMenu() {
 		Scanner in = new Scanner(System.in);
 		display_menu();
 		int epilogh = 0;
@@ -115,12 +117,12 @@ public class mainClass {
 		case 1:
 			System.out.println("WELCOME TO HR DEPARTMENT!");
 			Hr_surface.toRun();
-			//setHrCalledOnce(true);
+			// setHrCalledOnce(true);
 			break;
 
 		case 2:
 			System.out.println("WELCOME TO SALES DEPARTMENT!");
-			SalesMenu.getMenu();	
+			SalesMenu.getMenu();
 			break;
 
 		case 3:
@@ -141,15 +143,15 @@ public class mainClass {
 			break;
 		case 7:
 			System.out.println("Goodbye");
-			//perasma arxeia
+			// perasma arxeia
 			Arxeia_perakis.grapsimo_reporting();
 			SIDER_ARXEIA.grapsimo_Employees();
 			Arxeia_markou.grapsimo_Inventory();
 			MO_arxeia.grapsimo_Booking();
 			MO_arxeia.grapsimo_Room();
-			try{
+			try {
 				Employee.grapsimo(Employee.getAdd());
-			}catch (IOException ioe){
+			} catch (IOException ioe) {
 				System.out.println("Error with the files.");
 			}
 			flag1 = false;
@@ -160,25 +162,20 @@ public class mainClass {
 		}
 	}
 
-	
 	/** shows the starting menu */
 	public static void display_menu() {
-		System.out.println(
-				"--------------------- HOTEL ERP ----------------------"
+		System.out.println("--------------------- HOTEL ERP ----------------------"
 				+ "\n1) HR DEPARTMENT \n2) SALES DEPARTMENT \n3) FINANCE AND REPORTING DEPARTMENT \n4) INVENTORY MANAGMENT DEPARTMENT \n"
 				+ "5) EXECUTE THE WEEKLY ACTIONS \n6) EXECUTE THE MONTHLY ACTIONS \n7) QUIT THE PROGRAM");
 		System.out.print("-----------CHOOSE A NUMBER BETWEEN 1 AND 7------------ \n");
 	}
 
-
-	
 	/** contains the actions we want to do at the start of every month */
 	public static void toBeDoneEveryMonth() {
 		Hr_surface.toBeDoneEveryMonth();
 		Reporting.toBeDoneEveryMonth();
 	}
 
-	
 	/** contains the actions we want to do at the start of every week (Monday) */
 	public static void toBeDoneEveryWeek() {
 		Hr_surface.toBeDoneEveryWeek();

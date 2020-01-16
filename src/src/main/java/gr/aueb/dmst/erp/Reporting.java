@@ -231,10 +231,9 @@ public class Reporting {
 		ReportingClients c14 = new ReportingClients("Panagiotis", "Aggelopoulos",5, 540, 1, 3, 4, "Olympiacos7@gmail.com", 2);
 		ReportingClients c15 = new ReportingClients("Giorgos", "Aggelopoulos", 5, 130, 3, 5, 1,"hrilikosMagas7@gmail.com", 2);
 			
-		ShareHolders sh1 = new ShareHolders("alexis","alexis12345");
-		ShareHolders sh2 = new ShareHolders("olympiakos","eisaistomialokatimagiko7");
-		ShareHolders sh3 = new ShareHolders("username","passss12345");
-
+		ShareHolders sh1 = new ShareHolders("alexis", "alexis12345");
+		ShareHolders sh2 = new ShareHolders("olympiakos", "eisaistomialokatimagiko7");
+		ShareHolders sh3 = new ShareHolders("username", "passss12345");
 
 	}
 

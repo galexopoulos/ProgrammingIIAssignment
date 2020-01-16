@@ -1,30 +1,30 @@
 package src.main.java.gr.aueb.dmst.erp;
+
 import java.util.Calendar;
 import java.util.Scanner;
 
-
 /**
  * The class is used to create an Employee's timetable of the type Calendar,
- *  using String input that will be checked.
+ * using String input that will be checked.
+ * 
  * @author Georgios Sideris
  *
  */
 public class Shift {
 
 	/**
-	 * Uses a String input of a daily timetable 
-	 * and creates an array of type int variables exported from the input.
-	 * *max 4 different time periods.
-	 * @param day_schedule  String input of a daily timetable 
-	 * 						with "," between time periods,
-	 * 						"-" between chronical points,
-	 *					 	":" between hours and minutes,
-	 * 						for example "9:00-17:00,18:00-20:00" 
-	 * @return int[4][4] Array (int_Arrival_hours, int_Arrival_mins, int_Departure_hours, int_Departure_mins) 
-	 * *when the procceding is over sets the leftover indexes = -1.
+	 * Uses a String input of a daily timetable and creates an array of type int
+	 * variables exported from the input. *max 4 different time periods.
+	 * 
+	 * @param day_schedule String input of a daily timetable with "," between time
+	 *                     periods, "-" between chronical points, ":" between hours
+	 *                     and minutes, for example "9:00-17:00,18:00-20:00"
+	 * @return int[4][4] Array (int_Arrival_hours, int_Arrival_mins,
+	 *         int_Departure_hours, int_Departure_mins) *when the procceding is over
+	 *         sets the leftover indexes = -1.
 	 * @throws ShiftException
 	 */
-	public static int[][] arr_Dep_Times_int(String day_schedule) throws ShiftException { //public only for the junit
+	public static int[][] arr_Dep_Times_int(String day_schedule) throws ShiftException { // public only for the junit
 
 		String[] str_Arrival_hours = new String[4];
 		String[] str_Arrival_mins = new String[4];
@@ -176,9 +176,10 @@ public class Shift {
 
 	/**
 	 * Find when the monday is in the current week.
+	 * 
 	 * @return a Calendar variable of the Monday in the current week.
 	 */
-	public static Calendar getCurrentMonday() { 
+	public static Calendar getCurrentMonday() {
 		Calendar cal = Calendar.getInstance();
 		int weekday = cal.get(Calendar.DAY_OF_WEEK);
 		if (weekday != Calendar.MONDAY) {
@@ -191,14 +192,16 @@ public class Shift {
 		return cal;
 	}
 
-	
 	/**
 	 * Creates the shift of the day cal.
+	 * 
 	 * @param arrH_arrM_depH_depM the array the arr_Dep_Times_int method created.
-	 * @param cal, Calendar type variable of the day of which we want to create the shift
-	 * @return two Arrays in an Array of type Calendar (cal_Arrival, cal_Departure) (two dimensional Array)
-	 * that contain when an Employee arrives and leaves.
-	 * *sets the YEAR 1990 when the corresponding index of the input's array is -1.
+	 * @param cal,                Calendar type variable of the day of which we want
+	 *                            to create the shift
+	 * @return two Arrays in an Array of type Calendar (cal_Arrival, cal_Departure)
+	 *         (two dimensional Array) that contain when an Employee arrives and
+	 *         leaves. *sets the YEAR 1990 when the corresponding index of the
+	 *         input's array is -1.
 	 */
 	private static Calendar[][] arr_Dep_Times_Cal(int[][] arrH_arrM_depH_depM, Calendar cal) {
 		Calendar[][] calArrDep = new Calendar[2][4];
@@ -230,6 +233,7 @@ public class Shift {
 
 	/**
 	 * Connects the Arrival and Departure times at the right order.
+	 * 
 	 * @param cal the array that the arr_Dep_Times_Cal mehtod created
 	 * @return the timetable of a day (Calendar array)
 	 */
@@ -246,9 +250,12 @@ public class Shift {
 	}
 
 	/**
-	 * Connects the indexes of 8 daily timetables (first and last the same (Monday) as Sunday -> Monday -> Tuesday)) at one array
+	 * Connects the indexes of 8 daily timetables (first and last the same (Monday)
+	 * as Sunday -> Monday -> Tuesday)) at one array
+	 * 
 	 * @param calSchedule Calendar [8][8]
-	 * @return one array after connected the arrays that consist the Calendar[] input, used at checkWeekSchedule method
+	 * @return one array after connected the arrays that consist the Calendar[]
+	 *         input, used at checkWeekSchedule method
 	 */
 	private static Calendar[] week_Schedule(Calendar[][] calSchedule) {
 
@@ -263,24 +270,29 @@ public class Shift {
 	}
 
 	/**
-	 * Checks that there are no back to back arrivals or departures
-	 * and that the fullWeek indexes are at the right order 
-	 * else it throws ShiftException.
-	 * @param fullWeek the array created from the week_Schedule method 
+	 * Checks that there are no back to back arrivals or departures and that the
+	 * fullWeek indexes are at the right order else it throws ShiftException.
+	 * 
+	 * @param fullWeek the array created from the week_Schedule method
 	 * @throws ShiftException
 	 */
 	private static void checkWeekSchedule(Calendar[] fullWeek) throws ShiftException {
 		int y1990inrow = 0;
 
 		for (int i = 0; i < fullWeek.length; i++) {
-			
-			if (i != 0 || i != fullWeek.length -1) {// checks that there are no back to back arrivals or departures, there must be an even number of indexes with YEAR = 1990 in the row, otherwise there is a problem with the input (we don't check the first and last indexes as the first was checked the previous week and the last will be checked the next)
+
+			if (i != 0 || i != fullWeek.length - 1) {// checks that there are no back to back arrivals or departures,
+														// there must be an even number of indexes with YEAR = 1990 in
+														// the row, otherwise there is a problem with the input (we
+														// don't check the first and last indexes as the first was
+														// checked the previous week and the last will be checked the
+														// next)
 				if (fullWeek[i].get(Calendar.YEAR) == 1990) {
 					y1990inrow++;
-				}else if (y1990inrow != 0){
+				} else if (y1990inrow != 0) {
 					if (y1990inrow % 2 != 0) {
 						throw new ShiftException("Arrival - Departure's order exception.");
-					}else {
+					} else {
 						y1990inrow = 0;
 					}
 				}
@@ -296,26 +308,25 @@ public class Shift {
 					throw new ShiftException("Chronical order exception.");
 				}
 		}
-		
-		
 
 	}
-	
+
 	/**
 	 * Throws ShiftException if a day's shift has more than 8 hours.
+	 * 
 	 * @param dayShift, a shift of a day
 	 * @throws ShiftException
 	 */
 
-	private static void check8Hours(Calendar[] dayShift) throws ShiftException { 
+	private static void check8Hours(Calendar[] dayShift) throws ShiftException {
 		final long millisOf8Hours = 8 * 60 * 60 * 1000;
 		long millisTheDay = 0, startInMillis, endInMillis;
 		for (int i = 0; i < 7; i = i + 2) {
 			if (dayShift[i].get(Calendar.YEAR) != 1990) {
-				if ( dayShift[i + 1].get(Calendar.YEAR) != 1990) {// input like 12:00-16:00
-					startInMillis =  dayShift[i].getTimeInMillis();
-					endInMillis =  dayShift[i + 1].getTimeInMillis();
-					millisTheDay =+ endInMillis - startInMillis - 1000;//-1000 because of some minor differences
+				if (dayShift[i + 1].get(Calendar.YEAR) != 1990) {// input like 12:00-16:00
+					startInMillis = dayShift[i].getTimeInMillis();
+					endInMillis = dayShift[i + 1].getTimeInMillis();
+					millisTheDay = +endInMillis - startInMillis - 1000;// -1000 because of some minor differences
 				} else {// input like 12:00-
 					Calendar endOfDay = Calendar.getInstance();
 					endOfDay.set(Calendar.YEAR, dayShift[i].get(Calendar.YEAR));
@@ -325,13 +336,13 @@ public class Shift {
 					endOfDay.set(Calendar.MINUTE, 59);
 					endOfDay.set(Calendar.SECOND, 0);
 					endOfDay.set(Calendar.MILLISECOND, 0);
-					startInMillis =  dayShift[i].getTimeInMillis();
+					startInMillis = dayShift[i].getTimeInMillis();
 					endInMillis = endOfDay.getTimeInMillis();
-					millisTheDay =+ endInMillis - startInMillis; 
+					millisTheDay = +endInMillis - startInMillis;
 					break;
 				}
 			} else {
-				if ( dayShift[i + 1].get(Calendar.YEAR) != 1990) {// input like -16:00
+				if (dayShift[i + 1].get(Calendar.YEAR) != 1990) {// input like -16:00
 					Calendar startOfDay = Calendar.getInstance();
 					startOfDay.set(Calendar.YEAR, dayShift[i + 1].get(Calendar.YEAR));
 					startOfDay.set(Calendar.MONTH, dayShift[i + 1].get(Calendar.MONTH));
@@ -341,8 +352,8 @@ public class Shift {
 					startOfDay.set(Calendar.SECOND, 59);
 					startOfDay.set(Calendar.MILLISECOND, 999);
 					startInMillis = startOfDay.getTimeInMillis();
-					endInMillis =  dayShift[i + 1].getTimeInMillis();
-					millisTheDay =+ endInMillis - startInMillis ;
+					endInMillis = dayShift[i + 1].getTimeInMillis();
+					millisTheDay = +endInMillis - startInMillis;
 				} else {
 					break;
 				}
@@ -353,14 +364,16 @@ public class Shift {
 		}
 	}
 
-/**
- * Using all the other methods of the class creates the shift of the week
- * according to the inputted String[], if there is a problem with the input
- * it throws ShiftException.
- * @param strSchedule, an array of Strings containing the shift we want to create
- * @return the shift of the week as a Calendar[7][8]
- * @throws ShiftException
- */
+	/**
+	 * Using all the other methods of the class creates the shift of the week
+	 * according to the inputted String[], if there is a problem with the input it
+	 * throws ShiftException.
+	 * 
+	 * @param strSchedule, an array of Strings containing the shift we want to
+	 *                     create
+	 * @return the shift of the week as a Calendar[7][8]
+	 * @throws ShiftException
+	 */
 	public static Calendar[][] createShift(String[] strSchedule) throws ShiftException {
 		Calendar[][] dayScheduleNextWeek8 = new Calendar[8][8];
 		Calendar[][] dayScheduleNextWeek = new Calendar[7][8];
@@ -394,7 +407,9 @@ public class Shift {
 
 	/**
 	 * Contains all the procedure with the messages to insert a shift.
-	 * @return the inserted shift as String[], to be checked or "no shift" at the first index of the table if the shift wasn't inserted.
+	 * 
+	 * @return the inserted shift as String[], to be checked or "no shift" at the
+	 *         first index of the table if the shift wasn't inserted.
 	 */
 	public static String[] insertShiftStr() {
 		Scanner sc = new Scanner(System.in);
