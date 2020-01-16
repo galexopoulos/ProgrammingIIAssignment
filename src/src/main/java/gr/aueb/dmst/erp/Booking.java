@@ -1,5 +1,10 @@
 package src.main.java.gr.aueb.dmst.erp;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -973,6 +978,72 @@ public class Booking implements Serializable {
 		SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy, HH:mm:ss");
 		Date date = new Date(System.currentTimeMillis());
 		return formatter.format(date);
+	}
+
+	public static int getCounter() {
+		return counter;
+	}
+
+	public static void setCounter(int counter) {
+		Booking.counter = counter;
+	}
+
+	public static double getGetChecks() {
+		return getChecks;
+	}
+
+	public static void setGetChecks(double getChecks) {
+		Booking.getChecks = getChecks;
+	}
+
+	public static int parsimocounter() {
+		int[] tall = new int[2];
+		int i = 0;
+		File file = new File("Bookingcounter.txt");
+
+		try {
+			Scanner s1 = new Scanner(file);
+			while (s1.hasNextInt()) {
+				tall[i] = s1.nextInt();
+			}
+			return tall[i];
+
+		} catch (FileNotFoundException e) {
+			System.out.println("Exception");
+		}
+		return 0;
+	}
+
+	public static int parsimogetchecks() {
+		int[] tall = new int[2];
+		int i = 0;
+		File file = new File("Bookingetchecks.txt");
+
+		try {
+			Scanner s1 = new Scanner(file);
+			while (s1.hasNextInt()) {
+				tall[i] = s1.nextInt();
+			}
+			return tall[i];
+
+		} catch (FileNotFoundException e) {
+			System.out.println("Exception");
+		}
+		return 0;
+	}
+
+	public static void grapsimoBooking(int x, double y) throws IOException {
+		Scanner scanner = new Scanner(System.in);
+		FileWriter outFile = new FileWriter("Bookingcounter.txt", true);
+		FileWriter outFile1 = new FileWriter("Bookingetchecks.txt", true);
+		PrintWriter out = new PrintWriter(outFile);
+		PrintWriter out1 = new PrintWriter(outFile1);
+		out1.println(y);
+		out1.close();
+		outFile1.close();
+		out.println(x);
+		out.close();
+		outFile.close();
 	}
 
 }

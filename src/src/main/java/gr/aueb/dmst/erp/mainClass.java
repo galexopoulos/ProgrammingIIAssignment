@@ -35,6 +35,16 @@ public class mainClass {
 			MO_arxeia.parsimo_Room();
 			Employee.setAdd(Employee.parsimo());
 			Arxeia_perakis.parsimo_reporting();
+			
+			Inventory.setBuffet(Inventory.parsimoBuffet());
+			Inventory.setBuffetbalance(Inventory.parsimoBuffetBalance());
+			ReportingClients.setCounter_st(ReportingClients.parsimoReportingClientsCounter());
+			ShareHolders.setCounter(ShareHolders.parsimoShareholders());
+			Booking.setCounter(Booking.parsimocounter());
+			Booking.setGetChecks(Booking.parsimogetchecks());
+			Room.setCounter(Room.parsimocounter());
+			AccountCustomers.setCounteracc(AccountCustomers.parsimoAccountCustomer());
+			
 			while (flag1) {
 						InputMenu();
 			}
@@ -51,6 +61,12 @@ public class mainClass {
 			Arxeia_markou.grapsimo_Inventory();
 			try{
 				Employee.grapsimo(Employee.getAdd());
+				/* MARKOU 2 */ Inventory.grapsimoInventory(Inventory.getBuffet(), Inventory.getBuffetbalance());
+				/* PERAKIS 1 */ ReportingClients.grapsimoReportingClientsCounter(ReportingClients.getCounter_st());
+				/* PERAKIS 1 */ ShareHolders.grapsimoShareHolders(ShareHolders.getCounter());
+				/* MO 2 */ Booking.grapsimoBooking(Booking.getCounter(), Booking.getGetChecks());
+				/* MO 1 */ Room.grapsimocounter(Room.getCounter());
+				/* ALEXO 1 */ AccountCustomers.grapsimoAccountCustomer(AccountCustomers.getCounteracc());
 			}catch (IOException ioe) {
 				System.out.println ("Error with the files.");
 			}

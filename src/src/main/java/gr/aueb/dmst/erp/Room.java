@@ -1,5 +1,10 @@
 package src.main.java.gr.aueb.dmst.erp;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -147,6 +152,42 @@ public class Room implements Serializable {
 		SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy, HH:mm:ss");
 		Date date = new Date(System.currentTimeMillis());
 		return formatter.format(date);
+	}
+
+	public static int getCounter() {
+		return counter;
+	}
+
+	public static void setCounter(int counter) {
+		Room.counter = counter;
+	}
+
+	public static void grapsimocounter(int x) throws IOException {
+		Scanner scanner = new Scanner(System.in);
+		FileWriter outFile = new FileWriter("Roomcounter.txt", true);
+		PrintWriter out = new PrintWriter(outFile);
+		out.println(x);
+		out.close();
+		outFile.close();
+	}
+
+	/** Method used for getting the variable add from files. */
+	public static int parsimocounter() {
+		int[] tall = new int[2];
+		int i = 0;
+		File file = new File("Roomcounter.txt");
+
+		try {
+			Scanner s1 = new Scanner(file);
+			while (s1.hasNextInt()) {
+				tall[i] = s1.nextInt();
+			}
+			return tall[i];
+
+		} catch (FileNotFoundException e) {
+			System.out.println("Exception");
+		}
+		return 0;
 	}
 
 }

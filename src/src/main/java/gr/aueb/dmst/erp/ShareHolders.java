@@ -1,5 +1,10 @@
 package src.main.java.gr.aueb.dmst.erp;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.io.Serializable;
 
 /**
@@ -21,47 +26,82 @@ import java.util.TimeZone;
 import java.util.stream.Collectors;
 
 public class ShareHolders implements Serializable {
-	
+
 	private static int counter = 1;
 	private final int id;
 	private String username;
 	private String pswrd;
 	private double dividend = 0;
-	
+
 	public static ArrayList<ShareHolders> shareholders = new ArrayList<ShareHolders>();
-	
-	public ShareHolders(String username, String pswrd) { //Prepei na bei sthn main create user
+
+	public ShareHolders(String username, String pswrd) { // Prepei na bei sthn main create user
 		this.username = username;
 		this.pswrd = pswrd;
 		id = counter;
 		counter++;
 		dividend = ReportingFinance.dividends();
 		shareholders.add(this);
-		
+
+	}
+
+	/**
+	 * This method gives access to the shareholders to their dividends of each
+	 * month. Every Shareholder have his password and username. There is a check
+	 * process to declare if the password and the username is correct, if so this
+	 * method calls toString() to display the earnings.
+	 */
+	public static int getCounter() {
+		return counter;
+	}
+
+	public static void setCounter(int counter) {
+		ShareHolders.counter = counter;
+	}
+	public static void grapsimoShareHolders(int x) throws IOException {
+		Scanner scanner = new Scanner(System.in);
+		FileWriter outFile = new FileWriter("Shareholders.txt", true);
+		PrintWriter out = new PrintWriter(outFile);
+		out.println(x);
+		out.close();
+		outFile.close();
 	}
 	
-	/**
-	 * This method gives access to the shareholders to their dividends of each month. Every Shareholder have his password
-	 * and username. There is a check process to declare if the password and the username is correct, if so this method calls 
-	 * toString() to display the earnings. 
-	 */
+	/** Method used for getting the variable add from files.*/
+	public static int parsimoShareholders() {
+		int [] tall = new int [2];
+		int i = 0;
+		File file = new File("Shareholders.txt");
 	
+		try {
+			Scanner s1 = new Scanner(file);
+			while (s1.hasNextInt()) {
+				tall[i] = s1.nextInt();				
+			}
+			return tall[i];
+
+		} catch (FileNotFoundException e) {
+			System.out.println("Exception");
+		}
+		return 0;
+	}
+
 	public static void getShareHoldersMenu() {
 		boolean flag = true;
 		Scanner sc = new Scanner(System.in);
 		do {
 			try {
 				boolean flag2 = getMenuflag();
-				if(flag2) {
-					
+				if (flag2) {
+
 					System.out.println("Please insert Username: ");
 					String usnm = sc.next();
 					System.out.println("Please insert password: ");
 					String pass = sc.next();
 					int j = 0;
-					for(ShareHolders i : shareholders) {
-						if(i.getUsername().equals(usnm) && i.getPswrd().equals(pass)) {
-							System.out.println("Username & password are correct.");				
+					for (ShareHolders i : shareholders) {
+						if (i.getUsername().equals(usnm) && i.getPswrd().equals(pass)) {
+							System.out.println("Username & password are correct.");
 							System.out.println(i.toString());
 							flag = false;
 							j = 1;
@@ -70,16 +110,16 @@ public class ShareHolders implements Serializable {
 					if (j == 0) {
 						System.out.println("Please insert valid password and/or username");
 					}
-				}else {
+				} else {
 					flag = false;
 					ReportingFinance.getMenu();
 				}
-			}catch(InputMismatchException e){
-		        System.out.println("Input exception. Try again.");
-			}catch(Exception e){
-		        System.out.println("Error try again.");
-		    }
-		}while(flag);
+			} catch (InputMismatchException e) {
+				System.out.println("Input exception. Try again.");
+			} catch (Exception e) {
+				System.out.println("Error try again.");
+			}
+		} while (flag);
 	}
 
 	public String getUsername() {
@@ -100,11 +140,10 @@ public class ShareHolders implements Serializable {
 
 	@Override
 	public String toString() {
-		return "ShareHolder id: " + id + " and username: " + username 
-				+"\nDividend of " + getCurrentMonth(getDate(1) - 1) + "," + getDate(2)
-				+" is " + dividend + "\n";
+		return "ShareHolder id: " + id + " and username: " + username + "\nDividend of "
+				+ getCurrentMonth(getDate(1) - 1) + "," + getDate(2) + " is " + dividend + "\n";
 	}
-	
+
 	public static int getDate(int i) {
 		Date date = new Date(System.currentTimeMillis());
 		Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("Europe/Athens"));
@@ -113,22 +152,24 @@ public class ShareHolders implements Serializable {
 		int year = cal.get(Calendar.YEAR);
 		if (i == 1) {
 			return month;
-		}else return year;
-	} 
+		} else
+			return year;
+	}
 
 	public static String getCurrentMonth(int minas) {
-		String [] months = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
-		return months[minas + 1]; 
+		String[] months = { "January", "February", "March", "April", "May", "June", "July", "August", "September",
+				"October", "November", "December" };
+		return months[minas + 1];
 	}
-	
+
 	/**
-	 * This method sets the flag getShareHoldersMenu() declaring if the user wants to continue or not.
+	 * This method sets the flag getShareHoldersMenu() declaring if the user wants
+	 * to continue or not.
 	 */
-	
+
 	public static boolean getMenuflag() {
 		Scanner sc = new Scanner(System.in);
-		System.out.println("-----------Share Holders menu-----------"
-				+ "\nTo proceed press: 1."
+		System.out.println("-----------Share Holders menu-----------" + "\nTo proceed press: 1."
 				+ "\nExit and return to Finance menu press: 0.");
 		int ans = 0;
 		int epilogh = 0;
@@ -136,7 +177,7 @@ public class ShareHolders implements Serializable {
 		do {
 			if (!sc.hasNextInt()) {
 				System.out.println("Input an integer [0,1]");
-				flag2 = true; 
+				flag2 = true;
 				sc.next();
 
 			} else {
@@ -148,21 +189,21 @@ public class ShareHolders implements Serializable {
 					if (epilogh == 1) {
 						ans = 1;
 						flag2 = false;
-					}else {
+					} else {
 						ans = 0;
 						flag2 = false;
 					}
-				sc.nextLine();
+					sc.nextLine();
 				}
 			}
 		} while (flag2);
-		
-		if(ans == 1) {
+
+		if (ans == 1) {
 			return true;
-		}else {
+		} else {
 			return false;
 		}
-		
+
 	}
 
 	public static ArrayList<ShareHolders> getShareholders() {
@@ -172,6 +213,5 @@ public class ShareHolders implements Serializable {
 	public static void setShareholders(ArrayList<ShareHolders> shareholders) {
 		ShareHolders.shareholders = shareholders;
 	}
-	
-}
 
+}

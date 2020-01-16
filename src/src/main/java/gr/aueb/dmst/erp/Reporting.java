@@ -235,7 +235,7 @@ public class Reporting {
 		ShareHolders sh2 = new ShareHolders("olympiakos","eisaistomialokatimagiko7");
 		ShareHolders sh3 = new ShareHolders("username","passss12345");
 
-	
+
 	}
 
 }

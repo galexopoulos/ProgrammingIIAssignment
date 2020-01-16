@@ -1,5 +1,10 @@
 package src.main.java.gr.aueb.dmst.erp;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -48,6 +53,57 @@ public class Inventory implements Serializable {
 			urgentInventory.add(this);
 		}
 	}
+	
+	public static void grapsimoInventory(int x,int y) throws IOException {
+		Scanner scanner = new Scanner(System.in);
+		FileWriter outFile = new FileWriter("Buffet.txt", true);
+		FileWriter outFile1 = new FileWriter("BuffetBalance.txt", true);
+		PrintWriter out = new PrintWriter(outFile);
+		PrintWriter out1 = new PrintWriter(outFile1);
+		out1.println(y);
+		out1.close();
+		outFile1.close();
+		out.println(x);
+		out.close();
+		outFile.close();
+	}
+	
+
+	/** Method used for getting the variable add from files.*/
+	public static int parsimoBuffet() {
+		int [] tall = new int [2];
+		int i = 0;
+		File file = new File("Buffet.txt");
+	
+		try {
+			Scanner s1 = new Scanner(file);
+			while (s1.hasNextInt()) {
+				tall[i] = s1.nextInt();				
+			}
+			return tall[i];
+
+		} catch (FileNotFoundException e) {
+			System.out.println("Exception");
+		}
+		return 0;
+	}
+	public static int parsimoBuffetBalance() {
+		int [] tall = new int [2];
+		int i = 0;
+		File file = new File("BuffetBalance.txt");
+	
+		try {
+			Scanner s1 = new Scanner(file);
+			while (s1.hasNextInt()) {
+				tall[i] = s1.nextInt();				
+			}
+			return tall[i];
+
+		} catch (FileNotFoundException e) {
+			System.out.println("Exception");
+		}
+		return 0;
+	}
 
 	// Start of the Inventory Menu Section//
 	/**
@@ -60,6 +116,7 @@ public class Inventory implements Serializable {
 						+ "4)To Update and check the Buffet please input 4\n5)To check the balances please input 5");
 		System.out.println("-------------------- CHOOSE A NUMBER BETWEEN 1 AND 5 --------------------");
 	}
+	
 
 	public static void question() {
 		Scanner q = new Scanner(System.in);
@@ -521,7 +578,19 @@ public class Inventory implements Serializable {
 	public static void setInvFixFin(ArrayList readObject) {
 
 	}
-
+	
+	public static int getBuffet() {
+		return buffet;
+	}
+	public static void setBuffet(int buffet) {
+		Inventory.buffet = buffet;
+	}
+	public static int getBuffetbalance() {
+		return buffetbalance;
+	}
+	public static void setBuffetbalance(int buffetbalance) {
+		Inventory.buffetbalance = buffetbalance;
+	}
 	@Override
 	public String toString() {
 		return "Inventory [type=" + type + ", name=" + name + ", stock=" + stock + ", pricepreunit=" + pricepreunit
