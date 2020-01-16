@@ -196,7 +196,7 @@ public class CustomerEntry {
 						if (t.getUsername().equals(usr)) {
 							if (t.getPassword().equals(pswrd)) {
 								System.out.println("Correct credentials!");
-								ReportingClients t2 = ReportingClients.coustomerBase.get(Integer.parseInt(t.getId()));
+								ReportingClients t2 = ReportingClients.coustomerBase.get(Integer.parseInt(t.getId()) - 1);
 								t2.setDaysofstay(t2.getDaysofstay() + daysofstay);
 								t.setMembershipCode(MembershipSelection(t.getTotalPayment() + payment));
 								t.setPayment(
