@@ -732,7 +732,7 @@ public class Booking implements Serializable {
 									booking.check = booking.computeCheck(booking.buffet);
 									getChecks -= oldCheck - booking.check;
 									System.out.println("Booking with code : " + booking.bookingCode + " in the room no."
-											+ booking.roomNumber + " and check : " + booking.check + "€"
+											+ booking.roomNumber + " and check : " + booking.check + "$"
 											+ " has been canceled and ready to Check Out!\n");
 									booking.checkOut = canceledCheckOut; // change checkOut;
 								} else {
@@ -792,7 +792,7 @@ public class Booking implements Serializable {
 											+ "\tCheck Out date : " + booking.checkOut + ", (checked out : "
 											+ booking.checkedOut + ")" + "\tBuffet : " + booking.buffet + "\nCheck : "
 											+ booking.check + "$" + "\t Extra expenses : " + booking.extraExpenses
-											+ "€\n");
+											+ "$\n");
 									break;
 								}
 							}
@@ -832,7 +832,7 @@ public class Booking implements Serializable {
 									+ booking.checkIn + ", (checked in : " + booking.checkedIn + ")"
 									+ "\tCheck Out date : " + booking.checkOut + ", (checked out : "
 									+ booking.checkedOut + ")" + "\tBuffet : " + booking.buffet + "\nCheck : "
-									+ booking.check + "$" + "\t Extra expenses : " + booking.extraExpenses + "€\n");
+									+ booking.check + "$" + "\t Extra expenses : " + booking.extraExpenses + "$\n");
 
 						}
 						if (counter9 > 0) { // print the sum of the bookings
@@ -876,7 +876,7 @@ public class Booking implements Serializable {
 											+ "\tCheck Out date : " + booking.checkOut + ", (checked out : "
 											+ booking.checkedOut + ")" + "\tBuffet : " + booking.buffet + "\nCheck : "
 											+ booking.check + "$" + "\t Extra expenses : " + booking.extraExpenses
-											+ "€\n");
+											+ "$\n");
 									break;
 								}
 							}
@@ -900,7 +900,7 @@ public class Booking implements Serializable {
 										+ booking.checkIn + ", (checked in : " + booking.checkedIn + ")"
 										+ "\tCheck Out date : " + booking.checkOut + ", (checked out : "
 										+ booking.checkedOut + ")" + "\tBuffet : " + booking.buffet + "\nCheck : "
-										+ booking.check + "$" + "\t Extra expenses : " + booking.extraExpenses + "€\n");
+										+ booking.check + "$" + "\t Extra expenses : " + booking.extraExpenses + "$\n");
 
 							}
 							if (counter11 > 0) {
