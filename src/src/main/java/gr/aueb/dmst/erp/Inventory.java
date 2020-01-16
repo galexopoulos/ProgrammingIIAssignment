@@ -1,5 +1,10 @@
 package src.main.java.gr.aueb.dmst.erp;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -47,6 +52,40 @@ public class Inventory implements Serializable {
 		} else if (this.type.equals("Urgent")) {
 			urgentInventory.add(this);
 		}
+	}
+	
+	public static void grapsimoInventory(int x,int y) throws IOException {
+		Scanner scanner = new Scanner(System.in);
+		FileWriter outFile = new FileWriter("Buffet.txt", true);
+		FileWriter outFile1 = new FileWriter("BuffetBalance.txt", true);
+		PrintWriter out = new PrintWriter(outFile);
+		PrintWriter out1 = new PrintWriter(outFile1);
+		out1.println(y);
+		out1.close();
+		outFile1.close();
+		out.println(x);
+		out.close();
+		outFile.close();
+	}
+	
+
+	/** Method used for getting the variable add from files.*/
+	public static int parsimoBuffet() {
+		int [] tall = new int [2];
+		int i = 0;
+		File file = new File("Buffet.txt");
+	
+		try {
+			Scanner s1 = new Scanner(file);
+			while (s1.hasNextInt()) {
+				tall[i] = s1.nextInt();				
+			}
+			return tall[i];
+
+		} catch (FileNotFoundException e) {
+			System.out.println("Exception");
+		}
+		return 0;
 	}
 
 	// Start of the Inventory Menu Section//
