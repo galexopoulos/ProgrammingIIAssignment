@@ -87,6 +87,23 @@ public class Inventory implements Serializable {
 		}
 		return 0;
 	}
+	public static int parsimoBuffetBalance() {
+		int [] tall = new int [2];
+		int i = 0;
+		File file = new File("BuffetBalance.txt");
+	
+		try {
+			Scanner s1 = new Scanner(file);
+			while (s1.hasNextInt()) {
+				tall[i] = s1.nextInt();				
+			}
+			return tall[i];
+
+		} catch (FileNotFoundException e) {
+			System.out.println("Exception");
+		}
+		return 0;
+	}
 
 	// Start of the Inventory Menu Section//
 	/**

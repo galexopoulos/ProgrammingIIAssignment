@@ -2,6 +2,9 @@ package src.main.java.gr.aueb.dmst.erp;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -1029,6 +1032,19 @@ public class Booking implements Serializable {
 			System.out.println("Exception");
 		}
 		return 0;
+	}
+	public static void grapsimoBooking(int x, double y) throws IOException {
+		Scanner scanner = new Scanner(System.in);
+		FileWriter outFile = new FileWriter("Bookingcounter.txt", true);
+		FileWriter outFile1 = new FileWriter("Bookingetchecks.txt", true);
+		PrintWriter out = new PrintWriter(outFile);
+		PrintWriter out1 = new PrintWriter(outFile1);
+		out1.println(y);
+		out1.close();
+		outFile1.close();
+		out.println(x);
+		out.close();
+		outFile.close();
 	}
 
 }
