@@ -557,6 +557,7 @@ public class Booking implements Serializable {
 				boolean already = false;
 				boolean found = false;
 				int roomFound = 0;
+				boolean otherRoomIn = false;
 				for (Room room : Room.getRooms()) {
 					for (Booking book : bookings.get(room.getRoomNumber() - 1)) { // for every booking
 						if (book.bookingCode == codeIn) { // check if it the same code
@@ -571,6 +572,13 @@ public class Booking implements Serializable {
 									roomFound = room.getRoomNumber();
 									book.checkedIn = true;
 									b1 = book;
+									for (Booking book : bookings.get(roomFound - 1)) {
+										if (book.checkedIn) {
+											otherRoomIn = true;
+											b1.checkedIn = false;
+											break;
+										}
+									}
 								} else {
 									already = true;
 								}
@@ -583,7 +591,6 @@ public class Booking implements Serializable {
 						}
 					}
 				}
-				boolean otherRoomIn = false;
 				for (Booking book : bookings.get(roomFound - 1)) {
 					if (book.checkedIn) {
 						otherRoomIn = true;
