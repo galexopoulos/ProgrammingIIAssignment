@@ -586,15 +586,8 @@ public class Booking implements Serializable {
 							found = true;
 							break;
 						}
-						if (found) {
-							break;
-						}
 					}
-				}
-				for (Booking book : bookings.get(roomFound - 1)) {
-					if (book.checkedIn) {
-						otherRoomIn = true;
-						b1.checkedIn = false;
+					if (found) {
 						break;
 					}
 				}
