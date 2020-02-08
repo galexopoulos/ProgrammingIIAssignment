@@ -570,15 +570,17 @@ public class Booking implements Serializable {
 								// for check in
 								if (book.checkedIn == false) { // check if this booking has already checked in
 									roomFound = room.getRoomNumber();
-									book.checkedIn = true;
-									b1 = book;
 									for (Booking book2 : bookings.get(roomFound - 1)) {
 										if (book2.checkedIn) {
 											otherRoomIn = true;
-											b1.checkedIn = false;
 											break;
 										}
 									}
+									if (otherRoomIn) {
+										break;
+									}
+									book.checkedIn = true;
+									b1 = book;
 								} else {
 									already = true;
 								}
